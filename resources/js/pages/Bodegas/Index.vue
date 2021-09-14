@@ -68,7 +68,7 @@ this.axios.get("/api/documentos").then(response => {
                             this.bodegas.splice(index, 1);
                             this.$swal({
                                 icon: "success",
-                                title: "Bodega eliminado."
+                                title: "Bodega eliminada."
                             });
                         })
                         .catch(err => {

@@ -29,7 +29,7 @@ export default {
     data() {
         return {
             documento: {
-                nombre : ""
+                nombre : null
             }
         };
     },
@@ -42,11 +42,8 @@ export default {
     },
     methods: {
         modificarDocumento() {
-            const params = {
-                nombre: this.documento.nombre
-            };
             this.axios
-                .put("/api/documentos/" + this.$route.params.id, params)
+                .put("/api/documentos/" + this.$route.params.id, this.documento)
                 .then(response => {
                     this.$swal("Documento modificado correctamente.");
                     this.$router.push("/documentos");

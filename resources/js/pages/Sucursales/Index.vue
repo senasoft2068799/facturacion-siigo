@@ -70,12 +70,12 @@ export default {
             }).then(result => {
                 if (result.value) {
                     axios
-                        .delete("/api/documentos/" + documento.id)
+                        .delete("/api/sucursales/" + sucursal.id)
                         .then(response => {
-                            this.documentos.splice(index, 1);
+                            this.sucursales.splice(index, 1);
                             this.$swal({
                                 icon: "success",
-                                title: "Documento eliminado."
+                                title: "Sucursal eliminada."
                             });
                         })
                         .catch(err => {

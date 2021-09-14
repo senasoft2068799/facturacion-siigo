@@ -3,6 +3,7 @@
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\SucursaleController;
 use App\Http\Controllers\BodegaController;
+use App\Http\Controllers\CiudadeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,6 @@ Route::middleware('api')->group(function () {
     Route::resource('documentos', DocumentoController::class);
     Route::resource('sucursales', SucursaleController::class);
     Route::resource('bodegas', BodegaController::class);
-
+    Route::resource('ciudades', CiudadeController::class);
+    //Route::get("ciudades", [CiudadeController::class, "index"]);
 });

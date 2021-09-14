@@ -30,20 +30,17 @@ export default {
     data() {
         return {
             documento: {
-                nombre: ""
+                nombre: null
             }
         };
     },
     methods: {
         registrarDocumento() {
-            const params = {
-                nombre: this.documento.nombre
-            };
             this.axios
-                .post("/api/documentos", params)
+                .post("/api/documentos", this.documento)
                 .then(response => {
                     this.$swal("Documento registrado correctamente.");
-					this.documento.nombre = ""
+					this.documento.nombre = null;
                 })
                 .catch(err => {
                     this.$swal({

@@ -14,29 +14,19 @@ class SucursaleController extends Controller
         return array_reverse($sucursales);
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
-        //
-    }
-
-    public function show(Sucursale $sucursale)
-    {
-        //
+        Sucursale::create($request->all());
     }
 
     public function edit(Sucursale $sucursale)
     {
-        //
+        return $sucursale;
     }
 
     public function update(Request $request, Sucursale $sucursale)
     {
-        //
+        $sucursale->update($request->all());
     }
 
     public function destroy(Sucursale $sucursale)
