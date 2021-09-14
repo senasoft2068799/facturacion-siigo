@@ -1,14 +1,18 @@
-import DocumentosIndex from "./components/Documentos/Index.vue";
-import DocumentosCreate from "./components/Documentos/Create.vue";
-import DocumentosEdit from "./components/Documentos/Edit.vue";
-import SucursalesIndex from "./components/Sucursales/Index.vue";
-import SucursalesCreate from "./components/Sucursales/Create.vue";
-import SucursalesEdit from "./components/Sucursales/Edit.vue";
-import MovimientosIndex from "./components/Movimientos/Index.vue";
-import MovimientosCreate from "./components/Movimientos/Create.vue";
-import MovimientosEdit from "./components/Movimientos/Edit.vue";
+import DocumentosIndex from "./pages/Documentos/Index.vue";
+import DocumentosCreate from "./pages/Documentos/Create.vue";
+import DocumentosEdit from "./pages/Documentos/Edit.vue";
+import SucursalesIndex from "./pages/Sucursales/Index.vue";
+import SucursalesCreate from "./pages/Sucursales/Create.vue";
+import SucursalesEdit from "./pages/Sucursales/Edit.vue";
+import MovimientosIndex from "./pages/Movimientos/Index.vue";
+import MovimientosCreate from "./pages/Movimientos/Create.vue";
+import MovimientosEdit from "./pages/Movimientos/Edit.vue";
+import BodegasIndex from "./pages/Bodegas/Index.vue";
+import BodegasCreate from "./pages/Bodegas/Create.vue";
+import BodegasEdit from "./pages/Bodegas/Edit.vue";
 
 export const routes = [
+    // Documentos
     {
         name: "documentos.index",
         path: "/documentos",
@@ -24,6 +28,7 @@ export const routes = [
         path: "/documentos/:id/edit",
         component: DocumentosEdit
     },
+    // Sucursales
     {
         name: "sucursales.index",
         path: "/sucursales",
@@ -39,6 +44,7 @@ export const routes = [
         path: "/sucursales/:id/edit",
         component: SucursalesEdit
     },
+    // Movimientos
     {
         name: "movimientos.index",
         path: "/movimientos",
@@ -53,5 +59,21 @@ export const routes = [
         name: "movimientos.edit",
         path: "/movimientos/:id/edit",
         component: MovimientosEdit
+    },
+    // Bodegas
+    {
+        name: "bodegas.index",
+        path: "/bodegas",
+        component: BodegasIndex
+    },
+    {
+        name: "bodegas.create",
+        path: "/bodegas/create",
+        component: BodegasCreate
+    },
+    {
+        name: "bodegas.edit",
+        path: "/bodegas/:id/edit",
+        component: BodegasEdit
     }
 ];

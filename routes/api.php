@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\SucursaleController;
+use App\Http\Controllers\BodegaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('api')->group(function () {
     Route::resource('documentos', DocumentoController::class);
     Route::resource('sucursales', SucursaleController::class);
+    Route::resource('bodegas', BodegaController::class);
+
 });
