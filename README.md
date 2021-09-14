@@ -1,6 +1,8 @@
 ## Instalación
 
-<h1>Para instalar:</h1> <small>(Se debe tener laravel 8 y vue 3 instalados)</small>
+
+<h1>Para instalar:</h1>
+<small>(Se debe tener laravel 8 y vue 3 instalados previamente)</small>
 <ul>
     <li>git clone https://github.com/senasoft2068799/facturacion-siigo.git</li>
     <li>cd facturacion-siigo</li>
