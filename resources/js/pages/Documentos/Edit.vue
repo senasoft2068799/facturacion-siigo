@@ -29,16 +29,14 @@ export default {
     data() {
         return {
             documento: {
-                nombre : null
+                nombre: null
             }
         };
     },
     created() {
-        axios
-            .get("/api/documentos/" + this.$route.params.id + "/edit")
-            .then(res => {
-                this.documento = res.data;
-            })
+        axios.get("/api/documentos/" + this.$route.params.id).then(res => {
+            this.documento = res.data;
+        });
     },
     methods: {
         modificarDocumento() {

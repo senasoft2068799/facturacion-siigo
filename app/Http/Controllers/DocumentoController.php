@@ -19,7 +19,7 @@ class DocumentoController extends Controller
         Documento::create($request->all());
     }
 
-    public function edit(Documento $documento){
+    public function show(Documento $documento){
         return $documento;
     }
 

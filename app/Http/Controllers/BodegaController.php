@@ -21,7 +21,7 @@ class BodegaController extends Controller
         Bodega::create($request->all());
     }
 
-    public function edit(Bodega $bodega)
+    public function show(Bodega $bodega)
     {
         return $bodega;
     }

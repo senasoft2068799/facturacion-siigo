@@ -25,9 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::apiResource('documentos', DocumentoController::class);
 
 Route::middleware('api')->group(function () {
-    Route::resource('documentos', DocumentoController::class);
-    Route::resource('sucursales', SucursaleController::class);
-    Route::resource('bodegas', BodegaController::class);
-    Route::resource('ciudades', CiudadeController::class);
-    //Route::get("ciudades", [CiudadeController::class, "index"]);
+    Route::apiResource('documentos', DocumentoController::class);
+    Route::apiResource('sucursales', SucursaleController::class);
+    Route::apiResource('bodegas', BodegaController::class);
+    // Route::apiResource('ciudades', CiudadeController::class);
+    Route::get("ciudades", [CiudadeController::class, "index"]);
 });

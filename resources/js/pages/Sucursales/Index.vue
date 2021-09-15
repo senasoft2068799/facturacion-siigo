@@ -23,7 +23,7 @@
                         <td>{{ sucursal.nombre }}</td>
                         <td>{{ sucursal.direccion }}</td>
                         <td>{{ sucursal.telefono }}</td>
-                        <td>{{ sucursal.ciudade_id }}</td>
+                        <td>{{ sucursal.ciudad.nombre }}</td>
                         <td>{{ sucursal.created_at }}</td>
                         <td>{{ sucursal.updated_at }}</td>
                         <td>
@@ -57,7 +57,7 @@ export default {
     },
     created() {
         this.axios.get("/api/sucursales").then(response => {
-            this.sucursales = response.data;
+            this.sucursales = response.data.data;
         });
     },
     methods: {
