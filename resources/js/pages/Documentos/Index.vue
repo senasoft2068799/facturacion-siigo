@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-link
-            class="btn btn-primary mb-3"
+            class="btn btn-success mb-3"
             :to="{ name: 'documentos.create' }"
             >Registrar documento</router-link
         >

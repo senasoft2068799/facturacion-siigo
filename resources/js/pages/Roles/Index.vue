@@ -2,30 +2,36 @@
     <div>
         <router-link
             class="btn btn-success mb-3"
-            :to="{ name: 'bodegas.create' }"
-            >Registrar bodega</router-link
+            :to="{ name: 'roles.create' }"
+            >Registrar rol</router-link
         >
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Dirección</th>
+                        <th>Nombre de rol</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
                         <th>Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(bodega, index) in bodegas" :key="index">
-                        <td>{{ bodega.nombre }}</td>
-                        <td>{{ bodega.direccion }}</td>
-                        <td>{{ bodega.created_at }}</td>
-                        <td>{{ bodega.updated_at }}</td>
+                    <tr v-for="(rol, index) in roles" :key="index">
+                        <td>{{ rol.nombre }}</td>
+                        <td>{{ rol.created_at }}</td>
+                        <td>{{ rol.updated_at }}</td>
                         <td>
+                            <router-link
+                                class="btn btn-warning btn-sm"
+                                :to="{
+                                    name: 'roles.edit',
+                                    params: { id: rol.id }
+                                }"
+                                >Editar</router-link
+                            >
                             <button
-                                @click="eliminarBodega(bodega, index)"
-                                class="btn btn-danger btn-small"
+                                @click="eliminarRol(rol, index)"
+                                class="btn btn-danger btn-sm"
                             >
                                 Eliminar
                             </button>
@@ -40,35 +46,30 @@
 export default {
     data() {
         return {
-            bodegas: []
+            roles: []
         };
     },
     created() {
-        /*
-this.axios.get("/api/documentos").then(response => {
-            this.documentos = response.data;
-        });*/
-
-        this.axios.get("/api/bodegas").then(response => {
-            this.bodegas = response.data;
+        this.axios.get("/api/roles").then(response => {
+            this.roles = response.data;
         });
     },
     methods: {
-        eliminarBodega(bodega, index) {
+        eliminarRol(rol, index) {
             this.$swal({
                 title: "¿Estás seguro?",
-                text: "Se eliminará la bodega: '" + bodega.nombre + "'",
+                text: "Se eliminará el rol: '" + rol.nombre + "'",
                 icon: "warning",
                 showCancelButton: true
             }).then(result => {
                 if (result.value) {
                     axios
-                        .delete("/api/bodegas/" + bodega.id)
+                        .delete("/api/roles/" + rol.id)
                         .then(response => {
-                            this.bodegas.splice(index, 1);
+                            this.roles.splice(index, 1);
                             this.$swal({
                                 icon: "success",
-                                title: "Bodega eliminada."
+                                title: "Rol eliminado."
                             });
                         })
                         .catch(err => {

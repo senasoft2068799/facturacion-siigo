@@ -2,41 +2,49 @@
     <div>
         <router-link
             class="btn btn-success mb-3"
-            :to="{ name: 'sucursales.create' }"
-            >Registrar sucursal</router-link
+            :to="{ name: 'facturas.create' }"
+            >Registrar factura</router-link
         >
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
-                        <th>Ciudad</th>
+                        <th>Código</th>
+                        <th>Sucursal</th>
+                        <th>Tercero</th>
+                        <th>Valor + IVA</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
                         <th>Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(sucursal, index) in sucursales" :key="index">
-                        <td>{{ sucursal.nombre }}</td>
-                        <td>{{ sucursal.direccion }}</td>
-                        <td>{{ sucursal.telefono }}</td>
-                        <td>{{ sucursal.ciudad.nombre }}</td>
-                        <td>{{ sucursal.created_at }}</td>
-                        <td>{{ sucursal.updated_at }}</td>
+                    <tr v-for="(factura, index) in facturas" :key="index">
+                        <td>{{ factura.id }}</td>
+                        <td>{{ factura.sucursal.nombre }}</td>
+                        <td>{{ factura.tercero }}</td>
+                        <td>${{ factura.valor_total }}</td>
+                        <td>{{ factura.created_at }}</td>
+                        <td>{{ factura.updated_at }}</td>
                         <td>
+                            <router-link
+                                class="btn btn-info btn-sm"
+                                :to="{
+                                    name: 'facturas.show',
+                                    params: { id: factura.id }
+                                }"
+                                >Detalles</router-link
+                            >
                             <router-link
                                 class="btn btn-warning btn-sm"
                                 :to="{
-                                    name: 'sucursales.edit',
-                                    params: { id: sucursal.id }
+                                    name: 'facturas.edit',
+                                    params: { id: factura.id }
                                 }"
                                 >Editar</router-link
                             >
                             <button
-                                @click="eliminarSucursal(sucursal, index)"
+                                @click="eliminarSucursal(factura, index)"
                                 class="btn btn-danger btn-sm"
                             >
                                 Eliminar
@@ -52,30 +60,30 @@
 export default {
     data() {
         return {
-            sucursales: []
+            facturas: []
         };
     },
     created() {
-        this.axios.get("/api/sucursales").then(response => {
-            this.sucursales = response.data.data;
+        this.axios.get("/api/facturas").then(response => {
+            this.facturas = response.data.data;
         });
     },
     methods: {
-        eliminarSucursal(sucursal, index) {
+        eliminarSucursal(factura, index) {
             this.$swal({
                 title: "¿Estás seguro?",
-                text: "Se eliminará la sucursal: '" + sucursal.nombre + "'",
+                text: "Se eliminará la factura: '" + factura.id + "'",
                 icon: "warning",
                 showCancelButton: true
             }).then(result => {
                 if (result.value) {
                     axios
-                        .delete("/api/sucursales/" + sucursal.id)
+                        .delete("/api/facturas/" + factura.id)
                         .then(response => {
-                            this.sucursales.splice(index, 1);
+                            this.facturas.splice(index, 1);
                             this.$swal({
                                 icon: "success",
-                                title: "Sucursal eliminada."
+                                title: "Factura eliminada."
                             });
                         })
                         .catch(err => {

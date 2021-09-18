@@ -1,3 +1,9 @@
+import Register from "./pages/Auth/Register.vue";
+import Dashboard from "./pages/Dashboard.vue";
+import RolesIndex from "./pages/Roles/Index.vue";
+import RolesShow from "./pages/Roles/Show.vue";
+import RolesCreate from "./pages/Roles/Create.vue";
+import RolesEdit from "./pages/Roles/Edit.vue";
 import DocumentosIndex from "./pages/Documentos/Index.vue";
 import DocumentosCreate from "./pages/Documentos/Create.vue";
 import DocumentosEdit from "./pages/Documentos/Edit.vue";
@@ -10,9 +16,53 @@ import MovimientosEdit from "./pages/Movimientos/Edit.vue";
 import BodegasIndex from "./pages/Bodegas/Index.vue";
 import BodegasCreate from "./pages/Bodegas/Create.vue";
 import BodegasEdit from "./pages/Bodegas/Edit.vue";
+import FacturasIndex from "./pages/Facturas/Index.vue";
+import FacturasShow from "./pages/Facturas/Show.vue";
+import FacturasCreate from "./pages/Facturas/Create.vue";
+import FacturasEdit from "./pages/Facturas/Edit.vue";
 
 export const routes = [
+    //
+    // Dashboard
+    //
+    {
+        name: "register",
+        path: "/registrar",
+        component: Register
+    },
+    {
+        name: "dashboard",
+        path: "/",
+        component: Dashboard
+    },
+    //
+    // Roles
+    //
+    {
+        name: "roles.index",
+        path: "/roles",
+        component: RolesIndex
+    },
+    {
+        name: "roles.show",
+        path: "/roles/:id/",
+        component: RolesShow
+    },
+
+    {
+        name: "roles.create",
+        path: "/roles/create",
+        component: RolesCreate
+    },
+
+    {
+        name: "roles.edit",
+        path: "/roles/:id/edit",
+        component: RolesEdit
+    },
+    //
     // Documentos
+    //
     {
         name: "documentos.index",
         path: "/documentos",
@@ -28,7 +78,9 @@ export const routes = [
         path: "/documentos/:id/edit",
         component: DocumentosEdit
     },
+    //
     // Sucursales
+    //
     {
         name: "sucursales.index",
         path: "/sucursales",
@@ -44,7 +96,9 @@ export const routes = [
         path: "/sucursales/:id/edit",
         component: SucursalesEdit
     },
+    //
     // Movimientos
+    //
     {
         name: "movimientos.index",
         path: "/movimientos",
@@ -60,7 +114,9 @@ export const routes = [
         path: "/movimientos/:id/edit",
         component: MovimientosEdit
     },
+    //
     // Bodegas
+    //
     {
         name: "bodegas.index",
         path: "/bodegas",
@@ -75,5 +131,28 @@ export const routes = [
         name: "bodegas.edit",
         path: "/bodegas/:id/edit",
         component: BodegasEdit
+    },
+    //
+    // Facturas
+    //
+    {
+        name: "facturas.index",
+        path: "/facturas",
+        component: FacturasIndex
+    },
+    {
+        name: "facturas.create",
+        path: "/facturas/create",
+        component: FacturasCreate
+    },
+    {
+        name: "facturas.show",
+        path: "/facturas/:id",
+        component: FacturasShow
+    },
+    {
+        name: "facturas.edit",
+        path: "/facturas/:id/edit",
+        component: FacturasEdit
     }
 ];

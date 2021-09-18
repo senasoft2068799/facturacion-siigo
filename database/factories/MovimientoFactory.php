@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Documento;
 use App\Models\Movimiento;
+use App\Models\Sucursale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MovimientoFactory extends Factory
@@ -22,7 +24,11 @@ class MovimientoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "descripcion" => $this->faker->sentence(),
+            "documento_id" => Documento::inRandomOrder()->first()->id,
+            "sucursale_id" => Sucursale::inRandomOrder()->first()->id,
+            "valor_total" => $this->faker->randomFloat(),
+            "estado" => $this->faker->randomElement($array = array(1, 2,)),
         ];
     }
 }

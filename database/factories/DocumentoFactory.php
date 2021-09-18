@@ -22,7 +22,7 @@ class DocumentoFactory extends Factory
     public function definition()
     {
         return [
-            "nombre" => $this->faker->sentence(2)
+            "nombre" => $this->faker->unique->sentence(2, false)
         ];
     }
 }

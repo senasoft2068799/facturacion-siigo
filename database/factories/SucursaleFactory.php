@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Ciudade;
 use App\Models\Sucursale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,9 +23,10 @@ class SucursaleFactory extends Factory
     public function definition()
     {
         return [
-            "nombre" => $this->faker->sentence(2),
-            "direccion" => $this->faker->sentence(),
-            "telefono" => $this->faker->randomNumber(9),
+            "nombre" => $this->faker->company(),
+            "direccion" => $this->faker->address(),
+            "telefono" => $this->faker->phoneNumber(),
+            "ciudade_id" => Ciudade::inRandomOrder()->first()->id,
         ];
     }
 }

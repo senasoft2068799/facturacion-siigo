@@ -22,7 +22,7 @@ class CiudadeFactory extends Factory
     public function definition()
     {
         return [
-            "nombre" => $this->faker->sentence(2)
+            "nombre" => $this->faker->unique->city()
         ];
     }
 }

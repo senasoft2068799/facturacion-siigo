@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DocumentoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,12 +18,14 @@ use Illuminate\Support\Facades\Auth;
     return view('welcome');
 });
 
-Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //Route::resource("terceros", UserController::class)->parameters(["terceros" => "users"])->names("users");
 Route::resource("/documentos", DocumentoController::class);
 */
+
+//Auth::routes();
 Route::get('/{any}', function () {
     return view('layouts.app');
 })->where('any', '.*');
