@@ -12,7 +12,7 @@
     <li>php artisan key:generate</li>
     <li>» Crear base de datos vacía</li>
     <li>» Añadir información de la base de datos en el archivo .env</li>
-    <li>php artisan migrate</li>
+    <li>php artisan migrate:fresh --seed</li>
 </ul>
 
 <h2>Para iniciar:</h1>
