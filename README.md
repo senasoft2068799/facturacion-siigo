@@ -1,3 +1,27 @@
+## Instalación
+
+
+<h1>Para instalar:</h1>
+<small>(Se debe tener laravel 8 y vue 3 instalados previamente)</small>
+<ul>
+    <li>git clone https://github.com/senasoft2068799/facturacion-siigo.git</li>
+    <li>cd facturacion-siigo</li>
+    <li>composer install</li>
+    <li>npm install</li>
+    <li>cp .env.example .env</li>
+    <li>php artisan key:generate</li>
+    <li>» Crear base de datos vacía</li>
+    <li>» Añadir información de la base de datos en el archivo .env</li>
+    <li>php artisan migrate:fresh --seed</li>
+</ul>
+
+<h2>Para iniciar:</h1>
+<ul>
+    <li>php artisan serve</li>
+    <li>npm run watch</li>
+</ul>
+
+<hr/>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">

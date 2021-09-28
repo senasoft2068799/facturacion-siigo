@@ -15,7 +15,7 @@ class CreateDetalleMovimientosTable extends Migration
     {
         Schema::create('detalle_movimientos', function (Blueprint $table) {
             $table->id();
-            $table->string("descripcion");
+            $table->integer("cantidad");
 
             $table->unsignedBigInteger("movimiento_id");
             $table->foreign("movimiento_id")

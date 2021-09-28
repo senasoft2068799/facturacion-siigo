@@ -10,8 +10,7 @@ class DocumentoController extends Controller
 
     public function index()
     {
-        $documentos = Documento::all()->toArray();
-        return array_reverse($documentos);
+        return array_reverse(Documento::all()->toArray());
     }
 
     public function store(Request $request)
@@ -19,7 +18,7 @@ class DocumentoController extends Controller
         Documento::create($request->all());
     }
 
-    public function edit(Documento $documento){
+    public function show(Documento $documento){
         return $documento;
     }
 

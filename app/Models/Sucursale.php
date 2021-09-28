@@ -9,4 +9,8 @@ class Sucursale extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function ciudade(){
+        return $this->belongsTo(Ciudade::class);
+    }
 }

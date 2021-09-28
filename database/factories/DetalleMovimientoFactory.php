@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Bodega;
 use App\Models\DetalleMovimiento;
+use App\Models\Movimiento;
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class DetalleMovimientoFactory extends Factory
@@ -22,7 +25,10 @@ class DetalleMovimientoFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "cantidad" => $this->faker->randomDigitNotZero(),
+            "movimiento_id" => Movimiento::inRandomOrder()->first()->id,
+            "bodega_id" => Bodega::inRandomOrder()->first()->id,
+            "producto_id" => Producto::inRandomOrder()->first()->id,
         ];
     }
 }

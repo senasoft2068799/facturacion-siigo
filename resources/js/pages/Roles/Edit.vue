@@ -1,22 +1,22 @@
 <template>
     <div class="card">
-        <div class="card-header">Registrar documento</div>
+        <div class="card-header">Modificar rol</div>
         <div class="card-body">
-            <form @submit.prevent="registrarDocumento">
+            <form @submit.prevent="modificarRol">
                 <div class="mb-3">
                     <label for="nombre" class="form-label"
-                        >Nombre de documento</label
+                        >Nombre de rol</label
                     >
                     <input
                         type="text"
                         class="form-control"
                         id="nombre"
-                        v-model="documento.nombre"
+                        v-model="rol.nombre"
                     />
                 </div>
-                <button type="submit" class="btn btn-success">Registrar</button>
+                <button type="submit" class="btn btn-success">Modificar</button>
                 <router-link
-                    :to="{ name: 'documentos.index' }"
+                    :to="{ name: 'roles.index' }"
                     class="btn btn-secondary"
                     >Regresar</router-link
                 >
@@ -28,21 +28,23 @@
 export default {
     data() {
         return {
-            documento: {
-                nombre: ""
+            rol: {
+                nombre: null
             }
         };
     },
+    created() {
+        axios.get("/api/roles/" + this.$route.params.id).then(res => {
+            this.rol = res.data;
+        });
+    },
     methods: {
-        registrarDocumento() {
-            const params = {
-                nombre: this.documento.nombre
-            };
+        modificarRol() {
             this.axios
-                .post("/api/documentos", params)
+                .put("/api/roles/" + this.$route.params.id, this.rol)
                 .then(response => {
-                    this.$swal("Documento registrado correctamente.");
-					this.documento.nombre = ""
+                    this.$swal("Rol modificado correctamente.");
+                    this.$router.push("/roles");
                 })
                 .catch(err => {
                     this.$swal({

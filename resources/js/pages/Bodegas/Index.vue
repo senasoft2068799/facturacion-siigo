@@ -1,9 +1,9 @@
 <template>
     <div>
         <router-link
-            class="btn btn-primary mb-3"
-            :to="{ name: 'sucursales.create' }"
-            >Registrar sucursal</router-link
+            class="btn btn-success mb-3"
+            :to="{ name: 'bodegas.create' }"
+            >Registrar bodega</router-link
         >
         <div class="table-responsive">
             <table class="table">
@@ -11,33 +11,21 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Dirección</th>
-                        <th>Teléfono</th>
-                        <th>Ciudad</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
                         <th>Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(sucursal, index) in sucursales" :key="index">
-                        <td>{{ sucursal.nombre }}</td>
-                        <td>{{ sucursal.direccion }}</td>
-                        <td>{{ sucursal.telefono }}</td>
-                        <td>{{ sucursal.ciudade_id }}</td>
-                        <td>{{ sucursal.created_at }}</td>
-                        <td>{{ sucursal.updated_at }}</td>
+                    <tr v-for="(bodega, index) in bodegas" :key="index">
+                        <td>{{ bodega.nombre }}</td>
+                        <td>{{ bodega.direccion }}</td>
+                        <td>{{ bodega.created_at }}</td>
+                        <td>{{ bodega.updated_at }}</td>
                         <td>
-                            <router-link
-                                class="btn btn-warning btn-sm"
-                                :to="{
-                                    name: 'sucursales.edit',
-                                    params: { id: sucursal.id }
-                                }"
-                                >Editar</router-link
-                            >
                             <button
-                                @click="eliminarSucursal(sucursal, index)"
-                                class="btn btn-danger btn-sm"
+                                @click="eliminarBodega(bodega, index)"
+                                class="btn btn-danger btn-small"
                             >
                                 Eliminar
                             </button>
@@ -52,30 +40,35 @@
 export default {
     data() {
         return {
-            sucursales: []
+            bodegas: []
         };
     },
     created() {
-        this.axios.get("/api/sucursales").then(response => {
-            this.sucursales = response.data;
+        /*
+this.axios.get("/api/documentos").then(response => {
+            this.documentos = response.data;
+        });*/
+
+        this.axios.get("/api/bodegas").then(response => {
+            this.bodegas = response.data;
         });
     },
     methods: {
-        eliminarSucursal(sucursal, index) {
+        eliminarBodega(bodega, index) {
             this.$swal({
                 title: "¿Estás seguro?",
-                text: "Se eliminará la sucursal: '" + sucursal.nombre + "'",
+                text: "Se eliminará la bodega: '" + bodega.nombre + "'",
                 icon: "warning",
                 showCancelButton: true
             }).then(result => {
                 if (result.value) {
                     axios
-                        .delete("/api/documentos/" + documento.id)
+                        .delete("/api/bodegas/" + bodega.id)
                         .then(response => {
-                            this.documentos.splice(index, 1);
+                            this.bodegas.splice(index, 1);
                             this.$swal({
                                 icon: "success",
-                                title: "Documento eliminado."
+                                title: "Bodega eliminada."
                             });
                         })
                         .catch(err => {

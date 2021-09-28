@@ -1,67 +1,30 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Facturación Siigo</a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div
-                    class="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                >
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <router-link
-                                active-class="active-menu"
-                                exact
-                                :to="{ name: 'documentos.index' }"
-                                class="nav-link"
-                            >
-                                Documentos
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link
-                                active-class="active-menu"
-                                exact
-                                :to="{ name: 'sucursales.index' }"
-                                class="nav-link"
-                            >
-                                Sucursales
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link
-                                active-class="active-menu"
-                                exact
-                                :to="{ name: 'productos.index' }"
-                                class="nav-link"
-                            >
-                                Productos
-                            </router-link>
-                        </li>
-                    </ul>
-                </div>
+        <Navbar />
+        <div class="container-fluid">
+            <div class="row flex-nowrap">
+                <Sidebar />
+                <main class="col py-3">
+                    <div class="container">
+                        <router-view></router-view>
+                    </div>
+                </main>
             </div>
-        </nav>
-
-        <main class="py-4">
-            <div class="container">
-                <router-view></router-view>
-            </div>
-        </main>
+        </div>
     </div>
 </template>
 
 <script>
-export default {};
+import Navbar from "./components/Navbar.vue";
+import Sidebar from "./components/Sidebar.vue";
+import Footer from "./components/Footer.vue";
+
+export default {
+    name: "App",
+    components: {
+        Navbar,
+        Sidebar,
+        Footer
+    }
+};
 </script>

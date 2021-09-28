@@ -1,36 +1,36 @@
 <template>
     <div>
         <router-link
-            class="btn btn-primary mb-3"
-            :to="{ name: 'documentos.create' }"
-            >Registrar documento</router-link
+            class="btn btn-success mb-3"
+            :to="{ name: 'roles.create' }"
+            >Registrar rol</router-link
         >
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Nombre de rol</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
                         <th>Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(documento, index) in documentos" :key="index">
-                        <td>{{ documento.nombre }}</td>
-                        <td>{{ documento.created_at }}</td>
-                        <td>{{ documento.updated_at }}</td>
+                    <tr v-for="(rol, index) in roles" :key="index">
+                        <td>{{ rol.nombre }}</td>
+                        <td>{{ rol.created_at }}</td>
+                        <td>{{ rol.updated_at }}</td>
                         <td>
                             <router-link
                                 class="btn btn-warning btn-sm"
                                 :to="{
-                                    name: 'documentos.edit',
-                                    params: { id: documento.id }
+                                    name: 'roles.edit',
+                                    params: { id: rol.id }
                                 }"
                                 >Editar</router-link
                             >
                             <button
-                                @click="eliminarDocumento(documento, index)"
+                                @click="eliminarRol(rol, index)"
                                 class="btn btn-danger btn-sm"
                             >
                                 Eliminar
@@ -46,30 +46,30 @@
 export default {
     data() {
         return {
-            documentos: []
+            roles: []
         };
     },
     created() {
-        this.axios.get("/api/documentos").then(response => {
-            this.documentos = response.data;
+        this.axios.get("/api/roles").then(response => {
+            this.roles = response.data;
         });
     },
     methods: {
-        eliminarDocumento(documento, index) {
+        eliminarRol(rol, index) {
             this.$swal({
                 title: "¿Estás seguro?",
-                text: "Se eliminará el documento: '" + documento.nombre + "'",
+                text: "Se eliminará el rol: '" + rol.nombre + "'",
                 icon: "warning",
                 showCancelButton: true
             }).then(result => {
                 if (result.value) {
                     axios
-                        .delete("/api/documentos/" + documento.id)
+                        .delete("/api/roles/" + rol.id)
                         .then(response => {
-                            this.documentos.splice(index, 1);
+                            this.roles.splice(index, 1);
                             this.$swal({
                                 icon: "success",
-                                title: "Documento eliminado."
+                                title: "Rol eliminado."
                             });
                         })
                         .catch(err => {

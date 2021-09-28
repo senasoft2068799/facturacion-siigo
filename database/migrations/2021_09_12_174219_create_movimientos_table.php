@@ -15,11 +15,7 @@ class CreateMovimientosTable extends Migration
     {
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
-            $table->timestamp("fecha");
-            $table->enum("estado", [
-                1, // Borrador
-                2, // Finalizado
-            ]);
+            $table->string("descripcion");
             $table->unsignedBigInteger("documento_id");
             $table->foreign("documento_id")
                 ->references("id")->on("documentos")
@@ -32,13 +28,18 @@ class CreateMovimientosTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('set null');
 
-            $table->string("user_id", 10)->nullable();
-            //$table->unsignedBigInteger("user_id")->nullable();;
+            /*$table->string("user_id", 10)->nullable();
+            //$table->unsignedBigInteger("user_id")->nullable();*/
+            $table->unsignedBigInteger("user_id")->nullable();
             $table->foreign("user_id")
                 ->references("id")->on("users")
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-
+            $table->double("valor_total");
+            $table->enum("estado", [
+                1, // Borrador
+                2, // Finalizado
+            ]);
             $table->timestamps();
         });
     }

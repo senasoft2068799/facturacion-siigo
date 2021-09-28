@@ -22,7 +22,8 @@ class BodegaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "nombre" => $this->faker->company(),
+            "direccion" => $this->faker->streetName()
         ];
     }
 }
