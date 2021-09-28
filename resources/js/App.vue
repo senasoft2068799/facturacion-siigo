@@ -39,6 +39,16 @@
                                 Sucursales
                             </router-link>
                         </li>
+                        <li class="nav-item">
+                            <router-link
+                                active-class="active-menu"
+                                exact
+                                :to="{ name: 'productos.index' }"
+                                class="nav-link"
+                            >
+                                Productos
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
             </div>

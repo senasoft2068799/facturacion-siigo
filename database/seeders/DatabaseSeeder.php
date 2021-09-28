@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Ciudade;
 use App\Models\Documento;
 use App\Models\Sucursale;
+use App\Models\Categoria;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +21,6 @@ class DatabaseSeeder extends Seeder
         Ciudade::factory(50)->create();
         Documento::factory(15)->create();
         Sucursale::factory(20)->create();
+        Categoria::factory(10)->create();
     }
 }

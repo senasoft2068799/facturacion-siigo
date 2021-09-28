@@ -7,6 +7,12 @@ import SucursalesEdit from "./components/Sucursales/Edit.vue";
 import MovimientosIndex from "./components/Movimientos/Index.vue";
 import MovimientosCreate from "./components/Movimientos/Create.vue";
 import MovimientosEdit from "./components/Movimientos/Edit.vue";
+import CategoriasIndex from "./components/Categorias/Index.vue";
+import CategoriasCreate from "./components/Categorias/Create.vue";
+import CategoriasEdit from "./components/Categorias/Edit.vue";
+import ProductosIndex from "./components/Productos/Index.vue";
+import ProductosCreate from "./components/Productos/Create.vue";
+import ProductosEdit from "./components/Productos/Edit.vue";
 
 export const routes = [
     {
@@ -53,5 +59,36 @@ export const routes = [
         name: "movimientos.edit",
         path: "/movimientos/:id/edit",
         component: MovimientosEdit
+    },
+    {
+        name: "categorias.index",
+        path: "/categorias",
+        component: CategoriasIndex
+    },
+    {
+        name: "categorias.create",
+        path: "/categorias/create",
+        component: CategoriasCreate
+    },
+    {
+        name: "categorias.edit",
+        path: "/categorias/:id/edit",
+        component: CategoriasEdit
+    }
+    ,
+    {
+        name: "productos.index",
+        path: "/productos",
+        component: ProductosIndex
+    },
+    {
+        name: "productos.create",
+        path: "/productos/create",
+        component: ProductosCreate
+    },
+    {
+        name: "productos.edit",
+        path: "/productos/:id/edit",
+        component: ProductosEdit
     }
 ];
