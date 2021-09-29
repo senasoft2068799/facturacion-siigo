@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Categoria;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductoResource extends JsonResource
@@ -14,6 +15,14 @@ class ProductoResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return[
+            "id" => $this->id,
+            "nombre" => $this->nombre,
+            "precio_unitario" => $this->precio_unitario,
+            "imagen" => $this->imagen,
+            "categoria" => $this->categoria,
+            "created_at" => $this->created_at->diffForHumans(),
+            "updated_at" => $this->updated_at->diffForHumans(),
+        ];
     }
 }

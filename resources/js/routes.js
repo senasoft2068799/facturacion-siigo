@@ -1,9 +1,3 @@
-/*import CategoriasIndex from "./components/Categorias/Index.vue";
-import CategoriasCreate from "./components/Categorias/Create.vue";
-import CategoriasEdit from "./components/Categorias/Edit.vue";
-import ProductosIndex from "./components/Productos/Index.vue";
-import ProductosCreate from "./components/Productos/Create.vue";
-import ProductosEdit from "./components/Productos/Edit.vue";*/
 import Register from "./pages/Auth/Register.vue";
 import Dashboard from "./pages/Dashboard.vue";
 import RolesIndex from "./pages/Roles/Index.vue";
@@ -26,6 +20,12 @@ import FacturasIndex from "./pages/Facturas/Index.vue";
 import FacturasShow from "./pages/Facturas/Show.vue";
 import FacturasCreate from "./pages/Facturas/Create.vue";
 import FacturasEdit from "./pages/Facturas/Edit.vue";
+import CategoriasIndex from "./pages/Categorias/Index.vue";
+import CategoriasCreate from "./pages/Categorias/Create.vue";
+import CategoriasEdit from "./pages/Categorias/Edit.vue";
+import ProductosIndex from "./pages/Productos/Index.vue";
+import ProductosCreate from "./pages/Productos/Create.vue";
+import ProductosEdit from "./pages/Productos/Edit.vue";
 
 export const routes = [
     //
@@ -120,40 +120,45 @@ export const routes = [
         path: "/movimientos/:id/edit",
         component: MovimientosEdit
     },
-    // {
-    //     name: "categorias.index",
-    //     path: "/categorias",
-    //     component: CategoriasIndex
-    // },
-    // {
-    //     name: "categorias.create",
-    //     path: "/categorias/create",
-    //     component: CategoriasCreate
-    // },
-    // {
-    //     name: "categorias.edit",
-    //     path: "/categorias/:id/edit",
-    //     component: CategoriasEdit
-    // }
-    // ,
-    // {
-    //     name: "productos.index",
-    //     path: "/productos",
-    //     component: ProductosIndex
-    // },
-    // {
-    //     name: "productos.create",
-    //     path: "/productos/create",
-    //     component: ProductosCreate
-    // },
-    // {
-    //     name: "productos.edit",
-    //     path: "/productos/:id/edit",
-    //     component: ProductosEdit
-    // //
-    // // Bodegas
-    // //
-    // },
+    //
+    //Categorias
+    //
+    {
+        name: "categorias.index",
+        path: "/categorias",
+        component: CategoriasIndex
+    },
+    {
+        name: "categorias.create",
+        path: "/categorias/create",
+        component: CategoriasCreate
+    },
+    {
+        name: "categorias.edit",
+        path: "/categorias/:id/edit",
+        component: CategoriasEdit
+    },
+    //
+    //Productos
+    //
+    {
+        name: "productos.index",
+        path: "/productos",
+        component: ProductosIndex
+    },
+    {
+        name: "productos.create",
+        path: "/productos/create",
+        component: ProductosCreate
+    },
+    {
+        name: "productos.edit",
+        path: "/productos/:id/edit",
+        component: ProductosEdit
+    },
+    //
+    // Bodegas
+    //
     {
         name: "bodegas.index",
         path: "/bodegas",

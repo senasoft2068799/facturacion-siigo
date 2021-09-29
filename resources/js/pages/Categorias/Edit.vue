@@ -1,11 +1,11 @@
 <template>
     <div class="card">
-        <div class="card-header">Registrar Categoria</div>
+        <div class="card-header">Modificar categoria</div>
         <div class="card-body">
-            <form @submit.prevent="registrarCategoria">
+            <form @submit.prevent="modificarCategoria">
                 <div class="mb-3">
                     <label for="nombre" class="form-label"
-                        >Nombre de la categoría</label
+                        >Nombre de la categoria</label
                     >
                     <input
                         type="text"
@@ -14,7 +14,7 @@
                         v-model="categoria.nombre"
                     />
                     <label for="descripcion" class="form-label"
-                        >Descripción de la categoría</label
+                        >Descripción de la categoria</label
                     >
                     <input
                         type="text"
@@ -23,7 +23,7 @@
                         v-model="categoria.descripcion"
                     />
                 </div>
-                <button type="submit" class="btn btn-success">Registrar</button>
+                <button type="submit" class="btn btn-success">Modificar</button>
                 <router-link
                     :to="{ name: 'categorias.index' }"
                     class="btn btn-secondary"
@@ -33,28 +33,28 @@
         </div>
     </div>
 </template>
-<script>
+<<script>
 export default {
     data() {
         return {
             categoria: {
-                nombre: "",
-                descripcion: ""
+                nombre: null,
+                descripcion: null
             }
         };
     },
+    created() {
+        this.axios.get("/api/categorias/" + this.$route.params.id).then(res => {
+            this.categoria = res.data;
+        });
+    },
     methods: {
-        registrarCategoria() {
-            const params = {
-                nombre: this.categoria.nombre,
-                descripcion: this.categoria.descripcion
-            };
+        modificarCategoria() {
             this.axios
-                .post("/api/categorias", params)
+                .put("/api/categorias/" + this.$route.params.id, this.categoria)
                 .then(response => {
-                    this.$swal("Categoría registrada correctamente.");
-					this.categoria.nombre = "",
-                    this.categoria.descripcion = ""
+                    this.$swal("Categoria modificada correctamente.");
+                    this.$router.push("/categorias");
                 })
                 .catch(err => {
                     this.$swal({

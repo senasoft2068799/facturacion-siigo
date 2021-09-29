@@ -36,7 +36,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
+        return $categoria;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductoResource;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        return Producto::all()->toArray();
+        return ProductoResource::collection(Producto::latest()->get());
     }
 
     /**
@@ -29,7 +30,7 @@ class ProductoController extends Controller
 
     public function show(Producto $producto)
     {
-        //
+        return $producto;
     }
 
     /**

@@ -9,4 +9,8 @@ class Producto extends Model
 {
     use HasFactory;
     protected $guarded = ["imagen"];
+    
+    public function categoria(){
+        return $this->belongsTo(Categoria::class);
+    }
 }
