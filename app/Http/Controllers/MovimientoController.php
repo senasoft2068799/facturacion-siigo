@@ -59,6 +59,6 @@ class MovimientoController extends Controller
      */
     public function destroy(Movimiento $movimiento)
     {
-        //
+        $movimiento->delete();
     }
 }

@@ -1,4 +1,5 @@
 import Register from "./pages/Auth/Register.vue";
+import Inicio from "./pages/Auth/Inicio.vue";
 import Dashboard from "./pages/Dashboard.vue";
 import RolesIndex from "./pages/Roles/Index.vue";
 import RolesShow from "./pages/Roles/Show.vue";
@@ -35,6 +36,11 @@ export const routes = [
         name: "register",
         path: "/registrar",
         component: Register
+    },
+    {
+        name: "inicio",
+        path: "/inicio",
+        component: Inicio
     },
     {
         name: "dashboard",
@@ -190,7 +196,8 @@ export const routes = [
     {
         name: "facturas.show",
         path: "/facturas/:id",
-        component: FacturasShow
+        component: FacturasShow,
+        props: true
     },
     {
         name: "facturas.edit",
