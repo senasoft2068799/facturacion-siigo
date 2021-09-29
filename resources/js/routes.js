@@ -1,4 +1,5 @@
 import Register from "./pages/Auth/Register.vue";
+import Inicio from "./pages/Auth/Inicio.vue";
 import Dashboard from "./pages/Dashboard.vue";
 import RolesIndex from "./pages/Roles/Index.vue";
 import RolesShow from "./pages/Roles/Show.vue";
@@ -20,6 +21,12 @@ import FacturasIndex from "./pages/Facturas/Index.vue";
 import FacturasShow from "./pages/Facturas/Show.vue";
 import FacturasCreate from "./pages/Facturas/Create.vue";
 import FacturasEdit from "./pages/Facturas/Edit.vue";
+import CategoriasIndex from "./pages/Categorias/Index.vue";
+import CategoriasCreate from "./pages/Categorias/Create.vue";
+import CategoriasEdit from "./pages/Categorias/Edit.vue";
+import ProductosIndex from "./pages/Productos/Index.vue";
+import ProductosCreate from "./pages/Productos/Create.vue";
+import ProductosEdit from "./pages/Productos/Edit.vue";
 
 export const routes = [
     //
@@ -29,6 +36,11 @@ export const routes = [
         name: "register",
         path: "/registrar",
         component: Register
+    },
+    {
+        name: "inicio",
+        path: "/inicio",
+        component: Inicio
     },
     {
         name: "dashboard",
@@ -113,6 +125,42 @@ export const routes = [
         name: "movimientos.edit",
         path: "/movimientos/:id/edit",
         component: MovimientosEdit
+    },
+    //
+    //Categorias
+    //
+    {
+        name: "categorias.index",
+        path: "/categorias",
+        component: CategoriasIndex
+    },
+    {
+        name: "categorias.create",
+        path: "/categorias/create",
+        component: CategoriasCreate
+    },
+    {
+        name: "categorias.edit",
+        path: "/categorias/:id/edit",
+        component: CategoriasEdit
+    },
+    //
+    //Productos
+    //
+    {
+        name: "productos.index",
+        path: "/productos",
+        component: ProductosIndex
+    },
+    {
+        name: "productos.create",
+        path: "/productos/create",
+        component: ProductosCreate
+    },
+    {
+        name: "productos.edit",
+        path: "/productos/:id/edit",
+        component: ProductosEdit
     },
     //
     // Bodegas

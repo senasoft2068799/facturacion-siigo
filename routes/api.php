@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\SucursaleController;
 use App\Http\Controllers\BodegaController;
@@ -38,7 +39,7 @@ Route::middleware('api')->group(function () {
     Route::apiResource('bodegas', BodegaController::class);
     Route::apiResource('facturas', FacturaController::class);
     Route::apiResource('movimientos', MovimientoController::class);
-    // Route::apiResource('categorias', CategoriaController::class);
+    Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
     // Route::apiResource('ciudades', CiudadeController::class);
     

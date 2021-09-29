@@ -2,45 +2,37 @@
     <div>
         <router-link
             class="btn btn-primary mb-3"
-            :to="{ name: 'productos.create' }"
-            >Registrar producto</router-link
+            :to="{ name: 'categorias.create' }"
+            >Registrar categoria</router-link
         >
-        <router-link
-            class="btn btn-info mb-3"
-            style="float: right;"
-            :to="{ name: 'categorias.index' }"
-            >Ver categorias</router-link
-        >   
         <div class="table-responsive">
             <table class="table">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Precio unitario</th>
-                        <th>Categoria</th>
+                        <th>Descripción</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
                         <th>Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(producto, index) in productos" :key="index">
-                        <td>{{ producto.nombre }}</td>
-                        <td>{{ producto.precio_unitario }}</td>
-                        <td>{{ producto.categoria.nombre }}</td>
-                        <td>{{ producto.created_at }}</td>
-                        <td>{{ producto.updated_at }}</td>
+                    <tr v-for="(categoria, index) in categorias" :key="index">
+                        <td>{{ categoria.nombre }}</td>
+                        <td>{{ categoria.descripcion }}</td>
+                        <td>{{ categoria.created_at }}</td>
+                        <td>{{ categoria.updated_at }}</td>
                         <td>
                             <router-link
                                 class="btn btn-warning btn-sm"
                                 :to="{
-                                    name: 'productos.edit',
-                                    params: { id: producto.id }
+                                    name: 'categorias.edit',
+                                    params: { id: categoria.id }
                                 }"
                                 >Editar</router-link
                             >
                             <button
-                                @click="eliminarproducto(producto, index)"
+                                @click="eliminarcategoria(categoria, index)"
                                 class="btn btn-danger btn-sm"
                             >
                                 Eliminar
@@ -56,30 +48,30 @@
 export default {
     data() {
         return {
-            productos: []
+            categorias: []
         };
     },
     created() {
-        this.axios.get("/api/productos").then(response => {
-            this.productos = response.data.data;
+        this.axios.get("/api/categorias").then(response => {
+            this.categorias = response.data;
         });
     },
     methods: {
-        eliminarproducto(producto, index) {
+        eliminarcategoria(categoria, index) {
             this.$swal({
                 title: "¿Estás seguro?",
-                text: "Se eliminará el producto: '" + producto.nombre + "'",
+                text: "Se eliminará la categoria: '" + categoria.nombre + "'",
                 icon: "warning",
                 showCancelButton: true
             }).then(result => {
                 if (result.value) {
                     axios
-                        .delete("/api/productos/" + producto.id)
+                        .delete("/api/categorias/" + categoria.id)
                         .then(response => {
-                            this.productos.splice(index, 1);
+                            this.categorias.splice(index, 1);
                             this.$swal({
                                 icon: "success",
-                                title: "Producto eliminado."
+                                title: "categoria eliminada."
                             });
                         })
                         .catch(err => {

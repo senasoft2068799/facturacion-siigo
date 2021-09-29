@@ -68,6 +68,19 @@
                     <router-link
                         active-class="active"
                         exact
+                        :to="{ name: 'productos.index' }"
+                        class="nav-link link-dark"
+                    >
+                        <svg class="bi me-2" width="16" height="16">
+                            <use xlink:href="#table"></use>
+                        </svg>
+                        Productos
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        active-class="active"
+                        exact
                         :to="{ name: 'roles.index' }"
                         class="nav-link link-dark"
                     >
@@ -75,6 +88,19 @@
                             <use xlink:href="#grid"></use>
                         </svg>
                         Roles
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        active-class="active"
+                        exact
+                        :to="{ name: 'login' }"
+                        class="nav-link link-dark"
+                    >
+                        <svg class="bi me-2" width="16" height="16">
+                            <use xlink:href="#home"></use>
+                        </svg>
+                        Login
                     </router-link>
                 </li>
             </ul>

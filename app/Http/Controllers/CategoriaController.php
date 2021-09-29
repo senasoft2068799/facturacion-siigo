@@ -14,7 +14,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        return Categoria::all()->toArray();
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Categoria::create($request->all());
     }
 
     /**
@@ -36,7 +36,18 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
+        return $categoria;
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Categoria  $categoria
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Categoria $categoria)
+    {
+        return $categoria;
     }
 
     /**
@@ -48,7 +59,7 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $categoria->update($request->all());
     }
 
     /**
@@ -59,6 +70,6 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
     }
 }

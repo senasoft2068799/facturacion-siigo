@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Registrar tercero</div>
+        <div class="card-header">Registrar Usuario</div>
         <div class="card-body">
             <form @submit.prevent="registrar">
                 <div class="mb-3">
