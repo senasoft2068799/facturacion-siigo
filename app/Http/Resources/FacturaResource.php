@@ -17,6 +17,7 @@ class FacturaResource extends JsonResource
         return [
             "id" => $this->id,
             "documento" => $this->documento,
+            "descripcion" => $this->descripcion,
             "sucursal" => $this->sucursale,
             "tercero" => $this->id,
             "valor_total" => $this->valor_total,

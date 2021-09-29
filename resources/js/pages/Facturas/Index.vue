@@ -10,6 +10,7 @@
                 <thead>
                     <tr>
                         <th>Código</th>
+                        <th>Descripción</th>
                         <th>Sucursal</th>
                         <th>Tercero</th>
                         <th>Valor + IVA</th>
@@ -21,6 +22,7 @@
                 <tbody>
                     <tr v-for="(factura, index) in facturas" :key="index">
                         <td>{{ factura.id }}</td>
+                        <td>{{ factura.descripcion.substring(0, 20) }}...</td>
                         <td>{{ factura.sucursal.nombre }}</td>
                         <td>{{ factura.tercero }}</td>
                         <td>${{ factura.valor_total }}</td>

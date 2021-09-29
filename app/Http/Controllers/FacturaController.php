@@ -18,9 +18,9 @@ class FacturaController extends Controller
         Movimiento::create($request->all());
     }
 
-    public function show(Movimiento $movimiento)
+    public function show(Movimiento $factura)
     {
-        //
+        return new FacturaResource($factura);
     }
 
     public function update(Request $request, Movimiento $movimiento)
@@ -28,8 +28,8 @@ class FacturaController extends Controller
         //
     }
 
-    public function destroy(Movimiento $movimiento)
+    public function destroy(Movimiento $factura)
     {
-        //
+        $factura->delete();
     }
 }

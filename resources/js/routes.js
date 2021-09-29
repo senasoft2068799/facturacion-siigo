@@ -148,7 +148,8 @@ export const routes = [
     {
         name: "facturas.show",
         path: "/facturas/:id",
-        component: FacturasShow
+        component: FacturasShow,
+        props: true
     },
     {
         name: "facturas.edit",
