@@ -16,6 +16,7 @@ class CreateMovimientosTable extends Migration
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
             $table->string("descripcion");
+            $table->double("valor_total");
             $table->unsignedBigInteger("documento_id");
             $table->foreign("documento_id")
                 ->references("id")->on("documentos")
@@ -35,7 +36,6 @@ class CreateMovimientosTable extends Migration
                 ->references("id")->on("users")
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-            $table->double("valor_total");
             $table->enum("estado", [
                 1, // Borrador
                 2, // Finalizado

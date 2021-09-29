@@ -3093,28 +3093,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      editMode: {
+        editing: false,
+        index: null
+      },
       sucursales: [],
+      sucursal: {},
+      clientes: [],
+      cliente: {},
       productos: [],
       producto: {},
       bodegas: [],
       bodega: {},
       factura: {
+        descripcion: null,
         documento_id: 1,
         sucursale_id: null,
-        valor_total: null,
         user_id: 1,
+        valor_total: null,
         estado: 1
       },
       detalleFacturas: [],
       detalleFactura: {
         movimiento_id: 1,
-        sucursal_id: null,
+        bodega_id: null,
         producto_id: null,
-        cantidad: null,
-        bodega_id: null
+        cantidad: 0,
+        valor_total: 0
       }
     };
   },
@@ -3136,17 +3163,39 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     agregarDetalleFactura: function agregarDetalleFactura() {
+      var valorDetalle;
+      valorDetalle = this.producto.precio_unitario * this.detalleFactura.cantidad * 1.19;
+      this.detalleFactura.valor_total = valorDetalle;
       this.detalleFactura.producto = this.producto;
       this.detalleFactura.bodega = this.bodega;
       this.detalleFacturas.splice(0, 0, this.detalleFactura);
       this.limpiar();
+      this.factura.valor_total += valorDetalle;
     },
-    eliminarDetalleFactura: function eliminarDetalleFactura(index) {
+    eliminarDetalleFactura: function eliminarDetalleFactura(detalleFac, index) {
       this.detalleFacturas.splice(index, 1);
+      this.factura.valor_total -= detalleFac.valor_total;
     },
-    editarDetalleFactura: function editarDetalleFactura(detalleFac, index) {
-      this.detalleFactura = detalleFac; //this.producto = this.detalleFactura.producto;
-      //this.bodega = this.detalleFactura.bodega;
+    iniciarEdicion: function iniciarEdicion(detalleFac, index) {
+      this.editMode.editing = true;
+      this.editMode.index = index; // this.detalleFactura.cantidad = detalleFac.cantidad;
+      // this.detalleFactura.producto = detalleFac.producto;
+      // this.detalleFactura.bodega = detalleFac.bodega;
+
+      this.detalleFactura = detalleFac;
+      this.producto = detalleFac.producto;
+      this.bodega = detalleFac.bodega;
+    },
+    editarDetalleFactura: function editarDetalleFactura() {
+      this.detalleFactura.producto = this.producto;
+      this.detalleFactura.bodega = this.bodega;
+      this.detalleFacturas.splice(this.editMode.index, 1, this.detalleFactura);
+      this.cancelarEdicion();
+    },
+    cancelarEdicion: function cancelarEdicion() {
+      this.editMode.editing = false;
+      this.editMode.index = null;
+      this.limpiar();
     },
     limpiar: function limpiar() {
       this.detalleFactura = {};
@@ -3154,25 +3203,18 @@ __webpack_require__.r(__webpack_exports__);
       this.bodega = {};
     },
     registrarFactura: function registrarFactura() {
-      console.log("Registrando...");
-    }
-    /*registrarFactura() {
-        this.axios
-            .post("/api/facturas", this.factura)
-            .then(response => {
-                this.$swal("Factura registrada correctamente.");
-                this.factura.sucursale_id = null;
-                this.factura.valor_total = null;
-                this.factura.ciudade_id = null;
-            })
-            .catch(err => {
-                this.$swal({
-                    icon: "error",
-                    title: "Ha ocurrido un error:\n" + err
-                });
-            });
-    }*/
+      var _this2 = this;
 
+      this.factura.sucursale_id = this.sucursal;
+      this.axios.post("/api/facturas", this.factura).then(function (response) {
+        _this2.$swal("Factura registrada correctamente.");
+      })["catch"](function (err) {
+        _this2.$swal({
+          icon: "error",
+          title: "Ha ocurrido un error:\n" + err
+        });
+      });
+    }
   }
 });
 
@@ -46253,7 +46295,7 @@ var render = function() {
             on: {
               submit: function($event) {
                 $event.preventDefault()
-                return _vm.registrarFactura.apply(null, arguments)
+                return _vm.registrarFactura()
               }
             }
           },
@@ -46273,8 +46315,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.detalleFactura.sucursal_id,
-                        expression: "detalleFactura.sucursal_id"
+                        value: _vm.sucursal,
+                        expression: "sucursal"
                       }
                     ],
                     staticClass: "form-select",
@@ -46289,13 +46331,9 @@ var render = function() {
                             var val = "_value" in o ? o._value : o.value
                             return val
                           })
-                        _vm.$set(
-                          _vm.detalleFactura,
-                          "sucursal_id",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
+                        _vm.sucursal = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
                       }
                     }
                   },
@@ -46549,25 +46587,64 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-success btn-sm",
-                            attrs: { title: "Agregar", type: "button" },
-                            on: { click: _vm.agregarDetalleFactura }
-                          },
-                          [_c("i", { staticClass: "fas fa-plus-circle" })]
-                        ),
+                        !_vm.editMode.editing
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success btn-sm",
+                                attrs: { title: "Agregar", type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.agregarDetalleFactura()
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-plus-circle" })]
+                            )
+                          : _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-success btn-sm",
+                                attrs: {
+                                  title: "Confirmar edición",
+                                  type: "button"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editarDetalleFactura()
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-check-circle" })]
+                            ),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-secondary btn-sm",
-                            attrs: { title: "Limpiar", type: "button" },
-                            on: { click: _vm.limpiar }
-                          },
-                          [_c("i", { staticClass: "fas fa-eraser" })]
-                        )
+                        !_vm.editMode.editing
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-secondary btn-sm",
+                                attrs: { title: "Limpiar", type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.limpiar()
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-eraser" })]
+                            )
+                          : _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-sm",
+                                attrs: { title: "Cancelar", type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.cancelarEdicion()
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fas fa-times-circle" })]
+                            )
                       ])
                     ]),
                     _vm._v(" "),
@@ -46653,11 +46730,7 @@ var render = function() {
                             ? _c("p", [
                                 _vm._v(
                                   "\n                                        $" +
-                                    _vm._s(
-                                      detalleFac.producto.precio_unitario *
-                                        detalleFac.cantidad *
-                                        1.19
-                                    ) +
+                                    _vm._s(detalleFac.valor_total) +
                                     "\n                                    "
                                 )
                               ])
@@ -46676,10 +46749,7 @@ var render = function() {
                               attrs: { title: "Editar", type: "button" },
                               on: {
                                 click: function($event) {
-                                  return _vm.editarDetalleFactura(
-                                    detalleFac,
-                                    index
-                                  )
+                                  return _vm.iniciarEdicion(detalleFac, index)
                                 }
                               }
                             },
@@ -46693,7 +46763,10 @@ var render = function() {
                               attrs: { title: "Eliminar", type: "button" },
                               on: {
                                 click: function($event) {
-                                  return _vm.eliminarDetalleFactura(index)
+                                  return _vm.eliminarDetalleFactura(
+                                    detalleFac,
+                                    index
+                                  )
                                 }
                               }
                             },
@@ -46708,7 +46781,35 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(2),
+            _c("div", { staticClass: "mb-3" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "descripcion" } },
+                [_vm._v("Descripción")]
+              ),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.factura.descripcion,
+                    expression: "factura.descripcion"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "descripcion", rows: "3" },
+                domProps: { value: _vm.factura.descripcion },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.factura, "descripcion", $event.target.value)
+                  }
+                }
+              })
+            ]),
             _vm._v(" "),
             _c(
               "button",
@@ -46764,23 +46865,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Funciones")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mb-3" }, [
-      _c(
-        "label",
-        { staticClass: "form-label", attrs: { for: "descripcion" } },
-        [_vm._v("Descripción")]
-      ),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "form-control",
-        attrs: { id: "descripcion", rows: "3" }
-      })
     ])
   }
 ]

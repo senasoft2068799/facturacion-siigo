@@ -3,7 +3,7 @@
         <div class="card mb-3">
             <div class="card-header">Registrar factura</div>
             <div class="card-body">
-                <form @submit.prevent="registrarFactura">
+                <form @submit.prevent="registrarFactura()">
                     <!-- Factura -->
 
                     <div class="row mb-3">
@@ -14,9 +14,10 @@
                             <select
                                 class="form-select"
                                 id="sucursal"
-                                v-model="detalleFactura.sucursal_id"
+                                v-model="sucursal"
                             >
-                                <option disabled value="null">Seleccionar sucursal...
+                                <option disabled value="null"
+                                    >Seleccionar sucursal...
                                 </option>
                                 <option
                                     v-for="(sucursal, index) in sucursales"
@@ -34,7 +35,7 @@
                             <!-- <select
                                 class="form-select"
                                 id="cliente"
-                                v-model="detalleFactura.cliente_id"
+                                v-model="cliente"
                             >
                                 <option disabled value="null">
                                     Seleccionar cliente...
@@ -173,7 +174,8 @@
                                     </td>
                                     <td>
                                         <button
-                                            @click="agregarDetalleFactura"
+                                            v-if="!editMode.editing"
+                                            @click="agregarDetalleFactura()"
                                             class="btn btn-success btn-sm"
                                             title="Agregar"
                                             type="button"
@@ -181,12 +183,31 @@
                                             <i class="fas fa-plus-circle"></i>
                                         </button>
                                         <button
-                                            @click="limpiar"
+                                            v-else
+                                            @click="editarDetalleFactura()"
+                                            class="btn btn-success btn-sm"
+                                            title="Confirmar edición"
+                                            type="button"
+                                        >
+                                            <i class="fas fa-check-circle"></i>
+                                        </button>
+                                        <button
+                                            v-if="!editMode.editing"
+                                            @click="limpiar()"
                                             class="btn btn-secondary btn-sm"
                                             title="Limpiar"
                                             type="button"
                                         >
                                             <i class="fas fa-eraser"></i>
+                                        </button>
+                                        <button
+                                            v-else
+                                            @click="cancelarEdicion()"
+                                            class="btn btn-danger btn-sm"
+                                            title="Cancelar"
+                                            type="button"
+                                        >
+                                            <i class="fas fa-times-circle"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -264,10 +285,7 @@
                                             "
                                         >
                                             ${{
-                                                detalleFac.producto
-                                                    .precio_unitario *
-                                                    detalleFac.cantidad *
-                                                    1.19
+                                                detalleFac.valor_total
                                             }}
                                         </p>
                                         <p v-else>
@@ -277,7 +295,7 @@
                                     <td>
                                         <button
                                             @click="
-                                                editarDetalleFactura(
+                                                iniciarEdicion(
                                                     detalleFac,
                                                     index
                                                 )
@@ -290,7 +308,7 @@
                                         </button>
                                         <button
                                             @click="
-                                                eliminarDetalleFactura(index)
+                                                eliminarDetalleFactura(detalleFac, index)
                                             "
                                             class="btn btn-danger btn-sm"
                                             title="Eliminar"
@@ -312,6 +330,7 @@
                             class="form-control"
                             id="descripcion"
                             rows="3"
+                            v-model="factura.descripcion"
                         ></textarea>
                     </div>
                     <button type="submit" class="btn btn-success">
@@ -331,25 +350,33 @@
 export default {
     data() {
         return {
+            editMode: {
+                editing: false,
+                index: null
+            },
             sucursales: [],
+            sucursal: {},
+            clientes: [],
+            cliente: {},
             productos: [],
             producto: {},
             bodegas: [],
             bodega: {},
             factura: {
+                descripcion: null,
                 documento_id: 1,
                 sucursale_id: null,
-                valor_total: null,
                 user_id: 1,
+                valor_total: null,
                 estado: 1
             },
             detalleFacturas: [],
             detalleFactura: {
                 movimiento_id: 1,
-                sucursal_id: null,
+                bodega_id: null,
                 producto_id: null,
-                cantidad: null,
-                bodega_id: null
+                cantidad: 0,
+                valor_total: 0
             }
         };
     },
@@ -369,18 +396,39 @@ export default {
     },
     methods: {
         agregarDetalleFactura() {
+            let valorDetalle;
+            valorDetalle = (this.producto.precio_unitario * this.detalleFactura.cantidad) * 1.19;
+            this.detalleFactura.valor_total = valorDetalle;
             this.detalleFactura.producto = this.producto;
             this.detalleFactura.bodega = this.bodega;
             this.detalleFacturas.splice(0, 0, this.detalleFactura);
             this.limpiar();
+            this.factura.valor_total += valorDetalle;
         },
-        eliminarDetalleFactura(index) {
+        eliminarDetalleFactura(detalleFac, index) {
             this.detalleFacturas.splice(index, 1);
+            this.factura.valor_total -= detalleFac.valor_total;
         },
-        editarDetalleFactura(detalleFac, index){
+        iniciarEdicion(detalleFac, index) {
+            this.editMode.editing = true;
+            this.editMode.index = index;
+            // this.detalleFactura.cantidad = detalleFac.cantidad;
+            // this.detalleFactura.producto = detalleFac.producto;
+            // this.detalleFactura.bodega = detalleFac.bodega;
             this.detalleFactura = detalleFac;
-            //this.producto = this.detalleFactura.producto;
-            //this.bodega = this.detalleFactura.bodega;
+            this.producto = detalleFac.producto;
+            this.bodega = detalleFac.bodega;
+        },
+        editarDetalleFactura() {
+            this.detalleFactura.producto = this.producto;
+            this.detalleFactura.bodega = this.bodega;
+            this.detalleFacturas.splice(this.editMode.index, 1, this.detalleFactura);
+            this.cancelarEdicion();
+        },
+        cancelarEdicion() {
+            this.editMode.editing = false;
+            this.editMode.index = null;
+            this.limpiar();
         },
         limpiar() {
             this.detalleFactura = {};
@@ -388,16 +436,11 @@ export default {
             this.bodega = {};
         },
         registrarFactura() {
-            console.log("Registrando...");
-        }
-        /*registrarFactura() {
+            this.factura.sucursale_id = this.sucursal;
             this.axios
                 .post("/api/facturas", this.factura)
                 .then(response => {
                     this.$swal("Factura registrada correctamente.");
-                    this.factura.sucursale_id = null;
-                    this.factura.valor_total = null;
-                    this.factura.ciudade_id = null;
                 })
                 .catch(err => {
                     this.$swal({
@@ -405,7 +448,7 @@ export default {
                         title: "Ha ocurrido un error:\n" + err
                     });
                 });
-        }*/
+        }
     }
 };
 </script>
