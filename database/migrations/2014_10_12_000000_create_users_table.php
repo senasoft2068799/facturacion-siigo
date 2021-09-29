@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
                 "CC", // Cedula ciudadanía
                 "TI", // Tarjeta identidad
                 "TP", // Tarjeta pasaporte
-                "RC", // Registro civil
+                "RC", // Registro civil 
                 "CE", // Cedula extrangería 
                 "DNI", // Documento nacional de identidad
             ]);
