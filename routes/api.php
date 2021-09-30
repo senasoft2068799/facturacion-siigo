@@ -11,6 +11,7 @@ use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,13 +25,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+});*/
 
-//Route::apiResource('documentos', DocumentoController::class);
+Route::post('register', [AuthController::class, 'registrar']);
 
-Route::middleware('api')->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     // Route::get("permisos", [PermisoController::class, "index"]);
     Route::apiResource('roles', RoleController::class);
     // Route::apiResource('users', UserController::class);
@@ -44,5 +45,9 @@ Route::middleware('api')->group(function () {
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
     // Route::apiResource('ciudades', CiudadeController::class);
-    
 });
+
+//Route::apiResource('documentos', DocumentoController::class);
+
+/*Route::middleware('api')->group(function () {
+});*/
