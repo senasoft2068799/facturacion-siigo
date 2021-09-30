@@ -1,5 +1,5 @@
 import Register from "./pages/Auth/Register.vue";
-import Inicio from "./pages/Auth/Inicio.vue";
+import Login from "./pages/Auth/Login.vue";
 import Dashboard from "./pages/Dashboard.vue";
 import RolesIndex from "./pages/Roles/Index.vue";
 import RolesShow from "./pages/Roles/Show.vue";
@@ -32,9 +32,9 @@ export const routes = [
         component: Register
     },
     {
-        name: "inicio",
-        path: "/inicio",
-        component: Inicio
+        name: "login",
+        path: "/login",
+        component: Login
     },
     {
         name: "dashboard",
