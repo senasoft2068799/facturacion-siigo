@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DetalleMovimientoResource;
 use App\Models\DetalleMovimiento;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class DetalleMovimientoController extends Controller
      */
     public function index()
     {
-        //
+        return DetalleMovimientoResource::collection(DetalleMovimiento::latest()->get());
     }
 
     /**

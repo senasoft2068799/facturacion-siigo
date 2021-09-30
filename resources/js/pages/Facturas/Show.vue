@@ -32,22 +32,22 @@
                             :key="index"
                         >
                             <td>
-                                {{ detalleFactura.producto_id }}
+                                {{ detalleFactura.producto.nombre }}
                             </td>
                             <td>{{ detalleFactura.cantidad }}</td>
                             <td>
-                                {{ detalleFactura.bodega_id }}
+                                {{ detalleFactura.bodega.nombre }}
                             </td>
-                            <td>${{ detalleFactura.producto_id }}</td>
+                            <td>${{ detalleFactura.producto.precio_unitario }}</td>
                             <td>
                                 ${{
-                                    detalleFactura.producto_id *
+                                    detalleFactura.producto.precio_unitario *
                                         detalleFactura.cantidad
                                 }}
                             </td>
                             <td>
                                 ${{
-                                    detalleFactura.producto_id *
+                                    detalleFactura.producto.precio_unitario *
                                         detalleFactura.cantidad *
                                         0.19
                                 }}
@@ -84,13 +84,12 @@
                 class="btn btn-secondary"
                 >Regresar</router-link
             >
-            {{factura.detalle_facturas}}
         </div>
     </div>
 </template>
+
 <script>
 export default {
-    props: ["id"],
     data() {
         return {
             factura: {},
@@ -98,10 +97,9 @@ export default {
     },
     mounted() {
         //Mostrar factura
-        this.axios.get("/api/facturas/" + this.id).then(res => {
+        this.axios.get("/api/facturas/" + this.$route.params.id).then(res => {
             this.factura = res.data.data;
         });
-        //Mostrar detalles de factura
     }
 };
 </script>

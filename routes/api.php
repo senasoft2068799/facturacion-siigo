@@ -5,6 +5,7 @@ use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\SucursaleController;
 use App\Http\Controllers\BodegaController;
 use App\Http\Controllers\CiudadeController;
+use App\Http\Controllers\DetalleMovimientoController;
 use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\ProductoController;
@@ -39,6 +40,7 @@ Route::middleware('api')->group(function () {
     Route::apiResource('bodegas', BodegaController::class);
     Route::apiResource('facturas', FacturaController::class);
     Route::apiResource('movimientos', MovimientoController::class);
+    Route::apiResource('detalle-movimientos', DetalleMovimientoController::class);
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
     // Route::apiResource('ciudades', CiudadeController::class);

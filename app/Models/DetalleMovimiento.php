@@ -9,4 +9,19 @@ class DetalleMovimiento extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function movimiento()
+    {
+        return $this->belongsTo(Movimiento::class);
+    }
+
+    public function bodega()
+    {
+        return $this->belongsTo(Bodega::class);
+    }
+
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class);
+    }
 }
