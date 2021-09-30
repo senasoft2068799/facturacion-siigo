@@ -3510,12 +3510,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["id"],
   data: function data() {
     return {
-      factura: {},
-      detalleFacturas: []
+      factura: {}
     };
   },
   mounted: function mounted() {
@@ -3524,7 +3524,7 @@ __webpack_require__.r(__webpack_exports__);
     //Mostrar factura
     this.axios.get("/api/facturas/" + this.id).then(function (res) {
       _this.factura = res.data.data;
-    });
+    }); //Mostrar detalles de factura
   }
 });
 
@@ -47497,41 +47497,42 @@ var render = function() {
           _c("table", { staticClass: "table table-striped table-hover" }, [
             _vm._m(0),
             _vm._v(" "),
-            _vm.detalleFacturas.length > 0
+            _vm.factura.detalle_facturas.length > 0
               ? _c(
                   "tbody",
-                  _vm._l(_vm.detalleFacturas, function(detalleFac, index) {
+                  _vm._l(_vm.factura.detalle_facturas, function(
+                    detalleFactura,
+                    index
+                  ) {
                     return _c("tr", { key: index }, [
                       _c("td", [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(detalleFac.producto.nombre) +
+                            _vm._s(detalleFactura.producto_id) +
                             "\n                        "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(detalleFac.cantidad))]),
+                      _c("td", [_vm._v(_vm._s(detalleFactura.cantidad))]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(detalleFac.bodega.nombre) +
+                            _vm._s(detalleFactura.bodega_id) +
                             "\n                        "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(
-                          "$" + _vm._s(detalleFac.producto.precio_unitario)
-                        )
+                        _vm._v("$" + _vm._s(detalleFactura.producto_id))
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
                           "\n                            $" +
                             _vm._s(
-                              detalleFac.producto.precio_unitario *
-                                detalleFac.cantidad
+                              detalleFactura.producto_id *
+                                detalleFactura.cantidad
                             ) +
                             "\n                        "
                         )
@@ -47541,22 +47542,24 @@ var render = function() {
                         _vm._v(
                           "\n                            $" +
                             _vm._s(
-                              detalleFac.producto.precio_unitario *
-                                detalleFac.cantidad *
+                              detalleFactura.producto_id *
+                                detalleFactura.cantidad *
                                 0.19
                             ) +
                             "\n                        "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("$" + _vm._s(detalleFac.valor_total))])
+                      _c("td", [
+                        _vm._v("$" + _vm._s(detalleFactura.valor_total))
+                      ])
                     ])
                   }),
                   0
                 )
               : _c("tbody", [_vm._m(1)]),
             _vm._v(" "),
-            _vm.detalleFacturas.length > 0
+            _vm.factura.detalle_facturas.length > 0
               ? _c("tfoot", [
                   _c("tr", { staticClass: "table-active" }, [
                     _c("td", { attrs: { colspan: "4" } }),
@@ -47589,7 +47592,8 @@ var render = function() {
             attrs: { to: { name: "facturas.index" } }
           },
           [_vm._v("Regresar")]
-        )
+        ),
+        _vm._v("\n        " + _vm._s(_vm.factura.detalle_facturas) + "\n    ")
       ],
       1
     )

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Bodega;
-use App\Models\Categoria;
 use App\Models\Ciudade;
 use App\Models\DetalleMovimiento;
 use App\Models\Documento;
@@ -11,6 +10,7 @@ use App\Models\Movimiento;
 use App\Models\Producto;
 use App\Models\Role;
 use App\Models\Sucursale;
+use App\Models\Categoria;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

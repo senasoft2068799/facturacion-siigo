@@ -20,6 +20,10 @@ class Movimiento extends Model
         return $this->belongsTo(Sucursale::class);
     }
 
+    public function detalle_movimientos(){
+        return $this->hasMany(DetalleMovimiento::class);
+    }
+
 /*    public function user()
     {
         return $this->belongsTo(User::class);

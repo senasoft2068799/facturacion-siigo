@@ -26,33 +26,33 @@
                             <th>Total</th>
                         </tr>
                     </thead>
-                    <tbody v-if="detalleFacturas.length > 0">
+                    <tbody v-if="factura.detalle_facturas.length > 0">
                         <tr
-                            v-for="(detalleFac, index) in detalleFacturas"
+                            v-for="(detalleFactura, index) in factura.detalle_facturas"
                             :key="index"
                         >
                             <td>
-                                {{ detalleFac.producto.nombre }}
+                                {{ detalleFactura.producto_id }}
                             </td>
-                            <td>{{ detalleFac.cantidad }}</td>
+                            <td>{{ detalleFactura.cantidad }}</td>
                             <td>
-                                {{ detalleFac.bodega.nombre }}
+                                {{ detalleFactura.bodega_id }}
                             </td>
-                            <td>${{ detalleFac.producto.precio_unitario }}</td>
+                            <td>${{ detalleFactura.producto_id }}</td>
                             <td>
                                 ${{
-                                    detalleFac.producto.precio_unitario *
-                                        detalleFac.cantidad
+                                    detalleFactura.producto_id *
+                                        detalleFactura.cantidad
                                 }}
                             </td>
                             <td>
                                 ${{
-                                    detalleFac.producto.precio_unitario *
-                                        detalleFac.cantidad *
+                                    detalleFactura.producto_id *
+                                        detalleFactura.cantidad *
                                         0.19
                                 }}
                             </td>
-                            <td>${{ detalleFac.valor_total }}</td>
+                            <td>${{ detalleFactura.valor_total }}</td>
                         </tr>
                     </tbody>
                     <tbody v-else>
@@ -62,7 +62,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot v-if="detalleFacturas.length > 0">
+                    <tfoot v-if="factura.detalle_facturas.length > 0">
                         <tr class="table-active">
                             <td colspan="4"></td>
                             <th><h5>$</h5></th>
@@ -84,6 +84,7 @@
                 class="btn btn-secondary"
                 >Regresar</router-link
             >
+            {{factura.detalle_facturas}}
         </div>
     </div>
 </template>
@@ -93,7 +94,6 @@ export default {
     data() {
         return {
             factura: {},
-            detalleFacturas: []
         };
     },
     mounted() {
@@ -101,6 +101,7 @@ export default {
         this.axios.get("/api/facturas/" + this.id).then(res => {
             this.factura = res.data.data;
         });
+        //Mostrar detalles de factura
     }
 };
 </script>

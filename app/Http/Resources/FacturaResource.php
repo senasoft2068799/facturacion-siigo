@@ -16,11 +16,12 @@ class FacturaResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "documento" => $this->documento,
             "descripcion" => $this->descripcion,
+            "valor_total" => $this->valor_total,
+            "documento" => $this->documento,
             "sucursal" => $this->sucursale,
             "tercero" => $this->id,
-            "valor_total" => $this->valor_total,
+            "detalle_facturas" => $this->detalle_movimientos,
             "estado" => $this->estado,
             "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at->diffForHumans(),

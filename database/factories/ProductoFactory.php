@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Categoria;
 use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductoFactory extends Factory
@@ -23,9 +23,8 @@ class ProductoFactory extends Factory
     public function definition()
     {
         return [
-            "nombre" => $this->faker->unique->sentence(3, false),
-            "precio_unitario" => $this->faker->randomNumber(3, true),
-            "imagen" => "Imagen",
+            "nombre" => $this->faker->sentence(2, false),
+            "precio_unitario" => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
             "categoria_id" => Categoria::inRandomOrder()->first()->id,
         ];
     }
