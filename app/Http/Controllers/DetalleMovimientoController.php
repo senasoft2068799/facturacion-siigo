@@ -26,7 +26,7 @@ class DetalleMovimientoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DetalleMovimiento::create($request->all());
     }
 
     /**

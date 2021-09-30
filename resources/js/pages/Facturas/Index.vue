@@ -30,26 +30,29 @@
                         <td>{{ factura.updated_at }}</td>
                         <td>
                             <router-link
-                                class="btn btn-info btn-sm"
+                                class="btn btn-info btn-sm text-white"
                                 :to="{
                                     name: 'facturas.show',
                                     params: { id: factura.id }
                                 }"
-                                >Detalles</router-link
+                                title="Detalles"
+                                ><i class="fas fa-info-circle"></i></router-link
                             >
                             <router-link
-                                class="btn btn-warning btn-sm"
+                                class="btn btn-warning btn-sm text-white"
                                 :to="{
                                     name: 'facturas.edit',
                                     params: { id: factura.id }
                                 }"
-                                >Editar</router-link
+                                title="Editar"
+                                ><i class="fas fa-edit"></i></router-link
                             >
                             <button
                                 @click="eliminarSucursal(factura, index)"
                                 class="btn btn-danger btn-sm"
+                                title="Eliminar"
                             >
-                                Eliminar
+                                <i class="fas fa-trash"></i>
                             </button>
                         </td>
                     </tr>

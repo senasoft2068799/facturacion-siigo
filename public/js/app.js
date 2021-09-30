@@ -3237,26 +3237,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       editing: null,
       sucursales: [],
-      sucursal: {},
       clientes: [],
-      cliente: {},
       productos: [],
       producto: {},
       bodegas: [],
       bodega: {},
       factura: {
-        descripcion: null,
-        documento_id: 1,
         sucursale_id: null,
-        user_id: 1,
-        valor_total: null,
-        estado: 1
+        user_id: null
       },
       detalleFacturas: [],
       detalleFactura: {}
@@ -3268,6 +3261,10 @@ __webpack_require__.r(__webpack_exports__);
     //Mostrar lista de sucursales
     this.axios.get("/api/sucursales").then(function (res) {
       _this.sucursales = res.data.data;
+    }); //Mostrar lista de clientes
+
+    this.axios.get("/api/clientes").then(function (res) {
+      _this.clientes = res.data.data;
     }); //Mostrar lista de productos
 
     this.axios.get("/api/productos").then(function (res) {
@@ -3277,8 +3274,26 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get("/api/bodegas").then(function (res) {
       _this.bodegas = res.data;
     });
+    var datosFactura = JSON.parse(localStorage.getItem("factura"));
+
+    if (datosFactura != null) {
+      this.factura = datosFactura;
+    }
+
+    var datosDetalle = JSON.parse(localStorage.getItem("detalleFacturas"));
+
+    if (datosDetalle != null) {
+      this.detalleFacturas = datosDetalle;
+    }
   },
   methods: {
+    calcularTotal: function calcularTotal() {
+      var valor = 0;
+      this.detalleFacturas.forEach(function (item) {
+        valor += item.valor_total;
+      });
+      return valor;
+    },
     formatCurrency: function formatCurrency(number) {
       var formatted = 0;
 
@@ -3300,10 +3315,12 @@ __webpack_require__.r(__webpack_exports__);
       this.detalleFacturas.splice(0, 0, this.detalleFactura);
       this.limpiarCampos();
       this.factura.valor_total += valorDetalle;
+      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
     },
     eliminarDetalleFactura: function eliminarDetalleFactura(item, index) {
       this.detalleFacturas.splice(index, 1);
       this.factura.valor_total -= item.valor_total;
+      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
     },
     iniciarEdicion: function iniciarEdicion(item, index) {
       this.editing = index; // this.detalleFactura.cantidad = detalleFac.cantidad;
@@ -3318,6 +3335,7 @@ __webpack_require__.r(__webpack_exports__);
       this.detalleFactura.producto = this.producto;
       this.detalleFactura.bodega = this.bodega;
       this.detalleFacturas.splice(this.editing, 1, this.detalleFactura);
+      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
       this.cancelarEdicion();
     },
     cancelarEdicion: function cancelarEdicion() {
@@ -3332,13 +3350,22 @@ __webpack_require__.r(__webpack_exports__);
     registrarFactura: function registrarFactura() {
       var _this2 = this;
 
-      this.factura.sucursale_id = this.sucursal;
-      this.axios.get("/api/facturas", this.factura).then(function (response) {
+      this.factura.documento_id = 1;
+      this.factura.valor_total = this.calcularTotal();
+      this.factura.user_id = 1; //Eliminar esto
+
+      this.factura.estado = 1; //Eliminar esto
+
+      this.axios.post("/api/facturas", this.factura).then(function (res) {
+        _this2.factura = res.data.data;
+
         _this2.detalleFacturas.forEach(function (item) {
           _this2.registrarDetalleFactura(item);
         });
 
         _this2.$swal("Factura registrada correctamente.");
+
+        _this2.limpiarFactura();
       })["catch"](function (err) {
         _this2.$swal({
           icon: "error",
@@ -3350,12 +3377,23 @@ __webpack_require__.r(__webpack_exports__);
       var detalleMovimiento = {
         cantidad: item.cantidad,
         valor_total: item.valor_total,
-        movimiento_id: item.cantidad,
+        movimiento_id: this.factura.id,
         bodega_id: item.bodega.id,
         producto_id: item.producto.id
-      };
-      console.log(detalleMovimiento); // console.log(detalleMovimiento);
-      //this.axios.post("/api/detalle-movimientos", item);
+      }; // console.log(detalleMovimiento);
+      // console.log(detalleMovimiento);
+
+      this.axios.post("/api/detalle-movimientos", detalleMovimiento);
+    },
+    guardarFactura: function guardarFactura() {
+      localStorage.setItem("factura", JSON.stringify(this.factura));
+    },
+    limpiarFactura: function limpiarFactura() {
+      this.limpiarCampos();
+      this.detalleFacturas = [];
+      this.factura = {};
+      localStorage.removeItem("factura");
+      localStorage.removeItem("detalleFacturas");
     }
   }
 });
@@ -3373,6 +3411,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -47975,13 +48016,16 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.sucursal,
-                      expression: "sucursal"
+                      value: _vm.factura.sucursale_id,
+                      expression: "factura.sucursale_id"
                     }
                   ],
                   staticClass: "form-select",
                   attrs: { id: "sucursal" },
                   on: {
+                    blur: function($event) {
+                      return _vm.guardarFactura()
+                    },
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
                         .call($event.target.options, function(o) {
@@ -47991,9 +48035,13 @@ var render = function() {
                           var val = "_value" in o ? o._value : o.value
                           return val
                         })
-                      _vm.sucursal = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
+                      _vm.$set(
+                        _vm.factura,
+                        "sucursale_id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
                     }
                   }
                 },
@@ -48020,14 +48068,78 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _c("div", { staticClass: "col-md-6" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "cliente" } },
+                [_vm._v("Cliente")]
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.factura.user_id,
+                      expression: "factura.user_id"
+                    }
+                  ],
+                  staticClass: "form-select",
+                  attrs: { id: "cliente" },
+                  on: {
+                    blur: function($event) {
+                      return _vm.guardarFactura()
+                    },
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.factura,
+                        "user_id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { disabled: "", value: "null" } }, [
+                    _vm._v("Seleccionar cliente...")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.clientes, function(cliente, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: cliente.id } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(cliente.nombre) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            ])
           ]),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
           _c("div", { staticClass: "table-responsive" }, [
             _c("table", { staticClass: "table table-striped table-hover" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -48358,14 +48470,14 @@ var render = function() {
                     _c("tr", { staticClass: "table-active" }, [
                       _c("td", { attrs: { colspan: "4" } }),
                       _vm._v(" "),
-                      _vm._m(2),
+                      _vm._m(1),
                       _vm._v(" "),
-                      _vm._m(3),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c("th", [
                         _c("h5", [
                           _vm._v(
-                            _vm._s(_vm.formatCurrency(_vm.factura.valor_total))
+                            _vm._s(_vm.formatCurrency(_vm.calcularTotal()))
                           )
                         ])
                       ]),
@@ -48399,6 +48511,9 @@ var render = function() {
               attrs: { id: "descripcion", rows: "3" },
               domProps: { value: _vm.factura.descripcion },
               on: {
+                blur: function($event) {
+                  return _vm.guardarFactura()
+                },
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -48419,28 +48534,22 @@ var render = function() {
             "router-link",
             {
               staticClass: "btn btn-secondary",
-              attrs: { to: { name: "facturas.index" } }
+              attrs: { to: { name: "facturas.index" } },
+              nativeOn: {
+                click: function($event) {
+                  return _vm.limpiarFactura()
+                }
+              }
             },
             [_vm._v("Cancelar")]
           )
         ],
         1
       )
-    ]),
-    _vm._v("\n    " + _vm._s(_vm.factura) + "\n")
+    ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "cliente" } }, [
-        _vm._v("Cliente")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -48542,46 +48651,45 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-info btn-sm",
+                        staticClass: "btn btn-info btn-sm text-white",
                         attrs: {
                           to: {
                             name: "facturas.show",
                             params: { id: factura.id }
-                          }
+                          },
+                          title: "Detalles"
                         }
                       },
-                      [_vm._v("Detalles")]
+                      [_c("i", { staticClass: "fas fa-info-circle" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm",
+                        staticClass: "btn btn-warning btn-sm text-white",
                         attrs: {
                           to: {
                             name: "facturas.edit",
                             params: { id: factura.id }
-                          }
+                          },
+                          title: "Editar"
                         }
                       },
-                      [_vm._v("Editar")]
+                      [_c("i", { staticClass: "fas fa-edit" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
                         staticClass: "btn btn-danger btn-sm",
+                        attrs: { title: "Eliminar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarSucursal(factura, index)
                           }
                         }
                       },
-                      [
-                        _vm._v(
-                          "\n                            Eliminar\n                        "
-                        )
-                      ]
+                      [_c("i", { staticClass: "fas fa-trash" })]
                     )
                   ],
                   1

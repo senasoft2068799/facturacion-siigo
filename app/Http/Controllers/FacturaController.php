@@ -15,7 +15,8 @@ class FacturaController extends Controller
 
     public function store(Request $request)
     {
-        Movimiento::create($request->all());
+        $factura = Movimiento::create($request->all());
+        return new FacturaResource($factura);
     }
 
     public function show(Movimiento $factura)

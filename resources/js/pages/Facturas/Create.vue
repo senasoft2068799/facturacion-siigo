@@ -7,7 +7,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="sucursal" class="form-label">Sucursal</label>
-                        <select class="form-select" id="sucursal" v-model="sucursal">
+                        <select class="form-select" id="sucursal" v-model="factura.sucursale_id" @blur="guardarFactura()">
                             <option disabled value="null">Seleccionar sucursal...</option>
                             <option v-for="(sucursal, index) in sucursales" :key="index" v-bind:value="sucursal.id">
                                 {{ sucursal.nombre }}
@@ -16,12 +16,12 @@
                     </div>
                     <div class="col-md-6">
                         <label for="cliente" class="form-label">Cliente</label>
-                            <!-- <select class="form-select" id="cliente" v-model="cliente">
+                            <select class="form-select" id="cliente" v-model="factura.user_id" @blur="guardarFactura()">
                                 <option disabled value="null">Seleccionar cliente...</option>
                                 <option v-for="(cliente, index) in clientes" :key="index" v-bind:value="cliente.id">
                                     {{ cliente.nombre }}
                                 </option>
-                            </select> -->
+                            </select>
                     </div>
                 </div>
                 <hr/>
@@ -120,7 +120,7 @@
                                 <td colspan="4"></td>
                                 <th><h5></h5></th>
                                 <th><h5></h5></th>
-                                <th><h5>{{ formatCurrency(factura.valor_total) }}</h5></th>
+                                <th><h5>{{ formatCurrency(calcularTotal()) }}</h5></th>
                                 <th></th>
                             </tr>
                         </tfoot>
@@ -131,16 +131,15 @@
                 <!-- Descripcion factura -->
                 <div class="mb-3">
                     <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="descripcion" rows="3" v-model="factura.descripcion"></textarea>
+                    <textarea class="form-control" id="descripcion" rows="3" v-model="factura.descripcion" @blur="guardarFactura()"></textarea>
                 </div>
                 <!-- Fin descripcion -->
                 <!-- Botones -->
                 <button type="submit" class="btn btn-success">Registrar</button>
-                <router-link class="btn btn-secondary" :to="{ name: 'facturas.index' }">Cancelar</router-link>
+                <router-link class="btn btn-secondary" @click.native="limpiarFactura()" :to="{ name: 'facturas.index' }">Cancelar</router-link>
                 <!-- Fin botones -->
             </form>
         </div>
-        {{factura}}
     </div>
 </template>
 
@@ -150,20 +149,14 @@ export default {
         return {
             editing: null,
             sucursales: [],
-            sucursal: {},
             clientes: [],
-            cliente: {},
             productos: [],
             producto: {},
             bodegas: [],
             bodega: {},
             factura: {
-                descripcion: null,
-                documento_id: 1,
                 sucursale_id: null,
-                user_id: 1,
-                valor_total: null,
-                estado: 1
+                user_id: null
             },
             detalleFacturas: [],
             detalleFactura: {},
@@ -174,6 +167,10 @@ export default {
         this.axios.get("/api/sucursales").then(res => {
             this.sucursales = res.data.data;
         });
+        //Mostrar lista de clientes
+        this.axios.get("/api/clientes").then(res => {
+            this.clientes = res.data.data;
+        });
         //Mostrar lista de productos
         this.axios.get("/api/productos").then(res => {
             this.productos = res.data.data;
@@ -182,8 +179,24 @@ export default {
         this.axios.get("/api/bodegas").then(res => {
             this.bodegas = res.data;
         });
+
+        let datosFactura = JSON.parse(localStorage.getItem("factura"));
+        if (datosFactura != null) {
+        this.factura = datosFactura;
+        }
+        let datosDetalle = JSON.parse(localStorage.getItem("detalleFacturas"));
+        if (datosDetalle != null) {
+        this.detalleFacturas = datosDetalle;
+        }
     },
     methods: {
+        calcularTotal(){
+            let valor = 0;
+            this.detalleFacturas.forEach((item) => {
+                valor += item.valor_total;
+            });
+            return valor;
+        },
         formatCurrency(number){
             var formatted = 0;
             if (!isNaN(number)){
@@ -203,10 +216,12 @@ export default {
             this.detalleFacturas.splice(0, 0, this.detalleFactura);
             this.limpiarCampos();
             this.factura.valor_total += valorDetalle;
+            localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
         },
         eliminarDetalleFactura(item, index) {
             this.detalleFacturas.splice(index, 1);
             this.factura.valor_total -= item.valor_total;
+            localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
         },
         iniciarEdicion(item, index) {
             this.editing = index;
@@ -221,6 +236,7 @@ export default {
             this.detalleFactura.producto = this.producto;
             this.detalleFactura.bodega = this.bodega;
             this.detalleFacturas.splice(this.editing, 1, this.detalleFactura);
+            localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
             this.cancelarEdicion();
         },
         cancelarEdicion() {
@@ -233,14 +249,19 @@ export default {
             this.bodega = {};
         },
         registrarFactura() {
-            this.factura.sucursale_id = this.sucursal;
+            this.factura.documento_id = 1;
+            this.factura.valor_total = this.calcularTotal();
+            this.factura.user_id = 1; //Eliminar esto
+            this.factura.estado = 1; //Eliminar esto
             this.axios
-                .get("/api/facturas", this.factura)
-                .then(response => {
+                .post("/api/facturas", this.factura)
+                .then(res => {
+                    this.factura = res.data.data;
                     this.detalleFacturas.forEach((item) => {
-                        this.registrarDetalleFactura(item);
+                        this.registrarDetalleFactura(item,);
                     });
                     this.$swal("Factura registrada correctamente.");
+                    this.limpiarFactura();
                 })
                 .catch(err => {
                     this.$swal({
@@ -253,14 +274,24 @@ export default {
             var detalleMovimiento = {
                 cantidad: item.cantidad,
                 valor_total: item.valor_total,
-                movimiento_id: item.cantidad,
+                movimiento_id: this.factura.id,
                 bodega_id: item.bodega.id,
                 producto_id: item.producto.id
             }
-            console.log(detalleMovimiento);
             // console.log(detalleMovimiento);
-            //this.axios.post("/api/detalle-movimientos", item);
-        }
+            // console.log(detalleMovimiento);
+            this.axios.post("/api/detalle-movimientos", detalleMovimiento);
+        },
+        guardarFactura(){
+            localStorage.setItem("factura", JSON.stringify(this.factura));
+        },
+        limpiarFactura(){
+            this.limpiarCampos();
+            this.detalleFacturas = [];
+            this.factura = {};
+            localStorage.removeItem("factura");
+            localStorage.removeItem("detalleFacturas");
+        },
     }
 };
 </script>
