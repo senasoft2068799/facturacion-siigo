@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="text-center">{{currentUser.name}}</p>
+        <p class="text-center">{{currentUser.nombre}} {{currentUser.apellido}}</p>
         <button class="btn btn-danger" @click="logout()">Cerrar sesión</button>
     </div>
 </template>

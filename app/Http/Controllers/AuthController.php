@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -12,15 +13,33 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            "name" => ["required"],
-            "email" => ["required", "email", "unique:users"],
-            "password" => ["required", "min:6", "confirmed"],
+            "id" => ["required", "unique:users", "min:6", "max:20"],
+            "tipo_documento" => ["required", Rule::in(
+                [
+                    "NIT",
+                    "CC",
+                    "TI",
+                    "TP",
+                    "RC",
+                    "CE",
+                    "DNI",
+                ]
+            ),],
+            "nombre" => ["required", "max:45"],
+            "apellido" => ["required", "max:45"],
+            "email" => ["required", "email", "unique:users", "min:6", "max:40"],
+            "telefono" => ["required", "min:7", "max:20"],
+            "password" => ["required", "min:6", "max:20", "confirmed"],
             "password_confirmation" => ["required",]
         ]);
 
         User::create([
-            "name" => $request->name,
+            "id" => $request->id,
+            "tipo_documento" => $request->tipo_documento,
+            "nombre" => $request->nombre,
+            "apellido" => $request->apellido,
             "email" => $request->email,
+            "telefono" => $request->telefono,
             "password" => Hash::make($request->password)
         ]);
 
@@ -46,7 +65,8 @@ class AuthController extends Controller
         return $user->createToken($request->device_name)->plainTextToken;
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         $request->user()->currentAccessToken()->delete();
         return response()->json(["msg" => "Sesión finalizada correctamente."]);
     }

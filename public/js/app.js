@@ -2463,22 +2463,70 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       formData: {
         // id: null,
-        // tipo_documento: null,
-        // nombre: null,
-        // apellido: null,
-        // email: null,
-        // telefono: null,
-        // password: null,
-        // role_id: null
-        name: null,
+        tipo_documento: null,
+        nombre: null,
+        apellido: null,
         email: null,
+        telefono: null,
         password: null,
-        password_confirmation: null
+        password_confirmation: null // role_id: null
+
       },
       errors: {}
     };
@@ -2488,8 +2536,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post("/api/register", this.formData).then(function (response) {
-        console.log("Bien");
-        console.log(response.data);
         _this.errors = {};
 
         _this.$router.push("/login");
@@ -47220,7 +47266,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card", staticStyle: { width: "24rem" } }, [
+  return _c("div", { staticClass: "card", staticStyle: { width: "30rem" } }, [
     _c("div", { staticClass: "card-header" }, [
       _c("ul", { staticClass: "nav nav-tabs card-header-tabs" }, [
         _c(
@@ -47253,8 +47299,83 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "mb-3" }, [
-            _c("label", { staticClass: "form-label", attrs: { for: "name" } }, [
-              _vm._v("Nombre")
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "tipo_documento" } },
+              [_vm._v("Tipo de documento")]
+            ),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.tipo_documento,
+                    expression: "formData.tipo_documento"
+                  }
+                ],
+                staticClass: "form-select",
+                attrs: { id: "tipo_documento" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.formData,
+                      "tipo_documento",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { disabled: "", value: "null" } }, [
+                  _vm._v("Seleccionar...")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "CC" } }, [
+                  _vm._v("Cédula ciudadanía (CC)")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "TI" } }, [
+                  _vm._v("Tarjeta de identidad (TI)")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "TP" } }, [
+                  _vm._v("Tarjeta de pasaporte (TP)")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "RC" } }, [
+                  _vm._v("Registro civil (RC)")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "CE" } }, [
+                  _vm._v("Cédula de extranjería (CE)")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "DNI" } }, [
+                  _vm._v("Documento nacional de identidad (DNI)")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("p", {
+              staticClass: "text-danger",
+              domProps: { textContent: _vm._s(_vm.errors.tipo_documento) }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-3" }, [
+            _c("label", { staticClass: "form-label", attrs: { for: "id" } }, [
+              _vm._v("Número de documento")
             ]),
             _vm._v(" "),
             _c("input", {
@@ -47262,26 +47383,133 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.formData.name,
-                  expression: "formData.name"
+                  value: _vm.formData.id,
+                  expression: "formData.id"
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", id: "name" },
-              domProps: { value: _vm.formData.name },
+              attrs: { type: "text", id: "id" },
+              domProps: { value: _vm.formData.id },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.formData, "name", $event.target.value)
+                  _vm.$set(_vm.formData, "id", $event.target.value)
                 }
               }
             }),
             _vm._v(" "),
             _c("p", {
               staticClass: "text-danger",
-              domProps: { textContent: _vm._s(_vm.errors.name) }
+              domProps: { textContent: _vm._s(_vm.errors.id) }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "nombre" } },
+                [_vm._v("Nombre")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.nombre,
+                    expression: "formData.nombre"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", id: "nombre" },
+                domProps: { value: _vm.formData.nombre },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "nombre", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("p", {
+                staticClass: "text-danger",
+                domProps: { textContent: _vm._s(_vm.errors.nombre) }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-6" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "apellido" } },
+                [_vm._v("Apellido")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.apellido,
+                    expression: "formData.apellido"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", id: "apellido" },
+                domProps: { value: _vm.formData.apellido },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.formData, "apellido", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("p", {
+                staticClass: "text-danger",
+                domProps: { textContent: _vm._s(_vm.errors.apellido) }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "telefono" } },
+              [_vm._v("Teléfono")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.telefono,
+                  expression: "formData.telefono"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "tel", id: "telefono" },
+              domProps: { value: _vm.formData.telefono },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "telefono", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("p", {
+              staticClass: "text-danger",
+              domProps: { textContent: _vm._s(_vm.errors.telefono) }
             })
           ]),
           _vm._v(" "),
@@ -47403,7 +47631,8 @@ var render = function() {
             "button",
             { staticClass: "btn btn-success", attrs: { type: "submit" } },
             [_vm._v("\n                Registrar\n            ")]
-          )
+          ),
+          _vm._v("\n            " + _vm._s(_vm.formData) + "\n        ")
         ]
       )
     ])
@@ -47943,7 +48172,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("p", { staticClass: "text-center" }, [
-      _vm._v(_vm._s(_vm.currentUser.name))
+      _vm._v(
+        _vm._s(_vm.currentUser.nombre) + " " + _vm._s(_vm.currentUser.apellido)
+      )
     ]),
     _vm._v(" "),
     _c(
