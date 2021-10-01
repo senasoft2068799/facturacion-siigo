@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\SucursaleController;
@@ -28,8 +29,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-//Route::apiResource('documentos', DocumentoController::class);
+Route::post("register", [AuthController::class, "register"]);
+Route::post("login", [AuthController::class, "login"]);
+Route::post("logout", [AuthController::class, "logout"])->middleware("auth:sanctum");
 
 Route::middleware('api')->group(function () {
     // Route::get("permisos", [PermisoController::class, "index"]);
@@ -45,5 +47,4 @@ Route::middleware('api')->group(function () {
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
     // Route::apiResource('ciudades', CiudadeController::class);
-    
 });

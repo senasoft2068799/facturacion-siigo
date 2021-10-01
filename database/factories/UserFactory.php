@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -23,11 +24,24 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'id' => $this->faker->randomNumber(9, true),
+            'tipo_documento' => $this->faker->randomElement([
+                "NIT", // NIT Empresa
+                "CC", // Cedula ciudadanía
+                "TI", // Tarjeta identidad
+                "TP", // Tarjeta pasaporte
+                "RC", // Registro civil 
+                "CE", // Cedula extrangería 
+                "DNI", // Documento nacional de identidad
+            ]),
+            'nombre' => $this->faker->firstName(),
+            'apellido' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'telefono' => $this->faker->e164PhoneNumber(),
+            'password' => '$10$uyEvh1moLpdhXdNKYV2qCu01LQ4qRhqVjYe7FCGrGUWRlLEorZFEi', // password: 12345678
             'remember_token' => Str::random(10),
+            'role_id' => Role::inRandomOrder()->first()->id,
         ];
     }
 

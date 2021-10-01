@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import Register from "./pages/Auth/Register.vue";
+import Login from "./pages/Auth/Login.vue";
+>>>>>>> 114a6eee015d7a0f77f48d1876f60c4976efa99c
 import Dashboard from "./pages/Dashboard.vue";
 import RolesIndex from "./pages/Roles/Index.vue";
 import RolesShow from "./pages/Roles/Show.vue";
@@ -34,6 +39,21 @@ export const routes = [
     // Dashboard
     //
     {
+<<<<<<< HEAD
+=======
+        name: "register",
+        path: "/register",
+        component: Register,
+        meta: { guest: true }
+    },
+    {
+        name: "login",
+        path: "/login",
+        component: Login,
+        meta: { guest: true }
+    },
+    {
+>>>>>>> 114a6eee015d7a0f77f48d1876f60c4976efa99c
         name: "dashboard",
         path: "/",
         component: Dashboard
@@ -177,7 +197,8 @@ export const routes = [
     {
         name: "facturas.index",
         path: "/facturas",
-        component: FacturasIndex
+        component: FacturasIndex,
+        meta: { requiresAuth: true }
     },
     {
         name: "facturas.create",
@@ -187,7 +208,7 @@ export const routes = [
     {
         name: "facturas.show",
         path: "/facturas/:id",
-        component: FacturasShow,
+        component: FacturasShow
     },
     {
         name: "facturas.edit",
