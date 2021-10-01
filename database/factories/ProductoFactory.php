@@ -23,7 +23,7 @@ class ProductoFactory extends Factory
     public function definition()
     {
         return [
-            "nombre" => $this->faker->sentence(2, false),
+            "nombre" => $this->faker->unique->sentence(2, false),
             "precio_unitario" => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
             "categoria_id" => Categoria::inRandomOrder()->first()->id,
         ];

@@ -3237,240 +3237,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      editMode: {
-        editing: false,
-        index: null
-      },
+      editing: null,
       sucursales: [],
-      sucursal: {},
       clientes: [],
-      cliente: {},
       productos: [],
       producto: {},
       bodegas: [],
       bodega: {},
       factura: {
-        descripcion: null,
-        documento_id: 1,
         sucursale_id: null,
-        user_id: 1,
-        valor_total: null,
-        estado: 1
+        user_id: null
       },
       detalleFacturas: [],
-      detalleFactura: {
-        movimiento_id: 1,
-        bodega_id: null,
-        producto_id: null,
-        cantidad: 0,
-        valor_total: 0
-      }
+      detalleFactura: {}
     };
   },
   mounted: function mounted() {
@@ -3479,17 +3261,51 @@ __webpack_require__.r(__webpack_exports__);
     //Mostrar lista de sucursales
     this.axios.get("/api/sucursales").then(function (res) {
       _this.sucursales = res.data.data;
+    }); //Mostrar lista de clientes
+
+    this.axios.get("/api/clientes").then(function (res) {
+      _this.clientes = res.data.data;
     }); //Mostrar lista de productos
 
     this.axios.get("/api/productos").then(function (res) {
-      _this.productos = res.data;
+      _this.productos = res.data.data;
     }); //Mostrar lista de bodegas
 
     this.axios.get("/api/bodegas").then(function (res) {
       _this.bodegas = res.data;
     });
+    var datosFactura = JSON.parse(localStorage.getItem("factura"));
+
+    if (datosFactura != null) {
+      this.factura = datosFactura;
+    }
+
+    var datosDetalle = JSON.parse(localStorage.getItem("detalleFacturas"));
+
+    if (datosDetalle != null) {
+      this.detalleFacturas = datosDetalle;
+    }
   },
   methods: {
+    calcularTotal: function calcularTotal() {
+      var valor = 0;
+      this.detalleFacturas.forEach(function (item) {
+        valor += item.valor_total;
+      });
+      return valor;
+    },
+    formatCurrency: function formatCurrency(number) {
+      var formatted = 0;
+
+      if (!isNaN(number)) {
+        formatted = new Intl.NumberFormat('es-CO', {
+          style: 'currency',
+          currency: 'COP'
+        }).format(number);
+      }
+
+      return formatted;
+    },
     agregarDetalleFactura: function agregarDetalleFactura() {
       var valorDetalle;
       valorDetalle = this.producto.precio_unitario * this.detalleFactura.cantidad * 1.19;
@@ -3497,35 +3313,36 @@ __webpack_require__.r(__webpack_exports__);
       this.detalleFactura.producto = this.producto;
       this.detalleFactura.bodega = this.bodega;
       this.detalleFacturas.splice(0, 0, this.detalleFactura);
-      this.limpiar();
+      this.limpiarCampos();
       this.factura.valor_total += valorDetalle;
+      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
     },
-    eliminarDetalleFactura: function eliminarDetalleFactura(detalleFac, index) {
+    eliminarDetalleFactura: function eliminarDetalleFactura(item, index) {
       this.detalleFacturas.splice(index, 1);
-      this.factura.valor_total -= detalleFac.valor_total;
+      this.factura.valor_total -= item.valor_total;
+      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
     },
-    iniciarEdicion: function iniciarEdicion(detalleFac, index) {
-      this.editMode.editing = true;
-      this.editMode.index = index; // this.detalleFactura.cantidad = detalleFac.cantidad;
+    iniciarEdicion: function iniciarEdicion(item, index) {
+      this.editing = index; // this.detalleFactura.cantidad = detalleFac.cantidad;
       // this.detalleFactura.producto = detalleFac.producto;
       // this.detalleFactura.bodega = detalleFac.bodega;
 
-      this.detalleFactura = detalleFac;
-      this.producto = detalleFac.producto;
-      this.bodega = detalleFac.bodega;
+      this.detalleFactura = item;
+      this.producto = item.producto;
+      this.bodega = item.bodega;
     },
     editarDetalleFactura: function editarDetalleFactura() {
       this.detalleFactura.producto = this.producto;
       this.detalleFactura.bodega = this.bodega;
-      this.detalleFacturas.splice(this.editMode.index, 1, this.detalleFactura);
+      this.detalleFacturas.splice(this.editing, 1, this.detalleFactura);
+      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
       this.cancelarEdicion();
     },
     cancelarEdicion: function cancelarEdicion() {
-      this.editMode.editing = false;
-      this.editMode.index = null;
-      this.limpiar();
+      this.editing = null;
+      this.limpiarCampos();
     },
-    limpiar: function limpiar() {
+    limpiarCampos: function limpiarCampos() {
       this.detalleFactura = {};
       this.producto = {};
       this.bodega = {};
@@ -3533,15 +3350,50 @@ __webpack_require__.r(__webpack_exports__);
     registrarFactura: function registrarFactura() {
       var _this2 = this;
 
-      this.factura.sucursale_id = this.sucursal;
-      this.axios.post("/api/facturas", this.factura).then(function (response) {
+      this.factura.documento_id = 1;
+      this.factura.valor_total = this.calcularTotal();
+      this.factura.user_id = 1; //Eliminar esto
+
+      this.factura.estado = 1; //Eliminar esto
+
+      this.axios.post("/api/facturas", this.factura).then(function (res) {
+        _this2.factura = res.data.data;
+
+        _this2.detalleFacturas.forEach(function (item) {
+          _this2.registrarDetalleFactura(item);
+        });
+
         _this2.$swal("Factura registrada correctamente.");
+
+        _this2.limpiarFactura();
       })["catch"](function (err) {
         _this2.$swal({
           icon: "error",
           title: "Ha ocurrido un error:\n" + err
         });
       });
+    },
+    registrarDetalleFactura: function registrarDetalleFactura(item) {
+      var detalleMovimiento = {
+        cantidad: item.cantidad,
+        valor_total: item.valor_total,
+        movimiento_id: this.factura.id,
+        bodega_id: item.bodega.id,
+        producto_id: item.producto.id
+      }; // console.log(detalleMovimiento);
+      // console.log(detalleMovimiento);
+
+      this.axios.post("/api/detalle-movimientos", detalleMovimiento);
+    },
+    guardarFactura: function guardarFactura() {
+      localStorage.setItem("factura", JSON.stringify(this.factura));
+    },
+    limpiarFactura: function limpiarFactura() {
+      this.limpiarCampos();
+      this.detalleFacturas = [];
+      this.factura = {};
+      localStorage.removeItem("factura");
+      localStorage.removeItem("detalleFacturas");
     }
   }
 });
@@ -3559,6 +3411,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
 //
 //
 //
@@ -3764,19 +3619,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["id"],
   data: function data() {
     return {
-      factura: {},
-      detalleFacturas: []
+      factura: {}
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     //Mostrar factura
-    this.axios.get("/api/facturas/" + this.id).then(function (res) {
+    this.axios.get("/api/facturas/" + this.$route.params.id).then(function (res) {
       _this.factura = res.data.data;
     });
   }
@@ -5084,8 +4938,7 @@ var routes = [//
 }, {
   name: "facturas.show",
   path: "/facturas/:id",
-  component: _pages_Facturas_Show_vue__WEBPACK_IMPORTED_MODULE_20__["default"],
-  props: true
+  component: _pages_Facturas_Show_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
 }, {
   name: "facturas.edit",
   path: "/facturas/:id/edit",
@@ -48240,565 +48093,570 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "card mb-3" }, [
-      _c("div", { staticClass: "card-header" }, [_vm._v("Registrar factura")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c(
-          "form",
-          {
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.registrarFactura()
-              }
+  return _c("div", { staticClass: "card mb-3" }, [
+    _c("div", { staticClass: "card-header" }, [_vm._v("Registrar factura")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.registrarFactura()
             }
-          },
-          [
-            _c("div", { staticClass: "row mb-3" }, [
-              _c("div", { staticClass: "col-md-6" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "sucursal" } },
-                  [_vm._v("Sucursal")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.sucursal,
-                        expression: "sucursal"
-                      }
-                    ],
-                    staticClass: "form-select",
-                    attrs: { id: "sucursal" },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.sucursal = $event.target.multiple
+          }
+        },
+        [
+          _c("div", { staticClass: "row mb-3" }, [
+            _c("div", { staticClass: "col-md-6" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "sucursal" } },
+                [_vm._v("Sucursal")]
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.factura.sucursale_id,
+                      expression: "factura.sucursale_id"
+                    }
+                  ],
+                  staticClass: "form-select",
+                  attrs: { id: "sucursal" },
+                  on: {
+                    blur: function($event) {
+                      return _vm.guardarFactura()
+                    },
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.factura,
+                        "sucursale_id",
+                        $event.target.multiple
                           ? $$selectedVal
                           : $$selectedVal[0]
-                      }
+                      )
                     }
-                  },
-                  [
-                    _c("option", { attrs: { disabled: "", value: "null" } }, [
-                      _vm._v(
-                        "Seleccionar sucursal...\n                            "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm._l(_vm.sucursales, function(sucursal, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: sucursal.id } },
-                        [
-                          _vm._v(
-                            "\n                                " +
-                              _vm._s(sucursal.nombre) +
-                              "\n                            "
-                          )
-                        ]
-                      )
-                    })
-                  ],
-                  2
-                )
-              ]),
-              _vm._v(" "),
-              _vm._m(0)
+                  }
+                },
+                [
+                  _c("option", { attrs: { disabled: "", value: "null" } }, [
+                    _vm._v("Seleccionar sucursal...")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.sucursales, function(sucursal, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: sucursal.id } },
+                      [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(sucursal.nombre) +
+                            "\n                        "
+                        )
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
             ]),
             _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "table-responsive" }, [
-              _c("table", { staticClass: "table" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  [
-                    _c("tr", [
-                      _c("td", [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.producto,
-                                expression: "producto"
-                              }
-                            ],
-                            staticClass: "form-select",
-                            attrs: { id: "producto" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.producto = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { disabled: "", value: "null" } },
-                              [_vm._v("Seleccionar...")]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.productos, function(producto, index) {
-                              return _c(
-                                "option",
-                                { key: index, domProps: { value: producto } },
-                                [_vm._v(_vm._s(producto.nombre))]
-                              )
-                            })
-                          ],
-                          2
+            _c("div", { staticClass: "col-md-6" }, [
+              _c(
+                "label",
+                { staticClass: "form-label", attrs: { for: "cliente" } },
+                [_vm._v("Cliente")]
+              ),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.factura.user_id,
+                      expression: "factura.user_id"
+                    }
+                  ],
+                  staticClass: "form-select",
+                  attrs: { id: "cliente" },
+                  on: {
+                    blur: function($event) {
+                      return _vm.guardarFactura()
+                    },
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.factura,
+                        "user_id",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { disabled: "", value: "null" } }, [
+                    _vm._v("Seleccionar cliente...")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.clientes, function(cliente, index) {
+                    return _c(
+                      "option",
+                      { key: index, domProps: { value: cliente.id } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(cliente.nombre) +
+                            "\n                            "
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("input", {
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-responsive" }, [
+            _c("table", { staticClass: "table table-striped table-hover" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                [
+                  _c("tr", [
+                    _c("td", [
+                      _c(
+                        "select",
+                        {
                           directives: [
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.detalleFactura.cantidad,
-                              expression: "detalleFactura.cantidad"
+                              value: _vm.producto,
+                              expression: "producto"
                             }
                           ],
-                          staticClass: "form-control",
-                          attrs: { type: "number", id: "cantidad" },
-                          domProps: { value: _vm.detalleFactura.cantidad },
+                          staticClass: "form-select",
+                          attrs: { id: "producto" },
                           on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.detalleFactura,
-                                "cantidad",
-                                $event.target.value
-                              )
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.producto = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
                             }
                           }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.bodega,
-                                expression: "bodega"
-                              }
-                            ],
-                            staticClass: "form-select",
-                            attrs: { id: "bodega" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.bodega = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c(
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { disabled: "", value: "null" } },
+                            [_vm._v("Seleccionar...")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.productos, function(producto, index) {
+                            return _c(
                               "option",
-                              { attrs: { disabled: "", value: "null" } },
+                              { key: index, domProps: { value: producto } },
                               [
                                 _vm._v(
-                                  "\n                                            Seleccionar...\n                                        "
+                                  "\n                                        " +
+                                    _vm._s(producto.nombre) +
+                                    "\n                                    "
                                 )
                               ]
-                            ),
-                            _vm._v(" "),
-                            _vm._l(_vm.bodegas, function(bodega, index) {
-                              return _c(
-                                "option",
-                                { key: index, domProps: { value: bodega } },
-                                [
-                                  _vm._v(
-                                    "\n                                            " +
-                                      _vm._s(bodega.nombre) +
-                                      "\n                                        "
-                                  )
-                                ]
-                              )
-                            })
-                          ],
-                          2
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm.producto.precio_unitario != null
-                          ? _c("p", [
-                              _vm._v(
-                                "\n                                        $" +
-                                  _vm._s(_vm.producto.precio_unitario) +
-                                  "\n                                    "
-                              )
-                            ])
-                          : _c("p", [
-                              _vm._v(
-                                "\n                                        -\n                                    "
-                              )
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm.producto.precio_unitario != null
-                          ? _c("p", [
-                              _vm._v(
-                                "\n                                        $" +
-                                  _vm._s(
-                                    _vm.producto.precio_unitario *
-                                      _vm.detalleFactura.cantidad
-                                  ) +
-                                  "\n                                    "
-                              )
-                            ])
-                          : _c("p", [
-                              _vm._v(
-                                "\n                                        -\n                                    "
-                              )
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm.producto.precio_unitario != null
-                          ? _c("p", [
-                              _vm._v(
-                                "\n                                        $" +
-                                  _vm._s(
-                                    _vm.producto.precio_unitario *
-                                      _vm.detalleFactura.cantidad *
-                                      0.19
-                                  ) +
-                                  "\n                                    "
-                              )
-                            ])
-                          : _c("p", [
-                              _vm._v(
-                                "\n                                        -\n                                    "
-                              )
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm.producto.precio_unitario != null
-                          ? _c("p", [
-                              _vm._v(
-                                "\n                                        $" +
-                                  _vm._s(
-                                    _vm.producto.precio_unitario *
-                                      _vm.detalleFactura.cantidad *
-                                      1.19
-                                  ) +
-                                  "\n                                    "
-                              )
-                            ])
-                          : _c("p", [
-                              _vm._v(
-                                "\n                                        -\n                                    "
-                              )
-                            ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        !_vm.editMode.editing
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success btn-sm",
-                                attrs: { title: "Agregar", type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.agregarDetalleFactura()
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-plus-circle" })]
                             )
-                          : _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-success btn-sm",
-                                attrs: {
-                                  title: "Confirmar edición",
-                                  type: "button"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.editarDetalleFactura()
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-check-circle" })]
-                            ),
-                        _vm._v(" "),
-                        !_vm.editMode.editing
-                          ? _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-secondary btn-sm",
-                                attrs: { title: "Limpiar", type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.limpiar()
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-eraser" })]
-                            )
-                          : _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger btn-sm",
-                                attrs: { title: "Cancelar", type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    return _vm.cancelarEdicion()
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fas fa-times-circle" })]
-                            )
-                      ])
+                          })
+                        ],
+                        2
+                      )
                     ]),
                     _vm._v(" "),
-                    _vm._l(_vm.detalleFacturas, function(detalleFac, index) {
-                      return _c("tr", { key: index }, [
-                        _c("td", [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(detalleFac.producto.nombre) +
-                              "\n                                "
+                    _c("td", [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.detalleFactura.cantidad,
+                            expression: "detalleFactura.cantidad"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", id: "cantidad" },
+                        domProps: { value: _vm.detalleFactura.cantidad },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.detalleFactura,
+                              "cantidad",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.bodega,
+                              expression: "bodega"
+                            }
+                          ],
+                          staticClass: "form-select",
+                          attrs: { id: "bodega" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.bodega = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "option",
+                            { attrs: { disabled: "", value: "null" } },
+                            [_vm._v("Seleccionar...")]
+                          ),
+                          _vm._v(" "),
+                          _vm._l(_vm.bodegas, function(bodega, index) {
+                            return _c(
+                              "option",
+                              { key: index, domProps: { value: bodega } },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(bodega.nombre) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          })
+                        ],
+                        2
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(_vm.formatCurrency(_vm.producto.precio_unitario))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.formatCurrency(
+                            _vm.producto.precio_unitario *
+                              _vm.detalleFactura.cantidad
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(detalleFac.cantidad))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n                                    " +
-                              _vm._s(detalleFac.bodega.nombre) +
-                              "\n                                "
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.formatCurrency(
+                            _vm.producto.precio_unitario *
+                              _vm.detalleFactura.cantidad *
+                              0.19
                           )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          detalleFac.producto.precio_unitario != null
-                            ? _c("p", [
-                                _vm._v(
-                                  "\n                                        $" +
-                                    _vm._s(
-                                      detalleFac.producto.precio_unitario
-                                    ) +
-                                    "\n                                    "
-                                )
-                              ])
-                            : _c("p", [
-                                _vm._v(
-                                  "\n                                        -\n                                    "
-                                )
-                              ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          detalleFac.producto.precio_unitario != null
-                            ? _c("p", [
-                                _vm._v(
-                                  "\n                                        $" +
-                                    _vm._s(
-                                      detalleFac.producto.precio_unitario *
-                                        detalleFac.cantidad
-                                    ) +
-                                    "\n                                    "
-                                )
-                              ])
-                            : _c("p", [
-                                _vm._v(
-                                  "\n                                        -\n                                    "
-                                )
-                              ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          detalleFac.producto.precio_unitario != null
-                            ? _c("p", [
-                                _vm._v(
-                                  "\n                                        $" +
-                                    _vm._s(
-                                      detalleFac.producto.precio_unitario *
-                                        detalleFac.cantidad *
-                                        0.19
-                                    ) +
-                                    "\n                                    "
-                                )
-                              ])
-                            : _c("p", [
-                                _vm._v(
-                                  "\n                                        -\n                                    "
-                                )
-                              ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          detalleFac.producto.precio_unitario != null
-                            ? _c("p", [
-                                _vm._v(
-                                  "\n                                        $" +
-                                    _vm._s(detalleFac.valor_total) +
-                                    "\n                                    "
-                                )
-                              ])
-                            : _c("p", [
-                                _vm._v(
-                                  "\n                                        -\n                                    "
-                                )
-                              ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          _vm.formatCurrency(
+                            _vm.producto.precio_unitario *
+                              _vm.detalleFactura.cantidad *
+                              1.19
+                          )
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.editing == null
+                      ? _c("td", [
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-warning btn-sm text-white",
-                              attrs: { title: "Editar", type: "button" },
+                              staticClass: "btn btn-success btn-sm",
+                              attrs: { type: "button", title: "Agregar" },
                               on: {
                                 click: function($event) {
-                                  return _vm.iniciarEdicion(detalleFac, index)
+                                  return _vm.agregarDetalleFactura()
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-edit" })]
+                            [_c("i", { staticClass: "fas fa-plus-circle" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: { type: "button", title: "Limpiar" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.limpiarCampos()
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-eraser" })]
+                          )
+                        ])
+                      : _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-success btn-sm",
+                              attrs: {
+                                type: "button",
+                                title: "Confirmar edición"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editarDetalleFactura()
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-check-circle" })]
                           ),
                           _vm._v(" "),
                           _c(
                             "button",
                             {
                               staticClass: "btn btn-danger btn-sm",
-                              attrs: { title: "Eliminar", type: "button" },
+                              attrs: { type: "button", title: "Cancelar" },
                               on: {
                                 click: function($event) {
-                                  return _vm.eliminarDetalleFactura(
-                                    detalleFac,
-                                    index
-                                  )
+                                  return _vm.cancelarEdicion()
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-trash" })]
+                            [_c("i", { staticClass: "fas fa-times-circle" })]
                           )
                         ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.detalleFacturas, function(item, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", [_vm._v(_vm._s(item.producto.nombre))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.cantidad))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(item.bodega.nombre))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.formatCurrency(item.producto.precio_unitario)
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.formatCurrency(
+                              item.producto.precio_unitario * item.cantidad
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm.formatCurrency(
+                              item.producto.precio_unitario *
+                                item.cantidad *
+                                0.19
+                            )
+                          )
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.formatCurrency(item.valor_total)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-warning btn-sm text-white",
+                            attrs: { type: "button", title: "Editar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.iniciarEdicion(item, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-edit" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: { type: "button", title: "Eliminar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarDetalleFactura(item, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-trash" })]
+                        )
                       ])
-                    })
-                  ],
-                  2
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "mb-3" }, [
-              _c(
-                "label",
-                { staticClass: "form-label", attrs: { for: "descripcion" } },
-                [_vm._v("Descripción")]
+                    ])
+                  })
+                ],
+                2
               ),
               _vm._v(" "),
-              _c("textarea", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.factura.descripcion,
-                    expression: "factura.descripcion"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "descripcion", rows: "3" },
-                domProps: { value: _vm.factura.descripcion },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.factura, "descripcion", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
+              _vm.detalleFacturas.length > 0
+                ? _c("tfoot", [
+                    _c("tr", { staticClass: "table-active" }, [
+                      _c("td", { attrs: { colspan: "4" } }),
+                      _vm._v(" "),
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("th", [
+                        _c("h5", [
+                          _vm._v(
+                            _vm._s(_vm.formatCurrency(_vm.calcularTotal()))
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("th")
+                    ])
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("hr"),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-3" }, [
             _c(
-              "button",
-              { staticClass: "btn btn-success", attrs: { type: "submit" } },
-              [_vm._v("\n                    Registrar\n                ")]
+              "label",
+              { staticClass: "form-label", attrs: { for: "descripcion" } },
+              [_vm._v("Descripción")]
             ),
             _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { to: { name: "facturas.index" } }
-              },
-              [_vm._v("Cancelar")]
-            )
-          ],
-          1
-        )
-      ])
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.factura.descripcion,
+                  expression: "factura.descripcion"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { id: "descripcion", rows: "3" },
+              domProps: { value: _vm.factura.descripcion },
+              on: {
+                blur: function($event) {
+                  return _vm.guardarFactura()
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.factura, "descripcion", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [_vm._v("Registrar")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: { to: { name: "facturas.index" } },
+              nativeOn: {
+                click: function($event) {
+                  return _vm.limpiarFactura()
+                }
+              }
+            },
+            [_vm._v("Cancelar")]
+          )
+        ],
+        1
+      )
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "cliente" } }, [
-        _vm._v("Cliente")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -48822,6 +48680,18 @@ var staticRenderFns = [
         _c("th", [_vm._v("Funciones")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [_c("h5")])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [_c("h5")])
   }
 ]
 render._withStripped = true
@@ -48888,46 +48758,45 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-info btn-sm",
+                        staticClass: "btn btn-info btn-sm text-white",
                         attrs: {
                           to: {
                             name: "facturas.show",
                             params: { id: factura.id }
-                          }
+                          },
+                          title: "Detalles"
                         }
                       },
-                      [_vm._v("Detalles")]
+                      [_c("i", { staticClass: "fas fa-info-circle" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm",
+                        staticClass: "btn btn-warning btn-sm text-white",
                         attrs: {
                           to: {
                             name: "facturas.edit",
                             params: { id: factura.id }
-                          }
+                          },
+                          title: "Editar"
                         }
                       },
-                      [_vm._v("Editar")]
+                      [_c("i", { staticClass: "fas fa-edit" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
                         staticClass: "btn btn-danger btn-sm",
+                        attrs: { title: "Eliminar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarSucursal(factura, index)
                           }
                         }
                       },
-                      [
-                        _vm._v(
-                          "\n                            Eliminar\n                        "
-                        )
-                      ]
+                      [_c("i", { staticClass: "fas fa-trash" })]
                     )
                   ],
                   1
@@ -49019,32 +48888,35 @@ var render = function() {
           _c("table", { staticClass: "table table-striped table-hover" }, [
             _vm._m(0),
             _vm._v(" "),
-            _vm.detalleFacturas.length > 0
+            _vm.factura.detalle_facturas.length > 0
               ? _c(
                   "tbody",
-                  _vm._l(_vm.detalleFacturas, function(detalleFac, index) {
+                  _vm._l(_vm.factura.detalle_facturas, function(
+                    detalleFactura,
+                    index
+                  ) {
                     return _c("tr", { key: index }, [
                       _c("td", [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(detalleFac.producto.nombre) +
+                            _vm._s(detalleFactura.producto.nombre) +
                             "\n                        "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(detalleFac.cantidad))]),
+                      _c("td", [_vm._v(_vm._s(detalleFactura.cantidad))]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
                           "\n                            " +
-                            _vm._s(detalleFac.bodega.nombre) +
+                            _vm._s(detalleFactura.bodega.nombre) +
                             "\n                        "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "$" + _vm._s(detalleFac.producto.precio_unitario)
+                          "$" + _vm._s(detalleFactura.producto.precio_unitario)
                         )
                       ]),
                       _vm._v(" "),
@@ -49052,8 +48924,8 @@ var render = function() {
                         _vm._v(
                           "\n                            $" +
                             _vm._s(
-                              detalleFac.producto.precio_unitario *
-                                detalleFac.cantidad
+                              detalleFactura.producto.precio_unitario *
+                                detalleFactura.cantidad
                             ) +
                             "\n                        "
                         )
@@ -49063,22 +48935,24 @@ var render = function() {
                         _vm._v(
                           "\n                            $" +
                             _vm._s(
-                              detalleFac.producto.precio_unitario *
-                                detalleFac.cantidad *
+                              detalleFactura.producto.precio_unitario *
+                                detalleFactura.cantidad *
                                 0.19
                             ) +
                             "\n                        "
                         )
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("$" + _vm._s(detalleFac.valor_total))])
+                      _c("td", [
+                        _vm._v("$" + _vm._s(detalleFactura.valor_total))
+                      ])
                     ])
                   }),
                   0
                 )
               : _c("tbody", [_vm._m(1)]),
             _vm._v(" "),
-            _vm.detalleFacturas.length > 0
+            _vm.factura.detalle_facturas.length > 0
               ? _c("tfoot", [
                   _c("tr", { staticClass: "table-active" }, [
                     _c("td", { attrs: { colspan: "4" } }),
@@ -65926,7 +65800,7 @@ Vue.compile = compileToFunctions;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp\\\\htdocs\\\\facturacion-siigo"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\xampp\\\\htdocs\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\xampp\\\\htdocs\\\\Mentorias PHP\\\\Facturacion Siigo\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
