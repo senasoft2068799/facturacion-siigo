@@ -6,6 +6,8 @@ use App\Http\Resources\ProductoResource;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class ProductoController extends Controller
 {
     public function index()
@@ -25,7 +27,16 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
-        Producto::create($request->all());
+        $fecha = now();
+        $datosProducto = $request->all();
+        if($request->hasFile('imagen')){
+            $datosProducto['imagen'] = $request->file('imagen')->store('public/imagenes');
+        }
+        $datosProducto['created_at'] = $fecha;
+        $datosProducto['updated_at'] = $fecha;
+        $url = Storage::url($datosProducto['imagen']);
+        $datosProducto['imagen'] = $url;
+        Producto::insert($datosProducto);
     }
 
     public function show(Producto $producto)
@@ -53,6 +64,15 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
+        // $fecha = now();
+        // $producto->update($request->all());
+        // if($request->hasFile('imagen')){
+        //     $producto['imagen'] = $request->file('imagen')->store('public/imagenes');
+        // }
+        // $producto['updated_at'] = $fecha;
+        // $url = Storage::url($producto['imagen']);
+        // $producto['imagen'] = $url;
+        // Producto::edit($producto);
         $producto->update($request->all());
     }
 

@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Categoria;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductoResource extends JsonResource
+class CategoriaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +17,9 @@ class ProductoResource extends JsonResource
         return[
             "id" => $this->id,
             "nombre" => $this->nombre,
-            "precio_unitario" => $this->precio_unitario,
-            "imagen" => $this->imagen,
-            "categoria" => $this->categoria,
+            "descripcion" => $this->descripcion,
             "created_at" => $this->created_at->diffForHumans(),
-            "updated_at" => $this->updated_at->diffForHumans()
+            "updated_at" => $this->updated_at->diffForHumans(),
         ];
     }
 }

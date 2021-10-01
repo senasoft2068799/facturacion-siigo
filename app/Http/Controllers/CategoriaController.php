@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoriaResource;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return Categoria::all()->toArray();
+        return CategoriaResource::collection(Categoria::latest()->get());
     }
 
     /**

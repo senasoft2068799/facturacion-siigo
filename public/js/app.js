@@ -2789,7 +2789,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("/api/categorias").then(function (response) {
-      _this.categorias = response.data;
+      _this.categorias = response.data.data;
     });
   },
   methods: {
@@ -3848,12 +3848,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      imagenMiniatura: "",
       producto: {
         nombre: null,
         precio_unitario: null,
+        imagen: null,
         categoria_id: null
       },
       categorias: []
@@ -3863,25 +3879,58 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("/api/categorias").then(function (res) {
-      _this.categorias = res.data;
+      _this.categorias = res.data.data;
     });
   },
   methods: {
-    registrarProducto: function registrarProducto() {
+    obtener_imagen: function obtener_imagen(e) {
+      //Cuando se carga la imagen se dispara este método
+      var file = e.target.files[0]; //Esta variable nos permite guardar la información de la imagen
+
+      this.producto.imagen = file; //Se almacena la imagen al producto
+
+      this.cargarImagen(file); //Llamamos al método cargarImagen
+    },
+    cargarImagen: function cargarImagen(file) {
       var _this2 = this;
 
-      this.axios.post("/api/productos", this.producto).then(function (response) {
-        _this2.$swal("Producto registrado correctamente.");
+      //Método para la previsualización de la imagen
+      var lector = new FileReader(); //Este método permite trabajar con archivos
 
-        _this2.producto.nombre = null;
-        _this2.producto.precio_unitario = null;
-        _this2.producto.categoria_id = null;
+      lector.onload = function (e) {
+        //Este método nos permite cargar la información del archivo o imagen
+        _this2.imagenMiniatura = e.target.result; //El resultado del archivo se guarda en la variable imagenMiniatura
+      };
+
+      lector.readAsDataURL(file); //Aquí, se lee la información del archivo o imagen (en este caso)
+    },
+    registrarProducto: function registrarProducto() {
+      var _this3 = this;
+
+      var producto = new FormData();
+
+      for (var key in this.producto) {
+        producto.append(key, this.producto[key]);
+      }
+
+      this.axios.post("/api/productos", producto).then(function (response) {
+        _this3.$swal("Producto registrado correctamente.");
+
+        _this3.producto.nombre = null;
+        _this3.producto.precio_unitario = null;
+        _this3.producto.imagen = null;
+        _this3.producto.categoria_id = null;
       })["catch"](function (err) {
-        _this2.$swal({
+        _this3.$swal({
           icon: "error",
           title: "Ha ocurrido un error:\n" + err
         });
       });
+    }
+  },
+  computed: {
+    imagenMini: function imagenMini() {
+      return this.imagenMiniatura; //Esta variable se retorna en el formulario mostrando una prevista de la imagen a cargar
     }
   }
 });
@@ -3952,12 +4001,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      imagenMiniatura: "",
       producto: {
         nombre: null,
         precio_unitario: null,
+        imagen: null,
         categoria_id: null
       },
       categorias: []
@@ -3967,26 +4040,58 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("/api/categorias").then(function (res) {
-      _this.categorias = res.data;
+      _this.categorias = res.data.data;
     });
     axios.get("/api/productos/" + this.$route.params.id).then(function (res) {
       _this.producto = res.data;
     });
   },
   methods: {
-    modificarProducto: function modificarProducto() {
+    obtener_imagen: function obtener_imagen(e) {
+      //Cuando se carga la imagen se dispara este método
+      var file = e.target.files[0]; //Esta variable nos permite guardar la información de la imagen
+
+      this.producto.imagen = file; //Se almacena la imagen al producto
+
+      this.cargarImagen(file); //Llamamos al método cargarImagen
+    },
+    cargarImagen: function cargarImagen(file) {
       var _this2 = this;
 
-      this.axios.put("/api/productos/" + this.$route.params.id, this.producto).then(function (response) {
-        _this2.$swal("Producto modificado correctamente.");
+      //Método para la previsualización de la imagen
+      var lector = new FileReader(); //Este método permite trabajar con archivos
 
-        _this2.$router.push("/productos");
+      lector.onload = function (e) {
+        //Este método nos permite cargar la información del archivo o imagen
+        _this2.imagenMiniatura = e.target.result; //El resultado del archivo se guarda en la variable imagenMiniatura
+      };
+
+      lector.readAsDataURL(file); //Aquí, se lee la información del archivo o imagen (en este caso)
+    },
+    modificarProducto: function modificarProducto() {
+      var _this3 = this;
+
+      var producto = new FormData();
+
+      for (var key in this.producto) {
+        producto.append(key, this.producto[key]);
+      }
+
+      this.axios.put("/api/productos/" + this.$route.params.id, this.producto).then(function (response) {
+        _this3.$swal("Producto modificado correctamente.");
+
+        _this3.$router.push("/productos");
       })["catch"](function (err) {
-        _this2.$swal({
+        _this3.$swal({
           icon: "error",
           title: "Ha ocurrido un error:\n" + err
         });
       });
+    }
+  },
+  computed: {
+    imagenMini: function imagenMini() {
+      return this.imagenMiniatura; //Esta variable se retorna en el formulario mostrando una prevista de la imagen a cargar
     }
   }
 });
@@ -4004,6 +4109,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -49087,6 +49194,7 @@ var render = function() {
       _c(
         "form",
         {
+          attrs: { enctype: "multipart/form-data" },
           on: {
             submit: function($event) {
               $event.preventDefault()
@@ -49171,7 +49279,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-select",
-                  attrs: { id: "ciudad" },
+                  attrs: { id: "categoria" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -49207,6 +49315,34 @@ var render = function() {
                 ],
                 2
               )
+            ]),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "imagen" } },
+              [_vm._v("Imagen del prodcuto")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "file",
+                name: "imagen",
+                id: "imagen",
+                accept: "image/*"
+              },
+              on: { change: _vm.obtener_imagen }
+            }),
+            _vm._v(" "),
+            _c("figure", { staticStyle: { margin: "15px" } }, [
+              _c("img", {
+                attrs: {
+                  width: "200",
+                  height: "200",
+                  src: _vm.imagenMini,
+                  alt: "Imagen del producto"
+                }
+              })
             ])
           ]),
           _vm._v(" "),
@@ -49260,6 +49396,7 @@ var render = function() {
       _c(
         "form",
         {
+          attrs: { enctype: "multipart/form-data" },
           on: {
             submit: function($event) {
               $event.preventDefault()
@@ -49269,6 +49406,12 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "imagen" } },
+              [_vm._v("Imagen del producto")]
+            ),
+            _vm._v(" "),
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "nombre" } },
@@ -49380,6 +49523,34 @@ var render = function() {
                 ],
                 2
               )
+            ]),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "imagen" } },
+              [_vm._v("Imagen del prodcuto")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "file",
+                name: "imagen",
+                id: "imagen",
+                accept: "image/*"
+              },
+              on: { change: _vm.obtener_imagen }
+            }),
+            _vm._v(" "),
+            _c("figure", { staticStyle: { margin: "15px" } }, [
+              _c("img", {
+                attrs: {
+                  width: "200",
+                  height: "200",
+                  src: _vm.imagenMini,
+                  alt: "Nueva imagen del producto"
+                }
+              })
             ])
           ]),
           _vm._v(" "),
@@ -49460,6 +49631,19 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.precio_unitario))]),
                 _vm._v(" "),
+                _c("td", [
+                  _c("a", { attrs: { href: producto.imagen } }, [
+                    _c("img", {
+                      staticClass: "img-responsive",
+                      attrs: {
+                        src: producto.imagen,
+                        height: "100",
+                        width: "100"
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.categoria.nombre))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.created_at))]),
@@ -49522,6 +49706,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Precio unitario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Imagen del producto")]),
         _vm._v(" "),
         _c("th", [_vm._v("Categoria")]),
         _vm._v(" "),
