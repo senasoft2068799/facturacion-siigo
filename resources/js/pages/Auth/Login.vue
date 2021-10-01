@@ -4,7 +4,7 @@
         <div class="card-body">
             <form @submit.prevent="login()">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo</label>
+                    <label for="email" class="form-label">Correo electrónico</label>
                     <input
                         type="text"
                         class="form-control"

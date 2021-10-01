@@ -47081,7 +47081,7 @@ var render = function() {
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "email" } },
-              [_vm._v("Correo")]
+              [_vm._v("Correo electrónico")]
             ),
             _vm._v(" "),
             _c("input", {
