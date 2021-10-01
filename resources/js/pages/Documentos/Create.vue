@@ -21,7 +21,6 @@
                     >Regresar</router-link
                 >
             </form>
-            {{ documento.nombre }}
         </div>
     </div>
 </template>
