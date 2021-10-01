@@ -1,5 +1,3 @@
-import Register from "./pages/Auth/Register.vue";
-import Inicio from "./pages/Auth/Inicio.vue";
 import Dashboard from "./pages/Dashboard.vue";
 import RolesIndex from "./pages/Roles/Index.vue";
 import RolesShow from "./pages/Roles/Show.vue";
@@ -27,21 +25,14 @@ import CategoriasEdit from "./pages/Categorias/Edit.vue";
 import ProductosIndex from "./pages/Productos/Index.vue";
 import ProductosCreate from "./pages/Productos/Create.vue";
 import ProductosEdit from "./pages/Productos/Edit.vue";
+import UsuariosIndex from "./pages/Usuarios/Index.vue";
+import UsuariosCreate from "./pages/Usuarios/Create.vue";
+import UsuariosEdit from "./pages/Usuarios/Edit.vue";
 
 export const routes = [
     //
     // Dashboard
     //
-    {
-        name: "register",
-        path: "/registrar",
-        component: Register
-    },
-    {
-        name: "inicio",
-        path: "/inicio",
-        component: Inicio
-    },
     {
         name: "dashboard",
         path: "/",
@@ -202,5 +193,23 @@ export const routes = [
         name: "facturas.edit",
         path: "/facturas/:id/edit",
         component: FacturasEdit
+    },
+    //
+    // Usuarios
+    //
+    {
+        name: "usuarios.index",
+        path: "/usuarios",
+        component: UsuariosIndex
+    },
+    {
+        name: "usuarios.create",
+        path: "/usuarios/create",
+        component: UsuariosCreate
+    },
+    {
+        name: "usuarios.edit",
+        path: "/usuarios/:id/edit",
+        component: UsuariosEdit
     }
 ];
