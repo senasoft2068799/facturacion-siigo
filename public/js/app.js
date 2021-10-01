@@ -2346,6 +2346,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2385,6 +2391,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
 //
 //
 //
@@ -47062,8 +47072,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card", staticStyle: { width: "28rem" } }, [
-    _c("div", { staticClass: "card-header" }, [_vm._v("Inicio de sesión")]),
+  return _c("div", { staticClass: "card", staticStyle: { width: "24rem" } }, [
+    _c("div", { staticClass: "card-header" }, [
+      _c("ul", { staticClass: "nav nav-tabs card-header-tabs" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "li",
+          { staticClass: "nav-item" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "nav-link", attrs: { to: { name: "register" } } },
+              [_vm._v("Registrar usuario")]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c(
@@ -47147,22 +47174,11 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-6 text-end" },
-              [
-                _c("router-link", { attrs: { to: { name: "register" } } }, [
-                  _vm._v(
-                    "\n                        Registrar cuenta\n                    "
-                  )
-                ])
-              ],
-              1
-            )
-          ])
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("\n                Iniciar sesión\n            ")]
+          )
         ]
       )
     ])
@@ -47173,15 +47189,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
+    return _c("li", { staticClass: "nav-item" }, [
       _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-        [
-          _vm._v(
-            "\n                        Iniciar sesión\n                    "
-          )
-        ]
+        "a",
+        { staticClass: "nav-link active", attrs: { "aria-current": "true" } },
+        [_vm._v("Iniciar sesión")]
       )
     ])
   }
@@ -47208,8 +47220,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card", staticStyle: { width: "28rem" } }, [
-    _c("div", { staticClass: "card-header" }, [_vm._v("Registro de usuario")]),
+  return _c("div", { staticClass: "card", staticStyle: { width: "24rem" } }, [
+    _c("div", { staticClass: "card-header" }, [
+      _c("ul", { staticClass: "nav nav-tabs card-header-tabs" }, [
+        _c(
+          "li",
+          { staticClass: "nav-item" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "nav-link", attrs: { to: { name: "login" } } },
+              [_vm._v("Iniciar sesión")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c(
@@ -47370,22 +47399,11 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-6 text-end" },
-              [
-                _c("router-link", { attrs: { to: { name: "login" } } }, [
-                  _vm._v(
-                    "\n                        Iniciar sesión\n                    "
-                  )
-                ])
-              ],
-              1
-            )
-          ])
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [_vm._v("\n                Registrar\n            ")]
+          )
         ]
       )
     ])
@@ -47396,11 +47414,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
+    return _c("li", { staticClass: "nav-item" }, [
       _c(
-        "button",
-        { staticClass: "btn btn-success", attrs: { type: "submit" } },
-        [_vm._v("\n                        Registrar\n                    ")]
+        "a",
+        { staticClass: "nav-link active", attrs: { "aria-current": "true" } },
+        [_vm._v("Registrar usuario")]
       )
     ])
   }

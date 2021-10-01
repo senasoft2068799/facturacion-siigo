@@ -1,10 +1,25 @@
 <template>
-    <div class="card" style="width: 28rem;">
-        <div class="card-header">Inicio de sesión</div>
+    <div class="card" style="width: 24rem;">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="true"
+                        >Iniciar sesión</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="{ name: 'register' }"
+                        >Registrar usuario</router-link
+                    >
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
             <form @submit.prevent="login()">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Correo electrónico</label>
+                    <label for="email" class="form-label"
+                        >Correo electrónico</label
+                    >
                     <input
                         type="text"
                         class="form-control"
@@ -23,18 +38,9 @@
                     />
                     <p class="text-danger" v-text="errors.password"></p>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary">
-                            Iniciar sesión
-                        </button>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <router-link :to="{ name: 'register' }">
-                            Registrar cuenta
-                        </router-link>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-primary">
+                    Iniciar sesión
+                </button>
             </form>
         </div>
     </div>
@@ -56,8 +62,8 @@ export default {
             axios
                 .post("/api/login", this.formData)
                 .then(response => {
-                  localStorage.setItem("token", response.data);
-                  this.$router.push("/");
+                    localStorage.setItem("token", response.data);
+                    this.$router.push("/");
                 })
                 .catch(errors => {
                     this.errors = errors.response.data.errors;

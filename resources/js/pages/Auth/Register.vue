@@ -1,6 +1,19 @@
 <template>
-    <div class="card" style="width: 28rem;">
-        <div class="card-header">Registro de usuario</div>
+    <div class="card" style="width: 24rem;">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <router-link class="nav-link" :to="{ name: 'login' }"
+                        >Iniciar sesión</router-link
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="true"
+                        >Registrar usuario</a
+                    >
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
             <form @submit.prevent="register()">
                 <div class="mb-3">
@@ -50,18 +63,9 @@
                         v-text="errors.password_confirmation"
                     ></p>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-success">
-                            Registrar
-                        </button>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <router-link :to="{ name: 'login' }">
-                            Iniciar sesión
-                        </router-link>
-                    </div>
-                </div>
+                <button type="submit" class="btn btn-success">
+                    Registrar
+                </button>
             </form>
         </div>
     </div>
