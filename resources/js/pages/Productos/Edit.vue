@@ -4,10 +4,10 @@
         <div class="card-body">
             <form @submit.prevent="modificarProducto" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <label for="imagen" class="form-label"
+                    <!-- <label for="imagen" class="form-label"
                         >Imagen del producto</label
                     >
-                    <!-- <figure style="margin: 15px;">
+                    <figure style="margin: 15px;">
                         <center>
                             <img width="200" height="200" :src="producto.imagen" alt="Imagen del producto">
                         </center>
@@ -25,7 +25,7 @@
                         >Precio del producto</label
                     >
                     <input
-                        type="double"
+                        type="number"
                         class="form-control"
                         id="precio_unitario"
                         v-model="producto.precio_unitario"
@@ -87,7 +87,7 @@ export default {
             categorias: []
         };
     },
-    created() {
+    mounted() {
         this.axios.get("/api/categorias").then(res => {
             this.categorias = res.data.data;
         });
@@ -116,7 +116,7 @@ export default {
                 producto.append(key, this.producto[key]);
             }
             this.axios
-                .put("/api/productos/" + this.$route.params.id, this.producto)
+                .put("/api/productos/" + this.$route.params.id, producto)
                 .then(response => {
                     this.$swal("Producto modificado correctamente.");
                     this.$router.push("/productos");

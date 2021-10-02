@@ -64,16 +64,38 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        // $fecha = now();
         // $producto->update($request->all());
-        // if($request->hasFile('imagen')){
-        //     $producto['imagen'] = $request->file('imagen')->store('public/imagenes');
-        // }
-        // $producto['updated_at'] = $fecha;
-        // $url = Storage::url($producto['imagen']);
-        // $producto['imagen'] = $url;
-        // Producto::edit($producto);
-        $producto->update($request->all());
+        $fecha = now();
+        // info($id);
+        // $producto = Producto::findAll($id);
+        // $producto->nombre = $request->nombre;
+        // $producto->precio_unitario = $request->precio_unitario;
+        // $producto->categoria_id = $request->categoria_id;
+        info($request);
+        info($producto);
+        $producto = $request->all();
+        info($producto);
+
+        // // $ig = $request->file('imagen');
+        // // $ig = $request->hasFile('imagen');
+
+        if($request->hasFile('imagen')){
+            // foreach($request->file('imagen') as $image)
+            // {
+            //     $imagen = $image->getClientOriginalName();
+            //     $image->move(public_path().'/imagenes/', $imagen);
+            // }
+            $producto['imagen'] = $request->file('imagen')->store('public/imagenes');
+        }
+        else {
+            info('No toma la imagen');
+        }
+        $producto['updated_at'] = $fecha;
+        $url = Storage::url($producto['imagen']);
+        $producto['imagen'] = $url;
+        info($producto);
+        Producto::edit($producto);
+        // $producto->save();
     }
 
     public function destroy(Producto $producto)

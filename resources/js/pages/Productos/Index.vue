@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-link
-            class="btn btn-primary mb-3"
+            class="btn btn-success mb-3"
             :to="{ name: 'productos.create' }"
             >Registrar producto</router-link
         >
@@ -12,7 +12,7 @@
             >Ver categorias</router-link
         >   
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nombre</th>

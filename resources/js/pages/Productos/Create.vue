@@ -17,7 +17,7 @@
                         >Precio del prodcuto</label
                     >
                     <input
-                        type="double"
+                        type="number"
                         class="form-control"
                         id="precio"
                         v-model="producto.precio_unitario"
