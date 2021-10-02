@@ -115,6 +115,6 @@
 </template>
 <script>
 export default {
-    name: "Sidebar"
+  name: "Sidebar",
 };
 </script>

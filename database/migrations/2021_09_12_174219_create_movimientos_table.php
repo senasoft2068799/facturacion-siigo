@@ -31,7 +31,7 @@ class CreateMovimientosTable extends Migration
 
             /*$table->string("user_id", 10)->nullable();
             //$table->unsignedBigInteger("user_id")->nullable();*/
-            $table->unsignedBigInteger("user_id")->nullable();
+            $table->string("user_id", 20)->nullable();
             $table->foreign("user_id")
                 ->references("id")->on("users")
                 ->onUpdate('cascade')
