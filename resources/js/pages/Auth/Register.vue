@@ -133,8 +133,8 @@ export default {
                 email: null,
                 telefono: null,
                 password: null,
-                password_confirmation: null
-                // role_id: null
+                password_confirmation: null,
+                role_id: 1
             },
             errors: {}
         };

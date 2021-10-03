@@ -32,6 +32,43 @@
           </tr>
         </tbody>
       </table>
+      <!-- =======
+    <div>
+        <router-link
+            class="btn btn-success mb-3"
+            :to="{ name: 'bodegas.create' }"
+            >Registrar bodega</router-link
+        >
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Fecha de creación</th>
+                        <th>Fecha de modificación</th>
+                        <th>Funciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(bodega, index) in bodegas" :key="index">
+                        <td>{{ bodega.nombre }}</td>
+                        <td>{{ bodega.direccion }}</td>
+                        <td>{{ bodega.created_at }}</td>
+                        <td>{{ bodega.updated_at }}</td>
+                        <td>
+                            <button
+                                @click="eliminarBodega(bodega, index)"
+                                class="btn btn-danger btn-small"
+                            >
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+>>>>>>> f66647da554dcdc5cb67c66b40c6f408f7bf1dcd -->
     </div>
   </div>
 </template>

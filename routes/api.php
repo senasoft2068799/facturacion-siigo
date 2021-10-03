@@ -12,6 +12,7 @@ use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,7 @@ Route::post("logout", [AuthController::class, "logout"])->middleware("auth:sanct
 Route::middleware('api')->group(function () {
     // Route::get("permisos", [PermisoController::class, "index"]);
     Route::apiResource('roles', RoleController::class);
-    // Route::apiResource('users', UserController::class);
+    Route::apiResource('users', UserController::class);
     Route::get("ciudades", [CiudadeController::class, "index"]);
     Route::apiResource('sucursales', SucursaleController::class);
     Route::apiResource('documentos', DocumentoController::class);

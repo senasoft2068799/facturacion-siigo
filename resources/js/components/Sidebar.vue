@@ -1,5 +1,5 @@
 <template>
-  <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+  <div class="sidebar">
     <div class="d-flex flex-column flex-shrink-0 p-3 min-vh-100">
       <a
         href="/"
@@ -18,7 +18,20 @@
         <span class="fs-4">Logo</span>
       </a>
       <hr />
-      <ul class="nav nav-pills flex-column mb-auto">
+      <ul class="nav flex-column mb-auto">
+        <li>
+          <p class="text-center">
+            {{ currentUser.nombre }} {{ currentUser.apellido }}
+          </p>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link link-dark text-primary">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table"></use>
+            </svg>
+            {{ currentUser.nombre }} {{ currentUser.apellido }}
+          </router-link>
+        </li>
         <li class="nav-item">
           <router-link
             active-class="active"
@@ -26,10 +39,11 @@
             :to="{ name: 'dashboard' }"
             class="nav-link link-dark"
           >
-            <svg class="bi me-2" width="16" height="16">
+            <i class="fas fa-home"></i>
+            <svg class="bi me-2" width="5" height="16">
               <use xlink:href="#home"></use>
             </svg>
-            Inicio
+            Home
           </router-link>
         </li>
         <li>
@@ -38,7 +52,8 @@
             :to="{ name: 'facturas.index' }"
             class="nav-link link-dark"
           >
-            <svg class="bi me-2" width="16" height="16">
+            <i class="fas fa-file-invoice"></i>
+            <svg class="bi me-2" width="5" height="16">
               <use xlink:href="#table"></use>
             </svg>
             Facturas
@@ -50,7 +65,8 @@
             :to="{ name: 'sucursales.index' }"
             class="nav-link link-dark"
           >
-            <svg class="bi me-2" width="16" height="16">
+            <i class="fas fa-building"></i>
+            <svg class="bi me-2" width="5" height="16">
               <use xlink:href="#table"></use>
             </svg>
             Sucursales
@@ -62,8 +78,9 @@
             :to="{ name: 'bodegas.index' }"
             class="nav-link link-dark"
           >
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#table"></use>
+            <i class="fas fa-folder"></i>
+            <svg class="bi me-2" width="5" height="16">
+              <use xlink:href="#speedometer2"></use>
             </svg>
             Bodegas
           </router-link>
@@ -74,7 +91,8 @@
             :to="{ name: 'productos.index' }"
             class="nav-link link-dark"
           >
-            <svg class="bi me-2" width="16" height="16">
+            <i class="fas fa-tags"></i>
+            <svg class="bi me-2" width="5" height="16">
               <use xlink:href="#table"></use>
             </svg>
             Productos
@@ -86,23 +104,17 @@
             :to="{ name: 'roles.index' }"
             class="nav-link link-dark"
           >
-            <svg class="bi me-2" width="16" height="16">
+            <i class="fas fa-users"></i>
+            <svg class="bi me-2" width="5" height="16">
               <use xlink:href="#grid"></use>
             </svg>
             Roles
           </router-link>
         </li>
         <li>
-          <router-link
-            active-class="active"
-            :to="{ name: 'login' }"
-            class="nav-link link-dark"
-          >
-            <svg class="bi me-2" width="16" height="16">
-              <use xlink:href="#home"></use>
-            </svg>
-            Login
-          </router-link>
+          <button @click="logout()" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
+          </button>
         </li>
       </ul>
     </div>
@@ -111,5 +123,37 @@
 <script>
 export default {
   name: "Sidebar",
+  data() {
+    return {
+      currentUser: {},
+      token: localStorage.getItem("token"),
+    };
+  },
+  mounted() {
+    window.axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${this.token}`;
+    axios
+      .get("/api/user")
+      .then((res) => {
+        this.currentUser = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  methods: {
+    logout() {
+      axios
+        .post("/api/logout")
+        .then((res) => {
+          localStorage.removeItem("token");
+          this.$router.push("/login");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>

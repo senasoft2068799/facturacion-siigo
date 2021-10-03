@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Bodega;
 use App\Models\Ciudade;
 use App\Models\DetalleMovimiento;
-use App\Models\Documento;
 use App\Models\Movimiento;
 use App\Models\Producto;
 use App\Models\Sucursale;
@@ -25,6 +24,7 @@ class DatabaseSeeder extends Seeder
         // Role::factory(10)->create();
         $this->call(RoleSeeder::class);
         User::factory(5)->create();
+        $this->call(UserSeeder::class);
         Ciudade::factory(50)->create();
         $this->call(DocumentoSeeder::class);
         Sucursale::factory(20)->create();

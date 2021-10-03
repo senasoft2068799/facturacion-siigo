@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-    protected $guarded = ["imagen"];
+    protected $guarded = [];
+    protected $fillable = ['imagen'];
     
     public function categoria(){
         return $this->belongsTo(Categoria::class);

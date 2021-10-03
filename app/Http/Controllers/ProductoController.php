@@ -6,6 +6,8 @@ use App\Http\Resources\ProductoResource;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 class ProductoController extends Controller
 {
     public function index()
@@ -25,7 +27,16 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
-        Producto::create($request->all());
+        $fecha = now();
+        $datosProducto = $request->all();
+        if($request->hasFile('imagen')){
+            $datosProducto['imagen'] = $request->file('imagen')->store('public/imagenes');
+        }
+        $datosProducto['created_at'] = $fecha;
+        $datosProducto['updated_at'] = $fecha;
+        $url = Storage::url($datosProducto['imagen']);
+        $datosProducto['imagen'] = $url;
+        Producto::insert($datosProducto);
     }
 
     public function show(Producto $producto)
@@ -51,9 +62,42 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, $id)//Si esta viendo todo este desorden, ignorelo xd casi logro editar la imagen
     {
-        $producto->update($request->all());
+        // $producto->update($request->all());
+        // $fecha = now();
+        // info($id);
+        $producto = Producto::find($id);
+        $producto->nombre = $request->nombre;
+        $producto->precio_unitario = $request->precio_unitario;
+        $producto->categoria_id = $request->categoria_id;
+        // $producto->imagen = $request->imagen;
+        // info($request);
+        info($producto);
+        // $producto->update($request->all());
+        // $producto = $request->all();
+        // info($producto);
+
+        // // $ig = $request->file('imagen');
+        // // $ig = $request->hasFile('imagen');
+
+        // if($request->hasFile('imagen')){
+        //     // foreach($request->file('imagen') as $image)
+        //     // {
+        //     //     $imagen = $image->getClientOriginalName();
+        //     //     $image->move(public_path().'/imagenes/', $imagen);
+        //     // }
+        //     $producto['imagen'] = $request->file('imagen')->store('public/imagenes');
+        // }
+        // else {
+        //     info('No toma la imagen');
+        // }
+        // $producto['updated_at'] = $fecha;
+        // $url = Storage::url($producto['imagen']);
+        // $producto['imagen'] = $url;
+        // info($producto);
+        // Producto::edit($producto);
+        $producto->save();
     }
 
     public function destroy(Producto $producto)

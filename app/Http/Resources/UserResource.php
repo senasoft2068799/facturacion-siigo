@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Categoria;
+use App\Models\Role;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductoResource extends JsonResource
+class UserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +18,10 @@ class ProductoResource extends JsonResource
         return[
             "id" => $this->id,
             "nombre" => $this->nombre,
-            "precio_unitario" => $this->precio_unitario,
-            "imagen" => $this->imagen,
-            "categoria" => $this->categoria,
-            "created_at" => $this->created_at->diffForHumans(),
-            "updated_at" => $this->updated_at->diffForHumans()
+            "apellido" => $this->apellido,
+            "email" => $this->email,
+            "telefono" => $this->telefono,
+            "role" => $this->role
         ];
     }
 }

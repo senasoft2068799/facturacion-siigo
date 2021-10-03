@@ -21,6 +21,8 @@ import CategoriasEdit from "./pages/Categorias/Edit.vue";
 import ProductosIndex from "./pages/Productos/Index.vue";
 import ProductosCreate from "./pages/Productos/Create.vue";
 import ProductosEdit from "./pages/Productos/Edit.vue";
+import UsuariosIndex from "./pages/Usuarios/Index.vue";
+import UsuariosEdit from "./pages/Usuarios/Edit.vue";
 
 export const routes = [
     //
@@ -182,5 +184,18 @@ export const routes = [
         name: "facturas.edit",
         path: "/facturas/:id/edit",
         component: FacturasEdit
+    },
+    //
+    // Usuarios
+    //
+    {
+        name: "usuarios.index",
+        path: "/usuarios",
+        component: UsuariosIndex
+    },
+    {
+        name: "usuarios.edit",
+        path: "/usuarios/:id/edit",
+        component: UsuariosEdit
     }
 ];
