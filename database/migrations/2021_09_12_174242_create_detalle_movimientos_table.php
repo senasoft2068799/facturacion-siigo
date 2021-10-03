@@ -15,8 +15,8 @@ class CreateDetalleMovimientosTable extends Migration
     {
         Schema::create('detalle_movimientos', function (Blueprint $table) {
             $table->id();
-            $table->integer("cantidad");
-            $table->double("valor_total");
+            $table->integer("cantidad")->nullable();
+            $table->double("valor_total")->nullable();
 
             $table->unsignedBigInteger("movimiento_id");
             $table->foreign("movimiento_id")
@@ -30,7 +30,7 @@ class CreateDetalleMovimientosTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger("producto_id");
+            $table->unsignedBigInteger("producto_id")->nullable();;
             $table->foreign("producto_id")
                 ->references("id")->on("productos")
                 ->onUpdate('cascade')

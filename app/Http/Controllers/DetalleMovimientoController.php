@@ -8,58 +8,36 @@ use Illuminate\Http\Request;
 
 class DetalleMovimientoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         return DetalleMovimientoResource::collection(DetalleMovimiento::latest()->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        DetalleMovimiento::create($request->all());
+        // $request->validate([
+        //     'cantidad' => 'required',
+        //     'valor_total' => 'required',
+        //     'movimiento_id' => 'required|exists:movimientos,id',
+        //     'bodega_id' => 'required|exists:bodegas,id',
+        //     'producto_id' => 'required|exists:productos,id',
+        // ]);
+        $detalleMovimiento = DetalleMovimiento::create($request->all());
+        return $detalleMovimiento;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\DetalleMovimiento  $detalleMovimiento
-     * @return \Illuminate\Http\Response
-     */
     public function show(DetalleMovimiento $detalleMovimiento)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\DetalleMovimiento  $detalleMovimiento
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, DetalleMovimiento $detalleMovimiento)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\DetalleMovimiento  $detalleMovimiento
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(DetalleMovimiento $detalleMovimiento)
     {
-        //
+        $detalleMovimiento->delete();
     }
 }

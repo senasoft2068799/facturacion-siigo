@@ -10,15 +10,17 @@ class BodegaController extends Controller
 
     public function index()
     {
-        //        $documentos = Documento::all()->toArray();
-        //return array_reverse($documentos);
-        return Bodega::all()->toArray();
+        return array_reverse(Bodega::all()->toArray());
     }
 
     public function store(Request $request)
     {
-        //Documento::create($request->all());
-        Bodega::create($request->all());
+        $request->validate([
+            'nombre' => 'required|min:4|max:45',
+            'direccion' => 'required|min:6|max:255'
+        ]);
+        $bodega = Bodega::create($request->all());
+        return $bodega;
     }
 
     public function show(Bodega $bodega)
