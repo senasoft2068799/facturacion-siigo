@@ -4091,7 +4091,7 @@ __webpack_require__.r(__webpack_exports__);
         producto.append(key, this.producto[key]);
       }
 
-      this.axios.put("/api/productos/" + this.$route.params.id, producto).then(function (response) {
+      this.axios.put("/api/productos/" + this.$route.params.id, this.producto).then(function (response) {
         _this3.$swal("Producto modificado correctamente.");
 
         _this3.$router.push("/productos");
@@ -5152,7 +5152,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Productos_Create_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/Productos/Create.vue */ "./resources/js/pages/Productos/Create.vue");
 /* harmony import */ var _pages_Productos_Edit_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pages/Productos/Edit.vue */ "./resources/js/pages/Productos/Edit.vue");
 /* harmony import */ var _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pages/Usuarios/Index.vue */ "./resources/js/pages/Usuarios/Index.vue");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module './pages/Usuarios/Create.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/Usuarios/Create.vue */ "./resources/js/pages/Usuarios/Create.vue");
 /* harmony import */ var _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pages/Usuarios/Edit.vue */ "./resources/js/pages/Usuarios/Edit.vue");
 
 
@@ -5348,7 +5348,7 @@ var routes = [//
 }, {
   name: "usuarios.create",
   path: "/usuarios/create",
-  component: Object(function webpackMissingModule() { var e = new Error("Cannot find module './pages/Usuarios/Create.vue'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())
+  component: _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
 }, {
   name: "usuarios.edit",
   path: "/usuarios/:id/edit",
@@ -46069,6 +46069,40 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/pages/Sucursales/Index.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/Usuarios/Create.vue":
+/*!************************************************!*\
+  !*** ./resources/js/pages/Usuarios/Create.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/pages/Usuarios/Create.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),

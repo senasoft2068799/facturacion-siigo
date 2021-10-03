@@ -10,7 +10,7 @@
             style="float: right;"
             :to="{ name: 'categorias.index' }"
             >Ver categorias</router-link
-        >   
+        >
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>

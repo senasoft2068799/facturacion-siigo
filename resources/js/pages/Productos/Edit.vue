@@ -116,7 +116,7 @@ export default {
                 producto.append(key, this.producto[key]);
             }
             this.axios
-                .put("/api/productos/" + this.$route.params.id, producto)
+                .put("/api/productos/" + this.$route.params.id, this.producto)
                 .then(response => {
                     this.$swal("Producto modificado correctamente.");
                     this.$router.push("/productos");
