@@ -6,7 +6,7 @@
             >Registrar sucursal</router-link
         >
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nombre</th>

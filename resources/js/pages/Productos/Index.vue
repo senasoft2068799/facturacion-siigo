@@ -1,7 +1,7 @@
 <template>
     <div>
         <router-link
-            class="btn btn-primary mb-3"
+            class="btn btn-success mb-3"
             :to="{ name: 'productos.create' }"
             >Registrar producto</router-link
         >
@@ -10,13 +10,14 @@
             style="float: right;"
             :to="{ name: 'categorias.index' }"
             >Ver categorias</router-link
-        >   
+        >
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Precio unitario</th>
+                        <th>Imagen del producto</th>
                         <th>Categoria</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de modificación</th>
@@ -27,6 +28,7 @@
                     <tr v-for="(producto, index) in productos" :key="index">
                         <td>{{ producto.nombre }}</td>
                         <td>{{ producto.precio_unitario }}</td>
+                        <td> <a :href="producto.imagen"><img :src="producto.imagen" class="img-responsive" height="100" width="100"></a></td>
                         <td>{{ producto.categoria.nombre }}</td>
                         <td>{{ producto.created_at }}</td>
                         <td>{{ producto.updated_at }}</td>

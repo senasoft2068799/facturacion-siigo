@@ -6,7 +6,7 @@
             >Registrar categoria</router-link
         >
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -53,7 +53,7 @@ export default {
     },
     created() {
         this.axios.get("/api/categorias").then(response => {
-            this.categorias = response.data;
+            this.categorias = response.data.data;
         });
     },
     methods: {

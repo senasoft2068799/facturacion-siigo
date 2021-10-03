@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="diseñoNavbar navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid ">
             <a class="navbar-brand" href="#">Facturación Siigo</a>
             <button

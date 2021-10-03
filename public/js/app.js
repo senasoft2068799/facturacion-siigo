@@ -2294,12 +2294,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
 //
 //
 //
+=======
+>>>>>>> e01f6ce3f8845e70de5da008f39a5795f3f1b882
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar",
   data: function data() {
@@ -2953,7 +2956,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("/api/categorias").then(function (response) {
-      _this.categorias = response.data;
+      _this.categorias = response.data.data;
     });
   },
   methods: {
@@ -3866,12 +3869,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      imagenMiniatura: "",
       producto: {
         nombre: null,
         precio_unitario: null,
+        imagen: null,
         categoria_id: null
       },
       categorias: []
@@ -3881,25 +3900,58 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("/api/categorias").then(function (res) {
-      _this.categorias = res.data;
+      _this.categorias = res.data.data;
     });
   },
   methods: {
-    registrarProducto: function registrarProducto() {
+    obtener_imagen: function obtener_imagen(e) {
+      //Cuando se carga la imagen se dispara este método
+      var file = e.target.files[0]; //Esta variable nos permite guardar la información de la imagen
+
+      this.producto.imagen = file; //Se almacena la imagen al producto
+
+      this.cargarImagen(file); //Llamamos al método cargarImagen
+    },
+    cargarImagen: function cargarImagen(file) {
       var _this2 = this;
 
-      this.axios.post("/api/productos", this.producto).then(function (response) {
-        _this2.$swal("Producto registrado correctamente.");
+      //Método para la previsualización de la imagen
+      var lector = new FileReader(); //Este método permite trabajar con archivos
 
-        _this2.producto.nombre = null;
-        _this2.producto.precio_unitario = null;
-        _this2.producto.categoria_id = null;
+      lector.onload = function (e) {
+        //Este método nos permite cargar la información del archivo o imagen
+        _this2.imagenMiniatura = e.target.result; //El resultado del archivo se guarda en la variable imagenMiniatura
+      };
+
+      lector.readAsDataURL(file); //Aquí, se lee la información del archivo o imagen (en este caso)
+    },
+    registrarProducto: function registrarProducto() {
+      var _this3 = this;
+
+      var producto = new FormData();
+
+      for (var key in this.producto) {
+        producto.append(key, this.producto[key]);
+      }
+
+      this.axios.post("/api/productos", producto).then(function (response) {
+        _this3.$swal("Producto registrado correctamente.");
+
+        _this3.producto.nombre = null;
+        _this3.producto.precio_unitario = null;
+        _this3.producto.imagen = null;
+        _this3.producto.categoria_id = null;
       })["catch"](function (err) {
-        _this2.$swal({
+        _this3.$swal({
           icon: "error",
           title: "Ha ocurrido un error:\n" + err
         });
       });
+    }
+  },
+  computed: {
+    imagenMini: function imagenMini() {
+      return this.imagenMiniatura; //Esta variable se retorna en el formulario mostrando una prevista de la imagen a cargar
     }
   }
 });
@@ -3970,41 +4022,97 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      imagenMiniatura: "",
       producto: {
         nombre: null,
         precio_unitario: null,
+        imagen: null,
         categoria_id: null
       },
       categorias: []
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     this.axios.get("/api/categorias").then(function (res) {
-      _this.categorias = res.data;
+      _this.categorias = res.data.data;
     });
     axios.get("/api/productos/" + this.$route.params.id).then(function (res) {
       _this.producto = res.data;
     });
   },
   methods: {
-    modificarProducto: function modificarProducto() {
+    obtener_imagen: function obtener_imagen(e) {
+      //Cuando se carga la imagen se dispara este método
+      var file = e.target.files[0]; //Esta variable nos permite guardar la información de la imagen
+
+      this.producto.imagen = file; //Se almacena la imagen al producto
+
+      this.cargarImagen(file); //Llamamos al método cargarImagen
+    },
+    cargarImagen: function cargarImagen(file) {
       var _this2 = this;
 
-      this.axios.put("/api/productos/" + this.$route.params.id, this.producto).then(function (response) {
-        _this2.$swal("Producto modificado correctamente.");
+      //Método para la previsualización de la imagen
+      var lector = new FileReader(); //Este método permite trabajar con archivos
 
-        _this2.$router.push("/productos");
+      lector.onload = function (e) {
+        //Este método nos permite cargar la información del archivo o imagen
+        _this2.imagenMiniatura = e.target.result; //El resultado del archivo se guarda en la variable imagenMiniatura
+      };
+
+      lector.readAsDataURL(file); //Aquí, se lee la información del archivo o imagen (en este caso)
+    },
+    modificarProducto: function modificarProducto() {
+      var _this3 = this;
+
+      var producto = new FormData();
+
+      for (var key in this.producto) {
+        producto.append(key, this.producto[key]);
+      }
+
+      this.axios.put("/api/productos/" + this.$route.params.id, this.producto).then(function (response) {
+        _this3.$swal("Producto modificado correctamente.");
+
+        _this3.$router.push("/productos");
       })["catch"](function (err) {
-        _this2.$swal({
+        _this3.$swal({
           icon: "error",
           title: "Ha ocurrido un error:\n" + err
         });
       });
+    }
+  },
+  computed: {
+    imagenMini: function imagenMini() {
+      return this.imagenMiniatura; //Esta variable se retorna en el formulario mostrando una prevista de la imagen a cargar
     }
   }
 });
@@ -4022,6 +4130,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -4707,6 +4817,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -4747,6 +4858,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+=======
+>>>>>>> e01f6ce3f8845e70de5da008f39a5795f3f1b882
 //
 //
 //
@@ -5092,7 +5205,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Productos_Create_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/Productos/Create.vue */ "./resources/js/pages/Productos/Create.vue");
 /* harmony import */ var _pages_Productos_Edit_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pages/Productos/Edit.vue */ "./resources/js/pages/Productos/Edit.vue");
 /* harmony import */ var _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pages/Usuarios/Index.vue */ "./resources/js/pages/Usuarios/Index.vue");
+<<<<<<< HEAD
 /* harmony import */ var _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/Usuarios/Edit.vue */ "./resources/js/pages/Usuarios/Edit.vue");
+=======
+/* harmony import */ var _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pages/Usuarios/Create.vue */ "./resources/js/pages/Usuarios/Create.vue");
+/* harmony import */ var _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./pages/Usuarios/Edit.vue */ "./resources/js/pages/Usuarios/Edit.vue");
+
+>>>>>>> e01f6ce3f8845e70de5da008f39a5795f3f1b882
 
 
 
@@ -5283,10 +5402,21 @@ var routes = [//
   name: "usuarios.index",
   path: "/usuarios",
   component: _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_29__["default"]
+<<<<<<< HEAD
 }, {
   name: "usuarios.edit",
   path: "/usuarios/:id/edit",
   component: _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
+=======
+}, {
+  name: "usuarios.create",
+  path: "/usuarios/create",
+  component: _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_30__["default"]
+}, {
+  name: "usuarios.edit",
+  path: "/usuarios/:id/edit",
+  component: _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_31__["default"]
+>>>>>>> e01f6ce3f8845e70de5da008f39a5795f3f1b882
 }];
 
 /***/ }),
@@ -46007,6 +46137,43 @@ component.options.__file = "resources/js/pages/Sucursales/Index.vue"
 
 /***/ }),
 
+<<<<<<< HEAD
+=======
+/***/ "./resources/js/pages/Usuarios/Create.vue":
+/*!************************************************!*\
+  !*** ./resources/js/pages/Usuarios/Create.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/pages/Usuarios/Create.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+>>>>>>> e01f6ce3f8845e70de5da008f39a5795f3f1b882
 /***/ "./resources/js/pages/Usuarios/Edit.vue":
 /*!**********************************************!*\
   !*** ./resources/js/pages/Usuarios/Edit.vue ***!
@@ -47182,7 +47349,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "nav",
-      { staticClass: "navbar navbar-expand-lg navbar-dark bg-dark" },
+      { staticClass: "diseñoNavbar navbar navbar-expand-lg navbar-dark" },
       [
         _c("div", { staticClass: "container-fluid " }, [
           _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
@@ -47248,36 +47415,94 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light" },
-    [
-      _c(
-        "div",
-        { staticClass: "d-flex flex-column flex-shrink-0 p-3 min-vh-100" },
-        [
+  return _c("div", { staticClass: "sidebar" }, [
+    _c(
+      "div",
+      { staticClass: "d-flex flex-column flex-shrink-0 p-3 min-vh-100" },
+      [
+        _c(
+          "a",
+          {
+            staticClass:
+              "d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none",
+            attrs: { href: "/" }
+          },
+          [
+            _c(
+              "svg",
+              { staticClass: "bi me-2", attrs: { width: "40", height: "32" } },
+              [_c("use", { attrs: { "xlink:href": "#bootstrap" } })]
+            ),
+            _vm._v(" "),
+            _c("span", { staticClass: "fs-4" }, [_vm._v("Logo")])
+          ]
+        ),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("ul", { staticClass: "nav flex-column mb-auto" }, [
           _c(
-            "a",
-            {
-              staticClass:
-                "\n        d-flex\n        align-items-center\n        mb-3 mb-md-0\n        me-md-auto\n        link-dark\n        text-decoration-none\n      ",
-              attrs: { href: "/" }
-            },
+            "li",
+            { staticClass: "nav-item" },
             [
               _c(
-                "svg",
+                "router-link",
                 {
-                  staticClass: "bi me-2",
-                  attrs: { width: "40", height: "32" }
+                  staticClass: "nav-link link-dark",
+                  attrs: {
+                    "active-class": "active",
+                    exact: "",
+                    to: { name: "dashboard" }
+                  }
                 },
-                [_c("use", { attrs: { "xlink:href": "#bootstrap" } })]
-              ),
-              _vm._v(" "),
-              _c("span", { staticClass: "fs-4" }, [_vm._v("Logo")])
-            ]
+                [
+                  _c("i", { staticClass: "fas fa-home" }),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi me-2",
+                      attrs: { width: "5", height: "16" }
+                    },
+                    [_c("use", { attrs: { "xlink:href": "#home" } })]
+                  ),
+                  _vm._v("\n                    Home\n                ")
+                ]
+              )
+            ],
+            1
           ),
           _vm._v(" "),
-          _c("hr"),
+          _c(
+            "li",
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "nav-link link-dark",
+                  attrs: {
+                    "active-class": "active",
+                    exact: "",
+                    to: { name: "facturas.index" }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-file-invoice" }),
+                  _vm._v(" "),
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi me-2",
+                      attrs: { width: "5", height: "16" }
+                    },
+                    [_c("use", { attrs: { "xlink:href": "#table" } })]
+                  ),
+                  _vm._v("\n                    Facturas\n                ")
+                ]
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
           _c("ul", { staticClass: "nav nav-pills flex-column mb-auto" }, [
             _c("li", [
@@ -48162,7 +48387,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -48492,7 +48717,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -48809,7 +49034,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -49544,7 +49769,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -49883,6 +50108,7 @@ var render = function() {
       _c(
         "form",
         {
+          attrs: { enctype: "multipart/form-data" },
           on: {
             submit: function($event) {
               $event.preventDefault()
@@ -49936,7 +50162,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "double", id: "precio" },
+              attrs: { type: "number", id: "precio" },
               domProps: { value: _vm.producto.precio_unitario },
               on: {
                 input: function($event) {
@@ -49967,7 +50193,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-select",
-                  attrs: { id: "ciudad" },
+                  attrs: { id: "categoria" },
                   on: {
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -50003,6 +50229,34 @@ var render = function() {
                 ],
                 2
               )
+            ]),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "imagen" } },
+              [_vm._v("Imagen del prodcuto")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "file",
+                name: "imagen",
+                id: "imagen",
+                accept: "image/*"
+              },
+              on: { change: _vm.obtener_imagen }
+            }),
+            _vm._v(" "),
+            _c("figure", { staticStyle: { margin: "15px" } }, [
+              _c("img", {
+                attrs: {
+                  width: "200",
+                  height: "200",
+                  src: _vm.imagenMini,
+                  alt: "Imagen del producto"
+                }
+              })
             ])
           ]),
           _vm._v(" "),
@@ -50056,6 +50310,7 @@ var render = function() {
       _c(
         "form",
         {
+          attrs: { enctype: "multipart/form-data" },
           on: {
             submit: function($event) {
               $event.preventDefault()
@@ -50109,7 +50364,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "double", id: "precio_unitario" },
+              attrs: { type: "number", id: "precio_unitario" },
               domProps: { value: _vm.producto.precio_unitario },
               on: {
                 input: function($event) {
@@ -50176,6 +50431,34 @@ var render = function() {
                 ],
                 2
               )
+            ]),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "imagen" } },
+              [_vm._v("Imagen del prodcuto")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "file",
+                name: "imagen",
+                id: "imagen",
+                accept: "image/*"
+              },
+              on: { change: _vm.obtener_imagen }
+            }),
+            _vm._v(" "),
+            _c("figure", { staticStyle: { margin: "15px" } }, [
+              _c("img", {
+                attrs: {
+                  width: "200",
+                  height: "200",
+                  src: _vm.imagenMini,
+                  alt: "Nueva imagen del producto"
+                }
+              })
             ])
           ]),
           _vm._v(" "),
@@ -50228,7 +50511,7 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-primary mb-3",
+          staticClass: "btn btn-success mb-3",
           attrs: { to: { name: "productos.create" } }
         },
         [_vm._v("Registrar producto")]
@@ -50245,7 +50528,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -50255,6 +50538,19 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(producto.nombre))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.precio_unitario))]),
+                _vm._v(" "),
+                _c("td", [
+                  _c("a", { attrs: { href: producto.imagen } }, [
+                    _c("img", {
+                      staticClass: "img-responsive",
+                      attrs: {
+                        src: producto.imagen,
+                        height: "100",
+                        width: "100"
+                      }
+                    })
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.categoria.nombre))]),
                 _vm._v(" "),
@@ -50318,6 +50614,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Precio unitario")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Imagen del producto")]),
         _vm._v(" "),
         _c("th", [_vm._v("Categoria")]),
         _vm._v(" "),
@@ -50542,7 +50840,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -51060,7 +51358,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -51187,6 +51485,7 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "mb-3" }, [
+<<<<<<< HEAD
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "nombre" } },
@@ -51270,6 +51569,11 @@ var render = function() {
                 }
               }
             }),
+=======
+            _c("label", { staticClass: "form-label", attrs: { for: "name" } }, [
+              _vm._v("Nombre Completo")
+            ]),
+>>>>>>> e01f6ce3f8845e70de5da008f39a5795f3f1b882
             _vm._v(" "),
             _c(
               "label",
