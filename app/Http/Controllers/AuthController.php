@@ -30,7 +30,8 @@ class AuthController extends Controller
             "email" => ["required", "email", "unique:users", "min:6", "max:40"],
             "telefono" => ["required", "min:7", "max:20"],
             "password" => ["required", "min:6", "max:20", "confirmed"],
-            "password_confirmation" => ["required",]
+            "password_confirmation" => ["required"],
+            "role_id" => ["required"]
         ]);
 
         User::create([
@@ -40,7 +41,8 @@ class AuthController extends Controller
             "apellido" => $request->apellido,
             "email" => $request->email,
             "telefono" => $request->telefono,
-            "password" => Hash::make($request->password)
+            "password" => Hash::make($request->password),
+            "role_id" => $request->role_id
         ]);
 
         return response()->json(["msg" => "Usuario registrado correctamente."]);

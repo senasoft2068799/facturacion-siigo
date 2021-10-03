@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import Register from "./pages/Auth/Register.vue";
 import Login from "./pages/Auth/Login.vue";
->>>>>>> 114a6eee015d7a0f77f48d1876f60c4976efa99c
 import Dashboard from "./pages/Dashboard.vue";
 import RolesIndex from "./pages/Roles/Index.vue";
 import RolesShow from "./pages/Roles/Show.vue";
@@ -31,7 +28,6 @@ import ProductosIndex from "./pages/Productos/Index.vue";
 import ProductosCreate from "./pages/Productos/Create.vue";
 import ProductosEdit from "./pages/Productos/Edit.vue";
 import UsuariosIndex from "./pages/Usuarios/Index.vue";
-import UsuariosCreate from "./pages/Usuarios/Create.vue";
 import UsuariosEdit from "./pages/Usuarios/Edit.vue";
 
 export const routes = [
@@ -39,8 +35,6 @@ export const routes = [
     // Dashboard
     //
     {
-<<<<<<< HEAD
-=======
         name: "register",
         path: "/register",
         component: Register,
@@ -53,7 +47,6 @@ export const routes = [
         meta: { guest: true }
     },
     {
->>>>>>> 114a6eee015d7a0f77f48d1876f60c4976efa99c
         name: "dashboard",
         path: "/",
         component: Dashboard
@@ -222,11 +215,6 @@ export const routes = [
         name: "usuarios.index",
         path: "/usuarios",
         component: UsuariosIndex
-    },
-    {
-        name: "usuarios.create",
-        path: "/usuarios/create",
-        component: UsuariosCreate
     },
     {
         name: "usuarios.edit",

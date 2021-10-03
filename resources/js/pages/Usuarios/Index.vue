@@ -7,19 +7,19 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Nombre</th>
+            <th>Nombre Completo</th>
             <th>Email</th>
-            <th>Fecha de creación</th>
-            <th>Fecha de modificación</th>
+            <th>Número de Teléfono</th>
+            <th>Rol</th>
             <th>Funciones</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(user, index) in users" :key="index">
-            <td>{{ user.name }}</td>
+            <td>{{ user.nombre }} {{ user.apellido }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.created_at }}</td>
-            <td>{{ user.updated_at }}</td>
+            <td>{{ user.telefono }}</td>
+            <td>{{ user.role.nombre }}</td>
             <td>
               <router-link
                 class="btn btn-warning btn-sm"
@@ -50,13 +50,8 @@ export default {
     };
   },
   created() {
-    /*
-this.axios.get("/api/documentos").then(response => {
-            this.documentos = response.data;
-        });*/
-
     this.axios.get("/api/users").then((response) => {
-      this.users = response.data;
+      this.users = response.data.data;
     });
   },
   methods: {

@@ -19,6 +19,19 @@
       </a>
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+          <p class="text-center">
+            {{ currentUser.nombre }} {{ currentUser.apellido }}
+          </p>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link link-dark text-primary">
+            <svg class="bi me-2" width="16" height="16">
+              <use xlink:href="#table"></use>
+            </svg>
+            {{ currentUser.nombre }} {{ currentUser.apellido }}
+          </router-link>
+        </li>
         <li class="nav-item">
           <router-link
             active-class="active"
@@ -97,6 +110,11 @@
             Roles
           </router-link>
         </li>
+        <li>
+          <button @click="logout()" class="btn btn-danger">
+            <i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
@@ -104,5 +122,37 @@
 <script>
 export default {
   name: "Sidebar",
+  data() {
+    return {
+      currentUser: {},
+      token: localStorage.getItem("token"),
+    };
+  },
+  mounted() {
+    window.axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${this.token}`;
+    axios
+      .get("/api/user")
+      .then((res) => {
+        this.currentUser = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  methods: {
+    logout() {
+      axios
+        .post("/api/logout")
+        .then((res) => {
+          localStorage.removeItem("token");
+          this.$router.push("/login");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
