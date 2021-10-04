@@ -25,7 +25,16 @@ class MovimientoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descripcion' => 'required|max:255',
+            // 'valor_total' => '',
+            'documento_id' => 'required|exists:documentos,id',
+            'sucursale_id' => 'required|exists:sucursales,id',
+            'user_id' => 'exists:users,id',
+            'estado' => 'required',
+        ]);
+        $movimiento = Movimiento::create($request->all());
+        return $movimiento;
     }
 
     /**

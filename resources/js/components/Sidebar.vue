@@ -49,7 +49,6 @@
         <li>
           <router-link
             active-class="active"
-            exact
             :to="{ name: 'facturas.index' }"
             class="nav-link link-dark"
           >
@@ -63,21 +62,6 @@
         <li>
           <router-link
             active-class="active"
-            exact
-            :to="{ name: 'documentos.index' }"
-            class="nav-link link-dark"
-          >
-            <i class="fas fa-folder"></i>
-            <svg class="bi me-2" width="5" height="16">
-              <use xlink:href="#speedometer2"></use>
-            </svg>
-            Documentos
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            active-class="active"
-            exact
             :to="{ name: 'sucursales.index' }"
             class="nav-link link-dark"
           >
@@ -91,7 +75,19 @@
         <li>
           <router-link
             active-class="active"
-            exact
+            :to="{ name: 'bodegas.index' }"
+            class="nav-link link-dark"
+          >
+            <i class="fas fa-folder"></i>
+            <svg class="bi me-2" width="5" height="16">
+              <use xlink:href="#speedometer2"></use>
+            </svg>
+            Bodegas
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            active-class="active"
             :to="{ name: 'productos.index' }"
             class="nav-link link-dark"
           >
@@ -105,7 +101,6 @@
         <li>
           <router-link
             active-class="active"
-            exact
             :to="{ name: 'roles.index' }"
             class="nav-link link-dark"
           >

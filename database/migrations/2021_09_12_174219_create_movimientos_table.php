@@ -15,15 +15,15 @@ class CreateMovimientosTable extends Migration
     {
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
-            $table->string("descripcion");
-            $table->double("valor_total");
+            $table->string("descripcion")->nullable();;
+            $table->double("valor_total")->nullable();;
             $table->unsignedBigInteger("documento_id");
             $table->foreign("documento_id")
                 ->references("id")->on("documentos")
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger("sucursale_id")->nullable();;
+            $table->unsignedBigInteger("sucursale_id")->nullable();
             $table->foreign("sucursale_id")
                 ->references("id")->on("sucursales")
                 ->onUpdate('cascade')

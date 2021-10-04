@@ -5,15 +5,9 @@ import RolesIndex from "./pages/Roles/Index.vue";
 import RolesShow from "./pages/Roles/Show.vue";
 import RolesCreate from "./pages/Roles/Create.vue";
 import RolesEdit from "./pages/Roles/Edit.vue";
-import DocumentosIndex from "./pages/Documentos/Index.vue";
-import DocumentosCreate from "./pages/Documentos/Create.vue";
-import DocumentosEdit from "./pages/Documentos/Edit.vue";
 import SucursalesIndex from "./pages/Sucursales/Index.vue";
 import SucursalesCreate from "./pages/Sucursales/Create.vue";
 import SucursalesEdit from "./pages/Sucursales/Edit.vue";
-import MovimientosIndex from "./pages/Movimientos/Index.vue";
-import MovimientosCreate from "./pages/Movimientos/Create.vue";
-import MovimientosEdit from "./pages/Movimientos/Edit.vue";
 import BodegasIndex from "./pages/Bodegas/Index.vue";
 import BodegasCreate from "./pages/Bodegas/Create.vue";
 import BodegasEdit from "./pages/Bodegas/Edit.vue";
@@ -49,7 +43,8 @@ export const routes = [
     {
         name: "dashboard",
         path: "/",
-        component: Dashboard
+        component: Dashboard,
+        meta: { requiresAuth: true }
     },
     //
     // Roles
@@ -57,42 +52,28 @@ export const routes = [
     {
         name: "roles.index",
         path: "/roles",
-        component: RolesIndex
+        component: RolesIndex,
+        meta: { requiresAuth: true }
     },
     {
         name: "roles.show",
         path: "/roles/:id/",
-        component: RolesShow
+        component: RolesShow,
+        meta: { requiresAuth: true }
     },
 
     {
         name: "roles.create",
         path: "/roles/create",
-        component: RolesCreate
+        component: RolesCreate,
+        meta: { requiresAuth: true }
     },
 
     {
         name: "roles.edit",
         path: "/roles/:id/edit",
-        component: RolesEdit
-    },
-    //
-    // Documentos
-    //
-    {
-        name: "documentos.index",
-        path: "/documentos",
-        component: DocumentosIndex
-    },
-    {
-        name: "documentos.create",
-        path: "/documentos/create",
-        component: DocumentosCreate
-    },
-    {
-        name: "documentos.edit",
-        path: "/documentos/:id/edit",
-        component: DocumentosEdit
+        component: RolesEdit,
+        meta: { requiresAuth: true }
     },
     //
     // Sucursales
@@ -100,35 +81,20 @@ export const routes = [
     {
         name: "sucursales.index",
         path: "/sucursales",
-        component: SucursalesIndex
+        component: SucursalesIndex,
+        meta: { requiresAuth: true }
     },
     {
         name: "sucursales.create",
         path: "/sucursales/create",
-        component: SucursalesCreate
+        component: SucursalesCreate,
+        meta: { requiresAuth: true }
     },
     {
         name: "sucursales.edit",
         path: "/sucursales/:id/edit",
-        component: SucursalesEdit
-    },
-    //
-    // Movimientos
-    //
-    {
-        name: "movimientos.index",
-        path: "/movimientos",
-        component: MovimientosIndex
-    },
-    {
-        name: "movimientos.create",
-        path: "/movimientos/create",
-        component: MovimientosCreate
-    },
-    {
-        name: "movimientos.edit",
-        path: "/movimientos/:id/edit",
-        component: MovimientosEdit
+        component: SucursalesEdit,
+        meta: { requiresAuth: true }
     },
     //
     //Categorias
@@ -136,17 +102,20 @@ export const routes = [
     {
         name: "categorias.index",
         path: "/categorias",
-        component: CategoriasIndex
+        component: CategoriasIndex,
+        meta: { requiresAuth: true }
     },
     {
         name: "categorias.create",
         path: "/categorias/create",
-        component: CategoriasCreate
+        component: CategoriasCreate,
+        meta: { requiresAuth: true }
     },
     {
         name: "categorias.edit",
         path: "/categorias/:id/edit",
-        component: CategoriasEdit
+        component: CategoriasEdit,
+        meta: { requiresAuth: true }
     },
     //
     //Productos
@@ -154,17 +123,20 @@ export const routes = [
     {
         name: "productos.index",
         path: "/productos",
-        component: ProductosIndex
+        component: ProductosIndex,
+        meta: { requiresAuth: true }
     },
     {
         name: "productos.create",
         path: "/productos/create",
-        component: ProductosCreate
+        component: ProductosCreate,
+        meta: { requiresAuth: true }
     },
     {
         name: "productos.edit",
         path: "/productos/:id/edit",
-        component: ProductosEdit
+        component: ProductosEdit,
+        meta: { requiresAuth: true }
     },
     //
     // Bodegas
@@ -172,17 +144,20 @@ export const routes = [
     {
         name: "bodegas.index",
         path: "/bodegas",
-        component: BodegasIndex
+        component: BodegasIndex,
+        meta: { requiresAuth: true }
     },
     {
         name: "bodegas.create",
         path: "/bodegas/create",
-        component: BodegasCreate
+        component: BodegasCreate,
+        meta: { requiresAuth: true }
     },
     {
         name: "bodegas.edit",
         path: "/bodegas/:id/edit",
-        component: BodegasEdit
+        component: BodegasEdit,
+        meta: { requiresAuth: true }
     },
     //
     // Facturas
@@ -196,12 +171,14 @@ export const routes = [
     {
         name: "facturas.create",
         path: "/facturas/create",
-        component: FacturasCreate
+        component: FacturasCreate,
+        meta: { requiresAuth: true }
     },
     {
         name: "facturas.show",
         path: "/facturas/:id",
-        component: FacturasShow
+        component: FacturasShow,
+        meta: { requiresAuth: true }
     },
     {
         name: "facturas.edit",

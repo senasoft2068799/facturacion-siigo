@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ciudade;
-use Illuminate\Http\Request;
 
 class CiudadeController extends Controller
 {

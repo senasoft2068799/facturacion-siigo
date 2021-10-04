@@ -1,5 +1,5 @@
 <template>
-    <div class="card" style="width: 24rem;">
+    <div class="card" style="width: 24rem">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
