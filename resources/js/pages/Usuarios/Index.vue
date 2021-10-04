@@ -1,11 +1,11 @@
 <template>
   <div>
-    <router-link class="btn btn-success mb-3" :to="{ name: 'usuarios.create' }"
-      >Registrar Usuario</router-link
+    <router-link class="btn btn-primary mb-3" :to="{ name: 'usuarios.create' }"
+      ><i class="fas fa-user me-2"></i>Registrar Usuario</router-link
     >
     <div class="table-responsive">
-      <table class="table">
-        <thead>
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark text-center">
           <tr>
             <th>Nombre Completo</th>
             <th>Email</th>
@@ -20,7 +20,7 @@
             <td>{{ user.email }}</td>
             <td>{{ user.telefono }}</td>
             <td>{{ user.role.nombre }}</td>
-            <td>
+            <td class="text-center">
               <router-link
                 class="btn btn-warning btn-sm"
                 :to="{

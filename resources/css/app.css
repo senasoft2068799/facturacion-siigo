@@ -1,52 +1,46 @@
-.sidebar{
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background: #fafafad3;
+:root{
+    --main-bg-color: #f7f7f7d3;
+    --main-text-color: black;
+    --second-bg-color: #dadadad3;
+    --second-text-color: #1d7edf;
 }
 
-body{
-    background: #fafafad3;
+.sidebar{
+    left: 0;
+    width: 20%;
+    height: 100%;
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
 }
 
 .sidebar ul a{
-    display: block;
+    display: inline-block;
     height: 100%;
     width: 100%;
-    line-height: 35px;
-    padding-left: 15px;
+    line-height: 2.2rem;
     box-sizing: border-box;
-    border-top: 1px solid rgba(255, 255, 255, .1);
     border-bottom: 1px solid black;
-    transition: .4s;
 }
 
-ul li:hover a{
-    padding-left: 30px;
+ul li:hover{
+    padding-left: 1rem;
+    transition: all .9s;
+}
+
+li a:hover{
+    font-weight: bold;
+    color: var(--second-text-color) !important;
 }
 
 .active {
-    background-color: rgb(206, 206, 206);
+    font-weight: bold;
+    margin-left: 1rem;
+    color: var(--second-text-color) !important;
+    border-bottom: 1px solid var(--second-text-color) !important;
 }
 
-thead{
-    background-color: #fafafad3;
-    color: black;
-    border-bottom: solid 5px black;
-}
-
-tr:hover td{
-    background-color: rgb(206, 206, 206);
-    color: black;
-}
-
-.diseñoNavbar{
-    background-color: rgb(24, 23, 23);
-}
-
-.dieñoForm{
-    background-color: #fafafad3;
-    padding: 60px 35px 35px 35px;
-    border-radius: 40px;
-    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff; 
+#designNavbar{
+    padding: .750rem 0;
+    color: var(--main-text-color);
+    background-color: var(--second-bg-color);
 }

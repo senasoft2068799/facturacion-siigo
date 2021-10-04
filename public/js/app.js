@@ -2304,8 +2304,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar",
   data: function data() {
@@ -47295,12 +47293,20 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "nav",
-      { staticClass: "diseñoNavbar navbar navbar-expand-lg navbar-dark" },
+      {
+        staticClass: "navbar navbar-expand-lg navbar-dark",
+        attrs: { id: "designNavbar" }
+      },
       [
         _c("div", { staticClass: "container-fluid " }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-            _vm._v("Facturación Siigo")
-          ]),
+          _c(
+            "a",
+            {
+              staticClass: "navbar-brand text-dark fw-bold ms-5",
+              attrs: { href: "#" }
+            },
+            [_vm._v("Facturación Siigo")]
+          ),
           _vm._v(" "),
           _c(
             "button",
@@ -47615,24 +47621,22 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("li", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.logout()
-                  }
+          _c(
+            "button",
+            {
+              staticClass: "btn text-danger my-2",
+              on: {
+                click: function($event) {
+                  return _vm.logout()
                 }
-              },
-              [
-                _c("i", { staticClass: "fas fa-sign-out-alt me-2" }, [
-                  _vm._v(" Cerrar sesión ")
-                ])
-              ]
-            )
-          ])
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-sign-out-alt me-2" }, [
+                _vm._v(" Cerrar sesión ")
+              ])
+            ]
+          )
         ])
       ]
     )
@@ -51363,7 +51367,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-header" }, [_vm._v("Modificar Usuario")]),
+    _c("div", { staticClass: "card-header text-center fs-4" }, [
+      _vm._v("Modificar Usuario")
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c(
@@ -51548,11 +51554,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Modificar")]
-          ),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "router-link",
@@ -51560,7 +51562,12 @@ var render = function() {
               staticClass: "btn btn-secondary",
               attrs: { to: { name: "usuarios.index" } }
             },
-            [_vm._v("Regresar")]
+            [
+              _c("i", {
+                staticClass: "fas <fas fa-arrow-alt-circle-left me-2"
+              }),
+              _vm._v("Regresar")
+            ]
           )
         ],
         1
@@ -51568,7 +51575,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "fas fa-edit me-2" }), _vm._v("Modificar")]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -51597,14 +51615,17 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-success mb-3",
+          staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "usuarios.create" } }
         },
-        [_vm._v("Registrar Usuario")]
+        [
+          _c("i", { staticClass: "fas fa-user me-2" }),
+          _vm._v("Registrar Usuario")
+        ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -51623,6 +51644,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "text-center" },
                   [
                     _c(
                       "router-link",
@@ -51668,7 +51690,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre Completo")]),
         _vm._v(" "),

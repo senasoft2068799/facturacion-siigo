@@ -1,7 +1,7 @@
 <template>
-    <nav class="diseñoNavbar navbar navbar-expand-lg navbar-dark">
+    <nav id="designNavbar" class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid ">
-            <a class="navbar-brand" href="#">Facturación Siigo</a>
+            <a class="navbar-brand text-dark fw-bold ms-5" href="#">Facturación Siigo</a>
             <button
                 class="navbar-toggler"
                 type="button"

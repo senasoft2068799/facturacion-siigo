@@ -116,11 +116,9 @@
             Roles
           </router-link>
         </li>
-        <li>
-          <button @click="logout()" class="btn btn-danger">
-            <i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
-          </button>
-        </li>
+        <button @click="logout()" class="btn text-danger my-2">
+          <i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
+        </button>
       </ul>
     </div>
   </div>

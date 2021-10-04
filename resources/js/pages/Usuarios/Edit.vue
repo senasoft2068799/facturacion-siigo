@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Modificar Usuario</div>
+        <div class="card-header text-center fs-4">Modificar Usuario</div>
         <div class="card-body">
             <form @submit.prevent="modificarUsuario">
                 <div class="mb-3">
@@ -59,11 +59,11 @@
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Modificar</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-edit me-2"></i>Modificar</button>
                 <router-link
                     :to="{ name: 'usuarios.index' }"
                     class="btn btn-secondary"
-                    >Regresar</router-link
+                    ><i class="fas <fas fa-arrow-alt-circle-left me-2"></i>Regresar</router-link
                 >
             </form>
         </div>
