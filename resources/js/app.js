@@ -28,7 +28,7 @@ const router = new VueRouter({
 });
 
 function loggedIn() {
-    return Storage.get("token");
+    return Storage.get("token", false);
 }
 
 router.beforeEach((to, from, next) => {

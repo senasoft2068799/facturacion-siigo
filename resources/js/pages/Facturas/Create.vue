@@ -268,10 +268,6 @@
 				<!-- Fin botones -->
 			</form>
 		</div>
-		<hr />
-		<pre>
-      {{ factura }}
-    </pre>
 	</div>
 </template>
 
@@ -316,9 +312,9 @@ export default {
 			this.bodegas = res.data;
 		});
 		//Borrador de factura
-		// if (Storage.has("factura")) {
-		// 	this.factura = Storage.get("factura");
-		// }
+		if (Storage.has("factura")) {
+			this.factura = Storage.get("factura");
+		}
 	},
 	methods: {
 		calcularTotal() {

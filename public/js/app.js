@@ -2291,35 +2291,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar",
   data: function data() {
     return {
       currentUser: {},
-      token: _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("token")
+      token: null
     };
   },
   mounted: function mounted() {
     var _this = this;
 
-    window.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(this.token);
-    axios.get("/api/user").then(function (res) {
-      _this.currentUser = res.data;
-    })["catch"](function (err) {
-      console.log(err);
-    });
+    if (_utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].has("token")) {
+      this.token = _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("token", false);
+      window.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(this.token);
+      axios.get("/api/user").then(function (res) {
+        _this.currentUser = res.data;
+      })["catch"](function (err) {
+        console.log(err);
+      });
+    }
   },
   methods: {
     logout: function logout() {
@@ -2407,12 +2399,12 @@ __webpack_require__.r(__webpack_exports__);
     login: function login() {
       var _this = this;
 
-      axios.post("/api/login", this.formData).then(function (response) {
-        _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].record("token", response.data, false);
+      axios.post("/api/login", this.formData).then(function (res) {
+        _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].record("token", res.data, false);
 
         _this.$router.push("/");
-      })["catch"](function (errors) {
-        _this.errors = errors.response.data.errors;
+      })["catch"](function (err) {
+        _this.errors = err.response.data.errors;
       });
     }
   }
@@ -3473,10 +3465,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3518,9 +3506,10 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get("/api/bodegas").then(function (res) {
       _this.bodegas = res.data;
     }); //Borrador de factura
-    // if (Storage.has("factura")) {
-    // 	this.factura = Storage.get("factura");
-    // }
+
+    if (_utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__["default"].has("factura")) {
+      this.factura = _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("factura");
+    }
   },
   methods: {
     calcularTotal: function calcularTotal() {
@@ -5165,7 +5154,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_7__["default"]({
 });
 
 function loggedIn() {
-  return _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_6__["default"].get("token");
+  return _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_6__["default"].get("token", false);
 }
 
 router.beforeEach(function (to, from, next) {
@@ -5611,7 +5600,13 @@ var Storage = /*#__PURE__*/function () {
   }, {
     key: "get",
     value: function get(key) {
-      return this.storage.getItem(key);
+      var stringify = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      if (stringify) {
+        return JSON.parse(this.storage.getItem(key));
+      } else {
+        return this.storage.getItem(key);
+      }
     }
   }, {
     key: "remove",
@@ -47121,11 +47116,18 @@ var render = function() {
       _c("Navbar"),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row flex-nowrap" }, [
-          _c("main", { staticClass: "col py-3" }, [
-            _c("div", { staticClass: "container" }, [_c("router-view")], 1)
-          ])
-        ])
+        _c(
+          "div",
+          { staticClass: "row flex-nowrap" },
+          [
+            _c("Sidebar"),
+            _vm._v(" "),
+            _c("main", { staticClass: "col py-3" }, [
+              _c("div", { staticClass: "container" }, [_c("router-view")], 1)
+            ])
+          ],
+          1
+        )
       ])
     ],
     1
@@ -47199,12 +47201,20 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "nav",
-      { staticClass: "diseñoNavbar navbar navbar-expand-lg navbar-dark" },
+      {
+        staticClass: "navbar navbar-expand-lg navbar-dark",
+        attrs: { id: "designNavbar" }
+      },
       [
         _c("div", { staticClass: "container-fluid " }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-            _vm._v("Facturación Siigo")
-          ]),
+          _c(
+            "a",
+            {
+              staticClass: "navbar-brand text-dark fw-bold ms-5",
+              attrs: { href: "#" }
+            },
+            [_vm._v("Facturación Siigo")]
+          ),
           _vm._v(" "),
           _c(
             "button",
@@ -47274,8 +47284,7 @@ var render = function() {
           "a",
           {
             staticClass:
-              "\n\t\t\t\td-flex\n\t\t\t\talign-items-center\n\t\t\t\tmb-3 mb-md-0\n\t\t\t\tme-md-auto\n\t\t\t\tlink-dark\n\t\t\t\ttext-decoration-none\n\t\t\t",
-            attrs: { href: "/" }
+              "\n\t\t\t\td-flex\n\t\t\t\talign-items-center\n\t\t\t\tmb-3 mb-md-0\n\t\t\t\tme-md-auto\n\t\t\t\tlink-dark\n\t\t\t\ttext-decoration-none\n\t\t\t"
           },
           [
             _c(
@@ -47291,34 +47300,9 @@ var render = function() {
         _c("hr"),
         _vm._v(" "),
         _c("ul", { staticClass: "nav flex-column mb-auto" }, [
-          _c("li", [
-            _c("p", { staticClass: "text-center" }, [
-              _vm._v(
-                "\n\t\t\t\t\t" +
-                  _vm._s(_vm.currentUser.nombre) +
-                  " " +
-                  _vm._s(_vm.currentUser.apellido) +
-                  "\n\t\t\t\t"
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "nav-item" },
-            [
-              _c(
-                "router-link",
-                { staticClass: "nav-link link-dark text-primary" },
-                [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi me-2",
-                      attrs: { width: "16", height: "16" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
+          _vm.currentUser.nombre != null
+            ? _c("li", [
+                _c("p", { staticClass: "text-center" }, [
                   _vm._v(
                     "\n\t\t\t\t\t" +
                       _vm._s(_vm.currentUser.nombre) +
@@ -47326,11 +47310,9 @@ var render = function() {
                       _vm._s(_vm.currentUser.apellido) +
                       "\n\t\t\t\t"
                   )
-                ]
-              )
-            ],
-            1
-          ),
+                ])
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "li",
@@ -47514,24 +47496,22 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("li", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.logout()
-                  }
+          _c(
+            "button",
+            {
+              staticClass: "btn text-danger my-2",
+              on: {
+                click: function($event) {
+                  return _vm.logout()
                 }
-              },
-              [
-                _c("i", { staticClass: "fas fa-sign-out-alt me-2" }, [
-                  _vm._v(" Cerrar sesión ")
-                ])
-              ]
-            )
-          ])
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-sign-out-alt me-2" }, [
+                _vm._v(" Cerrar sesión ")
+              ])
+            ]
+          )
         ])
       ]
     )
@@ -48936,9 +48916,9 @@ var render = function() {
                       { key: index, domProps: { value: item.id } },
                       [
                         _vm._v(
-                          "\n\t\t\t\t\t\t\t\t" +
+                          "\n\t\t\t\t\t\t\t" +
                             _vm._s(item.nombre) +
-                            "\n\t\t\t\t\t\t\t"
+                            "\n\t\t\t\t\t\t"
                         )
                       ]
                     )
@@ -48950,9 +48930,9 @@ var render = function() {
               _vm.errors.has("sucursale_id")
                 ? _c("p", { staticClass: "text-danger" }, [
                     _vm._v(
-                      "\n\t\t\t\t\t\t\t" +
+                      "\n\t\t\t\t\t\t" +
                         _vm._s(_vm.errors.get("sucursale_id")) +
-                        "\n\t\t\t\t\t\t"
+                        "\n\t\t\t\t\t"
                     )
                   ])
                 : _vm._e()
@@ -49012,11 +48992,11 @@ var render = function() {
                       { key: index, domProps: { value: item.id } },
                       [
                         _vm._v(
-                          "\n\t\t\t\t\t\t\t\t" +
+                          "\n\t\t\t\t\t\t\t" +
                             _vm._s(item.nombre) +
                             " " +
                             _vm._s(item.apellido) +
-                            "\n\t\t\t\t\t\t\t"
+                            "\n\t\t\t\t\t\t"
                         )
                       ]
                     )
@@ -49028,9 +49008,9 @@ var render = function() {
               _vm.errors.has("user_id")
                 ? _c("div", { staticClass: "text-danger" }, [
                     _vm._v(
-                      "\n\t\t\t\t\t\t\t" +
+                      "\n\t\t\t\t\t\t" +
                         _vm._s(_vm.errors.get("user_id")) +
-                        "\n\t\t\t\t\t\t"
+                        "\n\t\t\t\t\t"
                     )
                   ])
                 : _vm._e()
@@ -49094,9 +49074,9 @@ var render = function() {
                               { key: index, domProps: { value: item } },
                               [
                                 _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                  "\n\t\t\t\t\t\t\t\t\t\t" +
                                     _vm._s(item.nombre) +
-                                    "\n\t\t\t\t\t\t\t\t\t\t"
+                                    "\n\t\t\t\t\t\t\t\t\t"
                                 )
                               ]
                             )
@@ -49181,9 +49161,9 @@ var render = function() {
                               { key: index, domProps: { value: item } },
                               [
                                 _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                  "\n\t\t\t\t\t\t\t\t\t\t" +
                                     _vm._s(item.nombre) +
-                                    "\n\t\t\t\t\t\t\t\t\t\t"
+                                    "\n\t\t\t\t\t\t\t\t\t"
                                 )
                               ]
                             )
@@ -49195,32 +49175,32 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n\t\t\t\t\t\t\t\t\t" +
+                        "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
                             _vm.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario
                             )
                           ) +
-                          "\n\t\t\t\t\t\t\t\t"
+                          "\n\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n\t\t\t\t\t\t\t\t\t" +
+                        "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
                             _vm.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario *
                                 _vm.detalleFactura.cantidad
                             )
                           ) +
-                          "\n\t\t\t\t\t\t\t\t"
+                          "\n\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n\t\t\t\t\t\t\t\t\t" +
+                        "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
                             _vm.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario *
@@ -49228,13 +49208,13 @@ var render = function() {
                                 0.19
                             )
                           ) +
-                          "\n\t\t\t\t\t\t\t\t"
+                          "\n\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n\t\t\t\t\t\t\t\t\t" +
+                        "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
                             _vm.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario *
@@ -49242,7 +49222,7 @@ var render = function() {
                                 1.19
                             )
                           ) +
-                          "\n\t\t\t\t\t\t\t\t"
+                          "\n\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
@@ -49320,29 +49300,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n\t\t\t\t\t\t\t\t\t" +
+                          "\n\t\t\t\t\t\t\t\t" +
                             _vm._s(
                               _vm.formatCurrency(item.producto.precio_unitario)
                             ) +
-                            "\n\t\t\t\t\t\t\t\t"
+                            "\n\t\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n\t\t\t\t\t\t\t\t\t" +
+                          "\n\t\t\t\t\t\t\t\t" +
                             _vm._s(
                               _vm.formatCurrency(
                                 item.producto.precio_unitario * item.cantidad
                               )
                             ) +
-                            "\n\t\t\t\t\t\t\t\t"
+                            "\n\t\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n\t\t\t\t\t\t\t\t\t" +
+                          "\n\t\t\t\t\t\t\t\t" +
                             _vm._s(
                               _vm.formatCurrency(
                                 item.producto.precio_unitario *
@@ -49350,7 +49330,7 @@ var render = function() {
                                   0.19
                               )
                             ) +
-                            "\n\t\t\t\t\t\t\t\t"
+                            "\n\t\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
@@ -49405,9 +49385,9 @@ var render = function() {
                       _c("th", [
                         _c("h5", [
                           _vm._v(
-                            "\n\t\t\t\t\t\t\t\t\t\t" +
+                            "\n\t\t\t\t\t\t\t\t\t" +
                               _vm._s(_vm.formatCurrency(_vm.calcularTotal())) +
-                              "\n\t\t\t\t\t\t\t\t\t"
+                              "\n\t\t\t\t\t\t\t\t"
                           )
                         ])
                       ]),
@@ -49456,9 +49436,9 @@ var render = function() {
             _vm.errors.has("descripcion")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n\t\t\t\t\t\t" +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors.get("descripcion")) +
-                      "\n\t\t\t\t\t"
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -49486,11 +49466,7 @@ var render = function() {
         ],
         1
       )
-    ]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("pre", [_vm._v("      " + _vm._s(_vm.factura) + "\n    ")])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -51264,7 +51240,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
-    _c("div", { staticClass: "card-header" }, [_vm._v("Modificar Usuario")]),
+    _c("div", { staticClass: "card-header text-center fs-4" }, [
+      _vm._v("Modificar Usuario")
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
       _c(
@@ -51449,11 +51427,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Modificar")]
-          ),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "router-link",
@@ -51461,7 +51435,12 @@ var render = function() {
               staticClass: "btn btn-secondary",
               attrs: { to: { name: "usuarios.index" } }
             },
-            [_vm._v("Regresar")]
+            [
+              _c("i", {
+                staticClass: "fas <fas fa-arrow-alt-circle-left me-2"
+              }),
+              _vm._v("Regresar")
+            ]
           )
         ],
         1
@@ -51469,7 +51448,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "fas fa-edit me-2" }), _vm._v("Modificar")]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -51498,14 +51488,17 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-success mb-3",
+          staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "usuarios.create" } }
         },
-        [_vm._v("Registrar Usuario")]
+        [
+          _c("i", { staticClass: "fas fa-user me-2" }),
+          _vm._v("Registrar Usuario")
+        ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -51524,6 +51517,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "text-center" },
                   [
                     _c(
                       "router-link",
@@ -51569,7 +51563,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre Completo")]),
         _vm._v(" "),

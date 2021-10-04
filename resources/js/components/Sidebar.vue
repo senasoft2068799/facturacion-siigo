@@ -2,7 +2,6 @@
 	<div class="sidebar">
 		<div class="d-flex flex-column flex-shrink-0 p-3 min-vh-100">
 			<a
-				href="/"
 				class="
 					d-flex
 					align-items-center
@@ -19,18 +18,10 @@
 			</a>
 			<hr />
 			<ul class="nav flex-column mb-auto">
-				<li>
+				<li v-if="currentUser.nombre != null">
 					<p class="text-center">
 						{{ currentUser.nombre }} {{ currentUser.apellido }}
 					</p>
-				</li>
-				<li class="nav-item">
-					<router-link class="nav-link link-dark text-primary">
-						<svg class="bi me-2" width="16" height="16">
-							<use xlink:href="#table"></use>
-						</svg>
-						{{ currentUser.nombre }} {{ currentUser.apellido }}
-					</router-link>
 				</li>
 				<li class="nav-item">
 					<router-link
@@ -111,11 +102,9 @@
 						Roles
 					</router-link>
 				</li>
-				<li>
-					<button @click="logout()" class="btn btn-danger">
-						<i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
-					</button>
-				</li>
+				<button @click="logout()" class="btn text-danger my-2">
+					<i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
+				</button>
 			</ul>
 		</div>
 	</div>
@@ -127,21 +116,24 @@ export default {
 	data() {
 		return {
 			currentUser: {},
-			token: Storage.get("token"),
+			token: null,
 		};
 	},
 	mounted() {
-		window.axios.defaults.headers.common[
-			"Authorization"
-		] = `Bearer ${this.token}`;
-		axios
-			.get("/api/user")
-			.then((res) => {
-				this.currentUser = res.data;
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		if (Storage.has("token")) {
+			this.token = Storage.get("token", false);
+			window.axios.defaults.headers.common[
+				"Authorization"
+			] = `Bearer ${this.token}`;
+			axios
+				.get("/api/user")
+				.then((res) => {
+					this.currentUser = res.data;
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	},
 	methods: {
 		logout() {

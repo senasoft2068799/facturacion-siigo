@@ -3,7 +3,7 @@
 		<Navbar />
 		<div class="container-fluid">
 			<div class="row flex-nowrap">
-				<!-- <Sidebar /> -->
+				<Sidebar />
 				<main class="col py-3">
 					<div class="container">
 						<router-view></router-view>

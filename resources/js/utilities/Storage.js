@@ -15,8 +15,12 @@ class Storage {
         return this.storage.getItem(key) !== null;
     }
 
-    get(key) {
-        return this.storage.getItem(key);
+    get(key, stringify = true) {
+        if (stringify) {
+            return JSON.parse(this.storage.getItem(key));
+        } else {
+            return this.storage.getItem(key);
+        }
     }
 
     remove(key) {
