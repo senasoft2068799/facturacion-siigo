@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <Navbar />
-        <div class="container-fluid">
-            <div class="row flex-nowrap">
-                <Sidebar />
-                <main class="col py-3">
-                    <div class="container">
-                        <router-view></router-view>
-                    </div>
-                </main>
-            </div>
-        </div>
-    </div>
+	<div>
+		<Navbar />
+		<div class="container-fluid">
+			<div class="row flex-nowrap">
+				<!-- <Sidebar /> -->
+				<main class="col py-3">
+					<div class="container">
+						<router-view></router-view>
+					</div>
+				</main>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -20,11 +20,11 @@ import Sidebar from "./components/Sidebar.vue";
 import Footer from "./components/Footer.vue";
 
 export default {
-    name: "App",
-    components: {
-        Navbar,
-        Sidebar,
-        Footer
-    }
+	name: "App",
+	components: {
+		Navbar,
+		Sidebar,
+		Footer,
+	},
 };
 </script>

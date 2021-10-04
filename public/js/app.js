@@ -2179,6 +2179,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utilities/Storage.js */ "./resources/js/utilities/Storage.js");
 //
 //
 //
@@ -2301,12 +2302,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar",
   data: function data() {
     return {
       currentUser: {},
-      token: localStorage.getItem("token")
+      token: _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("token")
     };
   },
   mounted: function mounted() {
@@ -2324,7 +2326,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.post("/api/logout").then(function (res) {
-        localStorage.removeItem("token");
+        _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].remove("token");
 
         _this2.$router.push("/login");
       })["catch"](function (err) {
@@ -2347,6 +2349,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/Storage.js */ "./resources/js/utilities/Storage.js");
 //
 //
 //
@@ -2388,12 +2391,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2410,7 +2408,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.post("/api/login", this.formData).then(function (response) {
-        localStorage.setItem("token", response.data);
+        _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_0__["default"].record("token", response.data, false);
 
         _this.$router.push("/");
       })["catch"](function (errors) {
@@ -3201,6 +3199,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/Errors.js */ "./resources/js/utilities/Errors.js");
+/* harmony import */ var _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/Storage.js */ "./resources/js/utilities/Storage.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3461,6 +3478,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3469,16 +3487,16 @@ __webpack_require__.r(__webpack_exports__);
       sucursales: [],
       clientes: [],
       productos: [],
-      producto: {},
       bodegas: [],
-      bodega: {},
       factura: {
         sucursale_id: null,
-        user_id: null
+        user_id: null,
+        items: []
       },
-      detalles: [],
-      detalleFacturas: [],
-      detalleFactura: {}
+      detalleFactura: {
+        bodega: null,
+        producto: {}
+      }
     };
   },
   mounted: function mounted() {
@@ -3489,7 +3507,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.sucursales = res.data.data;
     }); //Mostrar lista de clientes
 
-    this.axios.get("/api/clientes").then(function (res) {
+    this.axios.get("/api/users").then(function (res) {
       _this.clientes = res.data.data;
     }); //Mostrar lista de productos
 
@@ -3499,23 +3517,15 @@ __webpack_require__.r(__webpack_exports__);
 
     this.axios.get("/api/bodegas").then(function (res) {
       _this.bodegas = res.data;
-    });
-    var datosFactura = JSON.parse(localStorage.getItem("factura"));
-
-    if (datosFactura != null) {
-      this.factura = datosFactura;
-    }
-
-    var datosDetalle = JSON.parse(localStorage.getItem("detalleFacturas"));
-
-    if (datosDetalle != null) {
-      this.detalleFacturas = datosDetalle;
-    }
+    }); //Borrador de factura
+    // if (Storage.has("factura")) {
+    // 	this.factura = Storage.get("factura");
+    // }
   },
   methods: {
     calcularTotal: function calcularTotal() {
       var valor = 0;
-      this.detalleFacturas.forEach(function (item) {
+      this.factura.items.forEach(function (item) {
         valor += item.valor_total;
       });
       return valor;
@@ -3533,70 +3543,39 @@ __webpack_require__.r(__webpack_exports__);
       return formatted;
     },
     agregarDetalleFactura: function agregarDetalleFactura() {
-      var valorDetalle;
-      valorDetalle = this.producto.precio_unitario * this.detalleFactura.cantidad * 1.19;
+      var valorDetalle = this.detalleFactura.producto.precio_unitario * this.detalleFactura.cantidad * 1.19;
       this.detalleFactura.valor_total = valorDetalle;
-      this.detalleFactura.producto = this.producto;
-      this.detalleFactura.bodega = this.bodega;
-      this.detalleFacturas.splice(0, 0, this.detalleFactura);
-      var ay = {
-        valor_total: valorDetalle,
-        cantidad: this.detalleFactura.cantidad,
-        producto_id: this.producto.id,
-        bodega_id: this.producto.id
-      };
-      this.detalles.splice(0, 0, ay);
-      this.limpiarCampos();
+      this.factura.items.splice(0, 0, this.detalleFactura);
       this.factura.valor_total += valorDetalle;
-      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
+      this.limpiarDetalleFactura();
+      this.guardarBorradorFactura();
     },
     eliminarDetalleFactura: function eliminarDetalleFactura(item, index) {
-      this.detalleFacturas.splice(index, 1);
+      this.factura.items.splice(index, 1);
       this.factura.valor_total -= item.valor_total;
-      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
+      this.guardarBorradorFactura();
     },
     iniciarEdicion: function iniciarEdicion(item, index) {
-      this.editing = index; // this.detalleFactura.cantidad = detalleFac.cantidad;
-      // this.detalleFactura.producto = detalleFac.producto;
-      // this.detalleFactura.bodega = detalleFac.bodega;
-
+      this.editing = index;
       this.detalleFactura = item;
-      this.producto = item.producto;
-      this.bodega = item.bodega;
     },
     editarDetalleFactura: function editarDetalleFactura() {
-      this.detalleFactura.producto = this.producto;
-      this.detalleFactura.bodega = this.bodega;
-      this.detalleFacturas.splice(this.editing, 1, this.detalleFactura);
-      localStorage.setItem("detalleFacturas", JSON.stringify(this.detalleFacturas));
+      this.factura.items.splice(this.editing, 1, this.detalleFactura);
+      this.guardarBorradorFactura();
       this.cancelarEdicion();
     },
     cancelarEdicion: function cancelarEdicion() {
       this.editing = null;
-      this.limpiarCampos();
-    },
-    limpiarCampos: function limpiarCampos() {
-      this.detalleFactura = {};
-      this.producto = {};
-      this.bodega = {};
+      this.limpiarDetalleFactura();
     },
     registrarFactura: function registrarFactura() {
       var _this2 = this;
 
-      console.log("Iniciandl");
       this.factura.documento_id = 1;
       this.factura.valor_total = this.calcularTotal();
-      this.factura.user_id = "1005716784"; //Eliminar esto
-
-      this.factura.estado = 1; //Eliminar esto
-
-      this.factura.items = this.detalles;
-      console.log(this.factura);
+      this.factura.estado = 1;
       this.axios.post("/api/facturas", this.factura).then(function (res) {
         // this.factura = res.data.data;
-        // this.detalleFacturas.forEach((item) => {
-        //   this.registrarDetalleFactura(item);
-        // });
         _this2.$swal("Factura registrada correctamente.");
 
         _this2.limpiarFactura();
@@ -3609,25 +3588,23 @@ __webpack_require__.r(__webpack_exports__);
         _this2.errors.record(err.response.data.errors);
       });
     },
-    registrarDetalleFactura: function registrarDetalleFactura(item) {
-      var detFac = {
-        cantidad: item.cantidad,
-        valor_total: item.valor_total,
-        movimiento_id: this.factura.id,
-        bodega_id: item.bodega.id,
-        producto_id: item.producto.id
-      };
-      this.axios.post("/api/detalle-facturas", detFac);
+    guardarBorradorFactura: function guardarBorradorFactura() {
+      _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__["default"].record("factura", this.factura);
     },
-    guardarFactura: function guardarFactura() {
-      localStorage.setItem("factura", JSON.stringify(this.factura));
+    limpiarDetalleFactura: function limpiarDetalleFactura() {
+      this.detalleFactura = {
+        bodega: {},
+        producto: {}
+      };
     },
     limpiarFactura: function limpiarFactura() {
-      this.limpiarCampos();
-      this.detalleFacturas = [];
-      this.factura = {};
-      localStorage.removeItem("factura");
-      localStorage.removeItem("detalleFacturas");
+      this.limpiarDetalleFactura();
+      factura = {
+        sucursale_id: null,
+        user_id: null,
+        items: []
+      };
+      _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__["default"].remove("factura");
     }
   }
 });
@@ -5155,15 +5132,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.esm.min.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-sweetalert2 */ "./node_modules/vue-sweetalert2/dist/index.js");
 /* harmony import */ var sweetalert2_dist_sweetalert2_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.min.css */ "./node_modules/sweetalert2/dist/sweetalert2.min.css");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utilities/Storage.js */ "./resources/js/utilities/Storage.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js")["default"];
+
 
 
 
@@ -5177,16 +5156,16 @@ var swalOptions = {
   confirmButtonText: "Continuar",
   cancelButtonText: "Cancelar"
 };
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]);
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_7__["default"]);
 Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_1__["default"], (axios__WEBPACK_IMPORTED_MODULE_2___default()));
 Vue.use(vue_sweetalert2__WEBPACK_IMPORTED_MODULE_3__["default"], swalOptions);
-var router = new vue_router__WEBPACK_IMPORTED_MODULE_6__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_7__["default"]({
   mode: "history",
   routes: _routes__WEBPACK_IMPORTED_MODULE_5__.routes
 });
 
 function loggedIn() {
-  return localStorage.getItem("token");
+  return _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_6__["default"].get("token");
 }
 
 router.beforeEach(function (to, from, next) {
@@ -5586,6 +5565,71 @@ var Errors = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Errors);
+
+/***/ }),
+
+/***/ "./resources/js/utilities/Storage.js":
+/*!*******************************************!*\
+  !*** ./resources/js/utilities/Storage.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Storage = /*#__PURE__*/function () {
+  function Storage() {
+    _classCallCheck(this, Storage);
+
+    this.storage = localStorage;
+  }
+
+  _createClass(Storage, [{
+    key: "record",
+    value: function record(key, value) {
+      var stringify = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+      if (stringify) {
+        this.storage.setItem(key, JSON.stringify(value));
+      } else {
+        this.storage.setItem(key, value);
+      }
+    }
+  }, {
+    key: "has",
+    value: function has(key) {
+      return this.storage.getItem(key) !== null;
+    }
+  }, {
+    key: "get",
+    value: function get(key) {
+      return this.storage.getItem(key);
+    }
+  }, {
+    key: "remove",
+    value: function remove(key) {
+      this.storage.removeItem(key);
+    }
+  }, {
+    key: "clear",
+    value: function clear() {
+      this.storage.clear();
+    }
+  }]);
+
+  return Storage;
+}();
+
+var storage = new Storage();
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (storage);
 
 /***/ }),
 
@@ -47077,18 +47121,11 @@ var render = function() {
       _c("Navbar"),
       _vm._v(" "),
       _c("div", { staticClass: "container-fluid" }, [
-        _c(
-          "div",
-          { staticClass: "row flex-nowrap" },
-          [
-            _c("Sidebar"),
-            _vm._v(" "),
-            _c("main", { staticClass: "col py-3" }, [
-              _c("div", { staticClass: "container" }, [_c("router-view")], 1)
-            ])
-          ],
-          1
-        )
+        _c("div", { staticClass: "row flex-nowrap" }, [
+          _c("main", { staticClass: "col py-3" }, [
+            _c("div", { staticClass: "container" }, [_c("router-view")], 1)
+          ])
+        ])
       ])
     ],
     1
@@ -47237,7 +47274,7 @@ var render = function() {
           "a",
           {
             staticClass:
-              "\n        d-flex\n        align-items-center\n        mb-3 mb-md-0\n        me-md-auto\n        link-dark\n        text-decoration-none\n      ",
+              "\n\t\t\t\td-flex\n\t\t\t\talign-items-center\n\t\t\t\tmb-3 mb-md-0\n\t\t\t\tme-md-auto\n\t\t\t\tlink-dark\n\t\t\t\ttext-decoration-none\n\t\t\t",
             attrs: { href: "/" }
           },
           [
@@ -47257,11 +47294,11 @@ var render = function() {
           _c("li", [
             _c("p", { staticClass: "text-center" }, [
               _vm._v(
-                "\n          " +
+                "\n\t\t\t\t\t" +
                   _vm._s(_vm.currentUser.nombre) +
                   " " +
                   _vm._s(_vm.currentUser.apellido) +
-                  "\n        "
+                  "\n\t\t\t\t"
               )
             ])
           ]),
@@ -47283,11 +47320,11 @@ var render = function() {
                     [_c("use", { attrs: { "xlink:href": "#table" } })]
                   ),
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.currentUser.nombre) +
                       " " +
                       _vm._s(_vm.currentUser.apellido) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ]
               )
@@ -47320,7 +47357,7 @@ var render = function() {
                     },
                     [_c("use", { attrs: { "xlink:href": "#home" } })]
                   ),
-                  _vm._v("\n          Home\n        ")
+                  _vm._v("\n\t\t\t\t\tHome\n\t\t\t\t")
                 ]
               )
             ],
@@ -47350,7 +47387,7 @@ var render = function() {
                     },
                     [_c("use", { attrs: { "xlink:href": "#table" } })]
                   ),
-                  _vm._v("\n          Facturas\n        ")
+                  _vm._v("\n\t\t\t\t\tFacturas\n\t\t\t\t")
                 ]
               )
             ],
@@ -47380,7 +47417,7 @@ var render = function() {
                     },
                     [_c("use", { attrs: { "xlink:href": "#table" } })]
                   ),
-                  _vm._v("\n          Sucursales\n        ")
+                  _vm._v("\n\t\t\t\t\tSucursales\n\t\t\t\t")
                 ]
               )
             ],
@@ -47410,7 +47447,7 @@ var render = function() {
                     },
                     [_c("use", { attrs: { "xlink:href": "#speedometer2" } })]
                   ),
-                  _vm._v("\n          Bodegas\n        ")
+                  _vm._v("\n\t\t\t\t\tBodegas\n\t\t\t\t")
                 ]
               )
             ],
@@ -47440,7 +47477,7 @@ var render = function() {
                     },
                     [_c("use", { attrs: { "xlink:href": "#table" } })]
                   ),
-                  _vm._v("\n          Productos\n        ")
+                  _vm._v("\n\t\t\t\t\tProductos\n\t\t\t\t")
                 ]
               )
             ],
@@ -47470,7 +47507,7 @@ var render = function() {
                     },
                     [_c("use", { attrs: { "xlink:href": "#grid" } })]
                   ),
-                  _vm._v("\n          Roles\n        ")
+                  _vm._v("\n\t\t\t\t\tRoles\n\t\t\t\t")
                 ]
               )
             ],
@@ -47628,7 +47665,7 @@ var render = function() {
           _c(
             "button",
             { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-            [_vm._v("\n                Iniciar sesión\n            ")]
+            [_vm._v("Iniciar sesión")]
           )
         ]
       )
@@ -48867,7 +48904,7 @@ var render = function() {
                   attrs: { id: "sucursal" },
                   on: {
                     blur: function($event) {
-                      return _vm.guardarFactura()
+                      return _vm.guardarBorradorFactura()
                     },
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -48893,15 +48930,15 @@ var render = function() {
                     _vm._v("Seleccionar sucursal...")
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.sucursales, function(sucursal, index) {
+                  _vm._l(_vm.sucursales, function(item, index) {
                     return _c(
                       "option",
-                      { key: index, domProps: { value: sucursal.id } },
+                      { key: index, domProps: { value: item.id } },
                       [
                         _vm._v(
-                          "\n              " +
-                            _vm._s(sucursal.nombre) +
-                            "\n            "
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(item.nombre) +
+                            "\n\t\t\t\t\t\t\t"
                         )
                       ]
                     )
@@ -48913,9 +48950,9 @@ var render = function() {
               _vm.errors.has("sucursale_id")
                 ? _c("p", { staticClass: "text-danger" }, [
                     _vm._v(
-                      "\n            " +
+                      "\n\t\t\t\t\t\t\t" +
                         _vm._s(_vm.errors.get("sucursale_id")) +
-                        "\n          "
+                        "\n\t\t\t\t\t\t"
                     )
                   ])
                 : _vm._e()
@@ -48943,7 +48980,7 @@ var render = function() {
                   attrs: { id: "cliente" },
                   on: {
                     blur: function($event) {
-                      return _vm.guardarFactura()
+                      return _vm.guardarBorradorFactura()
                     },
                     change: function($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -48969,15 +49006,17 @@ var render = function() {
                     _vm._v("Seleccionar cliente...")
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.clientes, function(cliente, index) {
+                  _vm._l(_vm.clientes, function(item, index) {
                     return _c(
                       "option",
-                      { key: index, domProps: { value: cliente.id } },
+                      { key: index, domProps: { value: item.id } },
                       [
                         _vm._v(
-                          "\n              " +
-                            _vm._s(cliente.nombre) +
-                            "\n            "
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(item.nombre) +
+                            " " +
+                            _vm._s(item.apellido) +
+                            "\n\t\t\t\t\t\t\t"
                         )
                       ]
                     )
@@ -48989,9 +49028,9 @@ var render = function() {
               _vm.errors.has("user_id")
                 ? _c("div", { staticClass: "text-danger" }, [
                     _vm._v(
-                      "\n            " +
+                      "\n\t\t\t\t\t\t\t" +
                         _vm._s(_vm.errors.get("user_id")) +
-                        "\n          "
+                        "\n\t\t\t\t\t\t"
                     )
                   ])
                 : _vm._e()
@@ -49016,8 +49055,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.producto,
-                              expression: "producto"
+                              value: _vm.detalleFactura.producto,
+                              expression: "detalleFactura.producto"
                             }
                           ],
                           staticClass: "form-select",
@@ -49032,9 +49071,13 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.producto = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
+                              _vm.$set(
+                                _vm.detalleFactura,
+                                "producto",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
                             }
                           }
                         },
@@ -49045,15 +49088,15 @@ var render = function() {
                             [_vm._v("Seleccionar...")]
                           ),
                           _vm._v(" "),
-                          _vm._l(_vm.productos, function(producto, index) {
+                          _vm._l(_vm.productos, function(item, index) {
                             return _c(
                               "option",
-                              { key: index, domProps: { value: producto } },
+                              { key: index, domProps: { value: item } },
                               [
                                 _vm._v(
-                                  "\n                    " +
-                                    _vm._s(producto.nombre) +
-                                    "\n                  "
+                                  "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                    _vm._s(item.nombre) +
+                                    "\n\t\t\t\t\t\t\t\t\t\t"
                                 )
                               ]
                             )
@@ -49099,8 +49142,8 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.bodega,
-                              expression: "bodega"
+                              value: _vm.detalleFactura.bodega,
+                              expression: "detalleFactura.bodega"
                             }
                           ],
                           staticClass: "form-select",
@@ -49115,9 +49158,13 @@ var render = function() {
                                   var val = "_value" in o ? o._value : o.value
                                   return val
                                 })
-                              _vm.bodega = $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
+                              _vm.$set(
+                                _vm.detalleFactura,
+                                "bodega",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
                             }
                           }
                         },
@@ -49128,15 +49175,15 @@ var render = function() {
                             [_vm._v("Seleccionar...")]
                           ),
                           _vm._v(" "),
-                          _vm._l(_vm.bodegas, function(bodega, index) {
+                          _vm._l(_vm.bodegas, function(item, index) {
                             return _c(
                               "option",
-                              { key: index, domProps: { value: bodega } },
+                              { key: index, domProps: { value: item } },
                               [
                                 _vm._v(
-                                  "\n                    " +
-                                    _vm._s(bodega.nombre) +
-                                    "\n                  "
+                                  "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                    _vm._s(item.nombre) +
+                                    "\n\t\t\t\t\t\t\t\t\t\t"
                                 )
                               ]
                             )
@@ -49148,52 +49195,54 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                " +
+                        "\n\t\t\t\t\t\t\t\t\t" +
                           _vm._s(
-                            _vm.formatCurrency(_vm.producto.precio_unitario)
+                            _vm.formatCurrency(
+                              _vm.detalleFactura.producto.precio_unitario
+                            )
                           ) +
-                          "\n              "
+                          "\n\t\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                " +
+                        "\n\t\t\t\t\t\t\t\t\t" +
                           _vm._s(
                             _vm.formatCurrency(
-                              _vm.producto.precio_unitario *
+                              _vm.detalleFactura.producto.precio_unitario *
                                 _vm.detalleFactura.cantidad
                             )
                           ) +
-                          "\n              "
+                          "\n\t\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                " +
+                        "\n\t\t\t\t\t\t\t\t\t" +
                           _vm._s(
                             _vm.formatCurrency(
-                              _vm.producto.precio_unitario *
+                              _vm.detalleFactura.producto.precio_unitario *
                                 _vm.detalleFactura.cantidad *
                                 0.19
                             )
                           ) +
-                          "\n              "
+                          "\n\t\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
                     _c("td", [
                       _vm._v(
-                        "\n                " +
+                        "\n\t\t\t\t\t\t\t\t\t" +
                           _vm._s(
                             _vm.formatCurrency(
-                              _vm.producto.precio_unitario *
+                              _vm.detalleFactura.producto.precio_unitario *
                                 _vm.detalleFactura.cantidad *
                                 1.19
                             )
                           ) +
-                          "\n              "
+                          "\n\t\t\t\t\t\t\t\t"
                       )
                     ]),
                     _vm._v(" "),
@@ -49220,7 +49269,7 @@ var render = function() {
                               attrs: { type: "button", title: "Limpiar" },
                               on: {
                                 click: function($event) {
-                                  return _vm.limpiarCampos()
+                                  return _vm.limpiarDetalleFactura()
                                 }
                               }
                             },
@@ -49261,7 +49310,7 @@ var render = function() {
                         ])
                   ]),
                   _vm._v(" "),
-                  _vm._l(_vm.detalleFacturas, function(item, index) {
+                  _vm._l(_vm.factura.items, function(item, index) {
                     return _c("tr", { key: index }, [
                       _c("td", [_vm._v(_vm._s(item.producto.nombre))]),
                       _vm._v(" "),
@@ -49271,29 +49320,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                " +
+                          "\n\t\t\t\t\t\t\t\t\t" +
                             _vm._s(
                               _vm.formatCurrency(item.producto.precio_unitario)
                             ) +
-                            "\n              "
+                            "\n\t\t\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                " +
+                          "\n\t\t\t\t\t\t\t\t\t" +
                             _vm._s(
                               _vm.formatCurrency(
                                 item.producto.precio_unitario * item.cantidad
                               )
                             ) +
-                            "\n              "
+                            "\n\t\t\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                " +
+                          "\n\t\t\t\t\t\t\t\t\t" +
                             _vm._s(
                               _vm.formatCurrency(
                                 item.producto.precio_unitario *
@@ -49301,7 +49350,7 @@ var render = function() {
                                   0.19
                               )
                             ) +
-                            "\n              "
+                            "\n\t\t\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
@@ -49344,7 +49393,7 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _vm.detalleFacturas.length > 0
+              _vm.factura.items.length > 0
                 ? _c("tfoot", [
                     _c("tr", { staticClass: "table-active" }, [
                       _c("td", { attrs: { colspan: "4" } }),
@@ -49356,9 +49405,9 @@ var render = function() {
                       _c("th", [
                         _c("h5", [
                           _vm._v(
-                            "\n                  " +
+                            "\n\t\t\t\t\t\t\t\t\t\t" +
                               _vm._s(_vm.formatCurrency(_vm.calcularTotal())) +
-                              "\n                "
+                              "\n\t\t\t\t\t\t\t\t\t"
                           )
                         ])
                       ]),
@@ -49393,7 +49442,7 @@ var render = function() {
               domProps: { value: _vm.factura.descripcion },
               on: {
                 blur: function($event) {
-                  return _vm.guardarFactura()
+                  return _vm.guardarBorradorFactura()
                 },
                 input: function($event) {
                   if ($event.target.composing) {
@@ -49407,9 +49456,9 @@ var render = function() {
             _vm.errors.has("descripcion")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t\t" +
                       _vm._s(_vm.errors.get("descripcion")) +
-                      "\n        "
+                      "\n\t\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -49438,7 +49487,10 @@ var render = function() {
         1
       )
     ]),
-    _vm._v("\n  MI FACTURA: " + _vm._s(_vm.factura) + "\n")
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("pre", [_vm._v("      " + _vm._s(_vm.factura) + "\n    ")])
   ])
 }
 var staticRenderFns = [
