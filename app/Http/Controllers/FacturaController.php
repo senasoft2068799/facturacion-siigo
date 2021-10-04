@@ -6,6 +6,7 @@ use App\Http\Resources\FacturaResource;
 use App\Models\DetalleMovimiento;
 use App\Models\Movimiento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class FacturaController extends Controller
@@ -28,10 +29,8 @@ class FacturaController extends Controller
 
         // $factura = Movimiento::create($request->all());
         // return new FacturaResource($factura);
-        $movimiento = new Movimiento;
-        $movimiento->fill($request->except("items"));
-
-        $movimiento->save();
+        // return $request->items[0];
+        // $movimiento->save();
         // for ($i = 1; $i < 3; $i++) {
         //     $containers[] =  new DetalleMovimiento([
         //         "cantidad" => $i,
@@ -39,21 +38,47 @@ class FacturaController extends Controller
         //         "bodega_id" => $i,
         //         "producto_id" => $i
         //     ]);
-        $movimiento->detalle_movimientos()->saveMany($request->items);
+        // $det = new DetalleMovimiento();
+        // $det->cantidad = 1;
+        // $det->valor_total = 1000;
+        // $det->producto_id = 2;
+        // $det->bodega_id = 2;
+
+        // return $movimiento->detalle_movimientos()->saveMany($request->detalle_movimientos);
+
+        $movimiento = new Movimiento;
+        $movimiento->fill($request->except("items"));
+        $movimiento = DB::transaction(function () use ($movimiento, $request) {
+
+            $movimiento->save();
+            $detalle_movimientos = $request->get('items');
+
+            $movimiento->detalle_movimientos()->createMany($detalle_movimientos);
+            // $movimiento->detalle_movimientos()->saveMany($request->items);
+            // //custom method from app/Helper/HasManyRelation
+            // $movimiento->storeHasManyy([
+            //     'items' => $request->items
+            // ]);
+
+            // return $movimiento;
+        });
+        // return $request->items[0];
     }
 
-    public function updateHasMany($relations, $factura)
+    public function storeHasManyy($relations)
     {
+        $this->save();
+
         foreach ($relations as $key => $items) {
             $newItems = [];
 
             foreach ($items as $item) {
-                $model = $this->{$key}();
+                $model = $this->{$key}()->getModel();
                 $newItems[] = $model->fill($item);
             }
 
             //save
-            // $this->{$key}()->saveMany($newItems);
+            $this->{$key}()->saveMany($newItems);
         }
     }
 
