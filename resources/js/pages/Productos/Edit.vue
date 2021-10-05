@@ -4,14 +4,15 @@
         <div class="card-body">
             <form @submit.prevent="modificarProducto" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <!-- <label for="imagen" class="form-label"
-                        >Imagen del producto</label
-                    >
-                    <figure style="margin: 15px;">
+                    <figure>
                         <center>
-                            <img width="200" height="200" :src="producto.imagen" alt="Imagen del producto">
+                            <label for="imagen" class="form-label"
+                                >Imagen del producto</label
+                            >
+                            <br/>
+                            <img class="img-fluid img-thumbnail" width="250" height="250" :src="producto.imagen" alt="Imagen del producto">
                         </center>
-                    </figure> -->
+                    </figure>
                     <label for="nombre" class="form-label"
                         >Nombre del producto</label
                     >
