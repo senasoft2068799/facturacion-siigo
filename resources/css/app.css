@@ -1,46 +1,121 @@
 :root{
     --main-bg-color: #f7f7f7d3;
     --main-text-color: black;
+    --main-type-text: Arial, Helvetica, sans-serif;
     --second-bg-color: #dadadad3;
     --second-text-color: #1d7edf;
 }
 
-.sidebar{
-    left: 0;
-    width: 20%;
-    height: 100%;
-    color: var(--main-text-color);
-    background-color: var(--main-bg-color);
-}
-
-.sidebar ul a{
-    display: inline-block;
-    height: 100%;
+.wrapper {
+    display: flex;
     width: 100%;
-    line-height: 2.2rem;
-    box-sizing: border-box;
-    border-bottom: 1px solid black;
+    align-items: stretch;
 }
 
-ul li:hover{
-    padding-left: 1rem;
+/*COMIENZA SIDEBAR*/
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    border-right: 1px solid rgb(219, 219, 219);
+    background-color: transparent;
+    color: var(--main-text-color);
+    transition: all .4s;
+}
+
+.sidebar-header{
+    padding: 1.2rem 0;
+    font: 1.4rem bold var(--main-type-text);
+    text-align: center;
+    cursor: default;
+}
+
+#sidebar ul li{
+    height: 100%;
+    width: 80%;
+    display: inline-block;
+    margin-left: 1.5rem;
+    font: .960rem bold var(--main-type-text);
+    line-height: 2.8rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgb(189, 189, 189);
+}
+
+#sidebar li a{
+    color: var(--main-text-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#sidebar li a:hover{
+    padding-left: 1.3rem;
+    color: var(--second-text-color);
     transition: all .9s;
 }
 
-li a:hover{
-    font-weight: bold;
+.active {
+    padding-left: 1.3rem;
     color: var(--second-text-color) !important;
+    text-decoration: none;
 }
 
-.active {
-    font-weight: bold;
-    margin-left: 1rem;
-    color: var(--second-text-color) !important;
-    border-bottom: 1px solid var(--second-text-color) !important;
+#btn-logout{
+    border: 0;
+    margin: 1rem 0;
+    background-color: transparent;
+    color: rgba(255, 0, 0, 0.795);
+    font: 1.1rem bold;
+}
+
+#btn-logout:hover{
+    color: var(--second-text-color);
+    transition: .5s;
+}
+
+/*FINALIZA SIDEBAR*/
+
+/*COMIENZA NAVBAR*/
+
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all .5s;
+}
+
+.navbar{
+    padding: .55rem;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 1.5rem;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/*FINALIZA NAVBAR*/
+
+.space{
+    margin: 0 1.5rem;
 }
 
 #designNavbar{
     padding: .750rem 0;
     color: var(--main-text-color);
     background-color: var(--second-bg-color);
+}
+
+@media(max-width:768px){
+    #sidebar{
+        margin-left: -250px;
+    }
+    #sidebar.active{
+        margin-left: 0;
+    }
+    .navbar{
+        padding: .60rem;
+    }
+}
+
+@media screen and (max-width: 990px){
+    .navbar{
+        padding: 1.050rem;
+    }
 }

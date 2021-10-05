@@ -2082,8 +2082,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 
 
@@ -2133,12 +2131,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2272,38 +2264,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-<<<<<<< HEAD
-//
-//
-//
-//
-//
-//
-//
-//
-//
-=======
 
->>>>>>> 8133947aea3ed4b1733c081a6821034e6914f3a5
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar",
   data: function data() {
@@ -47124,23 +47085,22 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "wrapper" },
     [
-      _c("Navbar"),
+      _c("Sidebar"),
       _vm._v(" "),
-      _c("div", { staticClass: "container-fluid" }, [
-        _c(
-          "div",
-          { staticClass: "row flex-nowrap" },
-          [
-            _c("Sidebar"),
-            _vm._v(" "),
-            _c("main", { staticClass: "col py-3" }, [
-              _c("div", { staticClass: "container" }, [_c("router-view")], 1)
-            ])
-          ],
-          1
-        )
-      ])
+      _c(
+        "div",
+        { attrs: { id: "content" } },
+        [
+          _c("Navbar"),
+          _vm._v(" "),
+          _c("main", { staticClass: "container" }, [
+            _c("div", { staticClass: "space" }, [_c("router-view")], 1)
+          ])
+        ],
+        1
+      )
     ],
     1
   )
@@ -47211,58 +47171,46 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      {
-        staticClass: "navbar navbar-expand-lg navbar-dark",
-        attrs: { id: "designNavbar" }
-      },
-      [
-        _c("div", { staticClass: "container-fluid " }, [
-          _c(
-            "a",
-            {
-              staticClass: "navbar-brand text-dark fw-bold ms-5",
-              attrs: { href: "#" }
-            },
-            [_vm._v("Facturación Siigo")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "navbar-toggler",
-              attrs: {
-                type: "button",
-                "data-bs-toggle": "collapse",
-                "data-bs-target": "#navbarSupportedContent",
-                "aria-controls": "navbarSupportedContent",
-                "aria-expanded": "false",
-                "aria-label": "Toggle navigation"
-              }
-            },
-            [_c("span", { staticClass: "navbar-toggler-icon" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarSupportedContent" }
-            },
-            [
-              _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }, [
-                _c("li", { staticClass: "nav-item" }),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }),
-                _vm._v(" "),
-                _c("li")
-              ])
-            ]
-          )
-        ])
-      ]
-    )
+    return _c("nav", { staticClass: "navbar navbar-expand-lg" }, [
+      _c("div", { staticClass: "container-fluid my-1" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary ml-2",
+            attrs: { type: "button", id: "sidebarCollapse" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-align-justify me-2" }),
+            _vm._v("Menú\n    ")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "navbar-toggler",
+            attrs: {
+              type: "button",
+              "data-toggle": "collapse",
+              "data-target": "#navbarNav",
+              "aria-controls": "navbarNav",
+              "aria-expanded": "false",
+              "aria-label": "Toggle navigation"
+            }
+          },
+          [_c("span", { staticClass: "pi pi-align-justify" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "collapse navbar-collapse justify-content-end",
+            attrs: { id: "navbarNav" }
+          },
+          [_c("div", { staticClass: "navbar-nav text-center" })]
+        )
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -47287,246 +47235,223 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "sidebar" }, [
+  return _c("nav", { attrs: { id: "sidebar" } }, [
+    _c("div", { staticClass: "sidebar-header border-bottom" }, [
+      _vm._v("Facturación Siigo")
+    ]),
+    _vm._v(" "),
     _c(
-      "div",
-      { staticClass: "d-flex flex-column flex-shrink-0 p-3 min-vh-100" },
+      "a",
+      {
+        staticClass:
+          "\n      d-flex\n      align-items-center\n      mb-3 mb-md-0\n      me-md-auto\n      link-dark\n      text-decoration-none\n    "
+      },
       [
         _c(
-          "a",
-          {
-            staticClass:
-              "\n\t\t\t\td-flex\n\t\t\t\talign-items-center\n\t\t\t\tmb-3 mb-md-0\n\t\t\t\tme-md-auto\n\t\t\t\tlink-dark\n\t\t\t\ttext-decoration-none\n\t\t\t"
-          },
-          [
-            _c(
-              "svg",
-              { staticClass: "bi me-2", attrs: { width: "40", height: "32" } },
-              [_c("use", { attrs: { "xlink:href": "#bootstrap" } })]
-            ),
-            _vm._v(" "),
-            _c("span", { staticClass: "fs-4" }, [_vm._v("Logo")])
-          ]
+          "svg",
+          { staticClass: "bi me-2", attrs: { width: "40", height: "32" } },
+          [_c("use", { attrs: { "xlink:href": "#bootstrap" } })]
         ),
         _vm._v(" "),
-        _c("hr"),
-        _vm._v(" "),
-        _c("ul", { staticClass: "nav flex-column mb-auto" }, [
-          _vm.currentUser.nombre != null
-            ? _c("li", [
-                _c("p", { staticClass: "text-center" }, [
-                  _vm._v(
-                    "\n\t\t\t\t\t" +
-                      _vm._s(_vm.currentUser.nombre) +
-                      " " +
-                      _vm._s(_vm.currentUser.apellido) +
-                      "\n\t\t\t\t"
-                  )
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
+        _c("span", { staticClass: "fs-4" }, [_vm._v("Logo")])
+      ]
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("ul", { staticClass: "list-group list-group-flush" }, [
+      _vm.currentUser.nombre != null
+        ? _c("li", [
+            _c(
+              "p",
+              { staticClass: "fs-6 fw-bold text-primary text-center mb-2 p-0" },
+              [
+                _vm._v(
+                  "\n        " +
+                    _vm._s(_vm.currentUser.nombre) +
+                    " " +
+                    _vm._s(_vm.currentUser.apellido) +
+                    "\n      "
+                )
+              ]
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
           _c(
-            "li",
-            { staticClass: "nav-item" },
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link link-dark",
-                  attrs: {
-                    "active-class": "active",
-                    exact: "",
-                    to: { name: "dashboard" }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-home" }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#home" } })]
-                  ),
-                  _vm._v("\n\t\t\t\t\tHome\n\t\t\t\t")
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link link-dark",
-                  attrs: {
-                    "active-class": "active",
-                    to: { name: "facturas.index" }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-file-invoice" }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n\t\t\t\t\tFacturas\n\t\t\t\t")
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link link-dark",
-                  attrs: {
-                    "active-class": "active",
-                    to: { name: "sucursales.index" }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-building" }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n\t\t\t\t\tSucursales\n\t\t\t\t")
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link link-dark",
-                  attrs: {
-                    "active-class": "active",
-                    to: { name: "bodegas.index" }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-folder" }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#speedometer2" } })]
-                  ),
-                  _vm._v("\n\t\t\t\t\tBodegas\n\t\t\t\t")
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link link-dark",
-                  attrs: {
-                    "active-class": "active",
-                    to: { name: "productos.index" }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-tags" }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n\t\t\t\t\tProductos\n\t\t\t\t")
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "nav-link link-dark",
-                  attrs: {
-                    "active-class": "active",
-                    to: { name: "roles.index" }
-                  }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-users" }),
-                  _vm._v(" "),
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
-                    },
-                    [_c("use", { attrs: { "xlink:href": "#grid" } })]
-                  ),
-                  _vm._v("\n\t\t\t\t\tRoles\n\t\t\t\t")
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
+            "router-link",
             {
-              staticClass: "btn text-danger my-2",
-              on: {
-                click: function($event) {
-                  return _vm.logout()
-                }
+              attrs: {
+                "active-class": "active",
+                exact: "",
+                to: { name: "dashboard" }
               }
             },
             [
-              _c("i", { staticClass: "fas fa-sign-out-alt me-2" }, [
-                _vm._v(" Cerrar sesión ")
-              ])
+              _c("i", { staticClass: "fas fa-home" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#home" } })]
+              ),
+              _vm._v("\n        Home\n      ")
             ]
           )
-        ])
-      ]
-    )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
+          _c(
+            "router-link",
+            {
+              attrs: {
+                "active-class": "active",
+                to: { name: "facturas.index" }
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-file-invoice" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#table" } })]
+              ),
+              _vm._v("\n        Facturas\n      ")
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
+          _c(
+            "router-link",
+            {
+              attrs: {
+                "active-class": "active",
+                to: { name: "sucursales.index" }
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-building" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#table" } })]
+              ),
+              _vm._v("\n        Sucursales\n      ")
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
+          _c(
+            "router-link",
+            {
+              attrs: { "active-class": "active", to: { name: "bodegas.index" } }
+            },
+            [
+              _c("i", { staticClass: "fas fa-folder" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#speedometer2" } })]
+              ),
+              _vm._v("\n        Bodegas\n      ")
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
+          _c(
+            "router-link",
+            {
+              attrs: {
+                "active-class": "active",
+                to: { name: "productos.index" }
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-tags" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#table" } })]
+              ),
+              _vm._v("\n        Productos\n      ")
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
+          _c(
+            "router-link",
+            {
+              attrs: { "active-class": "active", to: { name: "roles.index" } }
+            },
+            [
+              _c("i", { staticClass: "fas fa-users" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#grid" } })]
+              ),
+              _vm._v("\n        Roles\n      ")
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          attrs: { id: "btn-logout" },
+          on: {
+            click: function($event) {
+              return _vm.logout()
+            }
+          }
+        },
+        [
+          _c("i", { staticClass: "fas fa-sign-out-alt me-2" }, [
+            _vm._v(" Cerrar sesión ")
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
