@@ -19,8 +19,27 @@ class BodegaController extends Controller
             'nombre' => 'required|min:4|max:45',
             'direccion' => 'required|min:6|max:255'
         ]);
-        $bodega = Bodega::create($request->all());
-        return $bodega;
+        // $bodega = Bodega::create($request->all());
+        // return $bodega;
+        $bodega = new Bodega;
+
+        $detalle_movimientos = collect($request->items)->transform(function ($detalle) {
+            $detalle["producto_id"] = $detalle["producto"]["id"];
+            $detalle["bodega_id"] = $detalle["bodega"]["id"];
+            return new DetalleMovimiento($detalle);
+        });
+
+        // if ($detalle_movimientos->isEmpty()) {
+        //     return response()
+        //         ->json([
+        //             'detalle_empty' => ['One or more Product is required.']
+        //         ], 422);
+        // }
+
+        $movimiento = DB::transaction(function () use ($movimiento, $detalle_movimientos) {
+            $movimiento->save();
+            $movimiento->detalle_movimientos()->saveMany($detalle_movimientos);
+        });
     }
 
     public function show(Bodega $bodega)

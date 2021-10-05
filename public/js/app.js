@@ -2538,14 +2538,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2571,8 +2563,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.errors = {};
 
         _this.$router.push("/login");
-      })["catch"](function (errors) {
-        _this.errors = errors.response.data.errors;
+      })["catch"](function (err) {
+        _this.errors = err.response.data.errors;
       });
     }
   }
@@ -2661,20 +2653,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
-      errors2: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       bodega: {},
       movimiento: {
         sucursale_id: null
@@ -2713,33 +2696,28 @@ __webpack_require__.r(__webpack_exports__);
       this.movimiento.documento_id = 3;
       this.movimiento.estado = 1;
       this.axios.post("/api/movimientos", this.movimiento).then(function (res) {
-        _this3.movimiento = res.data;
-
-        _this3.registrarDetalleMovimiento();
+        _this3.movimiento = res.data; // this.registrarDetalleMovimiento();
       })["catch"](function (err) {
-        console.log("Retornando :C");
-
-        _this3.errors2.record(err.response.data.errors);
-
-        return err;
-      });
-    },
-    registrarDetalleMovimiento: function registrarDetalleMovimiento() {
-      var _this4 = this;
-
-      var detalleMovimiento = {
-        movimiento_id: this.movimiento.id,
-        bodega_id: this.bodega.id
-      };
-      this.axios.post("/api/detalle-movimientos", detalleMovimiento).then(function (res) {
-        _this4.$swal("Bodega registrada correctamente.");
-
-        _this4.bodega = {};
-        _this4.movimiento = {};
-      })["catch"](function (err) {
-        return err;
+        _this3.errors.record(err.response.data.errors);
       });
     }
+    /*    registrarDetalleMovimiento() {
+        let detalleMovimiento = {
+          movimiento_id: this.movimiento.id,
+          bodega_id: this.bodega.id,
+        };
+        this.axios
+          .post("/api/detalle-movimientos", detalleMovimiento)
+          .then((res) => {
+            this.$swal("Bodega registrada correctamente.");
+            this.bodega = {};
+            this.movimiento = {};
+          })
+          .catch((err) => {
+            return err;
+          });
+      }, */
+
   }
 });
 
@@ -3565,6 +3543,8 @@ __webpack_require__.r(__webpack_exports__);
       this.factura.estado = 1;
       this.axios.post("/api/facturas", this.factura).then(function (res) {
         // this.factura = res.data.data;
+        _this2.errors.clearAll();
+
         _this2.$swal("Factura registrada correctamente.");
 
         _this2.limpiarFactura();
@@ -3588,7 +3568,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     limpiarFactura: function limpiarFactura() {
       this.limpiarDetalleFactura();
-      factura = {
+      this.factura = {
         sucursale_id: null,
         user_id: null,
         items: []
@@ -48052,9 +48032,9 @@ var render = function() {
           _c(
             "button",
             { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("\n                Registrar\n            ")]
+            [_vm._v("Registrar")]
           ),
-          _vm._v("\n            " + _vm._s(_vm.formData) + "\n        ")
+          _vm._v("\n\t\t\t" + _vm._s(_vm.formData) + "\n\t\t")
         ]
       )
     ])
@@ -48143,9 +48123,9 @@ var render = function() {
             _vm.errors.has("nombre")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors.get("nombre")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48183,9 +48163,9 @@ var render = function() {
             _vm.errors.has("direccion")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors.get("direccion")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48223,9 +48203,9 @@ var render = function() {
             _vm.errors2.has("descripcion")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors2.get("descripcion")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48280,9 +48260,9 @@ var render = function() {
                     { key: index, domProps: { value: sucursal.id } },
                     [
                       _vm._v(
-                        "\n            " +
+                        "\n\t\t\t\t\t\t" +
                           _vm._s(sucursal.nombre) +
-                          "\n          "
+                          "\n\t\t\t\t\t"
                       )
                     ]
                   )
@@ -48294,9 +48274,9 @@ var render = function() {
             _vm.errors2.has("sucursale_id")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors2.get("sucursale_id")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48319,15 +48299,7 @@ var render = function() {
         ],
         1
       )
-    ]),
-    _vm._v("\n  Movimiento: " + _vm._s(_vm.movimiento) + "\n  "),
-    _c("hr"),
-    _vm._v("\n  Bodega: " + _vm._s(_vm.bodega) + "\n  "),
-    _c("hr"),
-    _vm._v("\n  Errors: " + _vm._s(_vm.errors) + "\n  "),
-    _c("hr"),
-    _vm._v("\n  Errors2: " + _vm._s(_vm.errors2) + "\n  "),
-    _c("hr")
+    ])
   ])
 }
 var staticRenderFns = []

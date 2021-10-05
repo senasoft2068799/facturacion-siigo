@@ -32,7 +32,7 @@ class AuthController extends Controller
             "telefono" => ["required", "min:7", "max:20"],
             "password" => ["required", "min:6", "max:20", "confirmed"],
             "password_confirmation" => ["required"],
-            "role_id" => ["required"]
+            "role_id" => ["required|exists:roles,id"]
         ]);
 
         User::create([

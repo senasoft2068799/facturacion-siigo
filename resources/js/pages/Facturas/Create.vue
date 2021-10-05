@@ -372,6 +372,7 @@ export default {
 				.post("/api/facturas", this.factura)
 				.then((res) => {
 					// this.factura = res.data.data;
+					this.errors.clearAll();
 					this.$swal("Factura registrada correctamente.");
 					this.limpiarFactura();
 				})
@@ -394,7 +395,7 @@ export default {
 		},
 		limpiarFactura() {
 			this.limpiarDetalleFactura();
-			factura = {
+			this.factura = {
 				sucursale_id: null,
 				user_id: null,
 				items: [],
