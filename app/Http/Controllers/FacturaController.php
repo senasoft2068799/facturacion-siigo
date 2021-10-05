@@ -6,6 +6,7 @@ use App\Http\Resources\FacturaResource;
 use App\Models\DetalleMovimiento;
 use App\Models\Movimiento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class FacturaController extends Controller
@@ -26,35 +27,35 @@ class FacturaController extends Controller
         //     "estado" => ["required", Rule::in([1, 2])]
         // ]);
 
-        // $factura = Movimiento::create($request->all());
-        // return new FacturaResource($factura);
         $movimiento = new Movimiento;
         $movimiento->fill($request->except("items"));
 
-        $movimiento->save();
-        // for ($i = 1; $i < 3; $i++) {
-        //     $containers[] =  new DetalleMovimiento([
-        //         "cantidad" => $i,
-        //         "valor" => $i * 10,
-        //         "bodega_id" => $i,
-        //         "producto_id" => $i
+        $detalle_movimientos = collect($request->items)->transform(function ($detalle) {
+            $detalle["producto_id"] = $detalle["producto"]["id"];
+            $detalle["bodega_id"] = $detalle["bodega"]["id"];
+            return new DetalleMovimiento($detalle);
+        });
+
+        // if ($detalle_movimientos->isEmpty()) {
+        //     return response()
+        //         ->json([
+        //             'detalle_empty' => ['One or more Product is required.']
+        //         ], 422);
+        // }
+
+        $movimiento = DB::transaction(function () use ($movimiento, $detalle_movimientos) {
+            $movimiento->save();
+            $movimiento->detalle_movimientos()->saveMany($detalle_movimientos);
+        });
+
+        // return response()
+        //     ->json([
+        //         'created' => true,
+        //         'id' => $movimiento->id
         //     ]);
-        $movimiento->detalle_movimientos()->saveMany($request->items);
-    }
 
-    public function updateHasMany($relations, $factura)
-    {
-        foreach ($relations as $key => $items) {
-            $newItems = [];
 
-            foreach ($items as $item) {
-                $model = $this->{$key}();
-                $newItems[] = $model->fill($item);
-            }
-
-            //save
-            // $this->{$key}()->saveMany($newItems);
-        }
+        // return $request->items[0];
     }
 
     public function show(Movimiento $factura)

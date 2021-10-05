@@ -137,6 +137,8 @@ return [
         "sucursale_id" => "sucursal",
         "ciudade_id" => "ciudad",
         "bodega_id" => "bodega",
-        "producto_id" => "producto"
+        "producto_id" => "producto",
+        "password_confirmation" => "confirmar contraseña",
+        "telefono" => "teléfono"
     ],
 ];

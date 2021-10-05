@@ -9,6 +9,7 @@ import axios from "axios";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { routes } from "./routes";
+import Storage from "./utilities/Storage.js";
 
 const swalOptions = {
     confirmButtonColor: "#198754",
@@ -27,7 +28,7 @@ const router = new VueRouter({
 });
 
 function loggedIn() {
-    return localStorage.getItem("token");
+    return Storage.get("token", false);
 }
 
 router.beforeEach((to, from, next) => {
