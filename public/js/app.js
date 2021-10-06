@@ -2624,11 +2624,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
-      bodega: {},
+      sucursales: [],
       movimiento: {
-        sucursale_id: null
-      },
-      sucursales: []
+        sucursale_id: null,
+        detalle_movimiento: {},
+        bodega: {}
+      }
     };
   },
   mounted: function mounted() {
@@ -2643,10 +2644,16 @@ __webpack_require__.r(__webpack_exports__);
     registrarBodega: function registrarBodega() {
       var _this2 = this;
 
-      this.axios.post("/api/bodegas", this.bodega).then(function (res) {
-        _this2.bodega = res.data;
+      this.axios.post("/api/bodegas", this.movimiento).then(function (res) {
+        _this2.errors.clearAll();
 
-        _this2.registrarMovimiento();
+        _this2.$swal("Bodega registrada correctamente.");
+
+        _this2.movimiento = {
+          sucursale_id: null,
+          detalle_movimiento: {},
+          bodega: {}
+        };
       })["catch"](function (err) {
         _this2.$swal({
           icon: "error",
@@ -2655,18 +2662,20 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.errors.record(err.response.data.errors);
       });
-    },
-    registrarMovimiento: function registrarMovimiento() {
-      var _this3 = this;
+    } // registrarMovimiento() {
+    // 	this.movimiento.documento_id = 3;
+    // 	this.movimiento.estado = 1;
+    // 	this.axios
+    // 		.post("/api/movimientos", this.movimiento)
+    // 		.then((res) => {
+    // 			this.movimiento = res.data;
+    // 			// this.registrarDetalleMovimiento();
+    // 		})
+    // 		.catch((err) => {
+    // 			this.errors.record(err.response.data.errors);
+    // 		});
+    // },
 
-      this.movimiento.documento_id = 3;
-      this.movimiento.estado = 1;
-      this.axios.post("/api/movimientos", this.movimiento).then(function (res) {
-        _this3.movimiento = res.data; // this.registrarDetalleMovimiento();
-      })["catch"](function (err) {
-        _this3.errors.record(err.response.data.errors);
-      });
-    }
     /*    registrarDetalleMovimiento() {
         let detalleMovimiento = {
           movimiento_id: this.movimiento.id,
@@ -3508,7 +3517,6 @@ __webpack_require__.r(__webpack_exports__);
       this.factura.valor_total = this.calcularTotal();
       this.factura.estado = 1;
       this.axios.post("/api/facturas", this.factura).then(function (res) {
-        // this.factura = res.data.data;
         _this2.errors.clearAll();
 
         _this2.$swal("Factura registrada correctamente.");
@@ -4902,18 +4910,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4933,7 +4929,7 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get("/api/roles").then(function (res) {
       _this.roles = res.data;
     });
-    axios.get("/api/usuarios/" + this.$route.params.id).then(function (res) {
+    axios.get("/api/users/" + this.$route.params.id).then(function (res) {
       _this.user = res.data;
     });
   },
@@ -4941,7 +4937,7 @@ __webpack_require__.r(__webpack_exports__);
     modificarUsuario: function modificarUsuario() {
       var _this2 = this;
 
-      this.axios.put("/api/usuarios/" + this.$route.params.id, this.user).then(function (response) {
+      this.axios.put("/api/users/" + this.$route.params.id, this.user).then(function (response) {
         _this2.$swal("Usuario modificado correctamente.");
 
         _this2.$router.push("/usuarios");
@@ -5429,18 +5425,27 @@ var routes = [//
 }, {
   name: "facturas.edit",
   path: "/facturas/:id/edit",
-  component: _pages_Facturas_Edit_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _pages_Facturas_Edit_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }, //
 // Usuarios
 //
 {
   name: "usuarios.index",
   path: "/usuarios",
-  component: _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
+  component: _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }, {
   name: "usuarios.edit",
   path: "/usuarios/:id/edit",
-  component: _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
+  component: _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }];
 
 /***/ }),
@@ -48033,19 +48038,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.bodega.nombre,
-                  expression: "bodega.nombre"
+                  value: _vm.movimiento.bodega.nombre,
+                  expression: "movimiento.bodega.nombre"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", id: "nombre" },
-              domProps: { value: _vm.bodega.nombre },
+              domProps: { value: _vm.movimiento.bodega.nombre },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.bodega, "nombre", $event.target.value)
+                  _vm.$set(_vm.movimiento.bodega, "nombre", $event.target.value)
                 }
               }
             }),
@@ -48073,19 +48078,23 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.bodega.direccion,
-                  expression: "bodega.direccion"
+                  value: _vm.movimiento.bodega.direccion,
+                  expression: "movimiento.bodega.direccion"
                 }
               ],
               staticClass: "form-control",
               attrs: { type: "text", id: "direccion" },
-              domProps: { value: _vm.bodega.direccion },
+              domProps: { value: _vm.movimiento.bodega.direccion },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.bodega, "direccion", $event.target.value)
+                  _vm.$set(
+                    _vm.movimiento.bodega,
+                    "direccion",
+                    $event.target.value
+                  )
                 }
               }
             }),
@@ -48130,11 +48139,11 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm.errors2.has("descripcion")
+            _vm.errors.has("descripcion")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
                     "\n\t\t\t\t\t" +
-                      _vm._s(_vm.errors2.get("descripcion")) +
+                      _vm._s(_vm.errors.get("descripcion")) +
                       "\n\t\t\t\t"
                   )
                 ])
@@ -48184,15 +48193,13 @@ var render = function() {
                   _vm._v("Seleccionar...")
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.sucursales, function(sucursal, index) {
+                _vm._l(_vm.sucursales, function(item, index) {
                   return _c(
                     "option",
-                    { key: index, domProps: { value: sucursal.id } },
+                    { key: index, domProps: { value: item.id } },
                     [
                       _vm._v(
-                        "\n\t\t\t\t\t\t" +
-                          _vm._s(sucursal.nombre) +
-                          "\n\t\t\t\t\t"
+                        "\n\t\t\t\t\t\t" + _vm._s(item.nombre) + "\n\t\t\t\t\t"
                       )
                     ]
                   )
@@ -48201,11 +48208,11 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _vm.errors2.has("sucursale_id")
+            _vm.errors.has("sucursale_id")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
                     "\n\t\t\t\t\t" +
-                      _vm._s(_vm.errors2.get("sucursale_id")) +
+                      _vm._s(_vm.errors.get("sucursale_id")) +
                       "\n\t\t\t\t"
                   )
                 ])
@@ -51320,7 +51327,13 @@ var render = function() {
                     return _c(
                       "option",
                       { key: index, domProps: { value: role.id } },
-                      [_vm._v(_vm._s(role.nombre))]
+                      [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t" +
+                            _vm._s(role.nombre) +
+                            "\n\t\t\t\t\t\t"
+                        )
+                      ]
                     )
                   })
                 ],
@@ -51358,7 +51371,10 @@ var staticRenderFns = [
     return _c(
       "button",
       { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-      [_c("i", { staticClass: "fas fa-edit me-2" }), _vm._v("Modificar")]
+      [
+        _c("i", { staticClass: "fas fa-edit me-2" }),
+        _vm._v("Modificar\n\t\t\t")
+      ]
     )
   }
 ]
