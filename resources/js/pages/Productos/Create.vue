@@ -51,9 +51,11 @@
                         @change="obtener_imagen"
                         accept="image/*"
                     />
-                    <figure style="margin: 15px;">
-                        <img width="200" height="200" :src="imagenMini" alt="Imagen del producto">
-                    </figure>
+                    <center>
+                        <figure style="margin: 15px;">
+                            <img class="img-thumbnail img-responsive rounded" width="250" height="250" :src="imagenMini" alt="Imagen del producto">
+                        </figure>
+                    </center>
                 </div>
                 <button type="submit" class="btn btn-success">Registrar</button>
                 <router-link
@@ -112,6 +114,7 @@ export default {
                 this.producto.precio_unitario = null;
                 this.producto.imagen = null;
                 this.producto.categoria_id = null;
+                this.imagenMiniatura = null;
             })
             .catch(err => {
                 this.$swal({
