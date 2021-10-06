@@ -2614,6 +2614,108 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
+      sucursales: [],
+      bodega: {
+        sucursale_id: null
+      }
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    //Mostrar lista de sucursales
+    this.axios.get("/api/sucursales").then(function (res) {
+      _this.sucursales = res.data.data;
+    });
+  },
+  methods: {
+    registrarBodega: function registrarBodega() {
+      var _this2 = this;
+
+      this.axios.post("/api/bodegas", this.bodega).then(function (res) {
+        _this2.$swal("Bodega registrada correctamente.");
+
+        _this2.errors.clearAll();
+
+        _this2.bodega = {
+          sucursale_id: null
+        };
+      })["catch"](function (err) {
+        _this2.$swal({
+          icon: "error",
+          title: "Ha ocurrido un error:\n" + err
+        });
+
+        _this2.errors.record(err.response.data.errors);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Bodegas/Edit.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Bodegas/Edit.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/Errors.js */ "./resources/js/utilities/Errors.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2631,11 +2733,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
-      bodega: {},
-      movimiento: {
+      sucursales: [],
+      bodega: {
         sucursale_id: null
-      },
-      sucursales: []
+      }
     };
   },
   mounted: function mounted() {
@@ -2644,16 +2745,20 @@ __webpack_require__.r(__webpack_exports__);
     //Mostrar lista de sucursales
     this.axios.get("/api/sucursales").then(function (res) {
       _this.sucursales = res.data.data;
+    }); //Mostrar datos de bodega según su id
+
+    this.axios.get("/api/bodegas/" + this.$route.params.id).then(function (res) {
+      _this.bodega = res.data;
     });
   },
   methods: {
-    registrarBodega: function registrarBodega() {
+    modificarBodega: function modificarBodega() {
       var _this2 = this;
 
-      this.axios.post("/api/bodegas", this.bodega).then(function (res) {
-        _this2.bodega = res.data;
+      this.axios.put("/api/bodegas/" + this.$route.params.id, this.bodega).then(function (res) {
+        _this2.$swal("Bodega modificada correctamente.");
 
-        _this2.registrarMovimiento();
+        _this2.$router.push("/bodegas/" + _this2.$route.params.id);
       })["catch"](function (err) {
         _this2.$swal({
           icon: "error",
@@ -2662,56 +2767,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.errors.record(err.response.data.errors);
       });
-    },
-    registrarMovimiento: function registrarMovimiento() {
-      var _this3 = this;
-
-      this.movimiento.documento_id = 3;
-      this.movimiento.estado = 1;
-      this.axios.post("/api/movimientos", this.movimiento).then(function (res) {
-        _this3.movimiento = res.data; // this.registrarDetalleMovimiento();
-      })["catch"](function (err) {
-        _this3.errors.record(err.response.data.errors);
-      });
     }
-    /*    registrarDetalleMovimiento() {
-        let detalleMovimiento = {
-          movimiento_id: this.movimiento.id,
-          bodega_id: this.bodega.id,
-        };
-        this.axios
-          .post("/api/detalle-movimientos", detalleMovimiento)
-          .then((res) => {
-            this.$swal("Bodega registrada correctamente.");
-            this.bodega = {};
-            this.movimiento = {};
-          })
-          .catch((err) => {
-            return err;
-          });
-      }, */
-
   }
 });
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Bodegas/Edit.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Bodegas/Edit.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
 
@@ -2783,23 +2841,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2809,12 +2850,8 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    /*
-    this.axios.get("/api/documentos").then(response => {
-            this.documentos = response.data;
-        });*/
     this.axios.get("/api/bodegas").then(function (response) {
-      _this.bodegas = response.data;
+      _this.bodegas = response.data.data;
     });
   },
   methods: {
@@ -3424,6 +3461,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3523,7 +3575,6 @@ __webpack_require__.r(__webpack_exports__);
       this.factura.valor_total = this.calcularTotal();
       this.factura.estado = 1;
       this.axios.post("/api/facturas", this.factura).then(function (res) {
-        // this.factura = res.data.data;
         _this2.errors.clearAll();
 
         _this2.$swal("Factura registrada correctamente.");
@@ -4246,6 +4297,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -4279,6 +4331,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+=======
+>>>>>>> c7103c71f2cf789eb75917be2dd2ca1c0dfb1a82
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4988,18 +5042,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5019,7 +5061,7 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get("/api/roles").then(function (res) {
       _this.roles = res.data;
     });
-    axios.get("/api/usuarios/" + this.$route.params.id).then(function (res) {
+    axios.get("/api/users/" + this.$route.params.id).then(function (res) {
       _this.user = res.data;
     });
   },
@@ -5027,7 +5069,7 @@ __webpack_require__.r(__webpack_exports__);
     modificarUsuario: function modificarUsuario() {
       var _this2 = this;
 
-      this.axios.put("/api/usuarios/" + this.$route.params.id, this.user).then(function (response) {
+      this.axios.put("/api/users/" + this.$route.params.id, this.user).then(function (response) {
         _this2.$swal("Usuario modificado correctamente.");
 
         _this2.$router.push("/usuarios");
@@ -5515,18 +5557,27 @@ var routes = [//
 }, {
   name: "facturas.edit",
   path: "/facturas/:id/edit",
-  component: _pages_Facturas_Edit_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _pages_Facturas_Edit_vue__WEBPACK_IMPORTED_MODULE_16__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }, //
 // Usuarios
 //
 {
   name: "usuarios.index",
   path: "/usuarios",
-  component: _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
+  component: _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }, {
   name: "usuarios.edit",
   path: "/usuarios/:id/edit",
-  component: _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
+  component: _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__["default"],
+  meta: {
+    requiresAuth: true
+  }
 }];
 
 /***/ }),
@@ -48190,46 +48241,6 @@ var render = function() {
           _c("div", { staticClass: "mb-3" }, [
             _c(
               "label",
-              { staticClass: "form-label", attrs: { for: "descripcion" } },
-              [_vm._v("Descripción")]
-            ),
-            _vm._v(" "),
-            _c("textarea", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.movimiento.descripcion,
-                  expression: "movimiento.descripcion"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { id: "descripcion", rows: "3" },
-              domProps: { value: _vm.movimiento.descripcion },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.movimiento, "descripcion", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm.errors2.has("descripcion")
-              ? _c("p", { staticClass: "text-danger" }, [
-                  _vm._v(
-                    "\n\t\t\t\t\t" +
-                      _vm._s(_vm.errors2.get("descripcion")) +
-                      "\n\t\t\t\t"
-                  )
-                ])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "mb-3" }, [
-            _c(
-              "label",
               { staticClass: "form-label", attrs: { for: "sucursal" } },
               [_vm._v("Sucursal encargada")]
             ),
@@ -48241,8 +48252,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.movimiento.sucursale_id,
-                    expression: "movimiento.sucursale_id"
+                    value: _vm.bodega.sucursale_id,
+                    expression: "bodega.sucursale_id"
                   }
                 ],
                 staticClass: "form-select",
@@ -48258,7 +48269,7 @@ var render = function() {
                         return val
                       })
                     _vm.$set(
-                      _vm.movimiento,
+                      _vm.bodega,
                       "sucursale_id",
                       $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
@@ -48270,15 +48281,13 @@ var render = function() {
                   _vm._v("Seleccionar...")
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.sucursales, function(sucursal, index) {
+                _vm._l(_vm.sucursales, function(item, index) {
                   return _c(
                     "option",
-                    { key: index, domProps: { value: sucursal.id } },
+                    { key: index, domProps: { value: item.id } },
                     [
                       _vm._v(
-                        "\n\t\t\t\t\t\t" +
-                          _vm._s(sucursal.nombre) +
-                          "\n\t\t\t\t\t"
+                        "\n\t\t\t\t\t\t" + _vm._s(item.nombre) + "\n\t\t\t\t\t"
                       )
                     ]
                   )
@@ -48287,11 +48296,11 @@ var render = function() {
               2
             ),
             _vm._v(" "),
-            _vm.errors2.has("sucursale_id")
+            _vm.errors.has("sucursale_id")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
                     "\n\t\t\t\t\t" +
-                      _vm._s(_vm.errors2.get("sucursale_id")) +
+                      _vm._s(_vm.errors.get("sucursale_id")) +
                       "\n\t\t\t\t"
                   )
                 ])
@@ -48341,7 +48350,189 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card-header" }, [_vm._v("Modificar bodega")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.modificarBodega()
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "nombre" } },
+              [_vm._v("Nombre de bodega")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.bodega.nombre,
+                  expression: "bodega.nombre"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", id: "nombre" },
+              domProps: { value: _vm.bodega.nombre },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.bodega, "nombre", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("nombre")
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(_vm.errors.get("nombre")) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "nombre" } },
+              [_vm._v("Dirección")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.bodega.direccion,
+                  expression: "bodega.direccion"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", id: "direccion" },
+              domProps: { value: _vm.bodega.direccion },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.bodega, "direccion", $event.target.value)
+                }
+              }
+            }),
+            _vm._v(" "),
+            _vm.errors.has("direccion")
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(_vm.errors.get("direccion")) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-3" }, [
+            _c(
+              "label",
+              { staticClass: "form-label", attrs: { for: "sucursal" } },
+              [_vm._v("Sucursal encargada")]
+            ),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.bodega.sucursale_id,
+                    expression: "bodega.sucursale_id"
+                  }
+                ],
+                staticClass: "form-select",
+                attrs: { id: "sucursal" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.bodega,
+                      "sucursale_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { disabled: "", value: "null" } }, [
+                  _vm._v("Seleccionar...")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.sucursales, function(item, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: item.id } },
+                    [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" + _vm._s(item.nombre) + "\n\t\t\t\t\t"
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _vm.errors.has("sucursale_id")
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(_vm.errors.get("sucursale_id")) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            [_vm._v("Modificar")]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass: "btn btn-secondary",
+              attrs: { to: { name: "bodegas.index" } }
+            },
+            [_vm._v("Regresar")]
+          )
+        ],
+        1
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -48379,7 +48570,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table" }, [
+        _c("table", { staticClass: "table table-striped" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -48390,25 +48581,61 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(bodega.direccion))]),
                 _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(bodega.sucursal.nombre))]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(bodega.created_at))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(bodega.updated_at))]),
                 _vm._v(" "),
-                _c("td", [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-danger btn-sm",
-                      attrs: { title: "Eliminar" },
-                      on: {
-                        click: function($event) {
-                          return _vm.eliminarBodega(bodega, index)
+                _c(
+                  "td",
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-info btn-sm text-white",
+                        attrs: {
+                          to: {
+                            name: "bodegas.show",
+                            params: { id: bodega.id }
+                          },
+                          title: "Detalles"
                         }
-                      }
-                    },
-                    [_c("i", { staticClass: "fas fa-trash" })]
-                  )
-                ])
+                      },
+                      [_c("i", { staticClass: "fas fa-info-circle" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "btn btn-warning btn-sm text-white",
+                        attrs: {
+                          to: {
+                            name: "bodegas.edit",
+                            params: { id: bodega.id }
+                          },
+                          title: "Editar"
+                        }
+                      },
+                      [_c("i", { staticClass: "fas fa-edit" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        attrs: { title: "Eliminar" },
+                        on: {
+                          click: function($event) {
+                            return _vm.eliminarBodega(bodega, index)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fas fa-trash" })]
+                    )
+                  ],
+                  1
+                )
               ])
             }),
             0
@@ -48429,6 +48656,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Dirección")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Sucursal")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -49372,23 +49601,57 @@ var render = function() {
               _vm.factura.items.length > 0
                 ? _c("tfoot", [
                     _c("tr", { staticClass: "table-active" }, [
-                      _c("td", { attrs: { colspan: "4" } }),
+                      _c("td", { attrs: { colspan: "5" } }),
                       _vm._v(" "),
                       _vm._m(1),
                       _vm._v(" "),
-                      _vm._m(2),
-                      _vm._v(" "),
                       _c("th", [
-                        _c("h5", [
+                        _c("h6", [
                           _vm._v(
-                            "\n\t\t\t\t\t\t\t\t\t" +
-                              _vm._s(_vm.formatCurrency(_vm.calcularTotal())) +
-                              "\n\t\t\t\t\t\t\t\t"
+                            _vm._s(
+                              _vm.formatCurrency(_vm.calcularTotal() / 1.19)
+                            )
                           )
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("th")
+                      _c("td")
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", { staticClass: "table-active" }, [
+                      _c("td", { attrs: { colspan: "5" } }),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("th", [
+                        _c("h6", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.formatCurrency(
+                                (_vm.calcularTotal() / 1.19) * 0.19
+                              )
+                            )
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td")
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", { staticClass: "table-active" }, [
+                      _c("td", { attrs: { colspan: "5" } }),
+                      _vm._v(" "),
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c("th", [
+                        _c("h5", [
+                          _vm._v(
+                            _vm._s(_vm.formatCurrency(_vm.calcularTotal()))
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td")
                     ])
                   ])
                 : _vm._e()
@@ -49494,13 +49757,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("th", [_c("h5")])
+    return _c("td", [_c("h6", [_vm._v("Subtotal:")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("th", [_c("h5")])
+    return _c("td", [
+      _c("h6", [_vm._v("IVA "), _c("small", [_vm._v("(19%)")]), _vm._v(":")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("h5", [_vm._v("Total:")])])
   }
 ]
 render._withStripped = true
@@ -49553,7 +49824,13 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(factura.sucursal.nombre))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(factura.tercero))]),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(factura.user.nombre) +
+                      " " +
+                      _vm._s(factura.user.apellido)
+                  )
+                ]),
                 _vm._v(" "),
                 _c("td", [_vm._v("$" + _vm._s(factura.valor_total))]),
                 _vm._v(" "),
@@ -49633,7 +49910,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Sucursal")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tercero")]),
+        _c("th", [_vm._v("Cliente")]),
         _vm._v(" "),
         _c("th", [_vm._v("Valor + IVA")]),
         _vm._v(" "),
@@ -50344,7 +50621,7 @@ var render = function() {
           staticStyle: { float: "right" },
           attrs: { to: { name: "categorias.index" } }
         },
-        [_vm._v("Ver categorias")]
+        [_vm._v("Ver categorías")]
       ),
       _vm._v(" "),
       _c(
@@ -50481,7 +50758,11 @@ var render = function() {
                           }
                         }
                       },
+<<<<<<< HEAD
                       [_c("i", { staticClass: "fas fa-trash" })]
+=======
+                      [_vm._v("\n\t\t\t\t\t\t\tEliminar\n\t\t\t\t\t\t")]
+>>>>>>> c7103c71f2cf789eb75917be2dd2ca1c0dfb1a82
                     )
                   ],
                   1
@@ -50541,9 +50822,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Precio unitario")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Imagen del producto")]),
+        _c("th", [_vm._v("Imágen del producto")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Categoria")]),
+        _c("th", [_vm._v("Categoría")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -51573,7 +51854,13 @@ var render = function() {
                     return _c(
                       "option",
                       { key: index, domProps: { value: role.id } },
-                      [_vm._v(_vm._s(role.nombre))]
+                      [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t" +
+                            _vm._s(role.nombre) +
+                            "\n\t\t\t\t\t\t"
+                        )
+                      ]
                     )
                   })
                 ],
@@ -51611,7 +51898,10 @@ var staticRenderFns = [
     return _c(
       "button",
       { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-      [_c("i", { staticClass: "fas fa-edit me-2" }), _vm._v("Modificar")]
+      [
+        _c("i", { staticClass: "fas fa-edit me-2" }),
+        _vm._v("Modificar\n\t\t\t")
+      ]
     )
   }
 ]
@@ -51668,7 +51958,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(user.telefono))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(user.role.nombre))]),
+                _c("td", [_vm._v(_vm._s(user.rol.nombre))]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -51698,7 +51988,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n              Eliminar\n            ")]
+                      [_vm._v("\n\t\t\t\t\t\t\tEliminar\n\t\t\t\t\t\t")]
                     )
                   ],
                   1

@@ -183,7 +183,8 @@ export const routes = [
     {
         name: "facturas.edit",
         path: "/facturas/:id/edit",
-        component: FacturasEdit
+        component: FacturasEdit,
+        meta: { requiresAuth: true }
     },
     //
     // Usuarios
@@ -191,11 +192,13 @@ export const routes = [
     {
         name: "usuarios.index",
         path: "/usuarios",
-        component: UsuariosIndex
+        component: UsuariosIndex,
+        meta: { requiresAuth: true }
     },
     {
         name: "usuarios.edit",
         path: "/usuarios/:id/edit",
-        component: UsuariosEdit
+        component: UsuariosEdit,
+        meta: { requiresAuth: true }
     }
 ];

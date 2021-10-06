@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBodegasTable extends Migration
+class CreateSucursalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,16 @@ class CreateBodegasTable extends Migration
      */
     public function up()
     {
-        Schema::create('bodegas', function (Blueprint $table) {
+        Schema::create('sucursales', function (Blueprint $table) {
             $table->id();
             $table->string("nombre", 45);
             $table->string("direccion");
+            $table->string("telefono", 20);
+            $table->unsignedBigInteger("ciudade_id")->nullable();
+            $table->foreign("ciudade_id")
+                ->references("id")->on("ciudades")
+                ->onUpdate('cascade')
+                ->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -28,6 +34,6 @@ class CreateBodegasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bodegas');
+        Schema::dropIfExists('sucursales');
     }
 }

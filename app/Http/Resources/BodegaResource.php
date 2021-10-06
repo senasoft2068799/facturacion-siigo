@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FacturaResource extends JsonResource
+class BodegaResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +16,9 @@ class FacturaResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "descripcion" => $this->descripcion,
-            "valor_total" => $this->valor_total,
-            "documento" => $this->documento,
+            "nombre" => $this->nombre,
+            "direccion" => $this->direccion,
             "sucursal" => $this->sucursale,
-            "user" => $this->user,
-            "detalle_movimientos" => DetalleMovimientoResource::collection($this->detalle_movimientos()->get()),
-            "estado" => $this->estado,
             "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at->diffForHumans(),
         ];

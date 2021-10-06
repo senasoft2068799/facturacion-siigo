@@ -227,15 +227,30 @@
 						<!-- Footer tabla -->
 						<tfoot v-if="factura.items.length > 0">
 							<tr class="table-active">
-								<td colspan="4"></td>
-								<th><h5></h5></th>
-								<th><h5></h5></th>
+								<td colspan="5"></td>
+								<td><h6>Subtotal:</h6></td>
 								<th>
-									<h5>
-										{{ formatCurrency(calcularTotal()) }}
-									</h5>
+									<h6>{{ formatCurrency(calcularTotal() / 1.19) }}</h6>
 								</th>
-								<th></th>
+								<td></td>
+							</tr>
+							<tr class="table-active">
+								<td colspan="5"></td>
+								<td>
+									<h6>IVA <small>(19%)</small>:</h6>
+								</td>
+								<th>
+									<h6>{{ formatCurrency((calcularTotal() / 1.19) * 0.19) }}</h6>
+								</th>
+								<td></td>
+							</tr>
+							<tr class="table-active">
+								<td colspan="5"></td>
+								<td><h5>Total:</h5></td>
+								<th>
+									<h5>{{ formatCurrency(calcularTotal()) }}</h5>
+								</th>
+								<td></td>
 							</tr>
 						</tfoot>
 						<!-- Fin footer tabla -->
@@ -371,7 +386,6 @@ export default {
 			this.axios
 				.post("/api/facturas", this.factura)
 				.then((res) => {
-					// this.factura = res.data.data;
 					this.errors.clearAll();
 					this.$swal("Factura registrada correctamente.");
 					this.limpiarFactura();

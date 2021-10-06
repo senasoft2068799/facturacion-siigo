@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Bodega;
+use App\Models\Sucursale;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BodegaFactory extends Factory
@@ -23,7 +24,8 @@ class BodegaFactory extends Factory
     {
         return [
             "nombre" => $this->faker->company(),
-            "direccion" => $this->faker->streetName()
+            "direccion" => $this->faker->streetName(),
+            "sucursale_id" => Sucursale::inRandomOrder()->first()->id,
         ];
     }
 }
