@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetalleMovimiento extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $guarded = ["bodega", "producto"];
 
     public function movimiento()
     {

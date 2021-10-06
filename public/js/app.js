@@ -2504,14 +2504,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2537,8 +2529,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.errors = {};
 
         _this.$router.push("/login");
-      })["catch"](function (errors) {
-        _this.errors = errors.response.data.errors;
+      })["catch"](function (err) {
+        _this.errors = err.response.data.errors;
       });
     }
   }
@@ -2627,20 +2619,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
-      errors2: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       bodega: {},
       movimiento: {
         sucursale_id: null
@@ -2679,33 +2662,28 @@ __webpack_require__.r(__webpack_exports__);
       this.movimiento.documento_id = 3;
       this.movimiento.estado = 1;
       this.axios.post("/api/movimientos", this.movimiento).then(function (res) {
-        _this3.movimiento = res.data;
-
-        _this3.registrarDetalleMovimiento();
+        _this3.movimiento = res.data; // this.registrarDetalleMovimiento();
       })["catch"](function (err) {
-        console.log("Retornando :C");
-
-        _this3.errors2.record(err.response.data.errors);
-
-        return err;
-      });
-    },
-    registrarDetalleMovimiento: function registrarDetalleMovimiento() {
-      var _this4 = this;
-
-      var detalleMovimiento = {
-        movimiento_id: this.movimiento.id,
-        bodega_id: this.bodega.id
-      };
-      this.axios.post("/api/detalle-movimientos", detalleMovimiento).then(function (res) {
-        _this4.$swal("Bodega registrada correctamente.");
-
-        _this4.bodega = {};
-        _this4.movimiento = {};
-      })["catch"](function (err) {
-        return err;
+        _this3.errors.record(err.response.data.errors);
       });
     }
+    /*    registrarDetalleMovimiento() {
+        let detalleMovimiento = {
+          movimiento_id: this.movimiento.id,
+          bodega_id: this.bodega.id,
+        };
+        this.axios
+          .post("/api/detalle-movimientos", detalleMovimiento)
+          .then((res) => {
+            this.$swal("Bodega registrada correctamente.");
+            this.bodega = {};
+            this.movimiento = {};
+          })
+          .catch((err) => {
+            return err;
+          });
+      }, */
+
   }
 });
 
@@ -3531,6 +3509,8 @@ __webpack_require__.r(__webpack_exports__);
       this.factura.estado = 1;
       this.axios.post("/api/facturas", this.factura).then(function (res) {
         // this.factura = res.data.data;
+        _this2.errors.clearAll();
+
         _this2.$swal("Factura registrada correctamente.");
 
         _this2.limpiarFactura();
@@ -3554,7 +3534,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     limpiarFactura: function limpiarFactura() {
       this.limpiarDetalleFactura();
-      factura = {
+      this.factura = {
         sucursale_id: null,
         user_id: null,
         items: []
@@ -47982,9 +47962,9 @@ var render = function() {
           _c(
             "button",
             { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("\n                Registrar\n            ")]
+            [_vm._v("Registrar")]
           ),
-          _vm._v("\n            " + _vm._s(_vm.formData) + "\n        ")
+          _vm._v("\n\t\t\t" + _vm._s(_vm.formData) + "\n\t\t")
         ]
       )
     ])
@@ -48073,9 +48053,9 @@ var render = function() {
             _vm.errors.has("nombre")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors.get("nombre")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48113,9 +48093,9 @@ var render = function() {
             _vm.errors.has("direccion")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors.get("direccion")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48153,9 +48133,9 @@ var render = function() {
             _vm.errors2.has("descripcion")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors2.get("descripcion")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48210,9 +48190,9 @@ var render = function() {
                     { key: index, domProps: { value: sucursal.id } },
                     [
                       _vm._v(
-                        "\n            " +
+                        "\n\t\t\t\t\t\t" +
                           _vm._s(sucursal.nombre) +
-                          "\n          "
+                          "\n\t\t\t\t\t"
                       )
                     ]
                   )
@@ -48224,9 +48204,9 @@ var render = function() {
             _vm.errors2.has("sucursale_id")
               ? _c("p", { staticClass: "text-danger" }, [
                   _vm._v(
-                    "\n          " +
+                    "\n\t\t\t\t\t" +
                       _vm._s(_vm.errors2.get("sucursale_id")) +
-                      "\n        "
+                      "\n\t\t\t\t"
                   )
                 ])
               : _vm._e()
@@ -48249,15 +48229,7 @@ var render = function() {
         ],
         1
       )
-    ]),
-    _vm._v("\n  Movimiento: " + _vm._s(_vm.movimiento) + "\n  "),
-    _c("hr"),
-    _vm._v("\n  Bodega: " + _vm._s(_vm.bodega) + "\n  "),
-    _c("hr"),
-    _vm._v("\n  Errors: " + _vm._s(_vm.errors) + "\n  "),
-    _c("hr"),
-    _vm._v("\n  Errors2: " + _vm._s(_vm.errors2) + "\n  "),
-    _c("hr")
+    ])
   ])
 }
 var staticRenderFns = []
@@ -66895,7 +66867,7 @@ Vue.compile = compileToFunctions;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp\\\\htdocs\\\\facturacion-siigo"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\xampp\\\\htdocs\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\xampp\\\\htdocs\\\\Mentorias PHP\\\\Facturacion Siigo\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
