@@ -25,7 +25,7 @@ class BodegaController extends Controller
         ]);
 
         $bodega = Bodega::create($request->except('productos'));
-        $bodega->productos()->sync($request->productos);
+        $bodega->productos()->sync(array_column($request->productos, "id"));
 
 
         // $sucursale = Sucursale::find($request->sucursale_id);
