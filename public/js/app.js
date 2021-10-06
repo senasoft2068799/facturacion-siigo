@@ -4297,7 +4297,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
 //
 //
 //
@@ -4331,8 +4330,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-=======
->>>>>>> c7103c71f2cf789eb75917be2dd2ca1c0dfb1a82
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -50621,7 +50618,7 @@ var render = function() {
           staticStyle: { float: "right" },
           attrs: { to: { name: "categorias.index" } }
         },
-        [_vm._v("Ver categorías")]
+        [_vm._v("Ver categorias")]
       ),
       _vm._v(" "),
       _c(
@@ -50758,11 +50755,7 @@ var render = function() {
                           }
                         }
                       },
-<<<<<<< HEAD
                       [_c("i", { staticClass: "fas fa-trash" })]
-=======
-                      [_vm._v("\n\t\t\t\t\t\t\tEliminar\n\t\t\t\t\t\t")]
->>>>>>> c7103c71f2cf789eb75917be2dd2ca1c0dfb1a82
                     )
                   ],
                   1
@@ -50822,9 +50815,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Precio unitario")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Imágen del producto")]),
+        _c("th", [_vm._v("Imagen del producto")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Categoría")]),
+        _c("th", [_vm._v("Categoria")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
