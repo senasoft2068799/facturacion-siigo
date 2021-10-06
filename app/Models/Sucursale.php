@@ -10,7 +10,13 @@ class Sucursale extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function ciudade(){
+    public function ciudade()
+    {
         return $this->belongsTo(Ciudade::class);
+    }
+
+    public function bodegas()
+    {
+        return $this->hasMany(Bodega::class);
     }
 }

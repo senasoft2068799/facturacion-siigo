@@ -9,4 +9,9 @@ class Bodega extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function sucursale()
+    {
+        return $this->belongsTo(Sucursale::class);
+    }
 }

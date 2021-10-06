@@ -9,7 +9,7 @@
 						type="text"
 						class="form-control"
 						id="nombre"
-						v-model="movimiento.bodega.nombre"
+						v-model="bodega.nombre"
 					/>
 					<p class="text-danger" v-if="errors.has('nombre')">
 						{{ errors.get("nombre") }}
@@ -21,22 +21,10 @@
 						type="text"
 						class="form-control"
 						id="direccion"
-						v-model="movimiento.bodega.direccion"
+						v-model="bodega.direccion"
 					/>
 					<p class="text-danger" v-if="errors.has('direccion')">
 						{{ errors.get("direccion") }}
-					</p>
-				</div>
-				<div class="mb-3">
-					<label for="descripcion" class="form-label">Descripción</label>
-					<textarea
-						class="form-control"
-						id="descripcion"
-						rows="3"
-						v-model="movimiento.descripcion"
-					></textarea>
-					<p class="text-danger" v-if="errors.has('descripcion')">
-						{{ errors.get("descripcion") }}
 					</p>
 				</div>
 				<div class="mb-3">
@@ -44,7 +32,7 @@
 					<select
 						class="form-select"
 						id="sucursal"
-						v-model="movimiento.sucursale_id"
+						v-model="bodega.sucursale_id"
 					>
 						<option disabled value="null">Seleccionar...</option>
 						<option
@@ -74,10 +62,8 @@ export default {
 		return {
 			errors: new Errors(),
 			sucursales: [],
-			movimiento: {
+			bodega: {
 				sucursale_id: null,
-				detalle_movimiento: {},
-				bodega: {},
 			},
 		};
 	},
@@ -90,14 +76,12 @@ export default {
 	methods: {
 		registrarBodega() {
 			this.axios
-				.post("/api/bodegas", this.movimiento)
+				.post("/api/bodegas", this.bodega)
 				.then((res) => {
-					this.errors.clearAll();
 					this.$swal("Bodega registrada correctamente.");
-					this.movimiento = {
+					this.errors.clearAll();
+					this.bodega = {
 						sucursale_id: null,
-						detalle_movimiento: {},
-						bodega: {},
 					};
 				})
 				.catch((err) => {
@@ -108,35 +92,6 @@ export default {
 					this.errors.record(err.response.data.errors);
 				});
 		},
-		// registrarMovimiento() {
-		// 	this.movimiento.documento_id = 3;
-		// 	this.movimiento.estado = 1;
-		// 	this.axios
-		// 		.post("/api/movimientos", this.movimiento)
-		// 		.then((res) => {
-		// 			this.movimiento = res.data;
-		// 			// this.registrarDetalleMovimiento();
-		// 		})
-		// 		.catch((err) => {
-		// 			this.errors.record(err.response.data.errors);
-		// 		});
-		// },
-		/*    registrarDetalleMovimiento() {
-      let detalleMovimiento = {
-        movimiento_id: this.movimiento.id,
-        bodega_id: this.bodega.id,
-      };
-      this.axios
-        .post("/api/detalle-movimientos", detalleMovimiento)
-        .then((res) => {
-          this.$swal("Bodega registrada correctamente.");
-          this.bodega = {};
-          this.movimiento = {};
-        })
-        .catch((err) => {
-          return err;
-        });
-    }, */
 	},
 };
 </script>

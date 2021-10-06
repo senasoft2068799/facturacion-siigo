@@ -25,6 +25,7 @@ class ProductoFactory extends Factory
         return [
             "nombre" => $this->faker->unique->sentence(2, false),
             "precio_unitario" => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
+            "imagen" => $this->faker->imageUrl(512, 512, 'cats'),
             "categoria_id" => Categoria::inRandomOrder()->first()->id,
         ];
     }
