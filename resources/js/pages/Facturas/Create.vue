@@ -371,7 +371,6 @@ export default {
 			this.axios
 				.post("/api/facturas", this.factura)
 				.then((res) => {
-					// this.factura = res.data.data;
 					this.errors.clearAll();
 					this.$swal("Factura registrada correctamente.");
 					this.limpiarFactura();
