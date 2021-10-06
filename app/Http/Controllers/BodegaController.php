@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\BodegaResource;
 use App\Models\Bodega;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class BodegaController extends Controller
@@ -19,10 +20,13 @@ class BodegaController extends Controller
         $request->validate([
             'nombre' => 'required|min:4|max:45',
             'direccion' => 'required|min:6|max:255',
-            "sucursale_id" => "required|exists:sucursales,id"
+            "sucursale_id" => "required|exists:sucursales,id",
+            "productos" => "array"
         ]);
 
-        Bodega::create($request->all());
+        $bodega = Bodega::create($request->except('productos'));
+        $bodega->productos()->sync($request->productos);
+
 
         // $sucursale = Sucursale::find($request->sucursale_id);
         // $sucursale->bodegas()->save($bodega);

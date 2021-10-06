@@ -2614,14 +2614,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       sucursales: [],
+      productos: [],
+      producto: {
+        imagen: null
+      },
       bodega: {
-        sucursale_id: null
+        sucursale_id: null,
+        productos: []
       }
     };
   },
@@ -2631,6 +2711,10 @@ __webpack_require__.r(__webpack_exports__);
     //Mostrar lista de sucursales
     this.axios.get("/api/sucursales").then(function (res) {
       _this.sucursales = res.data.data;
+    }); //Mostrar lista de productos
+
+    this.axios.get("/api/productos").then(function (res) {
+      _this.productos = res.data.data;
     });
   },
   methods: {
@@ -2643,7 +2727,8 @@ __webpack_require__.r(__webpack_exports__);
         _this2.errors.clearAll();
 
         _this2.bodega = {
-          sucursale_id: null
+          sucursale_id: null,
+          productos: {}
         };
       })["catch"](function (err) {
         _this2.$swal({
@@ -2653,6 +2738,15 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.errors.record(err.response.data.errors);
       });
+    },
+    agregarProducto: function agregarProducto() {
+      this.bodega.productos.splice(0, 0, this.producto);
+      this.producto = {
+        imagen: null
+      };
+    },
+    eliminarProducto: function eliminarProducto(index) {
+      this.bodega.productos.splice(index, 1);
     }
   }
 });
@@ -48228,7 +48322,144 @@ var render = function() {
                       "\n\t\t\t\t"
                   )
                 ])
-              : _vm._e()
+              : _vm._e(),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "table-responsive" }, [
+              _c("table", { staticClass: "table table-striped table-hover" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  [
+                    _c("tr", [
+                      _c("td", [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.producto,
+                                expression: "producto"
+                              }
+                            ],
+                            staticClass: "form-select",
+                            attrs: { id: "producto" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.producto = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              { attrs: { disabled: "", value: "null" } },
+                              [_vm._v("Seleccionar...")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.productos, function(item, index) {
+                              return _c(
+                                "option",
+                                { key: index, domProps: { value: item } },
+                                [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t\t\t\t" +
+                                      _vm._s(item.nombre) +
+                                      "\n\t\t\t\t\t\t\t\t\t\t"
+                                  )
+                                ]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("a", { attrs: { href: _vm.producto.imagen } }, [
+                          _c("img", {
+                            staticClass: "img-responsive",
+                            attrs: {
+                              src: _vm.producto.imagen,
+                              height: "100",
+                              width: "100"
+                            }
+                          })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-success btn-sm",
+                            attrs: { type: "button", title: "Agregar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.agregarProducto()
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-plus-circle" })]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.bodega.productos, function(item, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", [_vm._v(_vm._s(item.nombre))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("a", { attrs: { href: item.imagen } }, [
+                            _c("img", {
+                              staticClass: "img-responsive",
+                              attrs: {
+                                src: item.imagen,
+                                height: "100",
+                                width: "100"
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              attrs: { type: "button", title: "Eliminar" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.eliminarProducto(index)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-times-circle" })]
+                          )
+                        ])
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("hr")
           ]),
           _vm._v(" "),
           _c(
@@ -48248,10 +48479,26 @@ var render = function() {
         ],
         1
       )
-    ])
+    ]),
+    _vm._v("\n\t" + _vm._s(_vm.bodega) + "\n")
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Producto")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Imágen")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Funciones")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

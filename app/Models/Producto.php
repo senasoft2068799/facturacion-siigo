@@ -10,8 +10,14 @@ class Producto extends Model
     use HasFactory;
     protected $guarded = [];
     protected $fillable = ['imagen'];
-    
-    public function categoria(){
+
+    public function categoria()
+    {
         return $this->belongsTo(Categoria::class);
+    }
+
+    public function bodegas()
+    {
+        return $this->belongsToMany(Bodega::class, "stocks");
     }
 }

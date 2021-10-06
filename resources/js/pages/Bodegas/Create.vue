@@ -46,6 +46,80 @@
 					<p class="text-danger" v-if="errors.has('sucursale_id')">
 						{{ errors.get("sucursale_id") }}
 					</p>
+					<hr />
+					<div class="table-responsive">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Producto</th>
+									<th>Imágen</th>
+									<th>Funciones</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<select
+											class="form-select"
+											id="producto"
+											v-model="producto"
+										>
+											<option disabled value="null">Seleccionar...</option>
+											<option
+												v-for="(item, index) in productos"
+												:key="index"
+												v-bind:value="item"
+											>
+												{{ item.nombre }}
+											</option>
+										</select>
+									</td>
+									<td>
+										<a :href="producto.imagen"
+											><img
+												:src="producto.imagen"
+												class="img-responsive"
+												height="100"
+												width="100"
+										/></a>
+									</td>
+									<td>
+										<button
+											type="button"
+											class="btn btn-success btn-sm"
+											title="Agregar"
+											@click="agregarProducto()"
+										>
+											<i class="fas fa-plus-circle"></i>
+										</button>
+									</td>
+								</tr>
+								<tr v-for="(item, index) in bodega.productos" :key="index">
+									<td>{{ item.nombre }}</td>
+									<td>
+										<a :href="item.imagen"
+											><img
+												:src="item.imagen"
+												class="img-responsive"
+												height="100"
+												width="100"
+										/></a>
+									</td>
+									<td>
+										<button
+											type="button"
+											class="btn btn-danger btn-sm"
+											title="Eliminar"
+											@click="eliminarProducto(index)"
+										>
+											<i class="fas fa-times-circle"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<hr />
 				</div>
 				<button type="submit" class="btn btn-success">Registrar</button>
 				<router-link :to="{ name: 'bodegas.index' }" class="btn btn-secondary"
@@ -53,6 +127,7 @@
 				>
 			</form>
 		</div>
+		{{ bodega }}
 	</div>
 </template>
 <script>
@@ -62,8 +137,13 @@ export default {
 		return {
 			errors: new Errors(),
 			sucursales: [],
+			productos: [],
+			producto: {
+				imagen: null,
+			},
 			bodega: {
 				sucursale_id: null,
+				productos: [],
 			},
 		};
 	},
@@ -71,6 +151,10 @@ export default {
 		//Mostrar lista de sucursales
 		this.axios.get("/api/sucursales").then((res) => {
 			this.sucursales = res.data.data;
+		});
+		//Mostrar lista de productos
+		this.axios.get("/api/productos").then((res) => {
+			this.productos = res.data.data;
 		});
 	},
 	methods: {
@@ -82,6 +166,7 @@ export default {
 					this.errors.clearAll();
 					this.bodega = {
 						sucursale_id: null,
+						productos: {},
 					};
 				})
 				.catch((err) => {
@@ -91,6 +176,15 @@ export default {
 					});
 					this.errors.record(err.response.data.errors);
 				});
+		},
+		agregarProducto() {
+			this.bodega.productos.splice(0, 0, this.producto);
+			this.producto = {
+				imagen: null,
+			};
+		},
+		eliminarProducto(index) {
+			this.bodega.productos.splice(index, 1);
 		},
 	},
 };

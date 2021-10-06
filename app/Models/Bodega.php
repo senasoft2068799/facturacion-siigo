@@ -14,4 +14,9 @@ class Bodega extends Model
     {
         return $this->belongsTo(Sucursale::class);
     }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, "stocks");
+    }
 }
