@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BodegaResource;
 use App\Models\Bodega;
-use App\Models\DetalleMovimiento;
-use App\Models\Movimiento;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class BodegaController extends Controller
@@ -12,40 +12,20 @@ class BodegaController extends Controller
 
     public function index()
     {
-        return array_reverse(Bodega::all()->toArray());
+        return BodegaResource::collection(Bodega::latest()->get());
     }
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nombre' => 'required|min:4|max:45',
-        //     'direccion' => 'required|min:6|max:255'
-        // ]);
-        // $bodega = Bodega::create($request->all());
-        // return $bodega;
+        $request->validate([
+            'nombre' => 'required|min:4|max:45',
+            'direccion' => 'required|min:6|max:255',
+            "sucursale_id" => "required|exists:sucursales,id",
+            "productos" => "array"
+        ]);
 
-
-        $bodega = new Bodega;
-        $movimiento = new Movimiento;
-        $detalle_movimiento = new DetalleMovimiento;
-
-        $detalle_movimientos = collect($request->items)->transform(function ($detalle) {
-            $detalle["producto_id"] = $detalle["producto"]["id"];
-            $detalle["bodega_id"] = $detalle["bodega"]["id"];
-            return new DetalleMovimiento($detalle);
-        });
-
-        // if ($detalle_movimientos->isEmpty()) {
-        //     return response()
-        //         ->json([
-        //             'detalle_empty' => ['One or more Product is required.']
-        //         ], 422);
-        // }
-
-        $bodega = DB::transaction(function () use ($bodega, $detalle_movimientos) {
-            $movimiento->save();
-            $movimiento->detalle_movimientos()->saveMany($detalle_movimientos);
-        });
+        $bodega = Bodega::create($request->except('productos'));
+        $bodega->productos()->sync(array_column($request->productos, "id"));
     }
 
     public function show(Bodega $bodega)

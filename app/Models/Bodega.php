@@ -9,4 +9,14 @@ class Bodega extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function sucursale()
+    {
+        return $this->belongsTo(Sucursale::class);
+    }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, "stocks");
+    }
 }

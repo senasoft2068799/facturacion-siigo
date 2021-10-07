@@ -4,14 +4,15 @@
         <div class="card-body">
             <form @submit.prevent="modificarProducto" enctype="multipart/form-data">
                 <div class="mb-3">
-                    <!-- <label for="imagen" class="form-label"
-                        >Imagen del producto</label
-                    >
-                    <figure style="margin: 15px;">
+                    <figure>
                         <center>
-                            <img width="200" height="200" :src="producto.imagen" alt="Imagen del producto">
+                            <label for="imagen" class="form-label"
+                                >Imagen del producto</label
+                            >
+                            <br/>
+                            <img class="img-fluid img-thumbnail" width="250" height="250" :src="producto.imagen" alt="Imagen del producto">
                         </center>
-                    </figure> -->
+                    </figure>
                     <label for="nombre" class="form-label"
                         >Nombre del producto</label
                     >
@@ -59,9 +60,11 @@
                         @change="obtener_imagen"
                         accept="image/*"
                     />
-                    <figure style="margin: 15px;">
-                        <img width="200" height="200" :src="imagenMini" alt="Nueva imagen del producto">
-                    </figure>
+                    <center>
+                        <figure style="margin: 15px;">
+                            <img class="img-thumbnail img-responsive rounded" width="250" height="250" :src="imagenMini" alt="Imagen del producto">
+                        </figure>
+                    </center>
                 </div>
                 <button type="submit" class="btn btn-success">Modificar</button>
                 <router-link
@@ -112,11 +115,13 @@ export default {
         },
         modificarProducto() {
             let producto = new FormData();
-            for (let key in this.producto){
+            for (let key in this.producto)
+            {
                 producto.append(key, this.producto[key]);
+                producto.append('_method', 'PUT');
             }
             this.axios
-                .put("/api/productos/" + this.$route.params.id, this.producto)
+                .post("/api/productos/" + this.$route.params.id, producto)
                 .then(response => {
                     this.$swal("Producto modificado correctamente.");
                     this.$router.push("/productos");

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Documento;
 use App\Models\Movimiento;
 use App\Models\Sucursale;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class MovimientoFactory extends Factory
@@ -27,6 +28,7 @@ class MovimientoFactory extends Factory
             "descripcion" => $this->faker->sentence(),
             "documento_id" => Documento::inRandomOrder()->first()->id,
             "sucursale_id" => Sucursale::inRandomOrder()->first()->id,
+            "user_id" => User::inRandomOrder()->first()->id,
             "valor_total" => $this->faker->randomFloat(),
             "estado" => $this->faker->randomElement($array = array(1, 2,)),
         ];

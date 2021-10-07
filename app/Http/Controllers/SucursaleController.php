@@ -8,12 +8,11 @@ use Illuminate\Http\Request;
 
 class SucursaleController extends Controller
 {
-   
+
     public function index()
     {
         //$sucursales = Sucursale::all()->toArray();
         //return array_reverse($sucursales);
-        
         return SucursaleResource::collection(Sucursale::latest()->get());
     }
 

@@ -18,7 +18,6 @@ class CreatePreferenciasTable extends Migration
             $table->integer("veces_compradas");
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("categoria_id");
-            $table->timestamps();
         });
     }
 

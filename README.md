@@ -21,6 +21,13 @@
     <li>npm run watch</li>
 </ul>
 
+<h2>Para trabajar con archivos:</h1>
+<ul>
+    <li>php artisan storage:link</li>
+    <li>https://docs.laravel-excel.com/3.1/getting-started/installation.html</li>
+    <li>https://phpspreadsheet.readthedocs.io/en/latest/</li>
+</ul>
+
 <hr/>
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 

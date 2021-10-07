@@ -18,7 +18,8 @@ class UserController extends Controller
         User::create($request->all());
     }
 
-    public function show(User $user){
+    public function show(User $user)
+    {
         return $user;
     }
 

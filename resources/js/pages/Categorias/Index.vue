@@ -5,6 +5,12 @@
             :to="{ name: 'categorias.create' }"
             >Registrar categoria</router-link
         >
+        <router-link
+            class="btn btn-secondary mb-3"
+            style="float: right;"
+            :to="{ name: 'productos.index' }"
+            >Ver productos</router-link
+        >
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -25,17 +31,19 @@
                         <td>
                             <router-link
                                 class="btn btn-warning btn-sm"
+                                title="Editar"
                                 :to="{
                                     name: 'categorias.edit',
                                     params: { id: categoria.id }
                                 }"
-                                >Editar</router-link
+                                ><i class="fas fa-pencil-alt"></i></router-link
                             >
                             <button
                                 @click="eliminarcategoria(categoria, index)"
                                 class="btn btn-danger btn-sm"
+                                title="Inactivar"
                             >
-                                Eliminar
+                                <i class="fas fa-ban"></i>
                             </button>
                         </td>
                     </tr>

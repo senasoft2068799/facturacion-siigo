@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductoResource;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+
+use Illuminate\Support\Facades\DB;
+use App\Imports\ProductoImport;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -62,46 +66,38 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)//Si esta viendo todo este desorden, ignorelo xd casi logro editar la imagen
+    public function update(Request $request, $id)
     {
-        // $producto->update($request->all());
-        // $fecha = now();
-        // info($id);
+        info($request);
         $producto = Producto::find($id);
         $producto->nombre = $request->nombre;
         $producto->precio_unitario = $request->precio_unitario;
         $producto->categoria_id = $request->categoria_id;
-        // $producto->imagen = $request->imagen;
-        // info($request);
+        // $datosImagen = $request->imagen;
+        if($request->hasFile('imagen')){
+            $datosImagen = $request->file('imagen')->store('public/imagenes');
+            $url = Storage::url($datosImagen);
+            $producto->imagen = $url;
+        }
         info($producto);
-        // $producto->update($request->all());
-        // $producto = $request->all();
-        // info($producto);
-
-        // // $ig = $request->file('imagen');
-        // // $ig = $request->hasFile('imagen');
-
-        // if($request->hasFile('imagen')){
-        //     // foreach($request->file('imagen') as $image)
-        //     // {
-        //     //     $imagen = $image->getClientOriginalName();
-        //     //     $image->move(public_path().'/imagenes/', $imagen);
-        //     // }
-        //     $producto['imagen'] = $request->file('imagen')->store('public/imagenes');
-        // }
-        // else {
-        //     info('No toma la imagen');
-        // }
-        // $producto['updated_at'] = $fecha;
-        // $url = Storage::url($producto['imagen']);
-        // $producto['imagen'] = $url;
-        // info($producto);
-        // Producto::edit($producto);
         $producto->save();
     }
 
     public function destroy(Producto $producto)
     {
         $producto->delete();
+    }
+
+    public function importExcel(Request $request)
+    {
+        try {
+            set_time_limit(0);
+            DB::beginTransaction();
+            Excel::import(new ProductoImport(), $request->file('file'));
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            info($exception);
+        }
     }
 }
