@@ -83,13 +83,6 @@
     </ul>
   </nav>
 </template>
-<!--<script>
-$(document).ready(function () {
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('active');
-    });
-});  
-</script>-->
 <script>
 import Storage from "../utilities/Storage.js";
 export default {

@@ -92,6 +92,25 @@
 
 /*FINALIZA NAVBAR*/
 
+/*EMPIEZA DASHBOARD*/
+
+.card-footer{
+    border: 0;
+    margin-top: 1rem;
+    text-align: center;
+    background-color: transparent;
+}
+
+.card-footer a{
+    color: var(--second-text-color);
+    font: 1.4rem bolder var(--main-type-text);
+}
+
+.card-footer a:hover{
+    text-decoration: none;
+    transition: .9s;
+}
+
 .space{
     margin: 0 1.5rem;
 }

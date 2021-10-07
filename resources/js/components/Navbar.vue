@@ -1,22 +1,36 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid my-1">
-      <button type="button" id="sidebarCollapse" class="btn btn-primary ml-2">
-        <i class="fas fa-align-justify me-2"></i>Menú
-      </button>
       <button
         class="navbar-toggler"
         type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="pi pi-align-justify"></span>
+        <span class="fas fa-align-justify"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <div class="navbar-nav text-center"></div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown me-3">
+            <a
+              class="nav-link dropdown-toggle link-dark"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="fas fa-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
