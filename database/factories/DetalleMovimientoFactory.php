@@ -28,6 +28,7 @@ class DetalleMovimientoFactory extends Factory
             "cantidad" => $this->faker->randomDigitNotZero(),
             "valor_total" => $this->faker->randomFloat(),
             "movimiento_id" => Movimiento::inRandomOrder()->first()->id,
+            "bodega_id" => $this->faker->randomDigitNotZero(),
             "producto_id" => Producto::inRandomOrder()->first()->id,
         ];
     }
