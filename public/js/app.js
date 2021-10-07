@@ -2171,6 +2171,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Navbar"
 });
@@ -47467,6 +47486,48 @@ var staticRenderFns = [
           },
           [
             _c("ul", { staticClass: "navbar-nav ms-auto" }, [
+              _c("li", { staticClass: "nav-item dropdown me-3" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "nav-link dropdown-toggle link-dark",
+                    attrs: {
+                      href: "#",
+                      id: "notificationsDropdown",
+                      role: "button",
+                      "data-bs-toggle": "dropdown",
+                      "aria-expanded": "false"
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-bell" })]
+                ),
+                _vm._v(" "),
+                _c(
+                  "ul",
+                  {
+                    staticClass: "dropdown-menu dropdown-menu-end",
+                    attrs: { "aria-labelledby": "notificationsDropdown" }
+                  },
+                  [
+                    _c("li", [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [_vm._v("Action")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [_vm._v("Another action")]
+                      )
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
               _c("li", { staticClass: "nav-item dropdown me-3" }, [
                 _c(
                   "a",

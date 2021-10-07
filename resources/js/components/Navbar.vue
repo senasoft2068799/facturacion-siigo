@@ -18,6 +18,25 @@
 						<a
 							class="nav-link dropdown-toggle link-dark"
 							href="#"
+							id="notificationsDropdown"
+							role="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							<i class="fas fa-bell"></i>
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-end"
+							aria-labelledby="notificationsDropdown"
+						>
+							<li><a class="dropdown-item" href="#">Action</a></li>
+							<li><a class="dropdown-item" href="#">Another action</a></li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown me-3">
+						<a
+							class="nav-link dropdown-toggle link-dark"
+							href="#"
 							id="navbarDropdown"
 							role="button"
 							data-bs-toggle="dropdown"
