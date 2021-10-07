@@ -2190,6 +2190,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Navbar"
 });
@@ -47490,23 +47500,32 @@ var staticRenderFns = [
                 _c(
                   "a",
                   {
-                    staticClass: "nav-link dropdown-toggle link-dark",
+                    staticClass: "nav-link link-dark position-relative",
                     attrs: {
-                      href: "#",
-                      id: "notificationsDropdown",
+                      id: "notificaciones",
                       role: "button",
                       "data-bs-toggle": "dropdown",
                       "aria-expanded": "false"
                     }
                   },
-                  [_c("i", { staticClass: "fas fa-bell" })]
+                  [
+                    _c("i", { staticClass: "fas fa-bell" }),
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "\n\t\t\t\t\t\t\t\tposition-absolute\n\t\t\t\t\t\t\t\tstart-100\n\t\t\t\t\t\t\t\ttranslate-middle\n\t\t\t\t\t\t\t\tbadge\n\t\t\t\t\t\t\t\trounded-pill\n\t\t\t\t\t\t\t\tbg-danger\n\t\t\t\t\t\t\t"
+                      },
+                      [_vm._v("22")]
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
                   "ul",
                   {
                     staticClass: "dropdown-menu dropdown-menu-end",
-                    attrs: { "aria-labelledby": "notificationsDropdown" }
+                    attrs: { "aria-labelledby": "notificaciones" }
                   },
                   [
                     _c("li", [

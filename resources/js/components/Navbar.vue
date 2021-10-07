@@ -16,18 +16,28 @@
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item dropdown me-3">
 						<a
-							class="nav-link dropdown-toggle link-dark"
-							href="#"
-							id="notificationsDropdown"
+							class="nav-link link-dark position-relative"
+							id="notificaciones"
 							role="button"
 							data-bs-toggle="dropdown"
 							aria-expanded="false"
 						>
-							<i class="fas fa-bell"></i>
+							<i class="fas fa-bell"></i
+							><span
+								class="
+									position-absolute
+									start-100
+									translate-middle
+									badge
+									rounded-pill
+									bg-danger
+								"
+								>22</span
+							>
 						</a>
 						<ul
 							class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="notificationsDropdown"
+							aria-labelledby="notificaciones"
 						>
 							<li><a class="dropdown-item" href="#">Action</a></li>
 							<li><a class="dropdown-item" href="#">Another action</a></li>
