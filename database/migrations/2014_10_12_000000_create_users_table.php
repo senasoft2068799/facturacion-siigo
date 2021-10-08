@@ -33,6 +33,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->enum("estado_usuario", [
+                "Activo",
+                "Inactivo"
+            ]);
         });
     }
 

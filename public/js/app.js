@@ -2293,6 +2293,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar",
@@ -2540,6 +2549,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2552,8 +2572,10 @@ __webpack_require__.r(__webpack_exports__);
         telefono: null,
         password: null,
         password_confirmation: null,
-        role_id: 1
+        estado_usuario: "Activo",
+        role_id: null
       },
+      roles: [],
       errors: {}
     };
   },
@@ -4522,10 +4544,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      file: '',
+      file: "",
       productos: []
     };
   },
@@ -4544,10 +4601,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var formData = new FormData();
-      formData.append('file', this.file);
-      axios.post('/api/import-excel-productos/', formData, {
+      formData.append("file", this.file);
+      axios.post("/api/import-excel-productos/", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          "Content-Type": "multipart/form-data"
         }
       }).then(function (response) {
         _this2.$swal({
@@ -5116,6 +5173,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5231,14 +5290,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       user: {
+        tipo_documento: null,
         nombre: null,
         apellido: null,
         email: null,
         telefono: null,
+        estado_usuario: null,
         role_id: null
       },
       roles: []
@@ -5329,9 +5420,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      user: {
+        estado_usuario: null
+      },
       users: []
     };
   },
@@ -5348,13 +5446,15 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará el usuario: '" + user.name + "'",
+        text: "Se inactivará el usuario: '" + user.nombre + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios["delete"]("/api/users/" + user.id).then(function (response) {
-            _this2.users.splice(index, 1);
+          axios.put("/api/users/" + user.id).then(function (response) {
+            _this2.user.estado_usuario = "Inactivo";
+
+            _this2.users.indexOf(index, 1);
 
             _this2.$swal({
               icon: "success",
@@ -5543,6 +5643,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Productos_Edit_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pages/Productos/Edit.vue */ "./resources/js/pages/Productos/Edit.vue");
 /* harmony import */ var _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/Usuarios/Index.vue */ "./resources/js/pages/Usuarios/Index.vue");
 /* harmony import */ var _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pages/Usuarios/Edit.vue */ "./resources/js/pages/Usuarios/Edit.vue");
+/* harmony import */ var _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/Usuarios/Create.vue */ "./resources/js/pages/Usuarios/Create.vue");
+
 
 
 
@@ -5754,6 +5856,13 @@ var routes = [//
 // Usuarios
 //
 {
+  name: "usuarios.create",
+  path: "/usuarios/create",
+  component: _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_25__["default"],
+  meta: {
+    requiresAuth: true
+  }
+}, {
   name: "usuarios.index",
   path: "/usuarios",
   component: _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__["default"],
@@ -46397,6 +46506,40 @@ component.options.__file = "resources/js/pages/Sucursales/Index.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/Usuarios/Create.vue":
+/*!************************************************!*\
+  !*** ./resources/js/pages/Usuarios/Create.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/pages/Usuarios/Create.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/pages/Usuarios/Edit.vue":
 /*!**********************************************!*\
   !*** ./resources/js/pages/Usuarios/Edit.vue ***!
@@ -47802,6 +47945,33 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
+          _c(
+            "router-link",
+            {
+              attrs: {
+                "active-class": "active",
+                to: { name: "usuarios.index" }
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-users" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#grid" } })]
+              ),
+              _vm._v("\n\t\t\t\tUsuarios\n\t\t\t")
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "button",
         {
           attrs: { id: "btn-logout" },
@@ -48352,12 +48522,63 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
+          _c("label", { staticClass: "form-label", attrs: { for: "role" } }, [
+            _vm._v("Rol")
+          ]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.role_id,
+                  expression: "formData.role_id"
+                }
+              ],
+              staticClass: "form-select",
+              attrs: { id: "role" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.formData,
+                    "role_id",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "null" } }, [
+                _vm._v("Seleccionar rol...")
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.roles, function(role, index) {
+                return _c(
+                  "option",
+                  { key: index, domProps: { value: role.id } },
+                  [_vm._v("\n          " + _vm._s(role.nombre) + "\n        ")]
+                )
+              })
+            ],
+            2
+          ),
+          _vm._v(" "),
           _c(
             "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
+            { staticClass: "btn btn-success my-3", attrs: { type: "submit" } },
             [_vm._v("Registrar")]
           ),
-          _vm._v("\n\t\t\t" + _vm._s(_vm.formData) + "\n\t\t")
+          _vm._v("\n      " + _vm._s(_vm.formData) + "\n    ")
         ]
       )
     ])
@@ -48971,14 +49192,14 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-success mb-3",
+          staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "bodegas.create" } }
         },
         [_vm._v("Registrar bodega")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table table-striped" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -48997,49 +49218,50 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "d-flex" },
                   [
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-info btn-sm text-white",
+                        staticClass: "btn btn-sm btn-warning",
                         attrs: {
+                          title: "Detalles",
                           to: {
                             name: "bodegas.show",
                             params: { id: bodega.id }
-                          },
-                          title: "Detalles"
+                          }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-info-circle" })]
+                      [_c("i", { staticClass: "fas fa-eye" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm text-white",
+                        staticClass: "btn btn-sm btn-primary mx-2",
                         attrs: {
+                          title: "Editar",
                           to: {
                             name: "bodegas.edit",
                             params: { id: bodega.id }
-                          },
-                          title: "Editar"
+                          }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-edit" })]
+                      [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { title: "Eliminar" },
+                        staticClass: "btn btn-sm btn-danger",
+                        attrs: { title: "Inactivar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarBodega(bodega, index)
                           }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-trash" })]
+                      [_c("i", { staticClass: "fas fa-ban" })]
                     )
                   ],
                   1
@@ -49059,7 +49281,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
@@ -49353,7 +49575,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table table-striped" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -49370,11 +49592,12 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "text-center" },
                   [
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm",
+                        staticClass: "btn btn-sm btn-primary",
                         attrs: {
                           title: "Editar",
                           to: {
@@ -49417,7 +49640,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
@@ -50355,14 +50578,14 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-success mb-3",
+          staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "facturas.create" } }
         },
         [_vm._v("Registrar factura")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table table-striped" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -50393,26 +50616,27 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "d-flex" },
                   [
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-info btn-sm text-white",
+                        staticClass: "btn btn-sm btn-warning",
                         attrs: {
+                          title: "Detalles",
                           to: {
                             name: "facturas.show",
                             params: { id: factura.id }
-                          },
-                          title: "Detalles"
+                          }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-info-circle" })]
+                      [_c("i", { staticClass: "fas fa-eye" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm text-white",
+                        staticClass: "btn btn-sm btn-primary mx-2",
                         attrs: {
                           to: {
                             name: "facturas.edit",
@@ -50427,15 +50651,15 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { title: "Eliminar" },
+                        staticClass: "btn btn-sm btn-danger",
+                        attrs: { title: "Inactivar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarSucursal(factura, index)
                           }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-trash" })]
+                      [_c("i", { staticClass: "fas fa-ban" })]
                     )
                   ],
                   1
@@ -50455,7 +50679,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Código")]),
         _vm._v(" "),
@@ -51161,7 +51385,7 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-success mb-3",
+          staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "productos.create" } }
         },
         [_vm._v("Registrar producto")]
@@ -51170,7 +51394,7 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-secondary mb-3",
+          staticClass: "btn btn-warning mb-3",
           staticStyle: { float: "right" },
           attrs: { to: { name: "categorias.index" } }
         },
@@ -51180,14 +51404,14 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-secondary mb-3",
+          staticClass: "btn btn-secondary mb-3 ms-2",
           attrs: {
             type: "button",
             "data-bs-toggle": "modal",
             "data-bs-target": "#exampleModal"
           }
         },
-        [_vm._v("\n        Importar\n    ")]
+        [_vm._v("\n    Importar\n  ")]
       ),
       _vm._v(" "),
       _c(
@@ -51207,7 +51431,7 @@ var render = function() {
               _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("form", { staticStyle: { margin: "15px" } }, [
+                _c("form", { staticClass: "m-2" }, [
                   _c("div", { staticClass: "input-group" }, [
                     _c("input", {
                       ref: "file",
@@ -51229,7 +51453,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("input", {
-                      staticClass: "btn btn-secondary",
+                      staticClass: "btn btn-primary",
                       attrs: {
                         type: "submit",
                         id: "inputGroupFileAddon04",
@@ -51252,7 +51476,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table table-striped" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(2),
           _vm._v(" "),
           _c(
@@ -51284,11 +51508,12 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "text-center" },
                   [
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm",
+                        staticClass: "btn btn-sm btn-primary",
                         attrs: {
                           title: "Editar",
                           to: {
@@ -51303,15 +51528,15 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { title: "Eliminar" },
+                        staticClass: "btn btn-sm btn-danger",
+                        attrs: { title: "Inactivar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarproducto(producto, index)
                           }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-trash" })]
+                      [_c("i", { staticClass: "fas fa-ban" })]
                     )
                   ],
                   1
@@ -51332,8 +51557,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("label", { staticClass: "form-label", attrs: { for: "file" } }, [
-        _c("b", [_vm._v("Importar productos")])
+      _c("label", { staticClass: "form-label fs-4", attrs: { for: "file" } }, [
+        _vm._v("Importar productos")
       ]),
       _vm._v(" "),
       _c("button", {
@@ -51354,10 +51579,10 @@ var staticRenderFns = [
       _c(
         "button",
         {
-          staticClass: "btn btn-secondary",
+          staticClass: "btn btn-dark",
           attrs: { type: "button", "data-bs-dismiss": "modal" }
         },
-        [_vm._v("Cerrar")]
+        [_vm._v("\n            Cerrar\n          ")]
       )
     ])
   },
@@ -51365,7 +51590,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
@@ -51588,14 +51813,14 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-success mb-3",
+          staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "roles.create" } }
         },
         [_vm._v("Registrar rol")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table table-striped" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -51610,36 +51835,35 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "text-center" },
                   [
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm",
+                        staticClass: "btn btn-sm btn-primary",
                         attrs: {
+                          title: "Editar",
                           to: {
                             name: "roles.edit",
                             params: { id: rol.id }
                           }
                         }
                       },
-                      [_vm._v("Editar")]
+                      [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger btn-sm",
+                        staticClass: "btn btn-sm btn-danger",
+                        attrs: { title: "Inactivar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarRol(rol, index)
                           }
                         }
                       },
-                      [
-                        _vm._v(
-                          "\n                            Eliminar\n                        "
-                        )
-                      ]
+                      [_c("i", { staticClass: "fas fa-ban" })]
                     )
                   ],
                   1
@@ -51659,7 +51883,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre de rol")]),
         _vm._v(" "),
@@ -52106,14 +52330,14 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-success mb-3",
+          staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "sucursales.create" } }
         },
         [_vm._v("Registrar sucursal")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
-        _c("table", { staticClass: "table table-striped" }, [
+        _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -52134,36 +52358,35 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
+                  { staticClass: "text-center" },
                   [
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm",
+                        staticClass: "btn btn-sm btn-primary",
                         attrs: {
+                          title: "Editar",
                           to: {
                             name: "sucursales.edit",
                             params: { id: sucursal.id }
                           }
                         }
                       },
-                      [_vm._v("Editar")]
+                      [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger btn-sm",
+                        staticClass: "btn btn-sm btn-danger",
+                        attrs: { title: "Inactivar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarSucursal(sucursal, index)
                           }
                         }
                       },
-                      [
-                        _vm._v(
-                          "\n                            Eliminar\n                        "
-                        )
-                      ]
+                      [_c("i", { staticClass: "fas fa-ban" })]
                     )
                   ],
                   1
@@ -52183,7 +52406,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
@@ -52224,7 +52447,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card my-3" }, [
     _c("div", { staticClass: "card-header text-center fs-4" }, [
       _vm._v("Modificar Usuario")
     ]),
@@ -52241,11 +52464,79 @@ var render = function() {
           }
         },
         [
-          _c("div", { staticClass: "mb-3" }, [
+          _c(
+            "label",
+            { staticClass: "form-label", attrs: { for: "tipo_documento" } },
+            [_vm._v("Tipo de documento")]
+          ),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.user.tipo_documento,
+                  expression: "user.tipo_documento"
+                }
+              ],
+              staticClass: "form-select",
+              attrs: { id: "tipo_documento" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.user,
+                    "tipo_documento",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { disabled: "", value: "null" } }, [
+                _vm._v("Seleccionar...")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "CC" } }, [
+                _vm._v("Cédula ciudadanía (CC)")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "TI" } }, [
+                _vm._v("Tarjeta de identidad (TI)")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "TP" } }, [
+                _vm._v("Tarjeta de pasaporte (TP)")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "RC" } }, [
+                _vm._v("Registro civil (RC)")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "CE" } }, [
+                _vm._v("Cédula de extranjería (CE)")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "DNI" } }, [
+                _vm._v("Documento nacional de identidad (DNI)")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "my-3" }, [
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "nombre" } },
-              [_vm._v("Nombre")]
+              [_vm._v("Nombres")]
             ),
             _vm._v(" "),
             _c("input", {
@@ -52268,36 +52559,38 @@ var render = function() {
                   _vm.$set(_vm.user, "nombre", $event.target.value)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              { staticClass: "form-label", attrs: { for: "apellido" } },
-              [_vm._v("Apellido")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.user.apellido,
-                  expression: "user.apellido"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", id: "apellido" },
-              domProps: { value: _vm.user.apellido },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.user, "apellido", $event.target.value)
-                }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-label", attrs: { for: "apellido" } },
+            [_vm._v("Apellidos")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.apellido,
+                expression: "user.apellido"
               }
-            }),
-            _vm._v(" "),
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", id: "apellido" },
+            domProps: { value: _vm.user.apellido },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "apellido", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "my-3" }, [
             _c(
               "label",
               { staticClass: "form-label", attrs: { for: "email" } },
@@ -52324,117 +52617,167 @@ var render = function() {
                   _vm.$set(_vm.user, "email", $event.target.value)
                 }
               }
-            }),
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-label", attrs: { for: "telefono" } },
+            [_vm._v("Teléfono")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.user.telefono,
+                expression: "user.telefono"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "number", id: "telefono" },
+            domProps: { value: _vm.user.telefono },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.user, "telefono", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "my-3" }, [
+            _c("label", { staticClass: "form-label", attrs: { for: "role" } }, [
+              _vm._v("Rol")
+            ]),
             _vm._v(" "),
             _c(
-              "label",
-              { staticClass: "form-label", attrs: { for: "telefono" } },
-              [_vm._v("Teléfono")]
-            ),
-            _vm._v(" "),
-            _c("input", {
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.user.role_id,
+                    expression: "user.role_id"
+                  }
+                ],
+                staticClass: "form-select",
+                attrs: { id: "role" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.user,
+                      "role_id",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { disabled: "", value: "null" } }, [
+                  _vm._v("Seleccionar rol...")
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.roles, function(role, index) {
+                  return _c(
+                    "option",
+                    { key: index, domProps: { value: role.id } },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s(role.nombre) + "\n          "
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-label", attrs: { for: "estado_usuario" } },
+            [_vm._v("Estado Usuario")]
+          ),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.user.telefono,
-                  expression: "user.telefono"
+                  value: _vm.user.estado_usuario,
+                  expression: "user.estado_usuario"
                 }
               ],
-              staticClass: "form-control",
-              attrs: { type: "number", id: "telefono" },
-              domProps: { value: _vm.user.telefono },
+              staticClass: "form-select",
+              attrs: { id: "estado_usuario" },
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.user, "telefono", $event.target.value)
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.user,
+                    "estado_usuario",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
                 }
               }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "mb-3" }, [
-              _c(
-                "label",
-                { staticClass: "form-label", attrs: { for: "role" } },
-                [_vm._v("Rol")]
-              ),
-              _vm._v(" "),
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.user.role_id,
-                      expression: "user.role_id"
-                    }
-                  ],
-                  staticClass: "form-select",
-                  attrs: { id: "role" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.$set(
-                        _vm.user,
-                        "role_id",
-                        $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      )
-                    }
-                  }
-                },
-                [
-                  _c("option", { attrs: { disabled: "", value: "null" } }, [
-                    _vm._v("Seleccionar rol...")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.roles, function(role, index) {
-                    return _c(
-                      "option",
-                      { key: index, domProps: { value: role.id } },
-                      [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t" +
-                            _vm._s(role.nombre) +
-                            "\n\t\t\t\t\t\t"
-                        )
-                      ]
-                    )
-                  })
-                ],
-                2
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-secondary",
-              attrs: { to: { name: "usuarios.index" } }
             },
             [
-              _c("i", {
-                staticClass: "fas <fas fa-arrow-alt-circle-left me-2"
-              }),
-              _vm._v("Regresar")
+              _c("option", { attrs: { disabled: "", value: "null" } }, [
+                _vm._v("Seleccionar...")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Activo" } }, [_vm._v("Activo")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Inactivo" } }, [
+                _vm._v("Inactivo")
+              ])
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "mt-4 mb-2" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-dark",
+                  attrs: { to: { name: "usuarios.index" } }
+                },
+                [
+                  _c("i", {
+                    staticClass: "fas <fas fa-arrow-alt-circle-left me-2"
+                  }),
+                  _vm._v("Regresar")
+                ]
+              )
+            ],
+            1
           )
-        ],
-        1
+        ]
       )
     ])
   ])
@@ -52449,7 +52792,7 @@ var staticRenderFns = [
       { staticClass: "btn btn-primary", attrs: { type: "submit" } },
       [
         _c("i", { staticClass: "fas fa-edit me-2" }),
-        _vm._v("Modificar\n\t\t\t")
+        _vm._v("Modificar\n        ")
       ]
     )
   }
@@ -52509,6 +52852,8 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(user.rol.nombre))]),
                 _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(user.estado_usuario))]),
+                _vm._v(" "),
                 _c(
                   "td",
                   { staticClass: "text-center" },
@@ -52516,28 +52861,30 @@ var render = function() {
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-warning btn-sm",
+                        staticClass: "btn btn-sm btn-primary",
                         attrs: {
+                          title: "Editar",
                           to: {
                             name: "usuarios.edit",
                             params: { id: user.id }
                           }
                         }
                       },
-                      [_vm._v("Editar")]
+                      [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger btn-sm",
+                        staticClass: "btn btn-sm btn-danger",
+                        attrs: { title: "Inactivar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarUsuario(user, index)
                           }
                         }
                       },
-                      [_vm._v("\n\t\t\t\t\t\t\tEliminar\n\t\t\t\t\t\t")]
+                      [_c("i", { staticClass: "fas fa-ban" })]
                     )
                   ],
                   1
@@ -52566,6 +52913,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Número de Teléfono")]),
         _vm._v(" "),
         _c("th", [_vm._v("Rol")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Funciones")])
       ])
