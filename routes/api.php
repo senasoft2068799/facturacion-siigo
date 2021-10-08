@@ -51,4 +51,5 @@ Route::middleware('api')->group(function () {
     Route::apiResource('productos', ProductoController::class);
     // Route::apiResource('ciudades', CiudadeController::class);
     Route::post("import-excel-productos", [ProductoController::class, "importExcel"]);
+    Route::get("producto", [ProductoController::class, "traerProductos"]);
 });

@@ -4501,19 +4501,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       file: '',
+      buscador: '',
+      setTimeoutBuscador: '',
       productos: []
     };
   },
   created: function created() {
     var _this = this;
 
-    this.axios.get("/api/productos").then(function (response) {
-      _this.productos = response.data.data;
-    });
+    if (this.buscador == '') {
+      this.axios.get("/api/productos").then(function (response) {
+        _this.productos = response.data.data;
+      });
+    } else {
+      this.traerProductos();
+    }
   },
   methods: {
     obtener_archivo: function obtener_archivo() {
@@ -4565,6 +4580,21 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    traerProductos: function traerProductos() {
+      var _this4 = this;
+
+      this.axios.get("/api/producto", {
+        params: {
+          buscador: this.buscador
+        }
+      }).then(function (response) {
+        _this4.productos = response.data;
+      });
+    },
+    buscarProductos: function buscarProductos() {
+      clearTimeout(this.setTimeoutBuscador);
+      this.setTimeoutBuscador = setTimeout(this.traerProductos, 360);
     }
   }
 });
@@ -51195,6 +51225,35 @@ var render = function() {
           ])
         ]
       ),
+      _vm._v(" "),
+      _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.buscador,
+              expression: "buscador"
+            }
+          ],
+          staticClass: "form-control mr-sm-2 buscador",
+          attrs: {
+            type: "search",
+            placeholder: "Buscar un producto",
+            "aria-label": "Search"
+          },
+          domProps: { value: _vm.buscador },
+          on: {
+            keyup: _vm.buscarProductos,
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.buscador = $event.target.value
+            }
+          }
+        })
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c("table", { staticClass: "table table-striped" }, [

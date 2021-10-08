@@ -6,10 +6,8 @@ use App\Http\Resources\ProductoResource;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-
 use Illuminate\Support\Facades\DB;
 use App\Imports\ProductoImport;
-
 use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
@@ -73,7 +71,6 @@ class ProductoController extends Controller
         $producto->nombre = $request->nombre;
         $producto->precio_unitario = $request->precio_unitario;
         $producto->categoria_id = $request->categoria_id;
-        // $datosImagen = $request->imagen;
         if($request->hasFile('imagen')){
             $datosImagen = $request->file('imagen')->store('public/imagenes');
             $url = Storage::url($datosImagen);
@@ -99,5 +96,13 @@ class ProductoController extends Controller
             DB::rollBack();
             info($exception);
         }
+    }
+
+    public function traerProductos(Request $request)
+    {
+        $filtro = $request->buscador;
+        $productos = Producto::where("nombre", 'LIKE', '%'.$filtro.'%')->get();
+        info($productos);
+        return response()->json($productos, 200);
     }
 }

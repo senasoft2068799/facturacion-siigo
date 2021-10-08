@@ -14,7 +14,6 @@
         <button type="button" class="btn btn-secondary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Importar
         </button>
-
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -47,6 +46,16 @@
                 </div>
             </div>
         </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input 
+            type="search"
+            class="form-control mr-sm-2 buscador"
+            placeholder="Buscar un producto"
+            aria-label="Search"
+            v-model="buscador"
+            @keyup="buscarProductos"
+            >
+        </form>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -98,13 +107,22 @@ export default {
     data() {
         return {
             file: '',
+            buscador: '',
+            setTimeoutBuscador: '',
             productos: []
         };
     },
     created() {
-        this.axios.get("/api/productos").then(response => {
-            this.productos = response.data.data;
-        });
+        if(this.buscador == '')
+        {
+            this.axios.get("/api/productos").then(response => {
+                this.productos = response.data.data;
+            });
+        }
+        else
+        {
+            this.traerProductos();
+        }
     },
     methods: {
         obtener_archivo()
@@ -159,6 +177,24 @@ export default {
                         });
                 }
             });
+        },
+        traerProductos()
+        {
+            this.axios.get("/api/producto",
+             {
+                params: 
+                {
+                    buscador: this.buscador
+                }
+            }).then(response => 
+            {
+                this.productos = response.data;
+            });
+        },
+        buscarProductos()
+        {
+            clearTimeout(this.setTimeoutBuscador);
+            this.setTimeoutBuscador = setTimeout(this.traerProductos, 360);
         }
     }
 };
