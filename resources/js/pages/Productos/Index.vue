@@ -100,7 +100,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+      </div>
 </template>
 <script>
 export default {
@@ -124,60 +124,66 @@ export default {
             this.traerProductos();
         }
     },
-    methods: {
-        obtener_archivo()
-        {
-            this.file = this.$refs.file.files[0];
-        },
-        eventoSubir()
-        {
-            let formData = new FormData();
-            formData.append('file', this.file);
-            axios
-            .post('/api/import-excel-productos/',
-            formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            .then(response => {
-                this.$swal({
-                    icon: "success",
-                    title: "Importación exitosa."
+  methods: {
+    obtener_archivo() {
+      this.file = this.$refs.file.files[0];
+    },
+    eventoSubir() {
+      let formData = new FormData();
+      formData.append("file", this.file);
+      axios
+        .post("/api/import-excel-productos/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          this.$swal({
+            icon: "success",
+            title: "Importación exitosa.",
+          });
+        })
+        .catch((err) => {
+          this.$swal({
+            icon: "error",
+            title: "Ha ocurrido un error:\n" + err,
+          });
+        });
+    },
+    eliminarproducto(producto, index) 
+      {
+        this.$swal(
+          {
+            title: "¿Estás seguro?",
+            text: "Se eliminará el producto: '" + producto.nombre + "'",
+            icon: "warning",
+            showCancelButton: true,
+          }).then((result) => 
+          {
+            if (result.value) 
+            {
+              axios
+                .delete("/api/productos/" + producto.id)
+                .then((response) => 
+                {
+                  this.productos.splice(index, 1);
+                  this.$swal(
+                    {
+                      icon: "success",
+                      title: "Producto eliminado.",
+                    });
+                })
+                .catch((err) => 
+                {
+                  this.$swal(
+                    {
+                      icon: "error",
+                      title: "Ha ocurrido un error:\n" + err,
+                    });
                 });
-            }).catch(err => {
-                this.$swal({
-                    icon: "error",
-                    title: "Ha ocurrido un error:\n" + err
-                });
-            });
-        },
-        eliminarproducto(producto, index) {
-            this.$swal({
-                title: "¿Estás seguro?",
-                text: "Se eliminará el producto: '" + producto.nombre + "'",
-                icon: "warning",
-                showCancelButton: true
-            }).then(result => {
-                if (result.value) {
-                    axios
-                        .delete("/api/productos/" + producto.id)
-                        .then(response => {
-                            this.productos.splice(index, 1);
-                            this.$swal({
-                                icon: "success",
-                                title: "Producto eliminado."
-                            });
-                        })
-                        .catch(err => {
-                            this.$swal({
-                                icon: "error",
-                                title: "Ha ocurrido un error:\n" + err
-                            });
-                        });
-                }
-            });
-        },
+            }
+          })
+      },
         traerProductos()
         {
             this.axios.get("/api/producto",

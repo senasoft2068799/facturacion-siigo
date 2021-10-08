@@ -1,4 +1,4 @@
-:root{
+:root {
     --main-bg-color: #f7f7f7d3;
     --main-text-color: black;
     --main-type-text: Arial, Helvetica, sans-serif;
@@ -23,14 +23,14 @@
     transition: all .4s;
 }
 
-.sidebar-header{
+.sidebar-header {
     padding: 1.2rem 0;
     font: 1.4rem bold var(--main-type-text);
     text-align: center;
     cursor: default;
 }
 
-#sidebar ul li{
+#sidebar ul li {
     height: 100%;
     width: 80%;
     display: inline-block;
@@ -41,13 +41,13 @@
     border-bottom: 1px solid rgb(189, 189, 189);
 }
 
-#sidebar li a{
+#sidebar li a {
     color: var(--main-text-color);
     font-weight: bold;
     text-decoration: none;
 }
 
-#sidebar li a:hover{
+#sidebar li a:hover {
     padding-left: 1.3rem;
     color: var(--second-text-color);
     transition: all .9s;
@@ -59,7 +59,7 @@
     text-decoration: none;
 }
 
-#btn-logout{
+#btn-logout {
     border: 0;
     margin: 1rem 0;
     background-color: transparent;
@@ -67,7 +67,7 @@
     font: 1.1rem bold;
 }
 
-#btn-logout:hover{
+#btn-logout:hover {
     color: var(--second-text-color);
     transition: .5s;
 }
@@ -82,59 +82,59 @@
     transition: all .5s;
 }
 
-.navbar{
+.navbar {
     padding: .55rem;
     border: none;
     border-radius: 0;
     margin-bottom: 1.5rem;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /*FINALIZA NAVBAR*/
 
 /*EMPIEZA DASHBOARD*/
 
-.card-footer{
+.card-footer {
     border: 0;
     margin-top: 1rem;
     text-align: center;
     background-color: transparent;
 }
 
-.card-footer a{
+.card-footer a {
     color: var(--second-text-color);
     font: 1.4rem bolder var(--main-type-text);
 }
 
-.card-footer a:hover{
+.card-footer a:hover {
     text-decoration: none;
     transition: .9s;
 }
 
-.space{
+.space {
     margin: 0 1.5rem;
 }
 
-#designNavbar{
+#designNavbar {
     padding: .750rem 0;
     color: var(--main-text-color);
     background-color: var(--second-bg-color);
 }
 
-@media(max-width:768px){
-    #sidebar{
+@media(max-width:768px) {
+    #sidebar {
         margin-left: -250px;
     }
-    #sidebar.active{
+    #sidebar.active {
         margin-left: 0;
     }
-    .navbar{
+    .navbar {
         padding: .60rem;
     }
 }
 
-@media screen and (max-width: 990px){
-    .navbar{
+@media screen and (max-width: 990px) {
+    .navbar {
         padding: 1.050rem;
     }
 }

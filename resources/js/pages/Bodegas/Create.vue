@@ -127,7 +127,6 @@
 				>
 			</form>
 		</div>
-		{{ bodega }}
 	</div>
 </template>
 <script>
