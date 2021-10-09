@@ -23,6 +23,7 @@ import ProductosCreate from "./pages/Productos/Create.vue";
 import ProductosEdit from "./pages/Productos/Edit.vue";
 import UsuariosIndex from "./pages/Usuarios/Index.vue";
 import UsuariosEdit from "./pages/Usuarios/Edit.vue";
+import UsuariosCreate from "./pages/Usuarios/Create.vue"
 
 export const routes = [
     //
@@ -189,6 +190,12 @@ export const routes = [
     //
     // Usuarios
     //
+    {
+        name: "usuarios.create",
+        path: "/usuarios/create",
+        component: UsuariosCreate,
+        meta: { requiresAuth: true }
+    },
     {
         name: "usuarios.index",
         path: "/usuarios",
