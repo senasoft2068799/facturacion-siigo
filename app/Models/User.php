@@ -54,23 +54,23 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public static function boot()
-    {
-        parent::boot();
+    // public static function boot()
+    // {
+    //     parent::boot();
 
 
-        static::created(function ($model) {
-            // $user = User::first();
-            // $user->notify(new UsuarioRegistrado());
+    //     static::created(function ($model) {
+    //         // $user = User::first();
+    //         // $user->notify(new UsuarioRegistrado());
 
-            // $admins = User::all()->filter(function (User $user) {
-            //     return $user->hasRole("Administrador");
-            // });
-            $admins = User::where("role_id", 1)->get();
-            // $user = User::find("1005716784");
-            // $user->notify(new UsuarioRegistrado());
+    //         // $admins = User::all()->filter(function (User $user) {
+    //         //     return $user->hasRole("Administrador");
+    //         // });
+    //         $admins = User::where("role_id", 1)->get();
+    //         // $user = User::find("1005716784");
+    //         // $user->notify(new UsuarioRegistrado());
 
-            Notification::send($admins, new UsuarioRegistrado($model));
-        });
-    }
+    //         Notification::send($admins, new UsuarioRegistrado($model));
+    //     });
+    // }
 }

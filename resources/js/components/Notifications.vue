@@ -27,30 +27,29 @@
 				aria-labelledby="notificaciones"
 			>
 				<li><h6 class="dropdown-header">Notificaciones</h6></li>
-				<li v-if="unreadNotifications.length > 0">
-					<a
-						v-for="(item, index) in unreadNotifications"
-						:key="index"
-						class="dropdown-item"
-						>Nueva notificación
-						<!-- Se creó el usuario {{ item.data.usuarioCreado.nombre }}
-						{{ item.data.usuarioCreado.apellido }} -->
-						<br />
-						<small class="text-muted">
-							{{ item.data.usuarioCreado.created_at }}
-						</small></a
-					>
-				</li>
-				<li v-else>
-					<a class="dropdown-item">No hay notificaciones nuevas.</a>
-				</li>
+				<div v-if="unreadNotifications.length > 0">
+					<NotificationItem
+						v-for="item in unreadNotifications"
+						:key="item.id"
+						:item="item"
+					/>
+				</div>
+				<div v-else>
+					<li>
+						<a class="dropdown-item">No hay notificaciones nuevas.</a>
+					</li>
+				</div>
 			</ul>
 		</li>
 	</div>
 </template>
 <script>
+import NotificationItem from "./NotificationItem.vue";
 export default {
 	name: "Notifications",
+	components: {
+		NotificationItem,
+	},
 	mounted() {
 		this.getNotifications();
 		this.interval = setInterval(
@@ -66,6 +65,16 @@ export default {
 		};
 	},
 	methods: {
+		formatCurrency(number) {
+			var formatted = 0;
+			if (!isNaN(number)) {
+				formatted = new Intl.NumberFormat("es-CO", {
+					style: "currency",
+					currency: "COP",
+				}).format(number);
+			}
+			return formatted;
+		},
 		getNotifications() {
 			this.axios
 				.get("/api/unread-notifications")

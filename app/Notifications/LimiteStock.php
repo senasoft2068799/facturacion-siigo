@@ -60,8 +60,11 @@ class LimiteStock extends Notification
     public function toArray($notifiable)
     {
         return [
-            "producto" => $this->producto,
-            "bodega" => $this->bodega,
+            "id" => $this->producto->id,
+            "route" => "productos.show",
+            "titulo" => "Limite de stock",
+            "descripcion"  => $this->producto->nombre,
+            "informacion" => $this->bodega->nombre,
             "admin" => $notifiable
         ];
     }

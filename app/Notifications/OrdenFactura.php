@@ -14,17 +14,15 @@ class OrdenFactura extends Notification
     use Queueable;
 
     public $movimiento;
-    public $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Movimiento $movimiento, User $user)
+    public function __construct(Movimiento $movimiento)
     {
         $this->movimiento = $movimiento;
-        $this->user = $user;
     }
 
     /**
@@ -61,8 +59,11 @@ class OrdenFactura extends Notification
     public function toArray($notifiable)
     {
         return [
-            "factura" => $this->movimiento,
-            "cliente" => $this->user,
+            "id" => $this->movimiento->id,
+            "route" => "facturas.show",
+            "titulo" => "Nueva orden de factura",
+            "descripcion"  => $this->movimiento->descripcion,
+            "informacion" => $this->movimiento->valor_total,
             "admin" => $notifiable
         ];
     }
