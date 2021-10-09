@@ -6,10 +6,8 @@ use App\Http\Resources\ProductoResource;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-
 use Illuminate\Support\Facades\DB;
 use App\Imports\ProductoImport;
-
 use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
@@ -17,16 +15,6 @@ class ProductoController extends Controller
     public function index()
     {
         return ProductoResource::collection(Producto::latest()->get());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     public function store(Request $request)
@@ -49,17 +37,6 @@ class ProductoController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Producto  $producto
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Producto $producto)
-    {
-        return $producto;
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -73,7 +50,6 @@ class ProductoController extends Controller
         $producto->nombre = $request->nombre;
         $producto->precio_unitario = $request->precio_unitario;
         $producto->categoria_id = $request->categoria_id;
-        // $datosImagen = $request->imagen;
         if($request->hasFile('imagen')){
             $datosImagen = $request->file('imagen')->store('public/imagenes');
             $url = Storage::url($datosImagen);
@@ -99,5 +75,11 @@ class ProductoController extends Controller
             DB::rollBack();
             info($exception);
         }
+    }
+
+    public function traerProductos(Request $request)
+    {
+        $filtro = $request->buscador;
+        return ProductoResource::collection(Producto::where("nombre", 'LIKE', '%'.$filtro.'%')->get());
     }
 }
