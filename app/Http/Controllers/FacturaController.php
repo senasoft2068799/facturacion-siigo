@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FacturaResource;
 use App\Models\DetalleMovimiento;
 use App\Models\Movimiento;
+use App\Models\User;
+use App\Notifications\OrdenFactura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 
 class FacturaController extends Controller
@@ -33,6 +36,7 @@ class FacturaController extends Controller
         $detalle_movimientos = collect($request->items)->transform(function ($detalle) {
             $detalle["producto_id"] = $detalle["producto"]["id"];
             $detalle["bodega_id"] = $detalle["bodega"]["id"];
+
             return new DetalleMovimiento($detalle);
         });
 
@@ -46,6 +50,8 @@ class FacturaController extends Controller
         $movimiento = DB::transaction(function () use ($movimiento, $detalle_movimientos) {
             $movimiento->save();
             $movimiento->detalle_movimientos()->saveMany($detalle_movimientos);
+            $admins = User::where("role_id", 1)->get();
+            Notification::send($admins, new OrdenFactura($movimiento, $movimiento->user));
         });
 
         // return response()

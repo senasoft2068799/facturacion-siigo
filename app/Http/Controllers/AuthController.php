@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAuth;
 use App\Models\User;
+use App\Notifications\UsuarioRegistrado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -13,29 +16,29 @@ class AuthController extends Controller
 {
     public function register(StoreAuth $request)
     {
-        $request->validate([
-            "id" => ["required", "unique:users", "min:6", "max:20"],
-            "tipo_documento" => ["required", Rule::in(
-                [
-                    "NIT",
-                    "CC",
-                    "TI",
-                    "TP",
-                    "RC",
-                    "CE",
-                    "DNI",
-                ]
-            ),],
-            "nombre" => ["required", "max:45"],
-            "apellido" => ["required", "max:45"],
-            "email" => ["required", "email", "unique:users", "min:6", "max:40"],
-            "telefono" => ["required", "min:7", "max:20"],
-            "password" => ["required", "min:6", "max:20", "confirmed"],
-            "password_confirmation" => ["required"],
-            "role_id" => ["required|exists:roles,id"]
-        ]);
+        // $request->validate([
+        //     "id" => ["required", "unique:users", "min:6", "max:20"],
+        //     "tipo_documento" => ["required", Rule::in(
+        //         [
+        //             "NIT",
+        //             "CC",
+        //             "TI",
+        //             "TP",
+        //             "RC",
+        //             "CE",
+        //             "DNI",
+        //         ]
+        //     ),],
+        //     "nombre" => ["required", "max:45"],
+        //     "apellido" => ["required", "max:45"],
+        //     "email" => ["required", "email", "unique:users", "min:6", "max:40"],
+        //     "telefono" => ["required", "min:7", "max:20"],
+        //     "password" => ["required", "min:6", "max:20", "confirmed"],
+        //     "password_confirmation" => ["required"],
+        //     "role_id" => ["required|exists:roles,id"]
+        // ]);
 
-        User::create([
+        $user = User::create([
             "id" => $request->id,
             "tipo_documento" => $request->tipo_documento,
             "nombre" => $request->nombre,
@@ -45,6 +48,9 @@ class AuthController extends Controller
             "password" => Hash::make($request->password),
             "role_id" => $request->role_id
         ]);
+
+        // $admins = User::where("role_id", 1)->get();
+        // Notification::send($admins, new UsuarioRegistrado($user));
 
         return response()->json(["msg" => "Usuario registrado correctamente."]);
     }
@@ -72,5 +78,21 @@ class AuthController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(["msg" => "Sesión finalizada correctamente."]);
+    }
+
+    public function unreadNotifications()
+    {
+        // $unreadNotifications = User::find("1005716784");
+        $user = User::find("1005716784");
+        $unreadNotifications = $user->unreadNotifications;
+        // info($unreadNotifications);
+        return response()->json($unreadNotifications);
+    }
+
+    public function markAsRead()
+    {
+        $user = User::find("1005716784");
+        $user->notifications->markAsRead();
+        return response()->json("success");
     }
 }
