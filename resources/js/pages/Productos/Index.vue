@@ -46,16 +46,23 @@
                 </div>
             </div>
         </div>
-        <form class="form-inline my-2 my-lg-0">
-            <input 
-            type="search"
-            class="form-control mr-sm-2 buscador"
-            placeholder="Buscar un producto"
-            aria-label="Search"
-            v-model="buscador"
-            @keyup="buscarProductos"
-            >
-        </form>
+        <div class="box">
+            <div class="search-box">
+                <form>
+                    <input 
+                    type="search"
+                    class="form-control mr-sm-2 buscador"
+                    placeholder="Buscar un producto"
+                    aria-label="Search"
+                    v-model="buscador"
+                    @keyup="buscarProductos"
+                    >
+                    <label for="" class="icon">
+                        <i class="fas fa-search"></i>
+                    </label>
+                </form>
+            </div>
+        </div>
         <br><br>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">

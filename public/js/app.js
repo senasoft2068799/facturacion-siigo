@@ -4554,6 +4554,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -51473,33 +51480,39 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.buscador,
-              expression: "buscador"
-            }
-          ],
-          staticClass: "form-control mr-sm-2 buscador",
-          attrs: {
-            type: "search",
-            placeholder: "Buscar un producto",
-            "aria-label": "Search"
-          },
-          domProps: { value: _vm.buscador },
-          on: {
-            keyup: _vm.buscarProductos,
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+      _c("div", { staticClass: "box" }, [
+        _c("div", { staticClass: "search-box" }, [
+          _c("form", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buscador,
+                  expression: "buscador"
+                }
+              ],
+              staticClass: "form-control mr-sm-2 buscador",
+              attrs: {
+                type: "search",
+                placeholder: "Buscar un producto",
+                "aria-label": "Search"
+              },
+              domProps: { value: _vm.buscador },
+              on: {
+                keyup: _vm.buscarProductos,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.buscador = $event.target.value
+                }
               }
-              _vm.buscador = $event.target.value
-            }
-          }
-        })
+            }),
+            _vm._v(" "),
+            _vm._m(2)
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c("br"),
@@ -51507,7 +51520,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c("table", { staticClass: "table table-bordered table-hover" }, [
-          _vm._m(2),
+          _vm._m(3),
           _vm._v(" "),
           _c(
             "tbody",
@@ -51613,6 +51626,14 @@ var staticRenderFns = [
         },
         [_vm._v("Cerrar")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "icon", attrs: { for: "" } }, [
+      _c("i", { staticClass: "fas fa-search" })
     ])
   },
   function() {
