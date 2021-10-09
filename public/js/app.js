@@ -5644,6 +5644,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/Usuarios/Index.vue */ "./resources/js/pages/Usuarios/Index.vue");
 /* harmony import */ var _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pages/Usuarios/Edit.vue */ "./resources/js/pages/Usuarios/Edit.vue");
 /* harmony import */ var _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/Usuarios/Create.vue */ "./resources/js/pages/Usuarios/Create.vue");
+/* harmony import */ var _pages_Index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/Index.vue */ "./resources/js/pages/Index.vue");
+
 
 
 
@@ -5876,6 +5878,11 @@ var routes = [//
   meta: {
     requiresAuth: true
   }
+}, {
+  name: "index",
+  path: "/index",
+  component: _pages_Index_vue__WEBPACK_IMPORTED_MODULE_26__["default"] //meta: { requiresAuth: true }
+
 }];
 
 /***/ }),
@@ -46121,6 +46128,43 @@ component.options.__file = "resources/js/pages/Facturas/Show.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/Index.vue":
+/*!**************************************!*\
+  !*** ./resources/js/pages/Index.vue ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=71c33819& */ "./resources/js/pages/Index.vue?vue&type=template&id=71c33819&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/Index.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/pages/Productos/Create.vue":
 /*!*************************************************!*\
   !*** ./resources/js/pages/Productos/Create.vue ***!
@@ -47318,6 +47362,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_template_id_921eb510___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_template_id_921eb510___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Show.vue?vue&type=template&id=921eb510& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Facturas/Show.vue?vue&type=template&id=921eb510&");
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/Index.vue?vue&type=template&id=71c33819&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/pages/Index.vue?vue&type=template&id=71c33819& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=71c33819& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Index.vue?vue&type=template&id=71c33819&");
 
 
 /***/ }),
@@ -50898,6 +50959,375 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("th", [_c("h5", [_vm._v("$")])])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Index.vue?vue&type=template&id=71c33819&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Index.vue?vue&type=template&id=71c33819& ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
+      [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+            _vm._v("Logo")
+          ]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav ms-auto mb-2 mb-lg-0" }, [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link active",
+                        attrs: { exact: "", to: { name: "index" } }
+                      },
+                      [_vm._v("\n              Home\n            ")]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { exact: "", to: { name: "register" } }
+                      },
+                      [_vm._v("\n              Ingresa Aquí\n            ")]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _vm._m(3),
+    _vm._v(" "),
+    _vm._m(4)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-bs-toggle": "collapse",
+          "data-bs-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "carousel slide border",
+        attrs: { id: "carouselExampleCaptions", "data-bs-ride": "carousel" }
+      },
+      [
+        _c("div", { staticClass: "carousel-indicators" }, [
+          _c("button", {
+            staticClass: "active",
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide-to": "0",
+              "aria-current": "true",
+              "aria-label": "Slide 1"
+            }
+          }),
+          _vm._v(" "),
+          _c("button", {
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide-to": "1",
+              "aria-label": "Slide 2"
+            }
+          }),
+          _vm._v(" "),
+          _c("button", {
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide-to": "2",
+              "aria-label": "Slide 3"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "carousel-inner" }, [
+          _c("div", { staticClass: "carousel-item active" }, [
+            _c("div", { staticClass: "carousel-caption d-none d-md-block" }, [
+              _c("h5", [_vm._v("First slide label")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Some representative placeholder content for the first slide."
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "carousel-item" }, [
+            _c("div", { staticClass: "carousel-caption d-none d-md-block" }, [
+              _c("h5", [_vm._v("Second slide label")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Some representative placeholder content for the second slide."
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "carousel-item" }, [
+            _c("div", { staticClass: "carousel-caption d-none d-md-block" }, [
+              _c("h5", [_vm._v("Third slide label")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Some representative placeholder content for the third slide."
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "carousel-control-prev",
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide": "prev"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-prev-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "visually-hidden" }, [_vm._v("Previous")])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "carousel-control-next",
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide": "next"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-next-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "visually-hidden" }, [_vm._v("Next")])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "ribbon" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "container w-50 px-5 rounded-lg",
+            attrs: { id: "slide" }
+          },
+          [
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", [_c("img", { staticClass: "w-75 mx-auto d-block" })]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm p-3 text-center" }, [
+                _c("h4", [_vm._v("Facturación Siigo")])
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "separator-ribbon" }, [
+      _c("div", { staticClass: "content bg-primary" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "seccion" } }, [
+      _c("div", { staticClass: "container-md p-5" }, [
+        _c("div", { staticClass: "row pt-5" }, [
+          _c("h3", { staticClass: "text-center py-5" }, [_vm._v("Servicios")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm" }, [
+            _c("div", { staticClass: "card w-100 card-border mb-5" }, [
+              _c("img", { staticClass: "card-img-top", attrs: { alt: "..." } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Compras")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "\n                Some quick example text to build on the card title and make up\n                the bulk of the card's content.\n              "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c("div", { staticClass: "card w-100 card-border mb-5" }, [
+              _c("img", { staticClass: "card-img-top", attrs: { alt: "..." } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Ventas")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "\n                Some quick example text to build on the card title and make up\n                the bulk of the card's content.\n              "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c("div", { staticClass: "card w-100 card-border mb-5" }, [
+              _c("img", { staticClass: "card-img-top", attrs: { alt: "..." } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Proveedores")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "\n                Some quick example text to build on the card title and make up\n                the bulk of the card's content.\n              "
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-5", attrs: { id: "footer" } }, [
+          _c("div", { staticClass: "container w-50 pt-5" }, [
+            _c(
+              "div",
+              { staticClass: "row row-cols-md-2 justify-content-md-center" },
+              [
+                _c("div", { staticClass: "col text-center" }, [
+                  _c("a", [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn bnt-lg btn-primary rounded-pill w-100 shadow-sm fw-bold p-3"
+                      },
+                      [_vm._v("Encuentranos")]
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "row justify-content-md-center py-4" }, [
+              _c("div", { staticClass: "col text-center" }, [
+                _c("p", [_vm._v("Empresa de facturación nacional")]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Telefóno: 456 34 23 ")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("Ubicanos: Calle 26 # 57 -39 Bogotá, Colombia")
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v("@ 2021 Facturación Siigo")])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
