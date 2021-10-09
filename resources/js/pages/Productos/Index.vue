@@ -46,17 +46,18 @@
                 </div>
             </div>
         </div>
-        <div class="box">
+        <div class="box" style="float: right;">
+            <input type="checkbox" id="check">
             <div class="search-box">
                 <form>
                     <input 
-                    type="search"
-                    placeholder="Buscar un producto"
+                    type="text"
+                    placeholder="Escribe el nombre del producto"
                     aria-label="Search"
                     v-model="buscador"
                     @keyup="buscarProductos"
                     >
-                    <label for="" class="icon">
+                    <label for="check" class="icon">
                         <i class="fas fa-search"></i>
                     </label>
                 </form>

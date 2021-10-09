@@ -3529,6 +3529,104 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -4593,6 +4691,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -50142,97 +50241,162 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row row-cols-1 row-cols-md-3 g-4 mt-3" }, [
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card h-100 shadow-sm" }, [
-        _c("div", { staticClass: "card-body text-white bg-dark rounded" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer" },
-            [
+    _c("div", { staticClass: "contenedor" }, [
+      _c("input", { attrs: { type: "radio", name: "dot", id: "uno" } }),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "radio", name: "dot", id: "dos" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "main-card" }, [
+        _c("div", { staticClass: "cards" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
               _c(
-                "router-link",
-                { attrs: { exact: "", to: { name: "bodegas.index" } } },
+                "div",
+                { staticClass: "buttonsCards" },
                 [
                   _c(
-                    "svg",
+                    "router-link",
                     {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "facturas.index" } }
                     },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n            Bodegas\n          ")
-                ]
+                    [_c("i", { staticClass: "fas fa-file-invoice" })]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card h-100 shadow-sm" }, [
-        _c("div", { staticClass: "card-body bg-light rounded" }, [
-          _vm._m(1),
+            ])
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer" },
-            [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
               _c(
-                "router-link",
-                { attrs: { exact: "", to: { name: "facturas.index" } } },
+                "div",
+                { staticClass: "buttonsCards" },
                 [
                   _c(
-                    "svg",
+                    "router-link",
                     {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "facturas.index" } }
                     },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n            Proveedores\n          ")
-                ]
+                    [_c("i", { staticClass: "fas fa-building" })]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card h-100 shadow-sm" }, [
-        _c("div", { staticClass: "card-body rounded" }, [
-          _vm._m(2),
+            ])
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer" },
-            [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
               _c(
-                "router-link",
-                { attrs: { exact: "", to: { name: "usuarios.index" } } },
+                "div",
+                { staticClass: "buttonsCards" },
                 [
                   _c(
-                    "svg",
+                    "router-link",
                     {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "bodegas.index" } }
                     },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n            Clientes\n          ")
-                ]
+                    [_c("i", { staticClass: "fas fa-folder" })]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "cards" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "buttonsCards" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "productos.index" } }
+                    },
+                    [_c("i", { staticClass: "fas fa-tags" })]
+                  )
+                ],
+                1
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(8),
+              _vm._v(" "),
+              _vm._m(9),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "buttonsCards" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "roles.index" } }
+                    },
+                    [_c("i", { staticClass: "fas fa-user-friends" })]
+                  )
+                ],
+                1
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(10),
+              _vm._v(" "),
+              _vm._m(11),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "buttonsCards" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "usuarios.index" } }
+                    },
+                    [_c("i", { staticClass: "fas fa-users" })]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(12)
     ])
   ])
 }
@@ -50241,16 +50405,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("i", { staticClass: "fas fa-building fs-3 pt-3 ps-2" }),
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-file-invoice" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Facturas")]),
       _vm._v(" "),
-      _c("div", { staticClass: "ms-4" }, [
-        _c("h4", { staticClass: "card-title" }, [_vm._v("Bodegas")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v("\n              Cantidad de Bodegas: "),
-          _c("strong", { staticClass: "fs-5" }, [_vm._v("12000")])
-        ])
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Total de facturas 12000")
       ])
     ])
   },
@@ -50258,16 +50425,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("i", { staticClass: "fas fa-file fs-3 pt-3 ps-2" }),
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-building" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Sucursales")]),
       _vm._v(" "),
-      _c("div", { staticClass: "ms-4" }, [
-        _c("h4", { staticClass: "card-title" }, [_vm._v("Facturas")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v("\n              Cantidad de facturas: "),
-          _c("strong", { staticClass: "fs-5" }, [_vm._v("120000")])
-        ])
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de sucursales 12000")
       ])
     ])
   },
@@ -50275,17 +50445,90 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("i", { staticClass: "fas fa-user fs-3 pt-3 ps-2" }),
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-folder" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Bodegas")]),
       _vm._v(" "),
-      _c("div", { staticClass: "ms-4" }, [
-        _c("h4", { staticClass: "card-title" }, [_vm._v("Clientes")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v("\n              Cantidad de clientes: "),
-          _c("strong", { staticClass: "fs-5" }, [_vm._v("1000")])
-        ])
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de bodegas 12000")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-tags" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Productos")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de productos 12000")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-user-friends" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Roles")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de roles 3")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-users" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Usuarios")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de usuarios 12000")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "botonDash" }, [
+      _c("label", { staticClass: "uno activo", attrs: { for: "uno" } }),
+      _vm._v(" "),
+      _c("label", { staticClass: "dos", attrs: { for: "dos" } })
     ])
   }
 ]
@@ -52308,7 +52551,9 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "box" }, [
+      _c("div", { staticClass: "box", staticStyle: { float: "right" } }, [
+        _c("input", { attrs: { type: "checkbox", id: "check" } }),
+        _vm._v(" "),
         _c("div", { staticClass: "search-box" }, [
           _c("form", [
             _c("input", {
@@ -52321,8 +52566,8 @@ var render = function() {
                 }
               ],
               attrs: {
-                type: "search",
-                placeholder: "Buscar un producto",
+                type: "text",
+                placeholder: "Escribe el nombre del producto",
                 "aria-label": "Search"
               },
               domProps: { value: _vm.buscador },
@@ -52459,7 +52704,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "icon", attrs: { for: "" } }, [
+    return _c("label", { staticClass: "icon", attrs: { for: "check" } }, [
       _c("i", { staticClass: "fas fa-search" })
     ])
   },

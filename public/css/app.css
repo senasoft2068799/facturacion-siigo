@@ -146,7 +146,7 @@
 
 /*EMPIEZA DASHBOARD*/
 
-.card-footer {
+/* .card-footer {
     border: 0;
     margin-top: 1rem;
     text-align: center;
@@ -189,4 +189,221 @@
     .navbar {
         padding: 1.050rem;
     }
+} */
+
+.contenedor
+{
+    max-width: 950px;
+    width: 100%;
+    overflow: hidden;
 }
+
+.contenedor .main-card
+{
+    width: 200%;
+    display: flex;
+    justify-content: space-evenly;
+    transition: all 1s ease;
+}
+
+#dos:checked ~ .main-card
+{
+    margin-left: -100%;
+}
+
+.main-card .cards
+{
+    width: calc(100% / 2 - 10px);
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+.main-card .cards .card
+{
+    width: calc(100% / 3 - 10px);
+    background: #fff;
+    padding: 30px;
+    border-radius: 24px;
+}
+
+.cards .card .content
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: transparent;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+}
+
+.cards .card .content .icono
+{
+    height: 130px;
+    width: 130px;
+    margin-bottom: 14px;
+}
+
+.cards .card .content .icono i
+{
+    font-size: 130px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    background: transparent;
+}
+
+.card .content .details .name
+{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.card .content .details .descripcionC
+{
+    font-size: 20px;
+    color: rgb(24, 24, 24);
+}
+
+.card .content .buttonsCards
+{
+    display: flex;
+    margin-top: 10px;
+}
+
+.card .content .buttonsCards .linksCards
+{
+    height: 35px;
+    width: 35px;
+    color: #fff;
+    background: rgb(24, 24, 24);
+    margin: 0 4px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 33px;
+    font-size: 14px;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
+}
+
+.content .buttonsCards .linksCards:hover
+{
+    border-color: #1b1b1b;
+    color: #1b1b1b;
+    background: #fff;
+}
+
+.botonDash
+{
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+}
+
+.botonDash label
+{
+    height: 15px;
+    width: 15px;
+    background: black;
+    margin: 0 4px;
+    border-radius: 20px;
+    transition: all 0.5s ease;
+}
+
+.botonDash label.activo
+{
+    width: 35px;
+}
+
+#uno:checked ~ .botonDash label.uno
+{
+    width: 35px;
+}
+
+#dos:checked ~ .botonDash label.dos
+{
+    width: 35px;
+}
+
+#dos:checked ~ .botonDash label.uno
+{
+    width: 15px;
+}
+
+#uno:checked ~ .botonDash label.dos
+{
+    width: 15px;
+}
+
+input[type="radio"]
+{
+    display: none;
+}
+
+
+/*FIN DISEÑO INDEX Y DASHBOARD*/
+
+/* Diseño de buscador  */
+.box
+{
+    max-width: 400px;
+    width: 100%;
+}
+
+.box .search-box
+{
+    position: relative;
+    height: 50px;
+    max-width: 50px;
+    margin: auto;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+#check:checked ~ .search-box
+{
+    max-width: 380px;
+}
+
+.search-box input
+{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 25px;
+    outline: none;
+    border: none;
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+.search-box .icon
+{
+    position: absolute;
+    right: -2px;
+    top: 0;
+    width: 50px;
+    background: rgb(24, 24, 24);
+    color: whitesmoke;
+    height: 100%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    border-radius: 25px;
+}
+
+#check:checked ~ .search-box .icon
+{
+    background: rgb(199, 198, 198);
+    color: black;
+    width: 60px;
+    border-radius: 0 25px 25px 0;
+}
+
+#check
+{
+    display: none;
+}
+
+/*FIN DISEÑO BUSCADOR*/
