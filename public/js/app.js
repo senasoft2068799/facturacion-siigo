@@ -4553,45 +4553,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-<<<<<<< HEAD
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       file: '',
       buscador: '',
       setTimeoutBuscador: '',
-=======
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  data: function data() {
-    return {
-      file: "",
->>>>>>> 06e21e5255df577c7a6de2edf90dec6ade0ae7ed
       productos: []
     };
   },
@@ -4660,12 +4628,14 @@ __webpack_require__.r(__webpack_exports__);
     traerProductos: function traerProductos() {
       var _this4 = this;
 
-      this.axios.get("/api/producto", {
+      axios.get("/api/producto", {
         params: {
           buscador: this.buscador
         }
       }).then(function (response) {
-        _this4.productos = response.data;
+        _this4.productos = response.data.data; // console.log(response.data);
+      })["catch"](function (error) {
+        console.log(error.response);
       });
     },
     buscarProductos: function buscarProductos() {
@@ -51413,7 +51383,7 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-primary mb-3",
+          staticClass: "btn btn-success mb-3",
           attrs: { to: { name: "productos.create" } }
         },
         [_vm._v("Registrar producto")]
@@ -51422,7 +51392,7 @@ var render = function() {
       _c(
         "router-link",
         {
-          staticClass: "btn btn-warning mb-3",
+          staticClass: "btn btn-secondary mb-3",
           staticStyle: { float: "right" },
           attrs: { to: { name: "categorias.index" } }
         },
@@ -51432,14 +51402,14 @@ var render = function() {
       _c(
         "button",
         {
-          staticClass: "btn btn-secondary mb-3 ms-2",
+          staticClass: "btn btn-secondary mb-3",
           attrs: {
             type: "button",
             "data-bs-toggle": "modal",
             "data-bs-target": "#exampleModal"
           }
         },
-        [_vm._v("\n    Importar\n  ")]
+        [_vm._v("\n        Importar\n    ")]
       ),
       _vm._v(" "),
       _c(
@@ -51459,7 +51429,7 @@ var render = function() {
               _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("form", { staticClass: "m-2" }, [
+                _c("form", { staticStyle: { margin: "15px" } }, [
                   _c("div", { staticClass: "input-group" }, [
                     _c("input", {
                       ref: "file",
@@ -51481,7 +51451,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("input", {
-                      staticClass: "btn btn-primary",
+                      staticClass: "btn btn-secondary",
                       attrs: {
                         type: "submit",
                         id: "inputGroupFileAddon04",
@@ -51532,6 +51502,9 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
+      _c("br"),
+      _c("br"),
+      _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c("table", { staticClass: "table table-bordered table-hover" }, [
           _vm._m(2),
@@ -51565,12 +51538,11 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "td",
-                  { staticClass: "text-center" },
                   [
                     _c(
                       "router-link",
                       {
-                        staticClass: "btn btn-sm btn-primary",
+                        staticClass: "btn btn-primary btn-sm",
                         attrs: {
                           title: "Editar",
                           to: {
@@ -51585,15 +51557,15 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-sm btn-danger",
-                        attrs: { title: "Inactivar" },
+                        staticClass: "btn btn-danger btn-sm",
+                        attrs: { title: "Eliminar" },
                         on: {
                           click: function($event) {
                             return _vm.eliminarproducto(producto, index)
                           }
                         }
                       },
-                      [_c("i", { staticClass: "fas fa-ban" })]
+                      [_c("i", { staticClass: "fas fa-trash" })]
                     )
                   ],
                   1
@@ -51614,8 +51586,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("label", { staticClass: "form-label fs-4", attrs: { for: "file" } }, [
-        _vm._v("Importar productos")
+      _c("label", { staticClass: "form-label", attrs: { for: "file" } }, [
+        _c("b", [_vm._v("Importar productos")])
       ]),
       _vm._v(" "),
       _c("button", {
@@ -51636,10 +51608,10 @@ var staticRenderFns = [
       _c(
         "button",
         {
-          staticClass: "btn btn-dark",
+          staticClass: "btn btn-secondary",
           attrs: { type: "button", "data-bs-dismiss": "modal" }
         },
-        [_vm._v("\n            Cerrar\n          ")]
+        [_vm._v("Cerrar")]
       )
     ])
   },

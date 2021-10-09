@@ -17,16 +17,6 @@ class ProductoController extends Controller
         return ProductoResource::collection(Producto::latest()->get());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $fecha = now();
@@ -42,17 +32,6 @@ class ProductoController extends Controller
     }
 
     public function show(Producto $producto)
-    {
-        return $producto;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Producto  $producto
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Producto $producto)
     {
         return $producto;
     }
@@ -101,8 +80,6 @@ class ProductoController extends Controller
     public function traerProductos(Request $request)
     {
         $filtro = $request->buscador;
-        $productos = Producto::where("nombre", 'LIKE', '%'.$filtro.'%')->get();
-        info($productos);
-        return response()->json($productos, 200);
+        return ProductoResource::collection(Producto::where("nombre", 'LIKE', '%'.$filtro.'%')->get());
     }
 }

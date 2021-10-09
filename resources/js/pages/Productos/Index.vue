@@ -56,9 +56,10 @@
             @keyup="buscarProductos"
             >
         </form>
+        <br><br>
         <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark text-center">
                     <tr>
                         <th>Nombre</th>
                         <th>Precio unitario</th>
@@ -79,7 +80,7 @@
                         <td>{{ producto.updated_at }}</td>
                         <td>
                             <router-link
-                                class="btn btn-warning btn-sm"
+                                class="btn btn-primary btn-sm"
                                 title="Editar"
                                 :to="{
                                     name: 'productos.edit',
@@ -186,7 +187,7 @@ export default {
       },
         traerProductos()
         {
-            this.axios.get("/api/producto",
+            axios.get("/api/producto",
              {
                 params: 
                 {
@@ -194,7 +195,11 @@ export default {
                 }
             }).then(response => 
             {
-                this.productos = response.data;
+                this.productos = response.data.data;
+                // console.log(response.data);
+            })
+            .catch(error =>{
+                console.log(error.response);
             });
         },
         buscarProductos()
