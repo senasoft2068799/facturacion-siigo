@@ -51,7 +51,6 @@
                 <form>
                     <input 
                     type="search"
-                    class="form-control mr-sm-2 buscador"
                     placeholder="Buscar un producto"
                     aria-label="Search"
                     v-model="buscador"
