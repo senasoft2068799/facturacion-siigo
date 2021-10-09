@@ -324,7 +324,7 @@ export default {
 		});
 		//Mostrar lista de bodegas
 		this.axios.get("/api/bodegas").then((res) => {
-			this.bodegas = res.data;
+			this.bodegas = res.data.data;
 		});
 		//Borrador de factura
 		if (Storage.has("factura")) {

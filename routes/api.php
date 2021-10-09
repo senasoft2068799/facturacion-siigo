@@ -49,7 +49,9 @@ Route::middleware('api')->group(function () {
     Route::put("detalle-facturas/{detalle_movimiento}", [DetalleFacturaController::class, "update"]);
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
-    // Route::apiResource('ciudades', CiudadeController::class);
     Route::post("import-excel-productos", [ProductoController::class, "importExcel"]);
     Route::get("producto", [ProductoController::class, "traerProductos"]);
+    // Route::apiResource('ciudades', CiudadeController::class);
+    Route::get("unread-notifications", [AuthController::class, "unreadNotifications"]);
+    Route::get("mark-as-read", [AuthController::class, "markAsRead"]);
 });
