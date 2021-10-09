@@ -24,6 +24,7 @@ import ProductosEdit from "./pages/Productos/Edit.vue";
 import UsuariosIndex from "./pages/Usuarios/Index.vue";
 import UsuariosEdit from "./pages/Usuarios/Edit.vue";
 import UsuariosCreate from "./pages/Usuarios/Create.vue"
+import Index from "./pages/Index.vue";
 
 export const routes = [
     //
@@ -207,5 +208,11 @@ export const routes = [
         path: "/usuarios/:id/edit",
         component: UsuariosEdit,
         meta: { requiresAuth: true }
+    },
+    {
+        name: "index",
+        path: "/index",
+        component: Index,
+        //meta: { requiresAuth: true }
     }
 ];
