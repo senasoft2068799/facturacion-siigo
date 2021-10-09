@@ -14,35 +14,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item dropdown me-3">
-						<a
-							class="nav-link link-dark position-relative"
-							id="notificaciones"
-							role="button"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
-						>
-							<i class="fas fa-bell"></i
-							><span
-								class="
-									position-absolute
-									start-100
-									translate-middle
-									badge
-									rounded-pill
-									bg-danger
-								"
-								>22</span
-							>
-						</a>
-						<ul
-							class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="notificaciones"
-						>
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-						</ul>
-					</li>
+					<Notifications />
 					<li class="nav-item dropdown me-3">
 						<a
 							class="nav-link dropdown-toggle link-dark"
@@ -68,7 +40,22 @@
 	</nav>
 </template>
 <script>
+import Notifications from "./Notifications.vue";
 export default {
 	name: "Navbar",
+	data() {
+		return {
+			notificaciones: [],
+		};
+	},
+	created() {
+		// window.user = @json(
+		// 	"user"=> auth()->user(),
+		// );
+		// this.notificaciones = window.user.user.notificaciones;
+	},
+	components: {
+		Notifications,
+	},
 };
 </script>

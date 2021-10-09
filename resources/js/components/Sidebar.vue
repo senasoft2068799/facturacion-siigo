@@ -93,6 +93,10 @@ export default {
 				.get("/api/user")
 				.then((res) => {
 					this.currentUser = res.data;
+					console.log("------");
+					console.log("Usuario actual:");
+					console.log(this.currentUser);
+					console.log("------");
 				})
 				.catch((err) => {
 					console.log(err);
