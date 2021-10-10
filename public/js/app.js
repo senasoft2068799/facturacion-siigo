@@ -2459,10 +2459,6 @@ __webpack_require__.r(__webpack_exports__);
       window.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(this.token);
       axios.get("/api/user").then(function (res) {
         _this.currentUser = res.data;
-        console.log("------");
-        console.log("Usuario actual:");
-        console.log(_this.currentUser);
-        console.log("------");
       })["catch"](function (err) {
         console.log(err);
       });
@@ -3546,6 +3542,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/Errors.js */ "./resources/js/utilities/Errors.js");
 /* harmony import */ var _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/Storage.js */ "./resources/js/utilities/Storage.js");
+/* harmony import */ var _utilities_Formatters_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utilities/Formatters.js */ "./resources/js/utilities/Formatters.js");
 //
 //
 //
@@ -3834,11 +3831,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      formatters: new _utilities_Formatters_js__WEBPACK_IMPORTED_MODULE_2__["default"](),
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       editing: null,
       sucursales: [],
@@ -3877,7 +3917,11 @@ __webpack_require__.r(__webpack_exports__);
     }); //Borrador de factura
 
     if (_utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__["default"].has("factura")) {
-      this.factura = _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("factura");
+      try {
+        this.factura = _utilities_Storage_js__WEBPACK_IMPORTED_MODULE_1__["default"].get("factura");
+      } catch (err) {
+        this.limpiarFactura();
+      }
     }
   },
   methods: {
@@ -3887,18 +3931,6 @@ __webpack_require__.r(__webpack_exports__);
         valor += item.valor_total;
       });
       return valor;
-    },
-    formatCurrency: function formatCurrency(number) {
-      var formatted = 0;
-
-      if (!isNaN(number)) {
-        formatted = new Intl.NumberFormat("es-CO", {
-          style: "currency",
-          currency: "COP"
-        }).format(number);
-      }
-
-      return formatted;
     },
     agregarDetalleFactura: function agregarDetalleFactura() {
       var valorDetalle = this.detalleFactura.producto.precio_unitario * this.detalleFactura.cantidad * 1.19;
@@ -3939,12 +3971,19 @@ __webpack_require__.r(__webpack_exports__);
 
         _this2.limpiarFactura();
       })["catch"](function (err) {
-        _this2.$swal({
-          icon: "error",
-          title: "Ha ocurrido un error:\n" + err
-        });
+        if (err.response.status === 422) {
+          _this2.errors.record(err.response.data.errors);
 
-        _this2.errors.record(err.response.data.errors);
+          _this2.$swal({
+            icon: "error",
+            title: "Los campos ingresados no son válidos."
+          });
+        } else {
+          _this2.$swal({
+            icon: "error",
+            title: "Ha ocurrido un error:\n" + err
+          });
+        }
       });
     },
     guardarBorradorFactura: function guardarBorradorFactura() {
@@ -3981,6 +4020,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utilities_Formatters_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/Formatters.js */ "./resources/js/utilities/Formatters.js");
 //
 //
 //
@@ -4101,9 +4141,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      formatters: new _utilities_Formatters_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       facturas: []
     };
   },
@@ -4120,7 +4168,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la factura: '" + factura.id + "'",
+        text: "Se eliminará la factura con código: " + factura.id,
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
@@ -4157,6 +4205,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utilities_Formatters_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/Formatters.js */ "./resources/js/utilities/Formatters.js");
 //
 //
 //
@@ -4243,10 +4292,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      factura: {}
+      formatters: new _utilities_Formatters_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
+      factura: {
+        sucursal: {},
+        user: {},
+        detalle_movimientos: []
+      }
     };
   },
   mounted: function mounted() {
@@ -4698,19 +4791,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      file: '',
-      buscador: '',
-      setTimeoutBuscador: '',
+      file: "",
+      buscador: "",
+      setTimeoutBuscador: "",
       productos: []
     };
   },
   created: function created() {
     var _this = this;
 
-    if (this.buscador == '') {
+    if (this.buscador == "") {
       this.axios.get("/api/productos").then(function (response) {
         _this.productos = response.data.data;
       });
@@ -4777,7 +4905,7 @@ __webpack_require__.r(__webpack_exports__);
           buscador: this.buscador
         }
       }).then(function (response) {
-        _this4.productos = response.data.data; // console.log(response.data);
+        _this4.productos = response.data.data;
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -5035,6 +5163,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/Errors.js */ "./resources/js/utilities/Errors.js");
 //
 //
 //
@@ -5097,9 +5226,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       sucursal: {
         nombre: null,
         direccion: null,
@@ -5123,15 +5259,26 @@ __webpack_require__.r(__webpack_exports__);
       this.axios.post("/api/sucursales", this.sucursal).then(function (response) {
         _this2.$swal("Sucursal registrada correctamente.");
 
-        _this2.sucursal.nombre = null;
-        _this2.sucursal.direccion = null;
-        _this2.sucursal.telefono = null;
-        _this2.sucursal.ciudade_id = null;
+        _this2.sucursal = {
+          nombre: null,
+          direccion: null,
+          telefono: null,
+          ciudade_id: null
+        };
       })["catch"](function (err) {
-        _this2.$swal({
-          icon: "error",
-          title: "Ha ocurrido un error:\n" + err
-        });
+        if (err.response.status === 422) {
+          _this2.errors.record(err.response.data.errors);
+
+          _this2.$swal({
+            icon: "error",
+            title: "Los campos ingresados no son válidos."
+          });
+        } else {
+          _this2.$swal({
+            icon: "error",
+            title: "Ha ocurrido un error:\n" + err
+          });
+        }
       });
     }
   }
@@ -6077,6 +6224,51 @@ var Errors = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Errors);
+
+/***/ }),
+
+/***/ "./resources/js/utilities/Formatters.js":
+/*!**********************************************!*\
+  !*** ./resources/js/utilities/Formatters.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Formatters = /*#__PURE__*/function () {
+  function Formatters() {
+    _classCallCheck(this, Formatters);
+  }
+
+  _createClass(Formatters, [{
+    key: "formatCurrency",
+    value: function formatCurrency(number) {
+      var formatted = 0;
+
+      if (!isNaN(number)) {
+        formatted = new Intl.NumberFormat("es-CO", {
+          style: "currency",
+          currency: "COP"
+        }).format(number);
+      }
+
+      return formatted;
+    }
+  }]);
+
+  return Formatters;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Formatters);
 
 /***/ }),
 
@@ -50575,7 +50767,7 @@ var render = function() {
                       _vm._v(
                         "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
-                            _vm.formatCurrency(
+                            _vm.formatters.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario
                             )
                           ) +
@@ -50587,7 +50779,7 @@ var render = function() {
                       _vm._v(
                         "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
-                            _vm.formatCurrency(
+                            _vm.formatters.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario *
                                 _vm.detalleFactura.cantidad
                             )
@@ -50600,7 +50792,7 @@ var render = function() {
                       _vm._v(
                         "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
-                            _vm.formatCurrency(
+                            _vm.formatters.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario *
                                 _vm.detalleFactura.cantidad *
                                 0.19
@@ -50614,7 +50806,7 @@ var render = function() {
                       _vm._v(
                         "\n\t\t\t\t\t\t\t\t" +
                           _vm._s(
-                            _vm.formatCurrency(
+                            _vm.formatters.formatCurrency(
                               _vm.detalleFactura.producto.precio_unitario *
                                 _vm.detalleFactura.cantidad *
                                 1.19
@@ -50690,17 +50882,76 @@ var render = function() {
                   _vm._v(" "),
                   _vm._l(_vm.factura.items, function(item, index) {
                     return _c("tr", { key: index }, [
-                      _c("td", [_vm._v(_vm._s(item.producto.nombre))]),
+                      _c("td", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(item.producto.nombre) +
+                            "\n\t\t\t\t\t\t\t\t"
+                        ),
+                        _vm.errors.has("items." + index + ".producto.id")
+                          ? _c("p", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(
+                                    _vm.errors.get(
+                                      "items." + index + ".producto.id"
+                                    )
+                                  ) +
+                                  "\n\t\t\t\t\t\t\t\t"
+                              )
+                            ])
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.cantidad))]),
+                      _c("td", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(item.cantidad) +
+                            "\n\t\t\t\t\t\t\t\t"
+                        ),
+                        _vm.errors.has("items." + index + ".cantidad")
+                          ? _c("p", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(
+                                    _vm.errors.get(
+                                      "items." + index + ".cantidad"
+                                    )
+                                  ) +
+                                  "\n\t\t\t\t\t\t\t\t"
+                              )
+                            ])
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.bodega.nombre))]),
+                      _c("td", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(item.bodega.nombre) +
+                            "\n\t\t\t\t\t\t\t\t"
+                        ),
+                        _vm.errors.has("items." + index + ".bodega.id")
+                          ? _c("p", { staticClass: "text-danger" }, [
+                              _vm._v(
+                                "\n\t\t\t\t\t\t\t\t\t" +
+                                  _vm._s(
+                                    _vm.errors.get(
+                                      "items." + index + ".bodega.id"
+                                    )
+                                  ) +
+                                  "\n\t\t\t\t\t\t\t\t"
+                              )
+                            ])
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
                           "\n\t\t\t\t\t\t\t\t" +
                             _vm._s(
-                              _vm.formatCurrency(item.producto.precio_unitario)
+                              _vm.formatters.formatCurrency(
+                                item.producto.precio_unitario
+                              )
                             ) +
                             "\n\t\t\t\t\t\t\t"
                         )
@@ -50710,7 +50961,7 @@ var render = function() {
                         _vm._v(
                           "\n\t\t\t\t\t\t\t\t" +
                             _vm._s(
-                              _vm.formatCurrency(
+                              _vm.formatters.formatCurrency(
                                 item.producto.precio_unitario * item.cantidad
                               )
                             ) +
@@ -50722,7 +50973,7 @@ var render = function() {
                         _vm._v(
                           "\n\t\t\t\t\t\t\t\t" +
                             _vm._s(
-                              _vm.formatCurrency(
+                              _vm.formatters.formatCurrency(
                                 item.producto.precio_unitario *
                                   item.cantidad *
                                   0.19
@@ -50733,7 +50984,13 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v(_vm._s(_vm.formatCurrency(item.valor_total)))
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(
+                              _vm.formatters.formatCurrency(item.valor_total)
+                            ) +
+                            "\n\t\t\t\t\t\t\t"
+                        )
                       ]),
                       _vm._v(" "),
                       _c("td", [
@@ -50781,9 +51038,13 @@ var render = function() {
                       _c("th", [
                         _c("h6", [
                           _vm._v(
-                            _vm._s(
-                              _vm.formatCurrency(_vm.calcularTotal() / 1.19)
-                            )
+                            "\n\t\t\t\t\t\t\t\t\t" +
+                              _vm._s(
+                                _vm.formatters.formatCurrency(
+                                  _vm.calcularTotal() / 1.19
+                                )
+                              ) +
+                              "\n\t\t\t\t\t\t\t\t"
                           )
                         ])
                       ]),
@@ -50799,11 +51060,13 @@ var render = function() {
                       _c("th", [
                         _c("h6", [
                           _vm._v(
-                            _vm._s(
-                              _vm.formatCurrency(
-                                (_vm.calcularTotal() / 1.19) * 0.19
-                              )
-                            )
+                            "\n\t\t\t\t\t\t\t\t\t" +
+                              _vm._s(
+                                _vm.formatters.formatCurrency(
+                                  (_vm.calcularTotal() / 1.19) * 0.19
+                                )
+                              ) +
+                              "\n\t\t\t\t\t\t\t\t"
                           )
                         ])
                       ]),
@@ -50819,7 +51082,13 @@ var render = function() {
                       _c("th", [
                         _c("h5", [
                           _vm._v(
-                            _vm._s(_vm.formatCurrency(_vm.calcularTotal()))
+                            "\n\t\t\t\t\t\t\t\t\t" +
+                              _vm._s(
+                                _vm.formatters.formatCurrency(
+                                  _vm.calcularTotal()
+                                )
+                              ) +
+                              "\n\t\t\t\t\t\t\t\t"
                           )
                         ])
                       ]),
@@ -50830,6 +51099,14 @@ var render = function() {
                 : _vm._e()
             ])
           ]),
+          _vm._v(" "),
+          _vm.errors.has("items")
+            ? _c("p", { staticClass: "text-danger" }, [
+                _vm._v(
+                  "\n\t\t\t\t" + _vm._s(_vm.errors.get("items")) + "\n\t\t\t"
+                )
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c("hr"),
           _vm._v(" "),
@@ -50991,9 +51268,19 @@ var render = function() {
               return _c("tr", { key: index }, [
                 _c("td", [_vm._v(_vm._s(factura.id))]),
                 _vm._v(" "),
-                _c("td", [
-                  _vm._v(_vm._s(factura.descripcion.substring(0, 20)) + "...")
-                ]),
+                factura.descripcion
+                  ? _c("td", [
+                      factura.descripcion.length > 20
+                        ? _c("p", [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t\t" +
+                                _vm._s(factura.descripcion.substring(0, 20)) +
+                                "...\n\t\t\t\t\t\t\t"
+                            )
+                          ])
+                        : _c("p", [_vm._v(_vm._s(factura.descripcion))])
+                    ])
+                  : _c("td", [_vm._v("...")]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(factura.sucursal.nombre))]),
                 _vm._v(" "),
@@ -51005,7 +51292,11 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("td", [_vm._v("$" + _vm._s(factura.valor_total))]),
+                _c("td", [
+                  _vm._v(
+                    _vm._s(_vm.formatters.formatCurrency(factura.valor_total))
+                  )
+                ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(factura.created_at))]),
                 _vm._v(" "),
@@ -51138,7 +51429,13 @@ var render = function() {
           _c("div", { staticClass: "col-md-6" }, [
             _c("p", { staticClass: "fw-bold" }, [_vm._v("Cliente:")]),
             _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.factura.user))])
+            _c("p", [
+              _vm._v(
+                _vm._s(_vm.factura.user.nombre) +
+                  " " +
+                  _vm._s(_vm.factura.user.apellido)
+              )
+            ])
           ])
         ]),
         _vm._v(" "),
@@ -51158,9 +51455,9 @@ var render = function() {
                     return _c("tr", { key: index }, [
                       _c("td", [
                         _vm._v(
-                          "\n              " +
+                          "\n\t\t\t\t\t\t\t" +
                             _vm._s(detalleFactura.producto.nombre) +
-                            "\n            "
+                            "\n\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
@@ -51168,43 +51465,61 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n              " +
+                          "\n\t\t\t\t\t\t\t" +
                             _vm._s(detalleFactura.bodega.nombre) +
-                            "\n            "
+                            "\n\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "$" + _vm._s(detalleFactura.producto.precio_unitario)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n              $" +
+                          "\n\t\t\t\t\t\t\t" +
                             _vm._s(
-                              detalleFactura.producto.precio_unitario *
-                                detalleFactura.cantidad
+                              _vm.formatters.formatCurrency(
+                                detalleFactura.producto.precio_unitario
+                              )
                             ) +
-                            "\n            "
+                            "\n\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n              $" +
+                          "\n\t\t\t\t\t\t\t" +
                             _vm._s(
-                              detalleFactura.producto.precio_unitario *
-                                detalleFactura.cantidad *
-                                0.19
+                              _vm.formatters.formatCurrency(
+                                detalleFactura.producto.precio_unitario *
+                                  detalleFactura.cantidad
+                              )
                             ) +
-                            "\n            "
+                            "\n\t\t\t\t\t\t"
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
-                        _vm._v("$" + _vm._s(detalleFactura.valor_total))
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t" +
+                            _vm._s(
+                              _vm.formatters.formatCurrency(
+                                detalleFactura.producto.precio_unitario *
+                                  detalleFactura.cantidad *
+                                  0.19
+                              )
+                            ) +
+                            "\n\t\t\t\t\t\t"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t" +
+                            _vm._s(
+                              _vm.formatters.formatCurrency(
+                                detalleFactura.valor_total
+                              )
+                            ) +
+                            "\n\t\t\t\t\t\t"
+                        )
                       ])
                     ])
                   }),
@@ -51215,14 +51530,62 @@ var render = function() {
             _vm.factura.detalle_movimientos.length > 0
               ? _c("tfoot", [
                   _c("tr", { staticClass: "table-active" }, [
-                    _c("td", { attrs: { colspan: "4" } }),
+                    _c("td", { attrs: { colspan: "5" } }),
                     _vm._v(" "),
                     _vm._m(2),
+                    _vm._v(" "),
+                    _c("th", [
+                      _c("h6", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(
+                              _vm.formatters.formatCurrency(
+                                _vm.factura.valor_total / 1.19
+                              )
+                            ) +
+                            "\n\t\t\t\t\t\t\t"
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", { staticClass: "table-active" }, [
+                    _c("td", { attrs: { colspan: "5" } }),
                     _vm._v(" "),
                     _vm._m(3),
                     _vm._v(" "),
                     _c("th", [
-                      _c("h5", [_vm._v("$" + _vm._s(_vm.factura.valor_total))])
+                      _c("h6", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(
+                              _vm.formatters.formatCurrency(
+                                (_vm.factura.valor_total / 1.19) * 0.19
+                              )
+                            ) +
+                            "\n\t\t\t\t\t\t\t"
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", { staticClass: "table-active" }, [
+                    _c("td", { attrs: { colspan: "5" } }),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("th", [
+                      _c("h5", [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t" +
+                            _vm._s(
+                              _vm.formatters.formatCurrency(
+                                _vm.factura.valor_total
+                              )
+                            ) +
+                            "\n\t\t\t\t\t\t\t"
+                        )
+                      ])
                     ])
                   ])
                 ])
@@ -51235,7 +51598,9 @@ var render = function() {
         _c("div", { staticClass: "row mb-3" }, [
           _c("p", { staticClass: "fw-bold" }, [_vm._v("Descripción:")]),
           _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(_vm.factura.descripcion))])
+          _vm.factura.descripcion
+            ? _c("p", [_vm._v(_vm._s(_vm.factura.descripcion))])
+            : _c("p", [_vm._v("...")])
         ]),
         _vm._v(" "),
         _c(
@@ -51288,13 +51653,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("th", [_c("h5", [_vm._v("$")])])
+    return _c("td", [_c("h6", [_vm._v("Subtotal:")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("th", [_c("h5", [_vm._v("$")])])
+    return _c("td", [
+      _c("h6", [_vm._v("IVA "), _c("small", [_vm._v("(19%)")]), _vm._v(":")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("h5", [_vm._v("Total:")])])
   }
 ]
 render._withStripped = true
@@ -51808,7 +52181,7 @@ var render = function() {
             "data-bs-target": "#exampleModal"
           }
         },
-        [_vm._v("\n        Importar\n    ")]
+        [_vm._v("\n\t\tImportar\n\t")]
       ),
       _vm._v(" "),
       _c(
@@ -52010,7 +52383,7 @@ var staticRenderFns = [
           staticClass: "btn btn-secondary",
           attrs: { type: "button", "data-bs-dismiss": "modal" }
         },
-        [_vm._v("Cerrar")]
+        [_vm._v("\n\t\t\t\t\t\tCerrar\n\t\t\t\t\t")]
       )
     ])
   },
@@ -52356,7 +52729,7 @@ var render = function() {
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.registrarSucursal.apply(null, arguments)
+              return _vm.registrarSucursal()
             }
           }
         },
@@ -52388,7 +52761,17 @@ var render = function() {
                   _vm.$set(_vm.sucursal, "nombre", $event.target.value)
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.errors.has("nombre")
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(_vm.errors.get("nombre")) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mb-3" }, [
@@ -52418,7 +52801,17 @@ var render = function() {
                   _vm.$set(_vm.sucursal, "direccion", $event.target.value)
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.errors.has("direccion")
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(_vm.errors.get("direccion")) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mb-3" }, [
@@ -52448,7 +52841,17 @@ var render = function() {
                   _vm.$set(_vm.sucursal, "telefono", $event.target.value)
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _vm.errors.has("telefono")
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(_vm.errors.get("telefono")) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "mb-3" }, [
@@ -52494,16 +52897,30 @@ var render = function() {
                   _vm._v("Seleccionar ciudad...")
                 ]),
                 _vm._v(" "),
-                _vm._l(_vm.ciudades, function(ciudad, index) {
+                _vm._l(_vm.ciudades, function(item, index) {
                   return _c(
                     "option",
-                    { key: index, domProps: { value: ciudad.id } },
-                    [_vm._v(_vm._s(ciudad.nombre))]
+                    { key: index, domProps: { value: item.id } },
+                    [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t" + _vm._s(item.nombre) + "\n\t\t\t\t\t"
+                      )
+                    ]
                   )
                 })
               ],
               2
-            )
+            ),
+            _vm._v(" "),
+            _vm.errors.has("ciudade_id")
+              ? _c("p", { staticClass: "text-danger" }, [
+                  _vm._v(
+                    "\n\t\t\t\t\t" +
+                      _vm._s(_vm.errors.get("ciudade_id")) +
+                      "\n\t\t\t\t"
+                  )
+                ])
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c(

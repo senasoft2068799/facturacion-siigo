@@ -111,11 +111,15 @@
 									</select>
 								</td>
 								<td>
-									{{ formatCurrency(detalleFactura.producto.precio_unitario) }}
+									{{
+										formatters.formatCurrency(
+											detalleFactura.producto.precio_unitario
+										)
+									}}
 								</td>
 								<td>
 									{{
-										formatCurrency(
+										formatters.formatCurrency(
 											detalleFactura.producto.precio_unitario *
 												detalleFactura.cantidad
 										)
@@ -123,7 +127,7 @@
 								</td>
 								<td>
 									{{
-										formatCurrency(
+										formatters.formatCurrency(
 											detalleFactura.producto.precio_unitario *
 												detalleFactura.cantidad *
 												0.19
@@ -132,7 +136,7 @@
 								</td>
 								<td>
 									{{
-										formatCurrency(
+										formatters.formatCurrency(
 											detalleFactura.producto.precio_unitario *
 												detalleFactura.cantidad *
 												1.19
@@ -180,27 +184,53 @@
 							<!-- Todos los detalles (items) de factura -->
 
 							<tr v-for="(item, index) in factura.items" :key="index">
-								<td>{{ item.producto.nombre }}</td>
-								<td>{{ item.cantidad }}</td>
-								<td>{{ item.bodega.nombre }}</td>
 								<td>
-									{{ formatCurrency(item.producto.precio_unitario) }}
+									{{ item.producto.nombre }}
+									<p
+										class="text-danger"
+										v-if="errors.has(`items.${index}.producto.id`)"
+									>
+										{{ errors.get(`items.${index}.producto.id`) }}
+									</p>
+								</td>
+								<td>
+									{{ item.cantidad }}
+									<p
+										class="text-danger"
+										v-if="errors.has(`items.${index}.cantidad`)"
+									>
+										{{ errors.get(`items.${index}.cantidad`) }}
+									</p>
+								</td>
+								<td>
+									{{ item.bodega.nombre }}
+									<p
+										class="text-danger"
+										v-if="errors.has(`items.${index}.bodega.id`)"
+									>
+										{{ errors.get(`items.${index}.bodega.id`) }}
+									</p>
+								</td>
+								<td>
+									{{ formatters.formatCurrency(item.producto.precio_unitario) }}
 								</td>
 								<td>
 									{{
-										formatCurrency(
+										formatters.formatCurrency(
 											item.producto.precio_unitario * item.cantidad
 										)
 									}}
 								</td>
 								<td>
 									{{
-										formatCurrency(
+										formatters.formatCurrency(
 											item.producto.precio_unitario * item.cantidad * 0.19
 										)
 									}}
 								</td>
-								<td>{{ formatCurrency(item.valor_total) }}</td>
+								<td>
+									{{ formatters.formatCurrency(item.valor_total) }}
+								</td>
 								<td>
 									<button
 										type="button"
@@ -230,7 +260,9 @@
 								<td colspan="5"></td>
 								<td><h6>Subtotal:</h6></td>
 								<th>
-									<h6>{{ formatCurrency(calcularTotal() / 1.19) }}</h6>
+									<h6>
+										{{ formatters.formatCurrency(calcularTotal() / 1.19) }}
+									</h6>
 								</th>
 								<td></td>
 							</tr>
@@ -240,7 +272,11 @@
 									<h6>IVA <small>(19%)</small>:</h6>
 								</td>
 								<th>
-									<h6>{{ formatCurrency((calcularTotal() / 1.19) * 0.19) }}</h6>
+									<h6>
+										{{
+											formatters.formatCurrency((calcularTotal() / 1.19) * 0.19)
+										}}
+									</h6>
 								</th>
 								<td></td>
 							</tr>
@@ -248,7 +284,9 @@
 								<td colspan="5"></td>
 								<td><h5>Total:</h5></td>
 								<th>
-									<h5>{{ formatCurrency(calcularTotal()) }}</h5>
+									<h5>
+										{{ formatters.formatCurrency(calcularTotal()) }}
+									</h5>
 								</th>
 								<td></td>
 							</tr>
@@ -256,6 +294,9 @@
 						<!-- Fin footer tabla -->
 					</table>
 				</div>
+				<p class="text-danger" v-if="errors.has('items')">
+					{{ errors.get("items") }}
+				</p>
 				<hr />
 				<!-- Descripcion factura -->
 				<div class="mb-3">
@@ -289,9 +330,11 @@
 <script>
 import Errors from "../../utilities/Errors.js";
 import Storage from "../../utilities/Storage.js";
+import Formatters from "../../utilities/Formatters.js";
 export default {
 	data() {
 		return {
+			formatters: new Formatters(),
 			errors: new Errors(),
 			editing: null,
 			sucursales: [],
@@ -328,7 +371,11 @@ export default {
 		});
 		//Borrador de factura
 		if (Storage.has("factura")) {
-			this.factura = Storage.get("factura");
+			try {
+				this.factura = Storage.get("factura");
+			} catch (err) {
+				this.limpiarFactura();
+			}
 		}
 	},
 	methods: {
@@ -338,16 +385,6 @@ export default {
 				valor += item.valor_total;
 			});
 			return valor;
-		},
-		formatCurrency(number) {
-			var formatted = 0;
-			if (!isNaN(number)) {
-				formatted = new Intl.NumberFormat("es-CO", {
-					style: "currency",
-					currency: "COP",
-				}).format(number);
-			}
-			return formatted;
 		},
 		agregarDetalleFactura() {
 			let valorDetalle =
@@ -391,11 +428,18 @@ export default {
 					this.limpiarFactura();
 				})
 				.catch((err) => {
-					this.$swal({
-						icon: "error",
-						title: "Ha ocurrido un error:\n" + err,
-					});
-					this.errors.record(err.response.data.errors);
+					if (err.response.status === 422) {
+						this.errors.record(err.response.data.errors);
+						this.$swal({
+							icon: "error",
+							title: "Los campos ingresados no son válidos.",
+						});
+					} else {
+						this.$swal({
+							icon: "error",
+							title: "Ha ocurrido un error:\n" + err,
+						});
+					}
 				});
 		},
 		guardarBorradorFactura() {
