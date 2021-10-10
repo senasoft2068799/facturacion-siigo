@@ -42,7 +42,7 @@ class BodegaController extends Controller
             "productos" => "array",
             "productos.*.id" => "required_with:productos|exists:productos,id",
         ]);
-
+        //Falta el mensaje personalizado productos.*.id
         $bodega->update($request->except('productos', "sucursal", "created_at", "updated_at"));
         $bodega->productos()->sync(array_column($request->productos, "id"));
     }

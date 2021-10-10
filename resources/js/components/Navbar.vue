@@ -1,130 +1,34 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid my-1">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="fas fa-align-justify"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto">
-          <Notifications />
-          <li class="nav-item dropdown me-3">
-            <a
-              class="nav-link dropdown-toggle link-dark"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fas fa-user"></i>
-            </a>
-            <ul
-              class="dropdown-menu dropdown-menu-end py-0"
-              aria-labelledby="navbarDropdown"
-            >
-              <p class="bg-primary text-center text-white fw-bold py-2">
-                Administrador
-              </p>
-              <li class="text-center">
-                <span>
-                  <i class="fas fa-user mx-auto px-2"></i>Sebastián Alarcón
-                  <small class="d-block mx-auto">101920192</small>
-                </span>
-              </li>
-              <li v-if="currentUser.nombre != null">
-                <i class="fas fa-user"></i>
-                <p class="fs-6 fw-bold text-primary text-center mb-2 p-0">
-                  {{ currentUser.nombre }} {{ currentUser.apellido }}
-                  <br />
-                  {{ currentUser.id }}
-                </p>
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <button @click="logout()" id="btn-logout">
-                <i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
-              </button>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid my-1">
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="fas fa-align-justify"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto">
+					<Notifications />
+					<CurrentUser />
+				</ul>
+			</div>
+		</div>
+	</nav>
 </template>
 <script>
-import Storage from "../utilities/Storage.js";
 import Notifications from "./Notifications.vue";
+import CurrentUser from "./CurrentUser.vue";
 export default {
-  components: {
-    Notifications,
-  },
-  name: "Navbar",
-  data() {
-    return {
-      currentUser: {},
-      token: null,
-      notificaciones: [],
-    };
-  },
-  mounted() {
-    if (Storage.has("token")) {
-      this.token = Storage.get("token", false);
-      window.axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      axios
-        .get("/api/user")
-        .then((res) => {
-          this.currentUser = res.data;
-          console.log("------");
-          console.log("Usuario actual:");
-          console.log(this.currentUser);
-          console.log("------");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  },
-  methods: {
-    logout() {
-      axios
-        .post("/api/logout")
-        .then((res) => {
-          Storage.remove("token");
-          this.$router.push("/login");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
+	components: {
+		Notifications,
+		CurrentUser,
+	},
+	name: "Navbar",
 };
 </script>
-<!--<script>
-import Notifications from "./Notifications.vue";
-export default {
-  name: "Navbar",
-  data() {
-    return {
-      notificaciones: [],
-    };
-  },
-  created() {
-    // window.user = @json(
-    // 	"user"=> auth()->user(),
-    // );
-    // this.notificaciones = window.user.user.notificaciones;
-  },
-  components: {
-    Notifications,
-  },
-};
-</script>-->
