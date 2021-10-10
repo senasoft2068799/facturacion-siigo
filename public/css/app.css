@@ -59,12 +59,19 @@
     text-decoration: none;
 }
 
-#btn-logout {
+/*#btn-logout {
     border: 0;
     margin: 1rem 0;
     background-color: transparent;
     color: rgba(255, 0, 0, 0.795);
     font: 1.1rem bold;
+}*/
+
+#btn-logout{
+    border: 0;
+    margin: .5rem;
+    background-color: transparent;
+    color: rgba(255, 0, 0, 0.795);
 }
 
 #btn-logout:hover {

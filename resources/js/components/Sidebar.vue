@@ -8,11 +8,11 @@
 			/>
 		</div>
 		<ul class="list-group list-group-flush">
-			<li v-if="currentUser.nombre != null">
+			<!--<li v-if="currentUser.nombre != null">
 				<p class="fs-6 fw-bold text-primary text-center mb-2 p-0">
 					{{ currentUser.nombre }} {{ currentUser.apellido }}
 				</p>
-			</li>
+			</li>-->
 			<li class="nav-item">
 				<router-link active-class="active" exact :to="{ name: 'dashboard' }">
 					<i class="fas fa-home"></i>
@@ -76,13 +76,13 @@
 					Usuarios
 				</router-link>
 			</li>
-			<button @click="logout()" id="btn-logout">
+			<!--<button @click="logout()" id="btn-logout">
 				<i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
-			</button>
+			</button>-->
 		</ul>
 	</nav>
 </template>
-<script>
+<!--<script>
 import Storage from "../utilities/Storage.js";
 export default {
 	name: "Sidebar",
@@ -122,4 +122,4 @@ export default {
 		},
 	},
 };
-</script>
+</script>-->

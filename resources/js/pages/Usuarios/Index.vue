@@ -4,7 +4,7 @@
       ><i class="fas fa-user me-2"></i>Registrar Usuario</router-link
     >
     <div class="table-responsive">
-      <table class="table table-bordered table-hover"> 
+      <table class="table table-bordered table-hover">
         <thead class="table-dark text-center">
           <tr>
             <th>Nombre Completo</th>
@@ -21,7 +21,22 @@
             <td>{{ user.email }}</td>
             <td>{{ user.telefono }}</td>
             <td>{{ user.rol.nombre }}</td>
-            <td>{{ user.estado_usuario }}</td>
+            <td v-if="user.estado_usuario == 1"
+              :class="[
+                'text-black',
+                user.estado_usuario == 1 ? 'text-success' : 'text-danger',
+              ]"
+            >
+              Activo
+            </td>
+            <td v-else
+              :class="[
+                'text-black',
+                user.estado_usuario == 1 ? 'text-success' : 'text-danger',
+              ]"
+            >
+              Inactivo
+            </td>
             <td class="text-center">
               <router-link
                 class="btn btn-sm btn-primary"
@@ -36,6 +51,7 @@
                 @click="eliminarUsuario(user, index)"
                 class="btn btn-sm btn-danger"
                 title="Inactivar"
+                v-if="user.estado_usuario == 1"
               >
                 <i class="fas fa-ban"></i>
               </button>
@@ -50,9 +66,6 @@
 export default {
   data() {
     return {
-      user: {
-        estado_usuario: null,
-      },
       users: [],
     };
   },
@@ -71,13 +84,13 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .put("/api/users/" + user.id)
+            .delete("/api/users/" + user.id)
             .then((response) => {
-              this.user.estado_usuario = "Inactivo";
+              this.users[index].estado_usuario = 0;
               this.users.indexOf(index, 1);
               this.$swal({
                 icon: "success",
-                title: "Usuario eliminado.",
+                title: "Usuario inactivado.",
               });
             })
             .catch((err) => {

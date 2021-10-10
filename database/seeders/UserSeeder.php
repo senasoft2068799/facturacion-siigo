@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $jp->email = "juanpismachado@gmail.com";
         $jp->telefono = "3227669359";
         $jp->password = Hash::make("12345678");
-        $jp->estado_usuario = "Activo";
+        $jp->estado_usuario = 1;
         $jp->role_id = 1;
         $jp->save();
     }
