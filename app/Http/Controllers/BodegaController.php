@@ -17,11 +17,13 @@ class BodegaController extends Controller
 
     public function store(Request $request)
     {
+        info($request);
         $request->validate([
             'nombre' => 'required|min:4|max:45',
             'direccion' => 'required|min:6|max:255',
             "sucursale_id" => "required|exists:sucursales,id",
-            "productos" => "array"
+            "productos" => "array",
+            "productos.*.id" => "required|exists:productos,id",
         ]);
 
         $bodega = Bodega::create($request->except('productos'));
@@ -30,7 +32,7 @@ class BodegaController extends Controller
 
     public function show(Bodega $bodega)
     {
-        return $bodega;
+        return new BodegaResource($bodega);
     }
 
     public function update(Request $request, Bodega $bodega)

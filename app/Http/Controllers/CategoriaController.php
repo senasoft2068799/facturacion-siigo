@@ -26,6 +26,10 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            "nombre" => "required|min:2|max:20",
+            "descripcion" => "required|min:10|max:255"
+        ]);
         Categoria::create($request->all());
     }
 
@@ -41,17 +45,6 @@ class CategoriaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Categoria  $categoria
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Categoria $categoria)
-    {
-        return $categoria;
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -60,6 +53,10 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
+        $request->validate([
+            "nombre" => "required|min:2|max:20",
+            "descripcion" => "required|min:10|max:255"
+        ]);
         $categoria->update($request->all());
     }
 

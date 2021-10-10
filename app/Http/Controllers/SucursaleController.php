@@ -34,6 +34,12 @@ class SucursaleController extends Controller
 
     public function update(Request $request, Sucursale $sucursale)
     {
+        $request->validate([
+            "nombre" => "required|min:2|max:45",
+            "direccion" => "required|min:6|max:255",
+            "telefono" => "required|numeric|digits_between:6,20",
+            "ciudade_id" => "required|exists:ciudades,id",
+        ]);
         $sucursale->update($request->all());
     }
 
