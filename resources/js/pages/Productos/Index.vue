@@ -74,16 +74,23 @@
 				</div>
 			</div>
 		</div>
-		<form class="form-inline my-2 my-lg-0">
-			<input
-				type="search"
-				class="form-control mr-sm-2 buscador"
-				placeholder="Buscar un producto"
-				aria-label="Search"
-				v-model="buscador"
-				@keyup="buscarProductos"
-			/>
-		</form>
+		<div class="box" style="float: right">
+			<input type="checkbox" id="check" />
+			<div class="search-box">
+				<form>
+					<input
+						type="text"
+						placeholder="Escribe el nombre del producto"
+						aria-label="Search"
+						v-model="buscador"
+						@keyup="buscarProductos"
+					/>
+					<label for="check" class="icon">
+						<i class="fas fa-search"></i>
+					</label>
+				</form>
+			</div>
+		</div>
 		<br /><br />
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover">
@@ -218,6 +225,7 @@ export default {
 				})
 				.then((response) => {
 					this.productos = response.data.data;
+					// console.log(response.data);
 				})
 				.catch((error) => {
 					console.log(error.response);

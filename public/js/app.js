@@ -3525,6 +3525,104 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -4798,6 +4896,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 //
 //
 //
@@ -4826,6 +4925,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+=======
+>>>>>>> cab117868a510ab5656bcf5647147d7291b39868
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5933,6 +6034,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/Usuarios/Index.vue */ "./resources/js/pages/Usuarios/Index.vue");
 /* harmony import */ var _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pages/Usuarios/Edit.vue */ "./resources/js/pages/Usuarios/Edit.vue");
 /* harmony import */ var _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/Usuarios/Create.vue */ "./resources/js/pages/Usuarios/Create.vue");
+/* harmony import */ var _pages_Index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/Index.vue */ "./resources/js/pages/Index.vue");
+
 
 
 
@@ -6165,6 +6268,11 @@ var routes = [//
   meta: {
     requiresAuth: true
   }
+}, {
+  name: "index",
+  path: "/index",
+  component: _pages_Index_vue__WEBPACK_IMPORTED_MODULE_26__["default"] //meta: { requiresAuth: true }
+
 }];
 
 /***/ }),
@@ -46533,6 +46641,43 @@ component.options.__file = "resources/js/pages/Facturas/Show.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/Index.vue":
+/*!**************************************!*\
+  !*** ./resources/js/pages/Index.vue ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=71c33819& */ "./resources/js/pages/Index.vue?vue&type=template&id=71c33819&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/Index.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/pages/Productos/Create.vue":
 /*!*************************************************!*\
   !*** ./resources/js/pages/Productos/Create.vue ***!
@@ -47796,6 +47941,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_template_id_921eb510___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Show_vue_vue_type_template_id_921eb510___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Show.vue?vue&type=template&id=921eb510& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Facturas/Show.vue?vue&type=template&id=921eb510&");
+
+
+/***/ }),
+
+/***/ "./resources/js/pages/Index.vue?vue&type=template&id=71c33819&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/pages/Index.vue?vue&type=template&id=71c33819& ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_71c33819___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=71c33819& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Index.vue?vue&type=template&id=71c33819&");
 
 
 /***/ }),
@@ -50267,97 +50429,162 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row row-cols-1 row-cols-md-3 g-4 mt-3" }, [
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card h-100 shadow-sm" }, [
-        _c("div", { staticClass: "card-body text-white bg-dark rounded" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer" },
-            [
+    _c("div", { staticClass: "contenedor" }, [
+      _c("input", { attrs: { type: "radio", name: "dot", id: "uno" } }),
+      _vm._v(" "),
+      _c("input", { attrs: { type: "radio", name: "dot", id: "dos" } }),
+      _vm._v(" "),
+      _c("div", { staticClass: "main-card" }, [
+        _c("div", { staticClass: "cards" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
               _c(
-                "router-link",
-                { attrs: { exact: "", to: { name: "bodegas.index" } } },
+                "div",
+                { staticClass: "buttonsCards" },
                 [
                   _c(
-                    "svg",
+                    "router-link",
                     {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "facturas.index" } }
                     },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n            Bodegas\n          ")
-                ]
+                    [_c("i", { staticClass: "fas fa-file-invoice" })]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card h-100 shadow-sm" }, [
-        _c("div", { staticClass: "card-body bg-light rounded" }, [
-          _vm._m(1),
+            ])
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer" },
-            [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
               _c(
-                "router-link",
-                { attrs: { exact: "", to: { name: "facturas.index" } } },
+                "div",
+                { staticClass: "buttonsCards" },
                 [
                   _c(
-                    "svg",
+                    "router-link",
                     {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "facturas.index" } }
                     },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n            Proveedores\n          ")
-                ]
+                    [_c("i", { staticClass: "fas fa-building" })]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col" }, [
-      _c("div", { staticClass: "card h-100 shadow-sm" }, [
-        _c("div", { staticClass: "card-body rounded" }, [
-          _vm._m(2),
+            ])
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-footer" },
-            [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
               _c(
-                "router-link",
-                { attrs: { exact: "", to: { name: "usuarios.index" } } },
+                "div",
+                { staticClass: "buttonsCards" },
                 [
                   _c(
-                    "svg",
+                    "router-link",
                     {
-                      staticClass: "bi me-2",
-                      attrs: { width: "5", height: "16" }
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "bodegas.index" } }
                     },
-                    [_c("use", { attrs: { "xlink:href": "#table" } })]
-                  ),
-                  _vm._v("\n            Clientes\n          ")
-                ]
+                    [_c("i", { staticClass: "fas fa-folder" })]
+                  )
+                ],
+                1
               )
-            ],
-            1
-          )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "cards" }, [
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "buttonsCards" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "productos.index" } }
+                    },
+                    [_c("i", { staticClass: "fas fa-tags" })]
+                  )
+                ],
+                1
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(8),
+              _vm._v(" "),
+              _vm._m(9),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "buttonsCards" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "roles.index" } }
+                    },
+                    [_c("i", { staticClass: "fas fa-user-friends" })]
+                  )
+                ],
+                1
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card" }, [
+            _c("div", { staticClass: "content" }, [
+              _vm._m(10),
+              _vm._v(" "),
+              _vm._m(11),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "buttonsCards" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "linksCards",
+                      attrs: { to: { name: "usuarios.index" } }
+                    },
+                    [_c("i", { staticClass: "fas fa-users" })]
+                  )
+                ],
+                1
+              )
+            ])
+          ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(12)
     ])
   ])
 }
@@ -50366,16 +50593,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("i", { staticClass: "fas fa-building fs-3 pt-3 ps-2" }),
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-file-invoice" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Facturas")]),
       _vm._v(" "),
-      _c("div", { staticClass: "ms-4" }, [
-        _c("h4", { staticClass: "card-title" }, [_vm._v("Bodegas")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v("\n              Cantidad de Bodegas: "),
-          _c("strong", { staticClass: "fs-5" }, [_vm._v("12000")])
-        ])
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Total de facturas 12000")
       ])
     ])
   },
@@ -50383,16 +50613,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("i", { staticClass: "fas fa-file fs-3 pt-3 ps-2" }),
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-building" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Sucursales")]),
       _vm._v(" "),
-      _c("div", { staticClass: "ms-4" }, [
-        _c("h4", { staticClass: "card-title" }, [_vm._v("Facturas")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v("\n              Cantidad de facturas: "),
-          _c("strong", { staticClass: "fs-5" }, [_vm._v("120000")])
-        ])
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de sucursales 12000")
       ])
     ])
   },
@@ -50400,17 +50633,90 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex" }, [
-      _c("i", { staticClass: "fas fa-user fs-3 pt-3 ps-2" }),
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-folder" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Bodegas")]),
       _vm._v(" "),
-      _c("div", { staticClass: "ms-4" }, [
-        _c("h4", { staticClass: "card-title" }, [_vm._v("Clientes")]),
-        _vm._v(" "),
-        _c("p", { staticClass: "card-text" }, [
-          _vm._v("\n              Cantidad de clientes: "),
-          _c("strong", { staticClass: "fs-5" }, [_vm._v("1000")])
-        ])
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de bodegas 12000")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-tags" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Productos")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de productos 12000")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-user-friends" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Roles")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de roles 3")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icono" }, [
+      _c("i", { staticClass: "fas fa-users" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "details" }, [
+      _c("div", { staticClass: "name" }, [_vm._v("Usuarios")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "descripcionC" }, [
+        _vm._v("Cantidad de usuarios 12000")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "botonDash" }, [
+      _c("label", { staticClass: "uno activo", attrs: { for: "uno" } }),
+      _vm._v(" "),
+      _c("label", { staticClass: "dos", attrs: { for: "dos" } })
     ])
   }
 ]
@@ -51676,6 +51982,375 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Index.vue?vue&type=template&id=71c33819&":
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Index.vue?vue&type=template&id=71c33819& ***!
+  \************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c(
+      "nav",
+      { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
+      [
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+            _vm._v("Logo")
+          ]),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "navbarSupportedContent" }
+            },
+            [
+              _c("ul", { staticClass: "navbar-nav ms-auto mb-2 mb-lg-0" }, [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link active",
+                        attrs: { exact: "", to: { name: "index" } }
+                      },
+                      [_vm._v("\n              Home\n            ")]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { exact: "", to: { name: "register" } }
+                      },
+                      [_vm._v("\n              Ingresa Aquí\n            ")]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _vm._m(3),
+    _vm._v(" "),
+    _vm._m(4)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-bs-toggle": "collapse",
+          "data-bs-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "carousel slide border",
+        attrs: { id: "carouselExampleCaptions", "data-bs-ride": "carousel" }
+      },
+      [
+        _c("div", { staticClass: "carousel-indicators" }, [
+          _c("button", {
+            staticClass: "active",
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide-to": "0",
+              "aria-current": "true",
+              "aria-label": "Slide 1"
+            }
+          }),
+          _vm._v(" "),
+          _c("button", {
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide-to": "1",
+              "aria-label": "Slide 2"
+            }
+          }),
+          _vm._v(" "),
+          _c("button", {
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide-to": "2",
+              "aria-label": "Slide 3"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "carousel-inner" }, [
+          _c("div", { staticClass: "carousel-item active" }, [
+            _c("div", { staticClass: "carousel-caption d-none d-md-block" }, [
+              _c("h5", [_vm._v("First slide label")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Some representative placeholder content for the first slide."
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "carousel-item" }, [
+            _c("div", { staticClass: "carousel-caption d-none d-md-block" }, [
+              _c("h5", [_vm._v("Second slide label")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Some representative placeholder content for the second slide."
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "carousel-item" }, [
+            _c("div", { staticClass: "carousel-caption d-none d-md-block" }, [
+              _c("h5", [_vm._v("Third slide label")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "Some representative placeholder content for the third slide."
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "carousel-control-prev",
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide": "prev"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-prev-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "visually-hidden" }, [_vm._v("Previous")])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "carousel-control-next",
+            attrs: {
+              type: "button",
+              "data-bs-target": "#carouselExampleCaptions",
+              "data-bs-slide": "next"
+            }
+          },
+          [
+            _c("span", {
+              staticClass: "carousel-control-next-icon",
+              attrs: { "aria-hidden": "true" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "visually-hidden" }, [_vm._v("Next")])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "container-fluid", attrs: { id: "ribbon" } },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "container w-50 px-5 rounded-lg",
+            attrs: { id: "slide" }
+          },
+          [
+            _c("div", { staticClass: "row align-items-center" }, [
+              _c("div", [_c("img", { staticClass: "w-75 mx-auto d-block" })]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm p-3 text-center" }, [
+                _c("h4", [_vm._v("Facturación Siigo")])
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "separator-ribbon" }, [
+      _c("div", { staticClass: "content bg-primary" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "seccion" } }, [
+      _c("div", { staticClass: "container-md p-5" }, [
+        _c("div", { staticClass: "row pt-5" }, [
+          _c("h3", { staticClass: "text-center py-5" }, [_vm._v("Servicios")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-sm" }, [
+            _c("div", { staticClass: "card w-100 card-border mb-5" }, [
+              _c("img", { staticClass: "card-img-top", attrs: { alt: "..." } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Compras")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "\n                Some quick example text to build on the card title and make up\n                the bulk of the card's content.\n              "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c("div", { staticClass: "card w-100 card-border mb-5" }, [
+              _c("img", { staticClass: "card-img-top", attrs: { alt: "..." } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [_vm._v("Ventas")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "\n                Some quick example text to build on the card title and make up\n                the bulk of the card's content.\n              "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm" }, [
+            _c("div", { staticClass: "card w-100 card-border mb-5" }, [
+              _c("img", { staticClass: "card-img-top", attrs: { alt: "..." } }),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("Proveedores")
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "card-text" }, [
+                  _vm._v(
+                    "\n                Some quick example text to build on the card title and make up\n                the bulk of the card's content.\n              "
+                  )
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-5", attrs: { id: "footer" } }, [
+          _c("div", { staticClass: "container w-50 pt-5" }, [
+            _c(
+              "div",
+              { staticClass: "row row-cols-md-2 justify-content-md-center" },
+              [
+                _c("div", { staticClass: "col text-center" }, [
+                  _c("a", [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "btn bnt-lg btn-primary rounded-pill w-100 shadow-sm fw-bold p-3"
+                      },
+                      [_vm._v("Encuentranos")]
+                    )
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "row justify-content-md-center py-4" }, [
+              _c("div", { staticClass: "col text-center" }, [
+                _c("p", [_vm._v("Empresa de facturación nacional")]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Telefóno: 456 34 23 ")]),
+                _vm._v(" "),
+                _c("p", [
+                  _vm._v("Ubicanos: Calle 26 # 57 -39 Bogotá, Colombia")
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v("@ 2021 Facturación Siigo")])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Productos/Create.vue?vue&type=template&id=558f0521&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Productos/Create.vue?vue&type=template&id=558f0521& ***!
@@ -52245,33 +52920,40 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.buscador,
-              expression: "buscador"
-            }
-          ],
-          staticClass: "form-control mr-sm-2 buscador",
-          attrs: {
-            type: "search",
-            placeholder: "Buscar un producto",
-            "aria-label": "Search"
-          },
-          domProps: { value: _vm.buscador },
-          on: {
-            keyup: _vm.buscarProductos,
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+      _c("div", { staticClass: "box", staticStyle: { float: "right" } }, [
+        _c("input", { attrs: { type: "checkbox", id: "check" } }),
+        _vm._v(" "),
+        _c("div", { staticClass: "search-box" }, [
+          _c("form", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.buscador,
+                  expression: "buscador"
+                }
+              ],
+              attrs: {
+                type: "text",
+                placeholder: "Escribe el nombre del producto",
+                "aria-label": "Search"
+              },
+              domProps: { value: _vm.buscador },
+              on: {
+                keyup: _vm.buscarProductos,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.buscador = $event.target.value
+                }
               }
-              _vm.buscador = $event.target.value
-            }
-          }
-        })
+            }),
+            _vm._v(" "),
+            _vm._m(2)
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c("br"),
@@ -52279,7 +52961,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c("table", { staticClass: "table table-bordered table-hover" }, [
-          _vm._m(2),
+          _vm._m(3),
           _vm._v(" "),
           _c(
             "tbody",
@@ -52385,6 +53067,14 @@ var staticRenderFns = [
         },
         [_vm._v("\n\t\t\t\t\t\tCerrar\n\t\t\t\t\t")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "icon", attrs: { for: "check" } }, [
+      _c("i", { staticClass: "fas fa-search" })
     ])
   },
   function() {
@@ -69153,7 +69843,7 @@ Vue.compile = compileToFunctions;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\xampp\\\\htdocs\\\\Mentorias PHP\\\\Facturacion Siigo\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp\\\\htdocs\\\\facturacion-siigo"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\xampp\\\\htdocs\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 
