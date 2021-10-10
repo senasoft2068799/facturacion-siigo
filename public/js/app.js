@@ -3041,13 +3041,18 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
 
-    //Mostrar lista de sucursales
-    this.axios.get("/api/sucursales").then(function (res) {
-      _this.sucursales = res.data.data;
-    }); //Mostrar datos de bodega según su id
-
+    //Mostrar datos de bodega según su id
     this.axios.get("/api/bodegas/" + this.$route.params.id).then(function (res) {
       _this.bodega = res.data.data;
+      _this.bodega.sucursale_id = _this.bodega.sucursal.id;
+    }); //Mostrar lista de sucursales
+
+    this.axios.get("/api/sucursales").then(function (res) {
+      _this.sucursales = res.data.data;
+    }); //Mostrar lista de productos
+
+    this.axios.get("/api/productos").then(function (res) {
+      _this.productos = res.data.data;
     });
   },
   methods: {
@@ -3075,6 +3080,15 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    agregarProducto: function agregarProducto() {
+      this.bodega.productos.splice(0, 0, this.producto);
+      this.producto = {
+        imagen: null
+      };
+    },
+    eliminarProducto: function eliminarProducto(index) {
+      this.bodega.productos.splice(index, 1);
     }
   }
 });
