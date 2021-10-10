@@ -30,14 +30,14 @@
               class="dropdown-menu dropdown-menu-end py-0"
               aria-labelledby="navbarDropdown"
             >
-              <p class="bg-primary text-center text-white fw-bold py-2">
+              <p id="menu-user" class="bg-primary text-white fw-bold">
                 Administrador
               </p>
-              <li class="text-center">
-                <span>
-                  <i class="fas fa-user mx-auto px-2"></i>Sebastián Alarcón
-                  <small class="d-block mx-auto">101920192</small>
-                </span>
+              <li>
+                <div class="d-flex">
+                  <i id="user" class="fas fa-user mx-3"></i>
+                  <small class="fw-bold">Sebastián Alarcón<br> 1291829</small>
+                </div>
               </li>
               <li v-if="currentUser.nombre != null">
                 <i class="fas fa-user"></i>
@@ -47,7 +47,7 @@
                   {{ currentUser.id }}
                 </p>
               </li>
-              <li><hr class="dropdown-divider" /></li>
+              <li class="mt-3"><hr class="dropdown-divider"/></li>
               <button @click="logout()" id="btn-logout">
                 <i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
               </button>

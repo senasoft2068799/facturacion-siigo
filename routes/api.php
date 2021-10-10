@@ -38,6 +38,7 @@ Route::middleware('api')->group(function () {
     // Route::get("permisos", [PermisoController::class, "index"]);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('users', UserController::class);
+    Route::put('users/{user}', [UserController::class, "activar"]);
     Route::get("ciudades", [CiudadeController::class, "index"]);
     Route::apiResource('sucursales', SucursaleController::class);
     Route::apiResource('documentos', DocumentoController::class);

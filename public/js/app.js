@@ -5942,12 +5942,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5962,8 +5956,36 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    eliminarUsuario: function eliminarUsuario(user, index) {
+    activarUsuario: function activarUsuario(user, index) {
       var _this2 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se activará el usuario: '" + user.nombre + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/api/users/" + user.id).then(function (response) {
+            _this2.users[index].estado_usuario = 1;
+
+            _this2.users.indexOf(index, 1);
+
+            _this2.$swal({
+              icon: "success",
+              title: "Usuario activado."
+            });
+          })["catch"](function (err) {
+            _this2.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    },
+    eliminarUsuario: function eliminarUsuario(user, index) {
+      var _this3 = this;
 
       this.$swal({
         title: "¿Estás seguro?",
@@ -5973,16 +5995,16 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/users/" + user.id).then(function (response) {
-            _this2.users[index].estado_usuario = 0;
+            _this3.users[index].estado_usuario = 0;
 
-            _this2.users.indexOf(index, 1);
+            _this3.users.indexOf(index, 1);
 
-            _this2.$swal({
+            _this3.$swal({
               icon: "success",
               title: "Usuario inactivado."
             });
           })["catch"](function (err) {
-            _this2.$swal({
+            _this3.$swal({
               icon: "error",
               title: "Ha ocurrido un error:\n" + err
             });
@@ -48407,8 +48429,8 @@ var render = function() {
                     _c(
                       "p",
                       {
-                        staticClass:
-                          "bg-primary text-center text-white fw-bold py-2"
+                        staticClass: "bg-primary text-white fw-bold",
+                        attrs: { id: "menu-user" }
                       },
                       [_vm._v("\n              Administrador\n            ")]
                     ),
@@ -48517,11 +48539,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "text-center" }, [
-      _c("span", [
-        _c("i", { staticClass: "fas fa-user mx-auto px-2" }),
-        _vm._v("Sebastián Alarcón\n                "),
-        _c("small", { staticClass: "d-block mx-auto" }, [_vm._v("101920192")])
+    return _c("li", [
+      _c("div", { staticClass: "d-flex" }, [
+        _c("i", { staticClass: "fas fa-user mx-3", attrs: { id: "user" } }),
+        _vm._v(" "),
+        _c("small", { staticClass: "fw-bold" }, [
+          _vm._v("Sebastián Alarcón"),
+          _c("br"),
+          _vm._v(" 1291829")
+        ])
       ])
     ])
   },
@@ -48529,7 +48555,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
+    return _c("li", { staticClass: "mt-3" }, [
+      _c("hr", { staticClass: "dropdown-divider" })
+    ])
   }
 ]
 render._withStripped = true
@@ -54447,11 +54475,9 @@ var render = function() {
                 _vm._v("Seleccionar...")
               ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "Activo" } }, [_vm._v("Activo")]),
+              _c("option", { attrs: { value: "1" } }, [_vm._v("Activo")]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "Inactivo" } }, [
-                _vm._v("Inactivo")
-              ])
+              _c("option", { attrs: { value: "0" } }, [_vm._v("Inactivo")])
             ]
           ),
           _vm._v(" "),
@@ -54553,30 +54579,12 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(user.rol.nombre))]),
                 _vm._v(" "),
                 user.estado_usuario == 1
-                  ? _c(
-                      "td",
-                      {
-                        class: [
-                          "text-black",
-                          user.estado_usuario == 1
-                            ? "text-success"
-                            : "text-danger"
-                        ]
-                      },
-                      [_vm._v("\n            Activo\n          ")]
-                    )
-                  : _c(
-                      "td",
-                      {
-                        class: [
-                          "text-black",
-                          user.estado_usuario == 1
-                            ? "text-success"
-                            : "text-danger"
-                        ]
-                      },
-                      [_vm._v("\n            Inactivo\n          ")]
-                    ),
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("Activo")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Inactivo")
+                    ]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -54610,6 +54618,22 @@ var render = function() {
                             }
                           },
                           [_c("i", { staticClass: "fas fa-ban" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    user.estado_usuario == 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success",
+                            attrs: { title: "Activar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.activarUsuario(user, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-check" })]
                         )
                       : _vm._e()
                   ],

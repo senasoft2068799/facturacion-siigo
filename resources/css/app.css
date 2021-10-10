@@ -59,17 +59,9 @@
     text-decoration: none;
 }
 
-/*#btn-logout {
-    border: 0;
-    margin: 1rem 0;
-    background-color: transparent;
-    color: rgba(255, 0, 0, 0.795);
-    font: 1.1rem bold;
-}*/
-
 #btn-logout{
     border: 0;
-    margin: .5rem;
+    margin: 0 0 .5rem .5rem;
     background-color: transparent;
     color: rgba(255, 0, 0, 0.795);
 }
@@ -97,6 +89,17 @@
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+#menu-user{
+    padding: .5rem 5rem .5rem 1rem;
+}
+
+#user{
+    font-size: 1.5rem;
+    color: white;
+    background-color: var(--main-text-color);
+    padding: .5rem .6rem 0 .6rem;
+    border-radius: 2.5rem;
+}
 /*FINALIZA NAVBAR*/
 
 /*INDEX*/
@@ -170,33 +173,16 @@
     transition: .9s;
 }
 
-.space {
-    margin: 0 1.5rem;
-}
-
 #designNavbar {
     padding: .750rem 0;
     color: var(--main-text-color);
     background-color: var(--second-bg-color);
 }
-
-@media(max-width:768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-    .navbar {
-        padding: .60rem;
-    }
-}
-
-@media screen and (max-width: 990px) {
-    .navbar {
-        padding: 1.050rem;
-    }
 } */
+
+.space {
+    margin: 0 1.5rem;
+}
 
 .contenedor
 {
@@ -413,3 +399,22 @@ input[type="radio"]
 }
 
 /*FIN DISEÑO BUSCADOR*/
+
+
+@media(max-width:768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    .navbar {
+        padding: .60rem;
+    }
+}
+
+@media screen and (max-width: 990px) {
+    .navbar {
+        padding: 1.050rem;
+    }
+}
