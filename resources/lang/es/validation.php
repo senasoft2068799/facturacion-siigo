@@ -131,14 +131,18 @@ return [
     */
 
     'attributes' => [
+        "telefono" => "teléfono",
+        "direccion" => "dirección",
+        "descripcion" => "descripción",
+        "categoria" => "categoría",
+        "imagen" => "imágen",
         "email" => "correo electrónico",
         "password" => "contraseña",
+        "password_confirmation" => "confirmar contraseña",
         "user_id" => "usuario",
         "sucursale_id" => "sucursal",
         "ciudade_id" => "ciudad",
         "bodega_id" => "bodega",
         "producto_id" => "producto",
-        "password_confirmation" => "confirmar contraseña",
-        "telefono" => "teléfono"
     ],
 ];
