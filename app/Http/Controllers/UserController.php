@@ -30,6 +30,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
+        $user->estado_usuario = 0;
+        $user->save();
     }
 }

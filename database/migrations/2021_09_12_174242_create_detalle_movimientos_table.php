@@ -25,6 +25,10 @@ class CreateDetalleMovimientosTable extends Migration
                 ->onDelete('cascade');
 
             $table->unsignedBigInteger("bodega_id");
+            $table->foreign("bodega_id")
+                ->references("id")->on("bodegas")
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
 
             $table->unsignedBigInteger("producto_id")->nullable();;
             $table->foreign("producto_id")
