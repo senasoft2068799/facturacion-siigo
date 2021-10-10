@@ -8,11 +8,6 @@
 			/>
 		</div>
 		<ul class="list-group list-group-flush">
-			<!--<li v-if="currentUser.nombre != null">
-				<p class="fs-6 fw-bold text-primary text-center mb-2 p-0">
-					{{ currentUser.nombre }} {{ currentUser.apellido }}
-				</p>
-			</li>-->
 			<li class="nav-item">
 				<router-link active-class="active" exact :to="{ name: 'dashboard' }">
 					<i class="fas fa-home"></i>
@@ -76,50 +71,11 @@
 					Usuarios
 				</router-link>
 			</li>
-			<!--<button @click="logout()" id="btn-logout">
-				<i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
-			</button>-->
 		</ul>
 	</nav>
 </template>
-<!--<script>
-import Storage from "../utilities/Storage.js";
+<script>
 export default {
 	name: "Sidebar",
-	data() {
-		return {
-			currentUser: {},
-			token: null,
-		};
-	},
-	mounted() {
-		if (Storage.has("token")) {
-			this.token = Storage.get("token", false);
-			window.axios.defaults.headers.common[
-				"Authorization"
-			] = `Bearer ${this.token}`;
-			axios
-				.get("/api/user")
-				.then((res) => {
-					this.currentUser = res.data;
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}
-	},
-	methods: {
-		logout() {
-			axios
-				.post("/api/logout")
-				.then((res) => {
-					Storage.remove("token");
-					this.$router.push("/login");
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		},
-	},
 };
-</script>-->
+</script>

@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid my-1">
       <button
@@ -57,74 +58,38 @@
       </div>
     </div>
   </nav>
+=======
+	<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid my-1">
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="fas fa-align-justify"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav ms-auto">
+					<Notifications />
+					<CurrentUser />
+				</ul>
+			</div>
+		</div>
+	</nav>
+>>>>>>> 2c47b74682ef3e36ca5aacac45aaf10fefc6881f
 </template>
 <script>
-import Storage from "../utilities/Storage.js";
 import Notifications from "./Notifications.vue";
+import CurrentUser from "./CurrentUser.vue";
 export default {
-  components: {
-    Notifications,
-  },
-  name: "Navbar",
-  data() {
-    return {
-      currentUser: {},
-      token: null,
-      notificaciones: [],
-    };
-  },
-  mounted() {
-    if (Storage.has("token")) {
-      this.token = Storage.get("token", false);
-      window.axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-      axios
-        .get("/api/user")
-        .then((res) => {
-          this.currentUser = res.data;
-          console.log("------");
-          console.log("Usuario actual:");
-          console.log(this.currentUser);
-          console.log("------");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  },
-  methods: {
-    logout() {
-      axios
-        .post("/api/logout")
-        .then((res) => {
-          Storage.remove("token");
-          this.$router.push("/login");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
+	components: {
+		Notifications,
+		CurrentUser,
+	},
+	name: "Navbar",
 };
 </script>
-<!--<script>
-import Notifications from "./Notifications.vue";
-export default {
-  name: "Navbar",
-  data() {
-    return {
-      notificaciones: [],
-    };
-  },
-  created() {
-    // window.user = @json(
-    // 	"user"=> auth()->user(),
-    // );
-    // this.notificaciones = window.user.user.notificaciones;
-  },
-  components: {
-    Notifications,
-  },
-};
-</script>-->

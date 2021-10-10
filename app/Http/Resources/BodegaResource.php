@@ -19,6 +19,7 @@ class BodegaResource extends JsonResource
             "nombre" => $this->nombre,
             "direccion" => $this->direccion,
             "sucursal" => $this->sucursale,
+            "productos" => $this->productos,
             "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at->diffForHumans(),
         ];

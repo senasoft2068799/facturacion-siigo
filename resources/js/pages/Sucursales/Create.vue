@@ -90,6 +90,7 @@ export default {
 			this.axios
 				.post("/api/sucursales", this.sucursal)
 				.then((response) => {
+					this.errors.clearAll();
 					this.$swal("Sucursal registrada correctamente.");
 					this.sucursal = {
 						nombre: null,
