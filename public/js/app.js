@@ -2143,6 +2143,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CurrentUser",
@@ -2743,7 +2744,7 @@ __webpack_require__.r(__webpack_exports__);
         telefono: null,
         password: null,
         password_confirmation: null,
-        estado_usuario: "Activo",
+        estado: 1,
         role_id: null
       },
       roles: [],
@@ -3317,8 +3318,8 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios.put("/api/bodegas/" + bodega.id).then(function (response) {
-            _this2.bodegas[index].estado_bodega = 1;
+          axios["delete"]("/api/bodegas/" + bodega.id).then(function (response) {
+            _this2.bodegas[index].estado = 1;
 
             _this2.bodegas.indexOf(index, 1);
 
@@ -3346,7 +3347,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/bodegas/" + bodega.id).then(function (response) {
-            _this3.bodegas[index].estado_bodega = 0;
+            _this3.bodegas[index].estado = 0;
 
             _this3.bodegas.indexOf(index, 1);
 
@@ -3669,8 +3670,8 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios.put("/api/categorias/" + categoria.id).then(function (response) {
-            _this2.categorias[index].estado_categoria = 1;
+          axios["delete"]("/api/categorias/" + categoria.id).then(function (response) {
+            _this2.categorias[index].estado = 1;
 
             _this2.categorias.indexOf(index, 1);
 
@@ -3698,7 +3699,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/categorias/" + categoria.id).then(function (response) {
-            _this3.categorias[index].estado_categoria = 0;
+            _this3.categorias[index].estado = 0;
 
             _this3.categorias.indexOf(index, 1);
 
@@ -4554,7 +4555,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/facturas/" + factura.id).then(function (response) {
-            _this2.facturas[index].estado_factura = 0;
+            _this2.facturas[index].estado = 0;
 
             _this2.facturas.indexOf(index, 1);
 
@@ -5492,8 +5493,8 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios.put("/api/productos/" + producto.id).then(function (response) {
-            _this3.productos[index].estado_producto = 1;
+          axios["delete"]("/api/productos/" + producto.id).then(function (response) {
+            _this3.productos[index].estado = 1;
 
             _this3.productos.indexOf(index, 1);
 
@@ -5521,7 +5522,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/productos/" + producto.id).then(function (response) {
-            _this4.productos[index].estado_producto = 0;
+            _this4.productos[index].estado = 0;
 
             _this4.productos.indexOf(index, 1);
 
@@ -5816,8 +5817,8 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios.put("/api/roles/" + rol.id).then(function (response) {
-            _this2.roles[index].estado_role = 1;
+          axios["delete"]("/api/roles/" + rol.id).then(function (response) {
+            _this2.roles[index].estado = 1;
 
             _this2.roles.indexOf(index, 1);
 
@@ -5845,7 +5846,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/roles/" + rol.id).then(function (response) {
-            _this3.roles[index].estado_role = 0;
+            _this3.roles[index].estado = 0;
 
             _this3.roles.indexOf(index, 0);
 
@@ -5855,6 +5856,96 @@ __webpack_require__.r(__webpack_exports__);
             });
           })["catch"](function (err) {
             _this3.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Stocks/Index.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Stocks/Index.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      stocks: []
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    this.axios.get("/api/stocks").then(function (response) {
+      _this.stocks = response.data.data;
+    });
+  },
+  methods: {
+    agregar: function agregar(stock, index) {
+      var _this2 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se agregará: '" + stock.cantidad + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/api/stocks/" + stock.id).then(function (response) {
+            _this2.stocks[index].cantidad++;
+
+            _this2.stocks.indexOf(index, 1);
+
+            _this2.$swal({
+              icon: "success",
+              title: "Usuario activado."
+            });
+          })["catch"](function (err) {
+            _this2.$swal({
               icon: "error",
               title: "Ha ocurrido un error:\n" + err
             });
@@ -6236,8 +6327,8 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios.put("/api/sucursales/" + sucursal.id).then(function (response) {
-            _this2.sucursales[index].estado_sucursale = 1;
+          axios["delete"]("/api/sucursales/" + sucursal.id).then(function (response) {
+            _this2.sucursales[index].estado = 1;
 
             _this2.sucursales.indexOf(index, 1);
 
@@ -6265,7 +6356,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/sucursales/" + sucursal.id).then(function (response) {
-            _this3.sucursales[index].estado_sucursale = 0;
+            _this3.sucursales[index].estado = 0;
 
             _this3.sucursales.indexOf(index, 1);
 
@@ -6525,8 +6616,8 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios.put("/api/users/" + user.id).then(function (response) {
-            _this2.users[index].estado_usuario = 1;
+          axios["delete"]("/api/users/" + user.id).then(function (response) {
+            _this2.users[index].estado = 1;
 
             _this2.users.indexOf(index, 1);
 
@@ -6554,7 +6645,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/users/" + user.id).then(function (response) {
-            _this3.users[index].estado_usuario = 0;
+            _this3.users[index].estado = 0;
 
             _this3.users.indexOf(index, 1);
 
@@ -6746,7 +6837,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Usuarios_Index_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pages/Usuarios/Index.vue */ "./resources/js/pages/Usuarios/Index.vue");
 /* harmony import */ var _pages_Usuarios_Edit_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./pages/Usuarios/Edit.vue */ "./resources/js/pages/Usuarios/Edit.vue");
 /* harmony import */ var _pages_Usuarios_Create_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pages/Usuarios/Create.vue */ "./resources/js/pages/Usuarios/Create.vue");
-/* harmony import */ var _pages_Index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/Index.vue */ "./resources/js/pages/Index.vue");
+/* harmony import */ var _pages_Stocks_Index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pages/Stocks/Index.vue */ "./resources/js/pages/Stocks/Index.vue");
+/* harmony import */ var _pages_Index_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./pages/Index.vue */ "./resources/js/pages/Index.vue");
+
 
 
 
@@ -6981,9 +7074,19 @@ var routes = [//
     requiresAuth: true
   }
 }, {
+  name: "stocks.index",
+  path: "/stocks",
+  component: _pages_Stocks_Index_vue__WEBPACK_IMPORTED_MODULE_26__["default"],
+  meta: {
+    requiresAuth: true
+  }
+}, //
+// Index
+//
+{
   name: "index",
   path: "/index",
-  component: _pages_Index_vue__WEBPACK_IMPORTED_MODULE_26__["default"] //meta: { requiresAuth: true }
+  component: _pages_Index_vue__WEBPACK_IMPORTED_MODULE_27__["default"] //meta: { requiresAuth: true }
 
 }];
 
@@ -47699,6 +47802,45 @@ component.options.__file = "resources/js/pages/Roles/Show.vue"
 
 /***/ }),
 
+/***/ "./resources/js/pages/Stocks/Index.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/pages/Stocks/Index.vue ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Index_vue_vue_type_template_id_4b662a49___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Index.vue?vue&type=template&id=4b662a49& */ "./resources/js/pages/Stocks/Index.vue?vue&type=template&id=4b662a49&");
+/* harmony import */ var _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Index.vue?vue&type=script&lang=js& */ "./resources/js/pages/Stocks/Index.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Index_vue_vue_type_template_id_4b662a49___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Index_vue_vue_type_template_id_4b662a49___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/Stocks/Index.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/pages/Sucursales/Create.vue":
 /*!**************************************************!*\
   !*** ./resources/js/pages/Sucursales/Create.vue ***!
@@ -48344,6 +48486,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/Stocks/Index.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/pages/Stocks/Index.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Stocks/Index.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/pages/Sucursales/Create.vue?vue&type=script&lang=js&":
 /*!***************************************************************************!*\
   !*** ./resources/js/pages/Sucursales/Create.vue?vue&type=script&lang=js& ***!
@@ -48866,6 +49024,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/Stocks/Index.vue?vue&type=template&id=4b662a49&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/pages/Stocks/Index.vue?vue&type=template&id=4b662a49& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_4b662a49___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_4b662a49___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Index_vue_vue_type_template_id_4b662a49___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Index.vue?vue&type=template&id=4b662a49& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Stocks/Index.vue?vue&type=template&id=4b662a49&");
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/Sucursales/Create.vue?vue&type=template&id=54064664&":
 /*!*********************************************************************************!*\
   !*** ./resources/js/pages/Sucursales/Create.vue?vue&type=template&id=54064664& ***!
@@ -49042,33 +49217,31 @@ var render = function() {
       [
         _c(
           "p",
-          { staticClass: "bg-primary text-center text-white fw-bold py-2" },
-          [_vm._v("\n\t\t\t" + _vm._s(_vm.currentUser.rol) + "\n\t\t")]
+          {
+            staticClass: "bg-primary text-white fw-bold",
+            attrs: { id: "menu-user" }
+          },
+          [_vm._v("\n      " + _vm._s(_vm.currentUser.rol) + "\n    ")]
         ),
         _vm._v(" "),
         _vm.currentUser.nombre != null
           ? _c("li", [
-              _c("i", { staticClass: "fas fa-user" }),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass: "fs-6 fw-bold text-primary text-center mb-2 p-0"
-                },
-                [
+              _c("div", { staticClass: "d-flex" }, [
+                _c("i", {
+                  staticClass: "fas fa-user mx-3",
+                  attrs: { id: "user" }
+                }),
+                _vm._v(" "),
+                _c("small", { staticClass: "fw-bold" }, [
                   _vm._v(
-                    "\n\t\t\t\t" +
-                      _vm._s(_vm.currentUser.nombre) +
+                    _vm._s(_vm.currentUser.nombre) +
                       " " +
-                      _vm._s(_vm.currentUser.apellido) +
-                      "\n\t\t\t\t"
+                      _vm._s(_vm.currentUser.apellido)
                   ),
                   _c("br"),
-                  _vm._v(
-                    "\n\t\t\t\t" + _vm._s(_vm.currentUser.email) + "\n\t\t\t"
-                  )
-                ]
-              )
+                  _vm._v("\n          " + _vm._s(_vm.currentUser.id))
+                ])
+              ])
             ])
           : _vm._e(),
         _vm._v(" "),
@@ -49086,7 +49259,7 @@ var render = function() {
           },
           [
             _c("i", { staticClass: "fas fa-sign-out-alt me-2" }, [
-              _vm._v("Cerrar sesión")
+              _vm._v(" Cerrar sesión ")
             ])
           ]
         )
@@ -49099,7 +49272,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [_c("hr", { staticClass: "dropdown-divider" })])
+    return _c("li", { staticClass: "mt-3" }, [
+      _c("hr", { staticClass: "dropdown-divider" })
+    ])
   }
 ]
 render._withStripped = true
@@ -50998,7 +51173,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(bodega.sucursal.nombre))]),
                 _vm._v(" "),
-                bodega.estado_bodega == 1
+                bodega.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("Activo")
                     ])
@@ -51044,7 +51219,7 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    bodega.estado_bodega == 1
+                    bodega.estado == 1
                       ? _c(
                           "button",
                           {
@@ -51060,7 +51235,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    bodega.estado_bodega == 0
+                    bodega.estado == 0
                       ? _c(
                           "button",
                           {
@@ -51101,7 +51276,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Sucursal")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estado Bodega")]),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -51444,7 +51619,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(categoria.descripcion))]),
                 _vm._v(" "),
-                categoria.estado_categoria == 1
+                categoria.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("Activo")
                     ])
@@ -51475,7 +51650,7 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    categoria.estado_categoria == 1
+                    categoria.estado == 1
                       ? _c(
                           "button",
                           {
@@ -51491,7 +51666,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    categoria.estado_categoria == 0
+                    categoria.estado == 0
                       ? _c(
                           "button",
                           {
@@ -51530,7 +51705,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Descripción")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estado Categoría")]),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -52739,7 +52914,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                factura.estado_factura == 1
+                factura.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("Finalizado")
                     ])
@@ -54144,7 +54319,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.categoria.nombre))]),
                 _vm._v(" "),
-                producto.estado_producto == 1
+                producto.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("\n\t\t\t\t\t\tActivo\n\t\t\t\t\t")
                     ])
@@ -54174,7 +54349,7 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    producto.estado_producto == 1
+                    producto.estado == 1
                       ? _c(
                           "button",
                           {
@@ -54190,7 +54365,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    producto.estado_producto == 0
+                    producto.estado == 0
                       ? _c(
                           "button",
                           {
@@ -54511,7 +54686,7 @@ var render = function() {
               return _c("tr", { key: index }, [
                 _c("td", [_vm._v(_vm._s(rol.nombre))]),
                 _vm._v(" "),
-                rol.estado_role == 1
+                rol.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("Activo")
                     ])
@@ -54542,7 +54717,7 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    rol.estado_role == 1
+                    rol.estado == 1
                       ? _c(
                           "button",
                           {
@@ -54558,7 +54733,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    rol.estado_role == 0
+                    rol.estado == 0
                       ? _c(
                           "button",
                           {
@@ -54595,11 +54770,89 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombre de rol")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Estado Rol")]),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de modificación")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Funciones")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Stocks/Index.vue?vue&type=template&id=4b662a49&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/pages/Stocks/Index.vue?vue&type=template&id=4b662a49& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "table-responsive" }, [
+      _c("table", { staticClass: "table table-bordered table-hover" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(_vm.stocks, function(stock, index) {
+            return _c("tr", { key: index }, [
+              _c("td", [_vm._v(_vm._s(stock.cantidad))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(stock.bodega.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(stock.producto.id))]),
+              _vm._v(" "),
+              _c("td", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-sm btn-success",
+                    attrs: { title: "Activar" },
+                    on: {
+                      click: function($event) {
+                        return _vm.agregar(stock, index)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-check" })]
+                )
+              ])
+            ])
+          }),
+          0
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "table-dark text-center" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Cantidad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Bodega")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Producto")]),
         _vm._v(" "),
         _c("th", [_vm._v("Funciones")])
       ])
@@ -55150,7 +55403,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(sucursal.ciudad.nombre))]),
                 _vm._v(" "),
-                sucursal.estado_sucursale == 1
+                sucursal.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("Activo")
                     ])
@@ -55181,7 +55434,7 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    sucursal.estado_sucursale == 1
+                    sucursal.estado == 1
                       ? _c(
                           "button",
                           {
@@ -55197,7 +55450,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    sucursal.estado_sucursale == 0
+                    sucursal.estado == 0
                       ? _c(
                           "button",
                           {
@@ -55676,7 +55929,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(user.rol.nombre))]),
                 _vm._v(" "),
-                user.estado_usuario == 1
+                user.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("Activo")
                     ])
@@ -55703,7 +55956,7 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    user.estado_usuario == 1
+                    user.estado == 1
                       ? _c(
                           "button",
                           {
@@ -55719,7 +55972,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    user.estado_usuario == 0
+                    user.estado == 0
                       ? _c(
                           "button",
                           {
@@ -71156,7 +71409,7 @@ Vue.compile = compileToFunctions;
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('{"_from":"axios@^0.21","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"axios@^0.21","name":"axios","escapedName":"axios","rawSpec":"^0.21","saveSpec":null,"fetchSpec":"^0.21"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_shasum":"c67b90dc0568e5c1cf2b0b858c43ba28e2eda575","_spec":"axios@^0.21","_where":"C:\\\\xampp\\\\htdocs\\\\Mentorias PHP\\\\Facturacion Siigo\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundleDependencies":false,"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"deprecated":false,"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
+module.exports = JSON.parse('{"_args":[["axios@0.21.4","C:\\\\xampp\\\\htdocs\\\\backup\\\\facturacion-siigo"]],"_development":true,"_from":"axios@0.21.4","_id":"axios@0.21.4","_inBundle":false,"_integrity":"sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==","_location":"/axios","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"axios@0.21.4","name":"axios","escapedName":"axios","rawSpec":"0.21.4","saveSpec":null,"fetchSpec":"0.21.4"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/axios/-/axios-0.21.4.tgz","_spec":"0.21.4","_where":"C:\\\\xampp\\\\htdocs\\\\backup\\\\facturacion-siigo","author":{"name":"Matt Zabriskie"},"browser":{"./lib/adapters/http.js":"./lib/adapters/xhr.js"},"bugs":{"url":"https://github.com/axios/axios/issues"},"bundlesize":[{"path":"./dist/axios.min.js","threshold":"5kB"}],"dependencies":{"follow-redirects":"^1.14.0"},"description":"Promise based HTTP client for the browser and node.js","devDependencies":{"coveralls":"^3.0.0","es6-promise":"^4.2.4","grunt":"^1.3.0","grunt-banner":"^0.6.0","grunt-cli":"^1.2.0","grunt-contrib-clean":"^1.1.0","grunt-contrib-watch":"^1.0.0","grunt-eslint":"^23.0.0","grunt-karma":"^4.0.0","grunt-mocha-test":"^0.13.3","grunt-ts":"^6.0.0-beta.19","grunt-webpack":"^4.0.2","istanbul-instrumenter-loader":"^1.0.0","jasmine-core":"^2.4.1","karma":"^6.3.2","karma-chrome-launcher":"^3.1.0","karma-firefox-launcher":"^2.1.0","karma-jasmine":"^1.1.1","karma-jasmine-ajax":"^0.1.13","karma-safari-launcher":"^1.0.0","karma-sauce-launcher":"^4.3.6","karma-sinon":"^1.0.5","karma-sourcemap-loader":"^0.3.8","karma-webpack":"^4.0.2","load-grunt-tasks":"^3.5.2","minimist":"^1.2.0","mocha":"^8.2.1","sinon":"^4.5.0","terser-webpack-plugin":"^4.2.3","typescript":"^4.0.5","url-search-params":"^0.10.0","webpack":"^4.44.2","webpack-dev-server":"^3.11.0"},"homepage":"https://axios-http.com","jsdelivr":"dist/axios.min.js","keywords":["xhr","http","ajax","promise","node"],"license":"MIT","main":"index.js","name":"axios","repository":{"type":"git","url":"git+https://github.com/axios/axios.git"},"scripts":{"build":"NODE_ENV=production grunt build","coveralls":"cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js","examples":"node ./examples/server.js","fix":"eslint --fix lib/**/*.js","postversion":"git push && git push --tags","preversion":"npm test","start":"node ./sandbox/server.js","test":"grunt test","version":"npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json"},"typings":"./index.d.ts","unpkg":"dist/axios.min.js","version":"0.21.4"}');
 
 /***/ })
 

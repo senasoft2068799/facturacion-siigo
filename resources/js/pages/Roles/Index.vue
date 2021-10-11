@@ -8,7 +8,7 @@
         <thead class="table-dark text-center">
           <tr>
             <th>Nombre de rol</th>
-            <th>Estado Rol</th>
+            <th>Estado</th>
             <th>Fecha de creación</th>
             <th>Fecha de modificación</th>
             <th>Funciones</th>
@@ -17,7 +17,7 @@
         <tbody>
           <tr v-for="(rol, index) in roles" :key="index">
             <td>{{ rol.nombre }}</td>
-            <td v-if="rol.estado_role == 1" class="text-success">Activo</td>
+            <td v-if="rol.estado == 1" class="text-success">Activo</td>
             <td v-else class="text-danger">Inactivo</td>
             <td>{{ rol.created_at }}</td>
             <td>{{ rol.updated_at }}</td>
@@ -35,7 +35,7 @@
                 @click="eliminarRol(rol, index)"
                 class="btn btn-sm btn-danger"
                 title="Inactivar"
-                v-if="rol.estado_role == 1"
+                v-if="rol.estado == 1"
               >
                 <i class="fas fa-ban"></i>
               </button>
@@ -43,7 +43,7 @@
                 @click="activarRol(rol, index)"
                 class="btn btn-sm btn-success"
                 title="Activar"
-                v-if="rol.estado_role == 0"
+                v-if="rol.estado == 0"
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -76,9 +76,9 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .put("/api/roles/" + rol.id)
+            .delete("/api/roles/" + rol.id)
             .then((response) => {
-              this.roles[index].estado_role = 1;
+              this.roles[index].estado = 1;
               this.roles.indexOf(index, 1);
               this.$swal({
                 icon: "success",
@@ -105,7 +105,7 @@ export default {
           axios
             .delete("/api/roles/" + rol.id)
             .then((response) => {
-              this.roles[index].estado_role = 0;
+              this.roles[index].estado = 0;
               this.roles.indexOf(index, 0);
               this.$swal({
                 icon: "success",

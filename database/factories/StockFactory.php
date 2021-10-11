@@ -2,18 +2,19 @@
 
 namespace Database\Factories;
 
+use App\Models\Stock;
 use App\Models\Bodega;
-use App\Models\Sucursale;
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BodegaFactory extends Factory
+class StockFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Bodega::class;
+    protected $model = Stock::class;
 
     /**
      * Define the model's default state.
@@ -23,10 +24,9 @@ class BodegaFactory extends Factory
     public function definition()
     {
         return [
-            "nombre" => $this->faker->company(),
-            "direccion" => $this->faker->streetName(),
-            'estado' => $this->faker->randomElement([0,1]),
-            "sucursale_id" => Sucursale::inRandomOrder()->first()->id,
+            "cantidad" => $this->faker->randomNumber(),
+            "bodega_id" => Bodega::inRandomOrder()->first()->id,
+            "producto_id" => Producto::inRandomOrder()->first()->id
         ];
     }
 }

@@ -116,7 +116,7 @@
 							/></a>
 						</td>
 						<td>{{ producto.categoria.nombre }}</td>
-						<td v-if="producto.estado_producto == 1" class="text-success">
+						<td v-if="producto.estado == 1" class="text-success">
 							Activo
 						</td>
 						<td v-else class="text-danger">Inactivo</td>
@@ -136,7 +136,7 @@
 								@click="eliminarProducto(producto, index)"
 								class="btn btn-sm btn-danger"
 								title="Inactivar"
-								v-if="producto.estado_producto == 1"
+								v-if="producto.estado == 1"
 							>
 								<i class="fas fa-ban"></i>
 							</button>
@@ -144,7 +144,7 @@
 								@click="activarProducto(producto, index)"
 								class="btn btn-sm btn-success"
 								title="Activar"
-								v-if="producto.estado_producto == 0"
+								v-if="producto.estado == 0"
 							>
 								<i class="fas fa-check"></i>
 							</button>
@@ -220,9 +220,9 @@ export default {
 			}).then((result) => {
 				if (result.value) {
 					axios
-						.put("/api/productos/" + producto.id)
+						.delete("/api/productos/" + producto.id)
 						.then((response) => {
-							this.productos[index].estado_producto = 1;
+							this.productos[index].estado = 1;
 							this.productos.indexOf(index, 1);
 							this.$swal({
 								icon: "success",
@@ -249,7 +249,7 @@ export default {
 					axios
 						.delete("/api/productos/" + producto.id)
 						.then((response) => {
-							this.productos[index].estado_producto = 0;
+							this.productos[index].estado = 0;
 							this.productos.indexOf(index, 1);
 							this.$swal({
 								icon: "success",

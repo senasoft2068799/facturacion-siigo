@@ -23,7 +23,8 @@ import ProductosCreate from "./pages/Productos/Create.vue";
 import ProductosEdit from "./pages/Productos/Edit.vue";
 import UsuariosIndex from "./pages/Usuarios/Index.vue";
 import UsuariosEdit from "./pages/Usuarios/Edit.vue";
-import UsuariosCreate from "./pages/Usuarios/Create.vue"
+import UsuariosCreate from "./pages/Usuarios/Create.vue";
+import StocksIndex from "./pages/Stocks/Index.vue";
 import Index from "./pages/Index.vue";
 
 export const routes = [
@@ -209,6 +210,15 @@ export const routes = [
         component: UsuariosEdit,
         meta: { requiresAuth: true }
     },
+    {
+        name: "stocks.index",
+        path: "/stocks",
+        component: StocksIndex,
+        meta: { requiresAuth: true }
+    },
+    //
+    // Index
+    //
     {
         name: "index",
         path: "/index",

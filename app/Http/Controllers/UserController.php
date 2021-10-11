@@ -30,13 +30,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->estado_usuario = 0;
-        $user->save();
-    }
-
-    public function activar(User $user)
-    {
-        $user->estado_usuario = 1;
+        $user->estado = !$user->estado;
         $user->save();
     }
 }

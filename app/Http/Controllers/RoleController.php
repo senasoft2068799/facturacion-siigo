@@ -34,15 +34,9 @@ class RoleController extends Controller
         $role->update($request->all());
     }
 
-    public function activar(Role $role)
-    {
-        $role->estado_role = 1;
-        $role->save();
-    }
-
     public function destroy(Role $role)
     {
-        $role->estado_role = 0;
+        $role->estado = !$role->estado;
         $role->save();
     }
 }

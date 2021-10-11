@@ -12,6 +12,7 @@ use App\Http\Controllers\FacturaController;
 use App\Http\Controllers\MovimientoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,13 +39,6 @@ Route::middleware('api')->group(function () {
     // Route::get("permisos", [PermisoController::class, "index"]);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('users', UserController::class);
-    Route::put('users/{user}', [UserController::class, "activar"]);
-    Route::put('bodegas/{bodega}', [BodegaController::class, "activar"]);
-    Route::put('categorias/{categoria}', [CategoriaController::class, "activar"]);
-    Route::put('facturas/{factura}', [FacturaController::class, "activar"]);
-    Route::put('productos/{producto}', [ProductoController::class, "activar"]);
-    Route::put('roles/{role}', [RoleController::class, "activar"]);
-    Route::put('sucursales/{sucursale}', [SucursaleController::class, "activar"]);
     Route::get("ciudades", [CiudadeController::class, "index"]);
     Route::apiResource('sucursales', SucursaleController::class);
     Route::apiResource('documentos', DocumentoController::class);
@@ -52,6 +46,7 @@ Route::middleware('api')->group(function () {
     Route::apiResource('facturas', FacturaController::class);
     Route::apiResource('movimientos', MovimientoController::class);
     Route::apiResource('detalle-movimientos', DetalleMovimientoController::class);
+    Route::apiResource('stocks', StockController::class);
     Route::post("detalle-facturas", [DetalleFacturaController::class, "store"]);
     Route::put("detalle-facturas/{detalle_movimiento}", [DetalleFacturaController::class, "update"]);
     Route::apiResource('categorias', CategoriaController::class);
@@ -59,7 +54,6 @@ Route::middleware('api')->group(function () {
     Route::get('download-csv-file', [ProductoController::class, "downloadTemplate"]);
     Route::post("import-excel-productos", [ProductoController::class, "importExcel"]);
     Route::get("producto", [ProductoController::class, "traerProductos"]);
-    // Route::apiResource('ciudades', CiudadeController::class);
     Route::get("unread-notifications", [AuthController::class, "unreadNotifications"]);
     Route::get("mark-as-read", [AuthController::class, "markAsRead"]);
 });

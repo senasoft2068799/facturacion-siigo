@@ -90,7 +90,7 @@
             <td>{{ factura.sucursal.nombre }}</td>
             <td>{{ factura.user.nombre }} {{ factura.user.apellido }}</td>
             <td>{{ formatters.formatCurrency(factura.valor_total) }}</td>
-            <td v-if="factura.estado_factura == 1" class="text-success">Finalizado</td>
+            <td v-if="factura.estado == 1" class="text-success">Finalizado</td>
             <td v-else class="text-danger">Borrador</td>
             <td>{{ factura.created_at }}</td>
             <td>{{ factura.updated_at }}</td>
@@ -153,7 +153,7 @@ export default {
           axios
             .delete("/api/facturas/" + factura.id)
             .then((response) => {
-              this.facturas[index].estado_factura = 0;
+              this.facturas[index].estado = 0;
               this.facturas.indexOf(index, 1);
               this.$swal({
                 icon: "success",

@@ -31,9 +31,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string("telefono", 20);
             $table->string('password');
+            $table->tinyInteger("estado");
             $table->rememberToken();
             $table->timestamps();
-            $table->tinyInteger("estado_usuario");
         });
     }
 

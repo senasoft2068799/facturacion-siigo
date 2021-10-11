@@ -21,7 +21,7 @@ class ProductoResource extends JsonResource
             "precio_unitario" => $this->precio_unitario,
             "imagen" => $this->imagen,
             "categoria" => $this->categoria,
-            "estado_producto" => $this->estado_producto,
+            "estado" => $this->estado,
             "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at->diffForHumans()
         ];
