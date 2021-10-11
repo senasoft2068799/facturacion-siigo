@@ -21,7 +21,7 @@ class ProductoController extends Controller
     {
         $fecha = now();
         $datosProducto = $request->all();
-        if($request->hasFile('imagen')){
+        if ($request->hasFile('imagen')) {
             $datosProducto['imagen'] = $request->file('imagen')->store('public/imagenes');
         }
         $datosProducto['created_at'] = $fecha;
@@ -50,7 +50,7 @@ class ProductoController extends Controller
         $producto->nombre = $request->nombre;
         $producto->precio_unitario = $request->precio_unitario;
         $producto->categoria_id = $request->categoria_id;
-        if($request->hasFile('imagen')){
+        if ($request->hasFile('imagen')) {
             $datosImagen = $request->file('imagen')->store('public/imagenes');
             $url = Storage::url($datosImagen);
             $producto->imagen = $url;
@@ -62,6 +62,16 @@ class ProductoController extends Controller
     public function destroy(Producto $producto)
     {
         $producto->delete();
+    }
+
+    public function downloadTemplate()
+    {
+        $file = public_path() . "/files/template.csv";
+        info($file);
+        $headers = [
+            'Content-Type' => "data:text/csv;charset=utf-8",
+        ];
+        return response()->download($file, 'filename.csv', $headers);
     }
 
     public function importExcel(Request $request)
@@ -80,6 +90,6 @@ class ProductoController extends Controller
     public function traerProductos(Request $request)
     {
         $filtro = $request->buscador;
-        return ProductoResource::collection(Producto::where("nombre", 'LIKE', '%'.$filtro.'%')->get());
+        return ProductoResource::collection(Producto::where("nombre", 'LIKE', '%' . $filtro . '%')->get());
     }
 }

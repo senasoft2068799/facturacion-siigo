@@ -2356,6 +2356,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Notifications",
@@ -5315,10 +5323,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5340,6 +5344,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    downloadTemplate: function downloadTemplate() {
+      this.axios.get("/api/download-csv-file").then(function (response) {
+        var blob = new Blob([response.data], {
+          type: "data:text/csv;charset=utf-8,%EF%BB%BF"
+        });
+        var link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "plantilla.csv";
+        link.click();
+      });
+    },
     obtener_archivo: function obtener_archivo() {
       this.file = this.$refs.file.files[0];
     },
@@ -49067,7 +49082,25 @@ var render = function() {
         attrs: { "aria-labelledby": "notificaciones" }
       },
       [
-        _vm._m(0),
+        _c("li", [
+          _c("div", [
+            _c("h6", { staticClass: "dropdown-header text-left" }, [
+              _vm._v("\n\t\t\t\t\tNotificaciones"),
+              _c(
+                "a",
+                {
+                  staticClass: "text-right",
+                  on: {
+                    click: function($event) {
+                      return _vm.markAsRead()
+                    }
+                  }
+                },
+                [_vm._v("Marcar todo como leído")]
+              )
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _vm.unreadNotifications.length > 0
           ? _c(
@@ -49080,20 +49113,12 @@ var render = function() {
               }),
               1
             )
-          : _c("div", [_vm._m(1)])
+          : _c("div", [_vm._m(0)])
       ]
     )
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("h6", { staticClass: "dropdown-header" }, [_vm._v("Notificaciones")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -53729,7 +53754,20 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "modal-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    on: {
+                      click: function($event) {
+                        return _vm.downloadTemplate()
+                      }
+                    }
+                  },
+                  [_vm._v("\n\t\t\t\t\t\tDescargar plantilla\n\t\t\t\t\t")]
+                )
+              ])
             ])
           ])
         ]
@@ -53766,7 +53804,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(1)
           ])
         ])
       ]),
@@ -53776,7 +53814,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c("table", { staticClass: "table table-bordered table-hover" }, [
-          _vm._m(3),
+          _vm._m(2),
           _vm._v(" "),
           _c(
             "tbody",
@@ -53867,21 +53905,6 @@ var staticRenderFns = [
           "aria-label": "Close"
         }
       })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary",
-          attrs: { type: "button", "data-bs-dismiss": "modal" }
-        },
-        [_vm._v("\n\t\t\t\t\t\tCerrar\n\t\t\t\t\t")]
-      )
     ])
   },
   function() {

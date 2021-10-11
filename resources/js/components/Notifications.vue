@@ -25,7 +25,15 @@
 			class="dropdown-menu dropdown-menu-end"
 			aria-labelledby="notificaciones"
 		>
-			<li><h6 class="dropdown-header">Notificaciones</h6></li>
+			<li>
+				<div>
+					<h6 class="dropdown-header text-left">
+						Notificaciones<a @click="markAsRead()" class="text-right"
+							>Marcar todo como leído</a
+						>
+					</h6>
+				</div>
+			</li>
 			<div v-if="unreadNotifications.length > 0">
 				<NotificationItem
 					v-for="item in unreadNotifications"

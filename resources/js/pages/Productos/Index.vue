@@ -63,12 +63,8 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button
-							type="button"
-							class="btn btn-secondary"
-							data-bs-dismiss="modal"
-						>
-							Cerrar
+						<button class="btn btn-success" @click="downloadTemplate()">
+							Descargar plantilla
 						</button>
 					</div>
 				</div>
@@ -165,6 +161,17 @@ export default {
 		}
 	},
 	methods: {
+		downloadTemplate() {
+			this.axios.get("/api/download-csv-file").then((response) => {
+				let blob = new Blob([response.data], {
+					type: "data:text/csv;charset=utf-8,%EF%BB%BF",
+				});
+				let link = document.createElement("a");
+				link.href = window.URL.createObjectURL(blob);
+				link.download = "plantilla.csv";
+				link.click();
+			});
+		},
 		obtener_archivo() {
 			this.file = this.$refs.file.files[0];
 		},
