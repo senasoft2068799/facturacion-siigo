@@ -3281,6 +3281,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3295,25 +3307,55 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    eliminarBodega: function eliminarBodega(bodega, index) {
+    activarBodega: function activarBodega(bodega, index) {
       var _this2 = this;
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la bodega: '" + bodega.nombre + "'",
+        text: "Se activará la bodega: '" + bodega.nombre + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/api/bodegas/" + bodega.id).then(function (response) {
+            _this2.bodegas[index].estado_bodega = 1;
+
+            _this2.bodegas.indexOf(index, 1);
+
+            _this2.$swal({
+              icon: "success",
+              title: "Bodega activada."
+            });
+          })["catch"](function (err) {
+            _this2.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    },
+    eliminarBodega: function eliminarBodega(bodega, index) {
+      var _this3 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se inactivará la bodega: '" + bodega.nombre + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/bodegas/" + bodega.id).then(function (response) {
-            _this2.bodegas.splice(index, 1);
+            _this3.bodegas[index].estado_bodega = 0;
 
-            _this2.$swal({
+            _this3.bodegas.indexOf(index, 1);
+
+            _this3.$swal({
               icon: "success",
-              title: "Bodega eliminada."
+              title: "Bodega inactivada."
             });
           })["catch"](function (err) {
-            _this2.$swal({
+            _this3.$swal({
               icon: "error",
               title: "Ha ocurrido un error:\n" + err
             });
@@ -3591,6 +3633,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -3605,25 +3659,55 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    eliminarcategoria: function eliminarcategoria(categoria, index) {
+    activarCategoria: function activarCategoria(categoria, index) {
       var _this2 = this;
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la categoria: '" + categoria.nombre + "'",
+        text: "Se activará la categoría: '" + categoria.nombre + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/api/categorias/" + categoria.id).then(function (response) {
+            _this2.categorias[index].estado_categoria = 1;
+
+            _this2.categorias.indexOf(index, 1);
+
+            _this2.$swal({
+              icon: "success",
+              title: "Categoría activada."
+            });
+          })["catch"](function (err) {
+            _this2.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    },
+    eliminarCategoria: function eliminarCategoria(categoria, index) {
+      var _this3 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se inactivará la categoría: '" + categoria.nombre + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/categorias/" + categoria.id).then(function (response) {
-            _this2.categorias.splice(index, 1);
+            _this3.categorias[index].estado_categoria = 0;
 
-            _this2.$swal({
+            _this3.categorias.indexOf(index, 1);
+
+            _this3.$swal({
               icon: "success",
-              title: "categoria eliminada."
+              title: "Categoría inactivada."
             });
           })["catch"](function (err) {
-            _this2.$swal({
+            _this3.$swal({
               icon: "error",
               title: "Ha ocurrido un error:\n" + err
             });
@@ -4440,6 +4524,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -4461,17 +4548,19 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la factura con código: " + factura.id,
+        text: "Se inactivará la factura con código: " + factura.id,
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/facturas/" + factura.id).then(function (response) {
-            _this2.facturas.splice(index, 1);
+            _this2.facturas[index].estado_factura = 0;
+
+            _this2.facturas.indexOf(index, 1);
 
             _this2.$swal({
               icon: "success",
-              title: "Factura eliminada."
+              title: "Factura inactivada."
             });
           })["catch"](function (err) {
             _this2.$swal({
@@ -5323,6 +5412,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5344,6 +5447,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    obtener_archivo: function obtener_archivo() {
+      this.file = this.$refs.file.files[0];
+    },
     downloadTemplate: function downloadTemplate() {
       this.axios.get("/api/download-csv-file").then(function (response) {
         var blob = new Blob([response.data], {
@@ -5354,9 +5460,6 @@ __webpack_require__.r(__webpack_exports__);
         link.download = "plantilla.csv";
         link.click();
       });
-    },
-    obtener_archivo: function obtener_archivo() {
-      this.file = this.$refs.file.files[0];
     },
     eventoSubir: function eventoSubir() {
       var _this2 = this;
@@ -5379,22 +5482,24 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     },
-    eliminarproducto: function eliminarproducto(producto, index) {
+    activarProducto: function activarProducto(producto, index) {
       var _this3 = this;
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará el producto: '" + producto.nombre + "'",
+        text: "Se activará el producto: '" + producto.nombre + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios["delete"]("/api/productos/" + producto.id).then(function (response) {
-            _this3.productos.splice(index, 1);
+          axios.put("/api/productos/" + producto.id).then(function (response) {
+            _this3.productos[index].estado_producto = 1;
+
+            _this3.productos.indexOf(index, 1);
 
             _this3.$swal({
               icon: "success",
-              title: "Producto eliminado."
+              title: "Producto activado."
             });
           })["catch"](function (err) {
             _this3.$swal({
@@ -5405,15 +5510,43 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    traerProductos: function traerProductos() {
+    eliminarProducto: function eliminarProducto(producto, index) {
       var _this4 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se inactivará el producto: '" + producto.nombre + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/api/productos/" + producto.id).then(function (response) {
+            _this4.productos[index].estado_producto = 0;
+
+            _this4.productos.indexOf(index, 1);
+
+            _this4.$swal({
+              icon: "success",
+              title: "Producto inactivado."
+            });
+          })["catch"](function (err) {
+            _this4.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    },
+    traerProductos: function traerProductos() {
+      var _this5 = this;
 
       axios.get("/api/producto", {
         params: {
           buscador: this.buscador
         }
       }).then(function (response) {
-        _this4.productos = response.data.data; // console.log(response.data);
+        _this5.productos = response.data.data; // console.log(response.data);
       })["catch"](function (error) {
         console.log(error.response);
       });
@@ -5647,6 +5780,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5661,25 +5806,55 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    eliminarRol: function eliminarRol(rol, index) {
+    activarRol: function activarRol(rol, index) {
       var _this2 = this;
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará el rol: '" + rol.nombre + "'",
+        text: "Se activará el rol: '" + rol.nombre + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/api/roles/" + rol.id).then(function (response) {
+            _this2.roles[index].estado_role = 1;
+
+            _this2.roles.indexOf(index, 1);
+
+            _this2.$swal({
+              icon: "success",
+              title: "Rol activado."
+            });
+          })["catch"](function (err) {
+            _this2.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    },
+    eliminarRol: function eliminarRol(rol, index) {
+      var _this3 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se inactivará el rol: '" + rol.nombre + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/roles/" + rol.id).then(function (response) {
-            _this2.roles.splice(index, 1);
+            _this3.roles[index].estado_role = 0;
 
-            _this2.$swal({
+            _this3.roles.indexOf(index, 0);
+
+            _this3.$swal({
               icon: "success",
-              title: "Rol eliminado."
+              title: "Rol inactivado."
             });
           })["catch"](function (err) {
-            _this2.$swal({
+            _this3.$swal({
               icon: "error",
               title: "Ha ocurrido un error:\n" + err
             });
@@ -6025,6 +6200,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6039,25 +6226,55 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    eliminarSucursal: function eliminarSucursal(sucursal, index) {
+    activarSucursal: function activarSucursal(sucursal, index) {
       var _this2 = this;
 
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la sucursal: '" + sucursal.nombre + "'",
+        text: "Se activará la sucursal: '" + sucursal.nombre + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/api/sucursales/" + sucursal.id).then(function (response) {
+            _this2.sucursales[index].estado_sucursale = 1;
+
+            _this2.sucursales.indexOf(index, 1);
+
+            _this2.$swal({
+              icon: "success",
+              title: "Sucursal activada."
+            });
+          })["catch"](function (err) {
+            _this2.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    },
+    eliminarSucursal: function eliminarSucursal(sucursal, index) {
+      var _this3 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se inactivará la sucursal: '" + sucursal.nombre + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/sucursales/" + sucursal.id).then(function (response) {
-            _this2.sucursales.splice(index, 1);
+            _this3.sucursales[index].estado_sucursale = 0;
 
-            _this2.$swal({
+            _this3.sucursales.indexOf(index, 1);
+
+            _this3.$swal({
               icon: "success",
-              title: "Sucursal eliminada."
+              title: "Sucursal inactivada."
             });
           })["catch"](function (err) {
-            _this2.$swal({
+            _this3.$swal({
               icon: "error",
               title: "Ha ocurrido un error:\n" + err
             });
@@ -6284,12 +6501,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6304,8 +6515,36 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    eliminarUsuario: function eliminarUsuario(user, index) {
+    activarUsuario: function activarUsuario(user, index) {
       var _this2 = this;
+
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se activará el usuario: '" + user.nombre + "'",
+        icon: "warning",
+        showCancelButton: true
+      }).then(function (result) {
+        if (result.value) {
+          axios.put("/api/users/" + user.id).then(function (response) {
+            _this2.users[index].estado_usuario = 1;
+
+            _this2.users.indexOf(index, 1);
+
+            _this2.$swal({
+              icon: "success",
+              title: "Usuario activado."
+            });
+          })["catch"](function (err) {
+            _this2.$swal({
+              icon: "error",
+              title: "Ha ocurrido un error:\n" + err
+            });
+          });
+        }
+      });
+    },
+    eliminarUsuario: function eliminarUsuario(user, index) {
+      var _this3 = this;
 
       this.$swal({
         title: "¿Estás seguro?",
@@ -6315,16 +6554,16 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           axios["delete"]("/api/users/" + user.id).then(function (response) {
-            _this2.users[index].estado_usuario = 0;
+            _this3.users[index].estado_usuario = 0;
 
-            _this2.users.indexOf(index, 1);
+            _this3.users.indexOf(index, 1);
 
-            _this2.$swal({
+            _this3.$swal({
               icon: "success",
               title: "Usuario inactivado."
             });
           })["catch"](function (err) {
-            _this2.$swal({
+            _this3.$swal({
               icon: "error",
               title: "Ha ocurrido un error:\n" + err
             });
@@ -50759,6 +50998,14 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(bodega.sucursal.nombre))]),
                 _vm._v(" "),
+                bodega.estado_bodega == 1
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("Activo")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Inactivo")
+                    ]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(bodega.created_at))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(bodega.updated_at))]),
@@ -50797,19 +51044,37 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-danger",
-                        attrs: { title: "Inactivar" },
-                        on: {
-                          click: function($event) {
-                            return _vm.eliminarBodega(bodega, index)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-ban" })]
-                    )
+                    bodega.estado_bodega == 1
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-danger",
+                            attrs: { title: "Inactivar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarBodega(bodega, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-ban" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    bodega.estado_bodega == 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success",
+                            attrs: { title: "Activar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.activarBodega(bodega, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-check" })]
+                        )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -50835,6 +51100,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Dirección")]),
         _vm._v(" "),
         _c("th", [_vm._v("Sucursal")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado Bodega")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -51152,7 +51419,7 @@ var render = function() {
           staticClass: "btn btn-primary mb-3",
           attrs: { to: { name: "categorias.create" } }
         },
-        [_vm._v("Registrar categoria")]
+        [_vm._v("Registrar categoría")]
       ),
       _vm._v(" "),
       _c(
@@ -51177,6 +51444,14 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(categoria.descripcion))]),
                 _vm._v(" "),
+                categoria.estado_categoria == 1
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("Activo")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Inactivo")
+                    ]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(categoria.created_at))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(categoria.updated_at))]),
@@ -51200,19 +51475,37 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { title: "Inactivar" },
-                        on: {
-                          click: function($event) {
-                            return _vm.eliminarcategoria(categoria, index)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-ban" })]
-                    )
+                    categoria.estado_categoria == 1
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-danger",
+                            attrs: { title: "Inactivar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarCategoria(categoria, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-ban" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    categoria.estado_categoria == 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success",
+                            attrs: { title: "Activar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.activarCategoria(categoria, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-check" })]
+                        )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -51236,6 +51529,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Descripción")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado Categoría")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -52419,9 +52714,9 @@ var render = function() {
                       factura.descripcion.length > 20
                         ? _c("p", [
                             _vm._v(
-                              "\n\t\t\t\t\t\t\t\t" +
+                              "\n                " +
                                 _vm._s(factura.descripcion.substring(0, 20)) +
-                                "...\n\t\t\t\t\t\t\t"
+                                "...\n              "
                             )
                           ])
                         : _c("p", [_vm._v(_vm._s(factura.descripcion))])
@@ -52443,6 +52738,14 @@ var render = function() {
                     _vm._s(_vm.formatters.formatCurrency(factura.valor_total))
                   )
                 ]),
+                _vm._v(" "),
+                factura.estado_factura == 1
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("Finalizado")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Borrador")
+                    ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(factura.created_at))]),
                 _vm._v(" "),
@@ -52524,6 +52827,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Cliente")]),
         _vm._v(" "),
         _c("th", [_vm._v("Valor + IVA")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -53839,6 +54144,14 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.categoria.nombre))]),
                 _vm._v(" "),
+                producto.estado_producto == 1
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("\n\t\t\t\t\t\tActivo\n\t\t\t\t\t")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Inactivo")
+                    ]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.created_at))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(producto.updated_at))]),
@@ -53861,19 +54174,37 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { title: "Eliminar" },
-                        on: {
-                          click: function($event) {
-                            return _vm.eliminarproducto(producto, index)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-trash" })]
-                    )
+                    producto.estado_producto == 1
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-danger",
+                            attrs: { title: "Inactivar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarProducto(producto, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-ban" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    producto.estado_producto == 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success",
+                            attrs: { title: "Activar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.activarProducto(producto, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-check" })]
+                        )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -53928,6 +54259,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Imagen del producto")]),
         _vm._v(" "),
         _c("th", [_vm._v("Categoria")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -54178,6 +54511,14 @@ var render = function() {
               return _c("tr", { key: index }, [
                 _c("td", [_vm._v(_vm._s(rol.nombre))]),
                 _vm._v(" "),
+                rol.estado_role == 1
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("Activo")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Inactivo")
+                    ]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(rol.created_at))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(rol.updated_at))]),
@@ -54201,19 +54542,37 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-danger",
-                        attrs: { title: "Inactivar" },
-                        on: {
-                          click: function($event) {
-                            return _vm.eliminarRol(rol, index)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-ban" })]
-                    )
+                    rol.estado_role == 1
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-danger",
+                            attrs: { title: "Inactivar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarRol(rol, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-ban" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    rol.estado_role == 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success",
+                            attrs: { title: "Activar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.activarRol(rol, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-check" })]
+                        )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -54235,6 +54594,8 @@ var staticRenderFns = [
     return _c("thead", { staticClass: "table-dark text-center" }, [
       _c("tr", [
         _c("th", [_vm._v("Nombre de rol")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado Rol")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -54789,6 +55150,14 @@ var render = function() {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(sucursal.ciudad.nombre))]),
                 _vm._v(" "),
+                sucursal.estado_sucursale == 1
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("Activo")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Inactivo")
+                    ]),
+                _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(sucursal.created_at))]),
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(sucursal.updated_at))]),
@@ -54812,19 +55181,37 @@ var render = function() {
                       [_c("i", { staticClass: "fas fa-pencil-alt" })]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm btn-danger",
-                        attrs: { title: "Inactivar" },
-                        on: {
-                          click: function($event) {
-                            return _vm.eliminarSucursal(sucursal, index)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-ban" })]
-                    )
+                    sucursal.estado_sucursale == 1
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-danger",
+                            attrs: { title: "Inactivar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.eliminarSucursal(sucursal, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-ban" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    sucursal.estado_sucursale == 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success",
+                            attrs: { title: "Activar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.activarSucursal(sucursal, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-check" })]
+                        )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -54852,6 +55239,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Teléfono")]),
         _vm._v(" "),
         _c("th", [_vm._v("Ciudad")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
@@ -55184,11 +55573,9 @@ var render = function() {
                 _vm._v("Seleccionar...")
               ]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "Activo" } }, [_vm._v("Activo")]),
+              _c("option", { attrs: { value: "1" } }, [_vm._v("Activo")]),
               _vm._v(" "),
-              _c("option", { attrs: { value: "Inactivo" } }, [
-                _vm._v("Inactivo")
-              ])
+              _c("option", { attrs: { value: "0" } }, [_vm._v("Inactivo")])
             ]
           ),
           _vm._v(" "),
@@ -55290,30 +55677,12 @@ var render = function() {
                 _c("td", [_vm._v(_vm._s(user.rol.nombre))]),
                 _vm._v(" "),
                 user.estado_usuario == 1
-                  ? _c(
-                      "td",
-                      {
-                        class: [
-                          "text-black",
-                          user.estado_usuario == 1
-                            ? "text-success"
-                            : "text-danger"
-                        ]
-                      },
-                      [_vm._v("\n            Activo\n          ")]
-                    )
-                  : _c(
-                      "td",
-                      {
-                        class: [
-                          "text-black",
-                          user.estado_usuario == 1
-                            ? "text-success"
-                            : "text-danger"
-                        ]
-                      },
-                      [_vm._v("\n            Inactivo\n          ")]
-                    ),
+                  ? _c("td", { staticClass: "text-success" }, [
+                      _vm._v("Activo")
+                    ])
+                  : _c("td", { staticClass: "text-danger" }, [
+                      _vm._v("Inactivo")
+                    ]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -55347,6 +55716,22 @@ var render = function() {
                             }
                           },
                           [_c("i", { staticClass: "fas fa-ban" })]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    user.estado_usuario == 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-success",
+                            attrs: { title: "Activar" },
+                            on: {
+                              click: function($event) {
+                                return _vm.activarUsuario(user, index)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-check" })]
                         )
                       : _vm._e()
                   ],

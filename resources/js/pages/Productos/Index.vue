@@ -96,6 +96,7 @@
 						<th>Precio unitario</th>
 						<th>Imagen del producto</th>
 						<th>Categoria</th>
+						<th>Estado</th>
 						<th>Fecha de creación</th>
 						<th>Fecha de modificación</th>
 						<th>Funciones</th>
@@ -115,6 +116,10 @@
 							/></a>
 						</td>
 						<td>{{ producto.categoria.nombre }}</td>
+						<td v-if="producto.estado_producto == 1" class="text-success">
+							Activo
+						</td>
+						<td v-else class="text-danger">Inactivo</td>
 						<td>{{ producto.created_at }}</td>
 						<td>{{ producto.updated_at }}</td>
 						<td>
@@ -128,11 +133,20 @@
 								><i class="fas fa-pencil-alt"></i>
 							</router-link>
 							<button
-								@click="eliminarproducto(producto, index)"
-								class="btn btn-danger btn-sm"
-								title="Eliminar"
+								@click="eliminarProducto(producto, index)"
+								class="btn btn-sm btn-danger"
+								title="Inactivar"
+								v-if="producto.estado_producto == 1"
 							>
-								<i class="fas fa-trash"></i>
+								<i class="fas fa-ban"></i>
+							</button>
+							<button
+								@click="activarProducto(producto, index)"
+								class="btn btn-sm btn-success"
+								title="Activar"
+								v-if="producto.estado_producto == 0"
+							>
+								<i class="fas fa-check"></i>
 							</button>
 						</td>
 					</tr>
@@ -161,6 +175,9 @@ export default {
 		}
 	},
 	methods: {
+		obtener_archivo() {
+			this.file = this.$refs.file.files[0];
+		},
 		downloadTemplate() {
 			this.axios.get("/api/download-csv-file").then((response) => {
 				let blob = new Blob([response.data], {
@@ -171,9 +188,6 @@ export default {
 				link.download = "plantilla.csv";
 				link.click();
 			});
-		},
-		obtener_archivo() {
-			this.file = this.$refs.file.files[0];
 		},
 		eventoSubir() {
 			let formData = new FormData();
@@ -197,10 +211,37 @@ export default {
 					});
 				});
 		},
-		eliminarproducto(producto, index) {
+		activarProducto(producto, index) {
 			this.$swal({
 				title: "¿Estás seguro?",
-				text: "Se eliminará el producto: '" + producto.nombre + "'",
+				text: "Se activará el producto: '" + producto.nombre + "'",
+				icon: "warning",
+				showCancelButton: true,
+			}).then((result) => {
+				if (result.value) {
+					axios
+						.put("/api/productos/" + producto.id)
+						.then((response) => {
+							this.productos[index].estado_producto = 1;
+							this.productos.indexOf(index, 1);
+							this.$swal({
+								icon: "success",
+								title: "Producto activado.",
+							});
+						})
+						.catch((err) => {
+							this.$swal({
+								icon: "error",
+								title: "Ha ocurrido un error:\n" + err,
+							});
+						});
+				}
+			});
+		},
+		eliminarProducto(producto, index) {
+			this.$swal({
+				title: "¿Estás seguro?",
+				text: "Se inactivará el producto: '" + producto.nombre + "'",
 				icon: "warning",
 				showCancelButton: true,
 			}).then((result) => {
@@ -208,10 +249,11 @@ export default {
 					axios
 						.delete("/api/productos/" + producto.id)
 						.then((response) => {
-							this.productos.splice(index, 1);
+							this.productos[index].estado_producto = 0;
+							this.productos.indexOf(index, 1);
 							this.$swal({
 								icon: "success",
-								title: "Producto eliminado.",
+								title: "Producto inactivado.",
 							});
 						})
 						.catch((err) => {

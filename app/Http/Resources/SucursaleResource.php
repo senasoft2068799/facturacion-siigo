@@ -14,6 +14,7 @@ class SucursaleResource extends JsonResource
             "direccion" => $this->direccion,
             "telefono" => $this->telefono,
             "ciudad" => $this->ciudade,
+            "estado_sucursale" => $this->estado_sucursale, 
             "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at->diffForHumans(),
         ];

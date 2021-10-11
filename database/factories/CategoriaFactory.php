@@ -23,7 +23,8 @@ class CategoriaFactory extends Factory
     {
         return [
             "nombre" => $this->faker->sentence(2, false),
-            "descripcion" => $this->faker->sentence(5, false)
+            "descripcion" => $this->faker->sentence(5, false),
+            "estado_categoria" => $this->faker->randomElement([0, 1])
         ];
     }
 }

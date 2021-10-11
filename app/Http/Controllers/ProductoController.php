@@ -59,9 +59,16 @@ class ProductoController extends Controller
         $producto->save();
     }
 
+    public function activar(Producto $producto)
+    {
+        $producto->estado_producto = 1; 
+        $producto->save();
+    }
+
     public function destroy(Producto $producto)
     {
-        $producto->delete();
+        $producto->estado_producto = 0; 
+        $producto->save(); 
     }
 
     public function downloadTemplate()

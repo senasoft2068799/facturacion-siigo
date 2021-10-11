@@ -47,8 +47,15 @@ class BodegaController extends Controller
         $bodega->productos()->sync(array_column($request->productos, "id"));
     }
 
+    public function activar(Bodega $bodega)
+    {
+        $bodega->estado_bodega = 1;
+        $bodega->save();
+    }
+
     public function destroy(Bodega $bodega)
     {
-        $bodega->delete();
+        $bodega->estado_bodega = 0;
+        $bodega->save();
     }
 }

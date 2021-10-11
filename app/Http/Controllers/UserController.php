@@ -33,4 +33,10 @@ class UserController extends Controller
         $user->estado_usuario = 0;
         $user->save();
     }
+
+    public function activar(User $user)
+    {
+        $user->estado_usuario = 1;
+        $user->save();
+    }
 }

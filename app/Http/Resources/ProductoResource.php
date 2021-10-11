@@ -16,11 +16,12 @@ class ProductoResource extends JsonResource
     public function toArray($request)
     {
         return[
-            "id" => $this->id,
+            "id" => $this->id, 
             "nombre" => $this->nombre,
             "precio_unitario" => $this->precio_unitario,
             "imagen" => $this->imagen,
             "categoria" => $this->categoria,
+            "estado_producto" => $this->estado_producto,
             "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at->diffForHumans()
         ];
