@@ -36,10 +36,7 @@ class CreateMovimientosTable extends Migration
                 ->references("id")->on("users")
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-            $table->enum("estado", [
-                1, // Borrador
-                2, // Finalizado
-            ]);
+            $table->tinyInteger("estado_factura");
             $table->timestamps();
         });
     }

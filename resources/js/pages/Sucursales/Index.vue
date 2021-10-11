@@ -13,6 +13,7 @@
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Ciudad</th>
+            <th>Estado</th>
             <th>Fecha de creación</th>
             <th>Fecha de modificación</th>
             <th>Funciones</th>
@@ -24,6 +25,8 @@
             <td>{{ sucursal.direccion }}</td>
             <td>{{ sucursal.telefono }}</td>
             <td>{{ sucursal.ciudad.nombre }}</td>
+            <td v-if="sucursal.estado_sucursale == 1" class="text-success">Activo</td>
+            <td v-else class="text-danger">Inactivo</td>
             <td>{{ sucursal.created_at }}</td>
             <td>{{ sucursal.updated_at }}</td>
             <td class="text-center">
@@ -40,8 +43,17 @@
                 @click="eliminarSucursal(sucursal, index)"
                 class="btn btn-sm btn-danger"
                 title="Inactivar"
+                v-if="sucursal.estado_sucursale == 1"
               >
                 <i class="fas fa-ban"></i>
+              </button>
+              <button
+                @click="activarSucursal(sucursal, index)"
+                class="btn btn-sm btn-success"
+                title="Activar"
+                v-if="sucursal.estado_sucursale == 0"
+              >
+                <i class="fas fa-check"></i>
               </button>
             </td>
           </tr>
@@ -63,10 +75,37 @@ export default {
     });
   },
   methods: {
+    activarSucursal(sucursal, index) {
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se activará la sucursal: '" + sucursal.nombre + "'",
+        icon: "warning",
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .put("/api/sucursales/" + sucursal.id)
+            .then((response) => {
+              this.sucursales[index].estado_sucursale = 1;
+              this.sucursales.indexOf(index, 1);
+              this.$swal({
+                icon: "success",
+                title: "Sucursal activada.",
+              });
+            })
+            .catch((err) => {
+              this.$swal({
+                icon: "error",
+                title: "Ha ocurrido un error:\n" + err,
+              });
+            });
+        }
+      });
+    },
     eliminarSucursal(sucursal, index) {
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la sucursal: '" + sucursal.nombre + "'",
+        text: "Se inactivará la sucursal: '" + sucursal.nombre + "'",
         icon: "warning",
         showCancelButton: true,
       }).then((result) => {
@@ -74,10 +113,11 @@ export default {
           axios
             .delete("/api/sucursales/" + sucursal.id)
             .then((response) => {
-              this.sucursales.splice(index, 1);
+              this.sucursales[index].estado_sucursale = 0;
+              this.sucursales.indexOf(index, 1);
               this.$swal({
                 icon: "success",
-                title: "Sucursal eliminada.",
+                title: "Sucursal inactivada.",
               });
             })
             .catch((err) => {

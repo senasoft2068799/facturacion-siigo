@@ -39,6 +39,12 @@ Route::middleware('api')->group(function () {
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('users', UserController::class);
     Route::put('users/{user}', [UserController::class, "activar"]);
+    Route::put('bodegas/{bodega}', [BodegaController::class, "activar"]);
+    Route::put('categorias/{categoria}', [CategoriaController::class, "activar"]);
+    Route::put('facturas/{factura}', [FacturaController::class, "activar"]);
+    Route::put('productos/{producto}', [ProductoController::class, "activar"]);
+    Route::put('roles/{role}', [RoleController::class, "activar"]);
+    Route::put('sucursales/{sucursale}', [SucursaleController::class, "activar"]);
     Route::get("ciudades", [CiudadeController::class, "index"]);
     Route::apiResource('sucursales', SucursaleController::class);
     Route::apiResource('documentos', DocumentoController::class);
