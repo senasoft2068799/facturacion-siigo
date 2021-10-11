@@ -65,8 +65,15 @@ class FacturaController extends Controller
         //
     }
 
+    public function activar(Movimiento $factura)
+    {
+        $factura->estado_factura = 1;
+        $factura->save(); 
+    }
+
     public function destroy(Movimiento $factura)
     {
-        $factura->delete();
+        $factura->estado_factura = 0;
+        $factura->save(); 
     }
 }

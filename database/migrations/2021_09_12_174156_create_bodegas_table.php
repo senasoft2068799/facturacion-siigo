@@ -17,6 +17,7 @@ class CreateBodegasTable extends Migration
             $table->id();
             $table->string("nombre", 45);
             $table->string("direccion");
+            $table->tinyInteger("estado_bodega");
             $table->unsignedBigInteger("sucursale_id")->nullable();
             $table->foreign("sucursale_id")
                 ->references("id")->on("sucursales")

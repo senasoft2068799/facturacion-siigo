@@ -14,7 +14,7 @@
             <th>Estado</th>
             <th>Funciones</th>
           </tr>
-        </thead>
+        </thead> 
         <tbody>
           <tr v-for="(user, index) in users" :key="index">
             <td>{{ user.nombre }} {{ user.apellido }}</td>
