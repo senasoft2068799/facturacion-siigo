@@ -38,6 +38,7 @@
 						></button>
 					</div>
 					<div class="modal-body">
+						<p><b>¡Nota importante!</b> Recuerda que tienes que colocar el nombre y el precio unitario del producto como se muestra en la plantilla descargable, y no olvides que <b>en el campo categoria debes colocar el número de la categoria que muestra en la tabla "Categorias"</b></p>
 						<form style="margin: 15px">
 							<div class="input-group">
 								<input
@@ -209,10 +210,8 @@ export default {
 					},
 				})
 				.then((response) => {
-					this.$swal({
-						icon: "success",
-						title: "Importación exitosa.",
-					});
+					this.$swal("Producto modificado correctamente.");
+					this.$router.push("/productos");
 				})
 				.catch((err) => {
 					this.$swal({

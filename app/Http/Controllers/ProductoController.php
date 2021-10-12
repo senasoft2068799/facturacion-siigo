@@ -19,12 +19,11 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
-        info($request);
         $request->validate([
             'nombre' => 'required|min:2|max:45',
             'precio_unitario' => 'required|numeric|min:1000|max:9999999999',
             "categoria_id" => "required|exists:categorias,id",
-            'imagen' => 'required|image|mimes:jpg,png,jpeg|max:2048|dimensions:min_width=100,min_height=100,max_width=256,max_height=256',
+            'imagen' => 'required|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
         $fecha = now();
@@ -53,11 +52,9 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        info($request);
         $request->validate([
             'nombre' => 'required|min:2|max:45',
             'precio_unitario' => 'required|numeric|min:1000|max:9999999999',
-            'imagen' => 'required|image|mimes:jpg,png,jpeg|max:2048|dimensions:min_width=100,min_height=100,max_width=256,max_height=256',
             "categoria_id" => "required|exists:categorias,id",
         ]);
         $producto = Producto::find($id);
@@ -69,7 +66,6 @@ class ProductoController extends Controller
             $url = Storage::url($datosImagen);
             $producto->imagen = $url;
         }
-        info($producto);
         $producto->save();
     }
 
@@ -95,15 +91,20 @@ class ProductoController extends Controller
 
     public function importExcel(Request $request)
     {
-        try {
-            set_time_limit(0);
-            DB::beginTransaction();
-            Excel::import(new ProductoImport(), $request->file('file'));
-            DB::commit();
-        } catch (\Exception $exception) {
-            DB::rollBack();
-            info($exception);
-        }
+        //Comento todo esto para que muestre un error si es que lo hay
+        // try { 
+        //     set_time_limit(0);
+        //     DB::beginTransaction();
+        //     Excel::import(new ProductoImport(), $request->file('file'));
+        //     DB::commit();
+        // } catch (\Exception $exception) {
+        //     DB::rollBack();
+        //     info($exception);
+        // }
+        set_time_limit(0);
+        DB::beginTransaction();
+        Excel::import(new ProductoImport(), $request->file('file'));
+        DB::commit();
     }
 
     public function traerProductos(Request $request)

@@ -92,6 +92,7 @@ export default {
 				precio_unitario: "",
 				imagen: "",
 				categoria_id: "",
+				estado: "1",
 			},
 			categorias: [],
 		};
@@ -133,6 +134,7 @@ export default {
 					this.producto.precio_unitario = null;
 					this.producto.imagen = null;
 					this.producto.categoria_id = null;
+					this.producto.estado = null;
 					this.imagenMiniatura = null;
 				})
 				.catch((err) => {
