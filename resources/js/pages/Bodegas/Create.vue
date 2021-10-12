@@ -129,9 +129,11 @@
 					</div>
 					<hr />
 				</div>
-				<button type="submit" class="btn btn-success">Registrar</button>
-				<router-link :to="{ name: 'bodegas.index' }" class="btn btn-secondary"
-					>Regresar</router-link
+				<button type="submit" class="btn btn-primary">
+					<i class="fas fa-check me-2"></i>Registrar
+				</button>
+				<router-link :to="{ name: 'bodegas.index' }" class="btn btn-dark"
+					><i class="fas fa-arrow-left me-2"></i>Regresar</router-link
 				>
 			</form>
 		</div>
@@ -166,6 +168,7 @@ export default {
 	},
 	methods: {
 		registrarBodega() {
+			this.bodega.estado = 1;
 			this.axios
 				.post("/api/bodegas", this.bodega)
 				.then((res) => {

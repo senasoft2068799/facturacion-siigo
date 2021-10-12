@@ -23,7 +23,7 @@ class CreateSucursalesTable extends Migration
                 ->references("id")->on("ciudades")
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-            $table->tinyInteger("estado");
+            $table->tinyInteger("estado")->default(1);
             $table->timestamps();
         });
     }

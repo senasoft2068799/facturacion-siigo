@@ -47,7 +47,7 @@ Route::middleware('api')->group(function () {
     Route::apiResource('stocks', StockController::class);
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
-    Route::get('download-csv-file', [ProductoController::class, "downloadTemplate"]);
+    Route::get('download-template', [ProductoController::class, "downloadTemplate"]);
     Route::post("import-excel-productos", [ProductoController::class, "importExcel"]);
     Route::get("producto", [ProductoController::class, "traerProductos"]);
     Route::get("unread-notifications", [AuthController::class, "unreadNotifications"]);
