@@ -28,6 +28,12 @@ class FacturaController extends Controller
             $detalle["producto_id"] = $detalle["producto"]["id"];
             $detalle["bodega_id"] = $detalle["bodega"]["id"];
 
+            // $stock = Stock::where([
+            //     "producto_id", $detalle["producto_id"],
+            //     "bodega_id", $detalle["bodega_id"]
+            // ]);
+            // info($stock);
+
             return new DetalleMovimiento($detalle);
         });
 
@@ -68,6 +74,6 @@ class FacturaController extends Controller
     public function destroy(Movimiento $factura)
     {
         $factura->estado = !$factura->estado;
-        $factura->save(); 
+        $factura->save();
     }
 }

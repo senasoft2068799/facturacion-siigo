@@ -44,11 +44,7 @@ Route::middleware('api')->group(function () {
     Route::apiResource('documentos', DocumentoController::class);
     Route::apiResource('bodegas', BodegaController::class);
     Route::apiResource('facturas', FacturaController::class);
-    Route::apiResource('movimientos', MovimientoController::class);
-    Route::apiResource('detalle-movimientos', DetalleMovimientoController::class);
     Route::apiResource('stocks', StockController::class);
-    Route::post("detalle-facturas", [DetalleFacturaController::class, "store"]);
-    Route::put("detalle-facturas/{detalle_movimiento}", [DetalleFacturaController::class, "update"]);
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
     Route::get('download-csv-file', [ProductoController::class, "downloadTemplate"]);

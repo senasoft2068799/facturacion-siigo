@@ -2,7 +2,7 @@
 	<nav id="sidebar" class="bg-light">
 		<div class="sidebar-header border-bottom">
 			<img
-				:src="'/storage/imagenes/logo.png'"
+				:src="'/public/images/logo.png'"
 				class="img-responsive rounded"
 				height="80"
 			/>

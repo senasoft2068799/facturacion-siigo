@@ -144,5 +144,6 @@ return [
         "ciudade_id" => "ciudad",
         "bodega_id" => "bodega",
         "producto_id" => "producto",
+        "categoria_id" => "categoría"
     ],
 ];

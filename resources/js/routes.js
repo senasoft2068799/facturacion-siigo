@@ -1,3 +1,4 @@
+import Index from "./pages/Index.vue";
 import Register from "./pages/Auth/Register.vue";
 import Login from "./pages/Auth/Login.vue";
 import Dashboard from "./pages/Dashboard.vue";
@@ -9,6 +10,7 @@ import SucursalesIndex from "./pages/Sucursales/Index.vue";
 import SucursalesCreate from "./pages/Sucursales/Create.vue";
 import SucursalesEdit from "./pages/Sucursales/Edit.vue";
 import BodegasIndex from "./pages/Bodegas/Index.vue";
+import BodegasShow from "./pages/Bodegas/Show.vue";
 import BodegasCreate from "./pages/Bodegas/Create.vue";
 import BodegasEdit from "./pages/Bodegas/Edit.vue";
 import FacturasIndex from "./pages/Facturas/Index.vue";
@@ -19,13 +21,13 @@ import CategoriasIndex from "./pages/Categorias/Index.vue";
 import CategoriasCreate from "./pages/Categorias/Create.vue";
 import CategoriasEdit from "./pages/Categorias/Edit.vue";
 import ProductosIndex from "./pages/Productos/Index.vue";
+import ProductosShow from "./pages/Productos/Show.vue";
 import ProductosCreate from "./pages/Productos/Create.vue";
 import ProductosEdit from "./pages/Productos/Edit.vue";
 import UsuariosIndex from "./pages/Usuarios/Index.vue";
 import UsuariosEdit from "./pages/Usuarios/Edit.vue";
 import UsuariosCreate from "./pages/Usuarios/Create.vue";
 import StocksIndex from "./pages/Stocks/Index.vue";
-import Index from "./pages/Index.vue";
 
 export const routes = [
     //
@@ -130,6 +132,12 @@ export const routes = [
         meta: { requiresAuth: true }
     },
     {
+        name: "productos.show",
+        path: "/productos/:id",
+        component: ProductosShow,
+        meta: { requiresAuth: true }
+    },
+    {
         name: "productos.create",
         path: "/productos/create",
         component: ProductosCreate,
@@ -148,6 +156,12 @@ export const routes = [
         name: "bodegas.index",
         path: "/bodegas",
         component: BodegasIndex,
+        meta: { requiresAuth: true }
+    },
+    {
+        name: "bodegas.show",
+        path: "/bodegas/:id",
+        component: BodegasShow,
         meta: { requiresAuth: true }
     },
     {
@@ -222,7 +236,7 @@ export const routes = [
     {
         name: "index",
         path: "/index",
-        component: Index,
+        component: Index
         //meta: { requiresAuth: true }
     }
 ];

@@ -116,13 +116,20 @@
 							/></a>
 						</td>
 						<td>{{ producto.categoria.nombre }}</td>
-						<td v-if="producto.estado == 1" class="text-success">
-							Activo
-						</td>
+						<td v-if="producto.estado == 1" class="text-success">Activo</td>
 						<td v-else class="text-danger">Inactivo</td>
 						<td>{{ producto.created_at }}</td>
 						<td>{{ producto.updated_at }}</td>
 						<td>
+							<router-link
+								class="btn btn-sm btn-warning"
+								title="Detalles"
+								:to="{
+									name: 'productos.show',
+									params: { id: producto.id },
+								}"
+								><i class="fas fa-eye"></i
+							></router-link>
 							<router-link
 								class="btn btn-primary btn-sm"
 								title="Editar"

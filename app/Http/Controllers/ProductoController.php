@@ -19,6 +19,14 @@ class ProductoController extends Controller
 
     public function store(Request $request)
     {
+        info($request);
+        $request->validate([
+            'nombre' => 'required|min:2|max:45',
+            'precio_unitario' => 'required|numeric|min:1000|max:9999999999',
+            "categoria_id" => "required|exists:categorias,id",
+            'imagen' => 'required|image|mimes:jpg,png,jpeg|max:2048|dimensions:min_width=100,min_height=100,max_width=256,max_height=256',
+        ]);
+
         $fecha = now();
         $datosProducto = $request->all();
         if ($request->hasFile('imagen')) {
@@ -33,7 +41,7 @@ class ProductoController extends Controller
 
     public function show(Producto $producto)
     {
-        return $producto;
+        return new ProductoResource($producto);
     }
 
     /**
@@ -46,6 +54,12 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         info($request);
+        $request->validate([
+            'nombre' => 'required|min:2|max:45',
+            'precio_unitario' => 'required|numeric|min:1000|max:9999999999',
+            'imagen' => 'required|image|mimes:jpg,png,jpeg|max:2048|dimensions:min_width=100,min_height=100,max_width=256,max_height=256',
+            "categoria_id" => "required|exists:categorias,id",
+        ]);
         $producto = Producto::find($id);
         $producto->nombre = $request->nombre;
         $producto->precio_unitario = $request->precio_unitario;
@@ -61,8 +75,8 @@ class ProductoController extends Controller
 
     public function destroy(Producto $producto)
     {
-        $producto->estado = !$producto->estado; 
-        $producto->save(); 
+        $producto->estado = !$producto->estado;
+        $producto->save();
     }
 
     public function downloadTemplate()

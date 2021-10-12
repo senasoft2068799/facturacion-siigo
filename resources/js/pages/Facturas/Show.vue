@@ -118,6 +118,14 @@
 			<router-link :to="{ name: 'facturas.index' }" class="btn btn-secondary"
 				>Regresar</router-link
 			>
+			<router-link
+				class="btn btn-primary"
+				:to="{
+					name: 'facturas.edit',
+					params: { id: factura.id },
+				}"
+				>Editar</router-link
+			>
 		</div>
 	</div>
 </template>
