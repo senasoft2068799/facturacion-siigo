@@ -6,6 +6,7 @@ use App\Http\Requests\FacturaRequest;
 use App\Http\Resources\FacturaResource;
 use App\Models\DetalleMovimiento;
 use App\Models\Movimiento;
+use App\Models\Stock;
 use App\Models\User;
 use App\Notifications\OrdenFactura;
 use Illuminate\Http\Request;
@@ -27,6 +28,12 @@ class FacturaController extends Controller
         $detalle_movimientos = collect($request->items)->transform(function ($detalle) {
             $detalle["producto_id"] = $detalle["producto"]["id"];
             $detalle["bodega_id"] = $detalle["bodega"]["id"];
+
+            // $stock = Stock::where([
+            //     "producto_id", $detalle["producto_id"],
+            //     "bodega_id", $detalle["bodega_id"]
+            // ]);
+            // info($stock);
 
             return new DetalleMovimiento($detalle);
         });
@@ -68,12 +75,12 @@ class FacturaController extends Controller
     public function activar(Movimiento $factura)
     {
         $factura->estado_factura = 1;
-        $factura->save(); 
+        $factura->save();
     }
 
     public function destroy(Movimiento $factura)
     {
         $factura->estado_factura = 0;
-        $factura->save(); 
+        $factura->save();
     }
 }

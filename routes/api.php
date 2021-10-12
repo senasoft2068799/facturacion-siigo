@@ -39,21 +39,13 @@ Route::middleware('api')->group(function () {
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('users', UserController::class);
     Route::put('users/{user}', [UserController::class, "activar"]);
-    Route::put('bodegas/{bodega}', [BodegaController::class, "activar"]);
-    Route::put('categorias/{categoria}', [CategoriaController::class, "activar"]);
-    Route::put('facturas/{factura}', [FacturaController::class, "activar"]);
-    Route::put('productos/{producto}', [ProductoController::class, "activar"]);
-    Route::put('roles/{role}', [RoleController::class, "activar"]);
-    Route::put('sucursales/{sucursale}', [SucursaleController::class, "activar"]);
+    //Mejor usar patch cuando se modifica 1 solo atributo
     Route::get("ciudades", [CiudadeController::class, "index"]);
     Route::apiResource('sucursales', SucursaleController::class);
     Route::apiResource('documentos', DocumentoController::class);
     Route::apiResource('bodegas', BodegaController::class);
     Route::apiResource('facturas', FacturaController::class);
     Route::apiResource('movimientos', MovimientoController::class);
-    Route::apiResource('detalle-movimientos', DetalleMovimientoController::class);
-    Route::post("detalle-facturas", [DetalleFacturaController::class, "store"]);
-    Route::put("detalle-facturas/{detalle_movimiento}", [DetalleFacturaController::class, "update"]);
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
     Route::get('download-csv-file', [ProductoController::class, "downloadTemplate"]);

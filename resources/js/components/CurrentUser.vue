@@ -16,7 +16,7 @@
 			aria-labelledby="navbarDropdown"
 		>
 			<p class="bg-primary text-center text-white fw-bold py-2">
-				{{ currentUser.rol }}
+				{{ currentUser.rol }}Administrador
 			</p>
 			<li v-if="currentUser.nombre != null">
 				<i class="fas fa-user"></i>
