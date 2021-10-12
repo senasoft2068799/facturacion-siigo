@@ -3,7 +3,7 @@
     <router-link
       class="btn btn-primary mb-3"
       :to="{ name: 'categorias.create' }"
-      >Registrar categoria</router-link
+      >Registrar categoría</router-link
     >
     <router-link
       class="btn btn-secondary mb-3"
@@ -17,6 +17,7 @@
           <tr>
             <th>Nombre</th>
             <th>Descripción</th>
+            <th>Estado</th>
             <th>Fecha de creación</th>
             <th>Fecha de modificación</th>
             <th>Funciones</th>
@@ -26,6 +27,8 @@
           <tr v-for="(categoria, index) in categorias" :key="index">
             <td>{{ categoria.nombre }}</td>
             <td>{{ categoria.descripcion }}</td>
+            <td v-if="categoria.estado == 1" class="text-success">Activo</td>
+            <td v-else class="text-danger">Inactivo</td>
             <td>{{ categoria.created_at }}</td>
             <td>{{ categoria.updated_at }}</td>
             <td class="text-center">
@@ -39,11 +42,20 @@
                 ><i class="fas fa-pencil-alt"></i
               ></router-link>
               <button
-                @click="eliminarcategoria(categoria, index)"
-                class="btn btn-danger btn-sm"
+                @click="eliminarCategoria(categoria, index)"
+                class="btn btn-sm btn-danger"
                 title="Inactivar"
+                v-if="categoria.estado == 1"
               >
                 <i class="fas fa-ban"></i>
+              </button>
+              <button
+                @click="activarCategoria(categoria, index)"
+                class="btn btn-sm btn-success"
+                title="Activar"
+                v-if="categoria.estado == 0"
+              >
+                <i class="fas fa-check"></i>
               </button>
             </td>
           </tr>
@@ -65,10 +77,10 @@ export default {
     });
   },
   methods: {
-    eliminarcategoria(categoria, index) {
+    activarCategoria(categoria, index) {
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la categoria: '" + categoria.nombre + "'",
+        text: "Se activará la categoría: '" + categoria.nombre + "'",
         icon: "warning",
         showCancelButton: true,
       }).then((result) => {
@@ -76,10 +88,38 @@ export default {
           axios
             .delete("/api/categorias/" + categoria.id)
             .then((response) => {
-              this.categorias.splice(index, 1);
+              this.categorias[index].estado = 1;
+              this.categorias.indexOf(index, 1);
               this.$swal({
                 icon: "success",
-                title: "categoria eliminada.",
+                title: "Categoría activada.",
+              });
+            })
+            .catch((err) => {
+              this.$swal({
+                icon: "error",
+                title: "Ha ocurrido un error:\n" + err,
+              });
+            });
+        }
+      });
+    },
+    eliminarCategoria(categoria, index) {
+      this.$swal({
+        title: "¿Estás seguro?",
+        text: "Se inactivará la categoría: '" + categoria.nombre + "'",
+        icon: "warning",
+        showCancelButton: true,
+      }).then((result) => {
+        if (result.value) {
+          axios
+            .delete("/api/categorias/" + categoria.id)
+            .then((response) => {
+              this.categorias[index].estado = 0;
+              this.categorias.indexOf(index, 1);
+              this.$swal({
+                icon: "success",
+                title: "Categoría inactivada.",
               });
             })
             .catch((err) => {

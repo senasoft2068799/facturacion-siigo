@@ -18,6 +18,12 @@ class SucursaleController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            "nombre" => "required|min:2|max:45",
+            "direccion" => "required|min:6|max:255",
+            "telefono" => "required|numeric|digits_between:6,20",
+            "ciudade_id" => "required|exists:ciudades,id",
+        ]);
         Sucursale::create($request->all());
     }
 
@@ -28,11 +34,18 @@ class SucursaleController extends Controller
 
     public function update(Request $request, Sucursale $sucursale)
     {
+        $request->validate([
+            "nombre" => "required|min:2|max:45",
+            "direccion" => "required|min:6|max:255",
+            "telefono" => "required|numeric|digits_between:6,20",
+            "ciudade_id" => "required|exists:ciudades,id",
+        ]);
         $sucursale->update($request->all());
     }
 
     public function destroy(Sucursale $sucursale)
     {
-        $sucursale->delete();
+        $sucursale->estado = !$sucursale->estado; 
+        $sucursale->save(); 
     }
 }

@@ -95,7 +95,15 @@
 									</td>
 								</tr>
 								<tr v-for="(item, index) in bodega.productos" :key="index">
-									<td>{{ item.nombre }}</td>
+									<td>
+										{{ item.nombre }}
+										<p
+											class="text-danger"
+											v-if="errors.has(`productos.${index}.id`)"
+										>
+											{{ errors.get(`productos.${index}.id`) }}
+										</p>
+									</td>
 									<td>
 										<a :href="item.imagen"
 											><img
@@ -161,19 +169,26 @@ export default {
 			this.axios
 				.post("/api/bodegas", this.bodega)
 				.then((res) => {
-					this.$swal("Bodega registrada correctamente.");
 					this.errors.clearAll();
+					this.$swal("Bodega registrada correctamente.");
 					this.bodega = {
 						sucursale_id: null,
 						productos: {},
 					};
 				})
 				.catch((err) => {
-					this.$swal({
-						icon: "error",
-						title: "Ha ocurrido un error:\n" + err,
-					});
-					this.errors.record(err.response.data.errors);
+					if (err.response.status === 422) {
+						this.errors.record(err.response.data.errors);
+						this.$swal({
+							icon: "error",
+							title: "Los campos ingresados no son válidos.",
+						});
+					} else {
+						this.$swal({
+							icon: "error",
+							title: "Ha ocurrido un error:\n" + err,
+						});
+					}
 				});
 		},
 		agregarProducto() {

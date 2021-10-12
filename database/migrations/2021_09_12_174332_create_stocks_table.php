@@ -18,6 +18,7 @@ class CreateStocksTable extends Migration
             $table->integer("cantidad")->default(0);
             $table->unsignedBigInteger("bodega_id");
             $table->unsignedBigInteger("producto_id");
+            $table->timestamps();
         });
     }
 

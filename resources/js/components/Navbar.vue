@@ -15,25 +15,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ms-auto">
 					<Notifications />
-					<li class="nav-item dropdown me-3">
-						<a
-							class="nav-link dropdown-toggle link-dark"
-							href="#"
-							id="navbarDropdown"
-							role="button"
-							data-bs-toggle="dropdown"
-							aria-expanded="false"
-						>
-							<i class="fas fa-user"></i>
-						</a>
-						<ul
-							class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="navbarDropdown"
-						>
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-						</ul>
-					</li>
+					<CurrentUser />
 				</ul>
 			</div>
 		</div>
@@ -41,21 +23,12 @@
 </template>
 <script>
 import Notifications from "./Notifications.vue";
+import CurrentUser from "./CurrentUser.vue";
 export default {
-	name: "Navbar",
-	data() {
-		return {
-			notificaciones: [],
-		};
-	},
-	created() {
-		// window.user = @json(
-		// 	"user"=> auth()->user(),
-		// );
-		// this.notificaciones = window.user.user.notificaciones;
-	},
 	components: {
 		Notifications,
+		CurrentUser,
 	},
+	name: "Navbar",
 };
 </script>

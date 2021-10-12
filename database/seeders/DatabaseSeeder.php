@@ -10,6 +10,7 @@ use App\Models\Producto;
 use App\Models\Sucursale;
 use App\Models\Categoria;
 use App\Models\User;
+use App\Models\Stock;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,5 +34,6 @@ class DatabaseSeeder extends Seeder
         Producto::factory(30)->create();
         Movimiento::factory(20)->create();
         DetalleMovimiento::factory(150)->create();
+        Stock::factory(7)->create();
     }
 }

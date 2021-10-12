@@ -27,6 +27,7 @@ class SucursaleFactory extends Factory
             "direccion" => $this->faker->address(),
             "telefono" => $this->faker->phoneNumber(),
             "ciudade_id" => Ciudade::inRandomOrder()->first()->id,
+            "estado" => $this->faker->randomElement([0,1])
         ];
     }
 }

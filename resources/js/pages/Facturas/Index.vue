@@ -71,6 +71,7 @@
             <th>Sucursal</th>
             <th>Cliente</th>
             <th>Valor + IVA</th>
+            <th>Estado</th>
             <th>Fecha de creación</th>
             <th>Fecha de modificación</th>
             <th>Funciones</th>
@@ -79,10 +80,18 @@
         <tbody>
           <tr v-for="(factura, index) in facturas" :key="index">
             <td>{{ factura.id }}</td>
-            <td>{{ factura.descripcion.substring(0, 20) }}...</td>
+            <td v-if="factura.descripcion">
+              <p v-if="factura.descripcion.length > 20">
+                {{ factura.descripcion.substring(0, 20) }}...
+              </p>
+              <p v-else>{{ factura.descripcion }}</p>
+            </td>
+            <td v-else>...</td>
             <td>{{ factura.sucursal.nombre }}</td>
             <td>{{ factura.user.nombre }} {{ factura.user.apellido }}</td>
-            <td>${{ factura.valor_total }}</td>
+            <td>{{ formatters.formatCurrency(factura.valor_total) }}</td>
+            <td v-if="factura.estado == 1" class="text-success">Finalizado</td>
+            <td v-else class="text-danger">Borrador</td>
             <td>{{ factura.created_at }}</td>
             <td>{{ factura.updated_at }}</td>
             <td class="d-flex">
@@ -119,9 +128,11 @@
   </div>
 </template>
 <script>
+import Formatters from "../../utilities/Formatters.js";
 export default {
   data() {
     return {
+      formatters: new Formatters(),
       facturas: [],
     };
   },
@@ -134,7 +145,7 @@ export default {
     eliminarSucursal(factura, index) {
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se eliminará la factura: '" + factura.id + "'",
+        text: "Se inactivará la factura con código: " + factura.id,
         icon: "warning",
         showCancelButton: true,
       }).then((result) => {
@@ -142,10 +153,11 @@ export default {
           axios
             .delete("/api/facturas/" + factura.id)
             .then((response) => {
-              this.facturas.splice(index, 1);
+              this.facturas[index].estado = 0;
+              this.facturas.indexOf(index, 1);
               this.$swal({
                 icon: "success",
-                title: "Factura eliminada.",
+                title: "Factura inactivada.",
               });
             })
             .catch((err) => {

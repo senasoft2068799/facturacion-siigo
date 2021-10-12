@@ -69,8 +69,8 @@
           v-model="user.estado_usuario"
         >
           <option disabled value="null">Seleccionar...</option>
-          <option value="Activo">Activo</option>
-          <option value="Inactivo">Inactivo</option>
+          <option value=1>Activo</option>
+          <option value=0>Inactivo</option>
         </select>
         <div class="mt-4 mb-2">
           <button type="submit" class="btn btn-primary">

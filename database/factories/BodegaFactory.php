@@ -25,6 +25,7 @@ class BodegaFactory extends Factory
         return [
             "nombre" => $this->faker->company(),
             "direccion" => $this->faker->streetName(),
+            'estado' => $this->faker->randomElement([0,1]),
             "sucursale_id" => Sucursale::inRandomOrder()->first()->id,
         ];
     }

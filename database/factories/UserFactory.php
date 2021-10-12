@@ -41,10 +41,7 @@ class UserFactory extends Factory
             'telefono' => $this->faker->e164PhoneNumber(),
             'password' => '$10$uyEvh1moLpdhXdNKYV2qCu01LQ4qRhqVjYe7FCGrGUWRlLEorZFEi', // password: 12345678
             'remember_token' => Str::random(10),
-            'estado_usuario' => $this->faker->randomElement([
-                "Activo",
-                "Inactivo"
-            ]),
+            'estado' => $this->faker->randomElement([0, 1]),
             'role_id' => Role::inRandomOrder()->first()->id,
         ];
     }

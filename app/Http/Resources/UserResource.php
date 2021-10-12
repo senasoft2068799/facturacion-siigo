@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Role;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -22,7 +21,10 @@ class UserResource extends JsonResource
             "apellido" => $this->apellido,
             "email" => $this->email,
             "telefono" => $this->telefono,
-            "rol" => $this->role
+            "estado" => $this->estado,
+            "rol" => $this->role,
+            "created_at" => $this->created_at->diffForHumans(),
+            "updated_at" => $this->updated_at->diffForHumans(),
         ];
     }
 }

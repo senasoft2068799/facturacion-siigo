@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FacturaRequest;
 use App\Http\Resources\FacturaResource;
 use App\Models\DetalleMovimiento;
 use App\Models\Movimiento;
@@ -10,7 +11,6 @@ use App\Notifications\OrdenFactura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Validation\Rule;
 
 class FacturaController extends Controller
 {
@@ -19,17 +19,8 @@ class FacturaController extends Controller
         return FacturaResource::collection(Movimiento::where("documento_id", 1)->latest()->get());
     }
 
-    public function store(Request $request)
+    public function store(FacturaRequest $request)
     {
-        // $request->validate([
-        //     'descripcion' => 'max:255',
-        //     'valor_total' => 'required',
-        //     'documento_id' => 'required|exists:documentos,id',
-        //     'sucursale_id' => 'required|exists:sucursales,id',
-        //     'user_id' => 'required|exists:users,id',
-        //     "estado" => ["required", Rule::in([1, 2])]
-        // ]);
-
         $movimiento = new Movimiento;
         $movimiento->fill($request->except("items"));
 
@@ -37,13 +28,19 @@ class FacturaController extends Controller
             $detalle["producto_id"] = $detalle["producto"]["id"];
             $detalle["bodega_id"] = $detalle["bodega"]["id"];
 
+            // $stock = Stock::where([
+            //     "producto_id", $detalle["producto_id"],
+            //     "bodega_id", $detalle["bodega_id"]
+            // ]);
+            // info($stock);
+
             return new DetalleMovimiento($detalle);
         });
 
         // if ($detalle_movimientos->isEmpty()) {
         //     return response()
         //         ->json([
-        //             'detalle_empty' => ['One or more Product is required.']
+        //             "detalle_empty" => ["One or more Product is required."]
         //         ], 422);
         // }
 
@@ -56,8 +53,8 @@ class FacturaController extends Controller
 
         // return response()
         //     ->json([
-        //         'created' => true,
-        //         'id' => $movimiento->id
+        //         "created" => true,
+        //         "id" => $movimiento->id
         //     ]);
 
 
@@ -76,6 +73,7 @@ class FacturaController extends Controller
 
     public function destroy(Movimiento $factura)
     {
-        $factura->delete();
+        $factura->estado = !$factura->estado;
+        $factura->save();
     }
 }

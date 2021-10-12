@@ -27,6 +27,7 @@ class ProductoFactory extends Factory
             "precio_unitario" => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
             "imagen" => $this->faker->imageUrl(512, 512, 'cats'),
             "categoria_id" => Categoria::inRandomOrder()->first()->id,
+            "estado" => $this->faker->randomElement([0,1])
         ];
     }
 }

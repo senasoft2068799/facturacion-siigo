@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +25,10 @@ Route::resource("/documentos", DocumentoController::class);
 */
 
 //Auth::routes();
+Route::get('/', function () {
+    return view('layouts.index');
+});
+
 Route::get('/{any}', function () {
-    return view('layouts.app');
+    return view('layouts.admin');
 })->where('any', '.*');

@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAuth;
+use App\Http\Requests\AuthRequest;
 use App\Models\User;
-use App\Notifications\UsuarioRegistrado;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(StoreAuth $request)
+    public function register(AuthRequest $request)
     {
         // $request->validate([
         //     "id" => ["required", "unique:users", "min:6", "max:20"],
@@ -71,7 +67,8 @@ class AuthController extends Controller
             ]);
         }
 
-        return $user->createToken($request->device_name)->plainTextToken;
+        $token = $user->createToken($request->device_name)->plainTextToken;
+        return $token;
     }
 
     public function logout(Request $request)

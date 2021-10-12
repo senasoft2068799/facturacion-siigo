@@ -1,47 +1,53 @@
 <template>
-	<div>
-		<li class="nav-item dropdown me-3">
-			<a
-				class="nav-link link-dark position-relative"
-				id="notificaciones"
-				role="button"
-				data-bs-toggle="dropdown"
-				aria-expanded="false"
+	<li class="nav-item dropdown me-3">
+		<a
+			class="nav-link link-dark position-relative"
+			id="notificaciones"
+			role="button"
+			data-bs-toggle="dropdown"
+			aria-expanded="false"
+		>
+			<i class="fas fa-bell"></i
+			><span
+				v-show="unreadNotifications.length > 0"
+				class="
+					position-absolute
+					start-100
+					translate-middle
+					badge
+					rounded-pill
+					bg-danger
+				"
+				>{{ unreadNotifications.length }}</span
 			>
-				<i class="fas fa-bell"></i
-				><span
-					v-show="unreadNotifications.length > 0"
-					class="
-						position-absolute
-						start-100
-						translate-middle
-						badge
-						rounded-pill
-						bg-danger
-					"
-					>{{ unreadNotifications.length }}</span
-				>
-			</a>
-			<ul
-				class="dropdown-menu dropdown-menu-end"
-				aria-labelledby="notificaciones"
-			>
-				<li><h6 class="dropdown-header">Notificaciones</h6></li>
-				<div v-if="unreadNotifications.length > 0">
-					<NotificationItem
-						v-for="item in unreadNotifications"
-						:key="item.id"
-						:item="item"
-					/>
+		</a>
+		<ul
+			class="dropdown-menu dropdown-menu-end"
+			aria-labelledby="notificaciones"
+		>
+			<li>
+				<div>
+					<h6 class="dropdown-header text-left">
+						Notificaciones<a @click="markAsRead()" class="text-right"
+							>Marcar todo como leído</a
+						>
+					</h6>
 				</div>
-				<div v-else>
-					<li>
-						<a class="dropdown-item">No hay notificaciones nuevas.</a>
-					</li>
-				</div>
-			</ul>
-		</li>
-	</div>
+			</li>
+			<div v-if="unreadNotifications.length > 0">
+				<NotificationItem
+					v-for="item in unreadNotifications"
+					:key="item.id"
+					:item="item"
+				/>
+			</div>
+			<div v-else>
+				<li>
+					<a class="dropdown-item">No hay notificaciones nuevas.</a>
+				</li>
+			</div>
+		</ul>
+	</li>
 </template>
 <script>
 import NotificationItem from "./NotificationItem.vue";

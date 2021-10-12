@@ -17,6 +17,7 @@ class CreateCategoriasTable extends Migration
             $table->id();
             $table->string("nombre", 45)->unique();
             $table->string("descripcion");
+            $table->tinyInteger("estado");
             $table->timestamps();
         });
     }

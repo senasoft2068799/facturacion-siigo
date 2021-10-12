@@ -18,13 +18,12 @@ class CreateProductosTable extends Migration
             $table->string("nombre", 45)->unique();
             $table->double("precio_unitario");
             $table->string("imagen")->nullable();
-
             $table->unsignedBigInteger("categoria_id")->nullable();;
             $table->foreign("categoria_id")
                 ->references("id")->on("categorias")
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-
+            $table->tinyInteger("estado");
             $table->timestamps();
         });
     }
