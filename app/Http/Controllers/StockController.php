@@ -20,6 +20,8 @@ class StockController extends Controller
 
     public function update(Request $request, Stock $stock)
     {
-        $stock->update($request->all());
+        $request->producto_id = $request->producto['id'];
+        $request->bodega_id = $request->bodega['id'];
+        $stock->update($request->except('producto', 'bodega', 'entrada'));
     }
 }

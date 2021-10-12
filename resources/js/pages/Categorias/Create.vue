@@ -27,11 +27,11 @@
 						{{ errors.get("descripcion") }}
 					</p>
 				</div>
-				<button type="submit" class="btn btn-success">Registrar</button>
+				<button type="submit" class="btn btn-primary"><i class="fas fa-check me-2"></i>Registrar</button>
 				<router-link
 					:to="{ name: 'categorias.index' }"
-					class="btn btn-secondary"
-					>Regresar</router-link
+					class="btn btn-dark"
+					><i class="fas fa-arrow-left me-2"></i>Regresar</router-link
 				>
 			</form>
 		</div>

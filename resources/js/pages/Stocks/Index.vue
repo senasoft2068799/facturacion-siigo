@@ -20,14 +20,14 @@
                 type="number"
                 id="entradas"
                 class="w-50 me-3"
-                v-model.number="entrada"
+                v-model.number="stock.entrada"
               />
               <button
-                @click="agregar(stock, entrada, index)"
+                @click="agregar(stock, index)"
                 class="btn btn-sm btn-success"
                 title="Añadir"
               >
-                <i class="fas fa-check"></i>
+                <i class="fas fa-plus"></i>
               </button>
             </td>
           </tr>
@@ -40,7 +40,9 @@
 export default {
   data() {
     return {
-      entrada: null,
+      stock: {
+        entrada: null,
+      },
       stocks: [],
     };
   },
@@ -50,23 +52,23 @@ export default {
     });
   },
   methods: {
-    agregar(stock, entrada, index) {
-      let resultado = this.stocks[index].cantidad + entrada;
+    agregar(stock, index) {
+      stock.cantidad += stock.entrada;
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se agregará: '" + stock.cantidad + "'" + "' + " + entrada + "'",
+        text: "Se agregará: '" + stock.cantidad + "'" + "' + " + stock.entrada + "'",
         icon: "warning",
         showCancelButton: true,
       }).then((result) => {
         if (result.value) {
           axios
-            .put("/api/stocks/" + stock.id)
+            .put("/api/stocks/" + stock.id, stock)
             .then((response) => {
-              this.stocks[index].cantidad++;
-              this.stocks.indexOf(index, 1);
+              this.stocks.splice(index, 1, stock);
+              stock.entrada = null;
               this.$swal({
                 icon: "success",
-                title: "Usuario activado.",
+                title: "Entrada agregada.",
               });
             })
             .catch((err) => {

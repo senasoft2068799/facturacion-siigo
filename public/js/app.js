@@ -2485,6 +2485,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Sidebar"
 });
@@ -6167,7 +6176,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      entrada: null,
+      stock: {
+        entrada: null
+      },
       stocks: []
     };
   },
@@ -6179,25 +6190,25 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    agregar: function agregar(stock, entrada, index) {
+    agregar: function agregar(stock, index) {
       var _this2 = this;
 
-      var resultado = this.stocks[index].cantidad + entrada;
+      stock.cantidad += stock.entrada;
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se agregará: '" + stock.cantidad + "'" + "' + " + entrada + "'",
+        text: "Se agregará: '" + stock.cantidad + "'" + "' + " + stock.entrada + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
         if (result.value) {
-          axios.put("/api/stocks/" + stock.id).then(function (response) {
-            _this2.stocks[index].cantidad++;
+          axios.put("/api/stocks/" + stock.id, stock).then(function (response) {
+            _this2.stocks.splice(index, 1, stock);
 
-            _this2.stocks.indexOf(index, 1);
+            stock.entrada = null;
 
             _this2.$swal({
               icon: "success",
-              title: "Usuario activado."
+              title: "Entrada agregada."
             });
           })["catch"](function (err) {
             _this2.$swal({
@@ -6849,7 +6860,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7351,7 +7361,7 @@ var routes = [//
   }
 }, {
   name: "stocks.index",
-  path: "/stocks",
+  path: "/inventario",
   component: _pages_Stocks_Index_vue__WEBPACK_IMPORTED_MODULE_29__["default"],
   meta: {
     requiresAuth: true
@@ -50032,6 +50042,30 @@ var render = function() {
           _c(
             "router-link",
             {
+              attrs: { "active-class": "active", to: { name: "stocks.index" } }
+            },
+            [
+              _c("i", { staticClass: "fas fa-list" }),
+              _vm._v(" "),
+              _c(
+                "svg",
+                { staticClass: "bi me-2", attrs: { width: "5", height: "16" } },
+                [_c("use", { attrs: { "xlink:href": "#grid" } })]
+              ),
+              _vm._v("\n\t\t\t\tInventario\n\t\t\t")
+            ]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "li",
+        { staticClass: "nav-item" },
+        [
+          _c(
+            "router-link",
+            {
               attrs: { "active-class": "active", to: { name: "roles.index" } }
             },
             [
@@ -51028,19 +51062,18 @@ var render = function() {
             _c("hr")
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Registrar")]
-          ),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "router-link",
             {
-              staticClass: "btn btn-secondary",
+              staticClass: "btn btn-dark",
               attrs: { to: { name: "bodegas.index" } }
             },
-            [_vm._v("Regresar")]
+            [
+              _c("i", { staticClass: "fas fa-arrow-left me-2" }),
+              _vm._v("Regresar")
+            ]
           )
         ],
         1
@@ -51062,6 +51095,16 @@ var staticRenderFns = [
         _c("th", [_vm._v("Funciones")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "fas fa-check me-2" }), _vm._v("Registrar")]
+    )
   }
 ]
 render._withStripped = true
@@ -51406,19 +51449,18 @@ var render = function() {
             _c("hr")
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Modificar")]
-          ),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "router-link",
             {
-              staticClass: "btn btn-secondary",
+              staticClass: "btn btn-dark",
               attrs: { to: { name: "bodegas.index" } }
             },
-            [_vm._v("Regresar")]
+            [
+              _c("i", { staticClass: "fas fa-arrow-left me-2" }),
+              _vm._v("Regresar")
+            ]
           )
         ],
         1
@@ -51440,6 +51482,16 @@ var staticRenderFns = [
         _c("th", [_vm._v("Funciones")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "fas fa-pencil-alt me-2" }), _vm._v("Modificar")]
+    )
   }
 ]
 render._withStripped = true
@@ -51711,10 +51763,13 @@ var render = function() {
         _c(
           "router-link",
           {
-            staticClass: "btn btn-secondary",
+            staticClass: "btn btn-dark",
             attrs: { to: { name: "bodegas.index" } }
           },
-          [_vm._v("Regresar")]
+          [
+            _c("i", { staticClass: "fas fa-arrow-left me-2" }),
+            _vm._v("Regresar")
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -51728,7 +51783,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Editar")]
+          [_c("i", { staticClass: "fas fa-pencil-alt me-2" }), _vm._v("Editar")]
         )
       ],
       1
@@ -51868,19 +51923,18 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Registrar")]
-          ),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "router-link",
             {
-              staticClass: "btn btn-secondary",
+              staticClass: "btn btn-dark",
               attrs: { to: { name: "categorias.index" } }
             },
-            [_vm._v("Regresar")]
+            [
+              _c("i", { staticClass: "fas fa-arrow-left me-2" }),
+              _vm._v("Regresar")
+            ]
           )
         ],
         1
@@ -51888,7 +51942,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "fas fa-check me-2" }), _vm._v("Registrar")]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -52006,11 +52071,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c(
-            "button",
-            { staticClass: "btn btn-success", attrs: { type: "submit" } },
-            [_vm._v("Modificar")]
-          ),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "router-link",
@@ -52018,7 +52079,10 @@ var render = function() {
               staticClass: "btn btn-secondary",
               attrs: { to: { name: "categorias.index" } }
             },
-            [_vm._v("Regresar")]
+            [
+              _c("i", { staticClass: "fas fa-arrow-left me-2" }),
+              _vm._v("Regresar")
+            ]
           )
         ],
         1
@@ -52026,7 +52090,18 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+      [_c("i", { staticClass: "fas fa-pencil-alt me-2" }), _vm._v("Modificar")]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -55559,20 +55634,20 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model.number",
-                        value: _vm.entrada,
-                        expression: "entrada",
+                        value: stock.entrada,
+                        expression: "stock.entrada",
                         modifiers: { number: true }
                       }
                     ],
                     staticClass: "w-50 me-3",
                     attrs: { type: "number", id: "entradas" },
-                    domProps: { value: _vm.entrada },
+                    domProps: { value: stock.entrada },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.entrada = _vm._n($event.target.value)
+                        _vm.$set(stock, "entrada", _vm._n($event.target.value))
                       },
                       blur: function($event) {
                         return _vm.$forceUpdate()
@@ -55587,11 +55662,11 @@ var render = function() {
                       attrs: { title: "Añadir" },
                       on: {
                         click: function($event) {
-                          return _vm.agregar(stock, _vm.entrada, index)
+                          return _vm.agregar(stock, index)
                         }
                       }
                     },
-                    [_c("i", { staticClass: "fas fa-check" })]
+                    [_c("i", { staticClass: "fas fa-plus" })]
                   )
                 ])
               ])

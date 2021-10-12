@@ -226,7 +226,7 @@ export const routes = [
     },
     {
         name: "stocks.index",
-        path: "/stocks",
+        path: "/inventario",
         component: StocksIndex,
         meta: { requiresAuth: true }
     },

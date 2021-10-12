@@ -55,7 +55,6 @@
           </tr>
         </tbody>
       </table>
-     
     </div>
   </div>
 </template>
