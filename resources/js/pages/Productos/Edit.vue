@@ -98,7 +98,7 @@ export default {
 			this.categorias = res.data.data;
 		});
 		axios.get("/api/productos/" + this.$route.params.id).then((res) => {
-			this.producto = res.data;
+			this.producto = res.data.data;
 		});
 	},
 	methods: {

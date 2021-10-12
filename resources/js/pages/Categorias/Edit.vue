@@ -46,6 +46,7 @@ export default {
 			categoria: {
 				nombre: null,
 				descripcion: null,
+				estado: null,
 			},
 		};
 	},
