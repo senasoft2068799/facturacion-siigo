@@ -2144,6 +2144,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "CurrentUser",
@@ -5911,9 +5914,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      entrada: null,
       stocks: []
     };
   },
@@ -5925,12 +5930,13 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
-    agregar: function agregar(stock, index) {
+    agregar: function agregar(stock, entrada, index) {
       var _this2 = this;
 
+      var resultado = this.stocks[index].cantidad + entrada;
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se agregará: '" + stock.cantidad + "'",
+        text: "Se agregará: '" + stock.cantidad + "'" + "' + " + entrada + "'",
         icon: "warning",
         showCancelButton: true
       }).then(function (result) {
@@ -49212,40 +49218,35 @@ var render = function() {
       "ul",
       {
         staticClass: "dropdown-menu dropdown-menu-end py-0",
+        staticStyle: { width: "13rem" },
         attrs: { "aria-labelledby": "navbarDropdown" }
       },
       [
-        _c(
-          "p",
-          {
-            staticClass: "bg-primary text-white fw-bold",
-            attrs: { id: "menu-user" }
-          },
-          [_vm._v("\n      " + _vm._s(_vm.currentUser.rol) + "\n    ")]
-        ),
-        _vm._v(" "),
-        _vm.currentUser.nombre != null
-          ? _c("li", [
-              _c("div", { staticClass: "d-flex" }, [
-                _c("i", {
-                  staticClass: "fas fa-user mx-3",
-                  attrs: { id: "user" }
-                }),
-                _vm._v(" "),
-                _c("small", { staticClass: "fw-bold" }, [
-                  _vm._v(
+        _c("li", [
+          _c("p", { staticClass: "fw-bold text-white bg-primary ps-4 py-1" }, [
+            _vm._v("Admin")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row my-1" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-9" }, [
+              _c("p", { staticClass: "m-0 fw-bold" }, [
+                _vm._v(
+                  "\n            " +
                     _vm._s(_vm.currentUser.nombre) +
-                      " " +
-                      _vm._s(_vm.currentUser.apellido)
-                  ),
-                  _c("br"),
-                  _vm._v("\n          " + _vm._s(_vm.currentUser.id))
-                ])
-              ])
+                    " " +
+                    _vm._s(_vm.currentUser.apellido) +
+                    "\n          "
+                )
+              ]),
+              _vm._v(" "),
+              _c("small", [_vm._v(_vm._s(_vm.currentUser.id))])
             ])
-          : _vm._e(),
+          ])
+        ]),
         _vm._v(" "),
-        _vm._m(0),
+        _vm._m(1),
         _vm._v(" "),
         _c(
           "button",
@@ -49268,6 +49269,16 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3 mt-2" }, [
+      _c("i", {
+        staticClass: "fas fa-user text-white bg-dark rounded-circle ms-3 p-2"
+      })
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -54805,39 +54816,72 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "table-responsive" }, [
-      _c("table", { staticClass: "table table-bordered table-hover" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.stocks, function(stock, index) {
-            return _c("tr", { key: index }, [
-              _c("td", [_vm._v(_vm._s(stock.cantidad))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(stock.bodega.id))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(stock.producto.id))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-sm btn-success",
-                    attrs: { title: "Activar" },
+      _c(
+        "table",
+        {
+          staticClass: "table table-bordered table-hover",
+          attrs: { id: "table" }
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.stocks, function(stock, index) {
+              return _c("tr", { key: index }, [
+                _c("td", [_vm._v(_vm._s(stock.cantidad))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(stock.bodega.nombre))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(stock.producto.nombre))]),
+                _vm._v(" "),
+                _c("td", { staticClass: "text-center" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: _vm.entrada,
+                        expression: "entrada",
+                        modifiers: { number: true }
+                      }
+                    ],
+                    staticClass: "w-50 me-3",
+                    attrs: { type: "number", id: "entradas" },
+                    domProps: { value: _vm.entrada },
                     on: {
-                      click: function($event) {
-                        return _vm.agregar(stock, index)
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.entrada = _vm._n($event.target.value)
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
                       }
                     }
-                  },
-                  [_c("i", { staticClass: "fas fa-check" })]
-                )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-sm btn-success",
+                      attrs: { title: "Añadir" },
+                      on: {
+                        click: function($event) {
+                          return _vm.agregar(stock, _vm.entrada, index)
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-check" })]
+                  )
+                ])
               ])
-            ])
-          }),
-          0
-        )
-      ])
+            }),
+            0
+          )
+        ]
+      )
     ])
   ])
 }
@@ -54854,7 +54898,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Producto")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Funciones")])
+        _c("th", [_vm._v("Agregar")])
       ])
     ])
   }

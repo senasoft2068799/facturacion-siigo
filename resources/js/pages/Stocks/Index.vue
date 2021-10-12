@@ -1,25 +1,26 @@
 <template>
   <div>
     <div class="table-responsive">
-      <table class="table table-bordered table-hover">
+      <table id="table" class="table table-bordered table-hover">
         <thead class="table-dark text-center">
           <tr>
             <th>Cantidad</th>
             <th>Bodega</th>
             <th>Producto</th>
-            <th>Funciones</th>
+            <th>Agregar</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(stock, index) in stocks" :key="index">
             <td>{{ stock.cantidad }}</td>
-            <td>{{ stock.bodega.id }}</td>
-            <td>{{ stock.producto.id }}</td>
-            <td>
+            <td>{{ stock.bodega.nombre }}</td>
+            <td>{{ stock.producto.nombre }}</td>
+            <td class="text-center">
+              <input type="number" id="entradas" class="w-50 me-3" v-model.number="entrada"/>
               <button
-                @click="agregar(stock, index)"
+                @click="agregar(stock, entrada, index)"
                 class="btn btn-sm btn-success"
-                title="Activar"
+                title="Añadir" 
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -34,6 +35,7 @@
 export default {
   data() {
     return {
+      entrada: null,
       stocks: [],
     };
   },
@@ -43,10 +45,11 @@ export default {
     });
   },
   methods: {
-    agregar(stock, index) {
+    agregar(stock, entrada, index) {
+      let resultado = this.stocks[index].cantidad + entrada;
       this.$swal({
         title: "¿Estás seguro?",
-        text: "Se agregará: '" + stock.cantidad + "'",
+        text: "Se agregará: '" + stock.cantidad + "'" + "' + " + entrada + "'",
         icon: "warning",
         showCancelButton: true,
       }).then((result) => {
