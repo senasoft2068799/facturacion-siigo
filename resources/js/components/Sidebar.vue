@@ -54,6 +54,15 @@
 				</router-link>
 			</li>
 			<li class="nav-item">
+				<router-link active-class="active" :to="{ name: 'stocks.index' }">
+					<i class="fas fa-list"></i>
+					<svg class="bi me-2" width="5" height="16">
+						<use xlink:href="#grid"></use>
+					</svg>
+					Inventario
+				</router-link>
+			</li>
+			<li class="nav-item">
 				<router-link active-class="active" :to="{ name: 'roles.index' }">
 					<i class="fas fa-users"></i>
 					<svg class="bi me-2" width="5" height="16">
