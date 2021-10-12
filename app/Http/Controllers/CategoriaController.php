@@ -67,15 +67,9 @@ class CategoriaController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function activar(Categoria $categoria)
-    {
-        $categoria->estado_categoria = 1;
-        $categoria->save();
-    } 
-
     public function destroy(Categoria $categoria)
     {
-        $categoria->estado_categoria = 0;
+        $categoria->estado = !$categoria->estado;
         $categoria->save();
     } 
 }

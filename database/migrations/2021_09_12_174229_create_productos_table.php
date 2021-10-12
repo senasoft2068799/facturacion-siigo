@@ -23,7 +23,7 @@ class CreateProductosTable extends Migration
                 ->references("id")->on("categorias")
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-            $table->tinyInteger("estado_producto");
+            $table->tinyInteger("estado");
             $table->timestamps();
         });
     }

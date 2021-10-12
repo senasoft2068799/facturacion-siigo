@@ -25,7 +25,7 @@
             <td>{{ sucursal.direccion }}</td>
             <td>{{ sucursal.telefono }}</td>
             <td>{{ sucursal.ciudad.nombre }}</td>
-            <td v-if="sucursal.estado_sucursale == 1" class="text-success">Activo</td>
+            <td v-if="sucursal.estado == 1" class="text-success">Activo</td>
             <td v-else class="text-danger">Inactivo</td>
             <td>{{ sucursal.created_at }}</td>
             <td>{{ sucursal.updated_at }}</td>
@@ -43,7 +43,7 @@
                 @click="eliminarSucursal(sucursal, index)"
                 class="btn btn-sm btn-danger"
                 title="Inactivar"
-                v-if="sucursal.estado_sucursale == 1"
+                v-if="sucursal.estado == 1"
               >
                 <i class="fas fa-ban"></i>
               </button>
@@ -51,7 +51,7 @@
                 @click="activarSucursal(sucursal, index)"
                 class="btn btn-sm btn-success"
                 title="Activar"
-                v-if="sucursal.estado_sucursale == 0"
+                v-if="sucursal.estado == 0"
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -84,9 +84,9 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .put("/api/sucursales/" + sucursal.id)
+            .delete("/api/sucursales/" + sucursal.id)
             .then((response) => {
-              this.sucursales[index].estado_sucursale = 1;
+              this.sucursales[index].estado = 1;
               this.sucursales.indexOf(index, 1);
               this.$swal({
                 icon: "success",
@@ -113,7 +113,7 @@ export default {
           axios
             .delete("/api/sucursales/" + sucursal.id)
             .then((response) => {
-              this.sucursales[index].estado_sucursale = 0;
+              this.sucursales[index].estado = 0;
               this.sucursales.indexOf(index, 1);
               this.$swal({
                 icon: "success",

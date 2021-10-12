@@ -6,7 +6,6 @@ use App\Http\Requests\FacturaRequest;
 use App\Http\Resources\FacturaResource;
 use App\Models\DetalleMovimiento;
 use App\Models\Movimiento;
-use App\Models\Stock;
 use App\Models\User;
 use App\Notifications\OrdenFactura;
 use Illuminate\Http\Request;
@@ -72,15 +71,9 @@ class FacturaController extends Controller
         //
     }
 
-    public function activar(Movimiento $factura)
-    {
-        $factura->estado_factura = 1;
-        $factura->save();
-    }
-
     public function destroy(Movimiento $factura)
     {
-        $factura->estado_factura = 0;
+        $factura->estado = !$factura->estado;
         $factura->save();
     }
 }

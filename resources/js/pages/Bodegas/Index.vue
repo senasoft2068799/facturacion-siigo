@@ -10,7 +10,7 @@
             <th>Nombre</th>
             <th>Dirección</th>
             <th>Sucursal</th>
-            <th>Estado Bodega</th>
+            <th>Estado</th>
             <th>Fecha de creación</th>
             <th>Fecha de modificación</th>
             <th>Funciones</th>
@@ -21,7 +21,7 @@
             <td>{{ bodega.nombre }}</td>
             <td>{{ bodega.direccion }}</td>
             <td>{{ bodega.sucursal.nombre }}</td>
-            <td v-if="bodega.estado_bodega == 1" class="text-success">Activo</td>
+            <td v-if="bodega.estado == 1" class="text-success">Activo</td>
             <td v-else class="text-danger">Inactivo</td>
             <td>{{ bodega.created_at }}</td>
             <td>{{ bodega.updated_at }}</td>
@@ -48,7 +48,7 @@
                 @click="eliminarBodega(bodega, index)"
                 class="btn btn-sm btn-danger"
                 title="Inactivar"
-                v-if="bodega.estado_bodega == 1"
+                v-if="bodega.estado == 1"
               >
                 <i class="fas fa-ban"></i>
               </button>
@@ -56,7 +56,7 @@
                 @click="activarBodega(bodega, index)"
                 class="btn btn-sm btn-success"
                 title="Activar"
-                v-if="bodega.estado_bodega == 0"
+                v-if="bodega.estado == 0"
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -89,9 +89,9 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .put("/api/bodegas/" + bodega.id)
+            .delete("/api/bodegas/" + bodega.id)
             .then((response) => {
-              this.bodegas[index].estado_bodega = 1;
+              this.bodegas[index].estado = 1;
               this.bodegas.indexOf(index, 1);
               this.$swal({
                 icon: "success",
@@ -118,7 +118,7 @@ export default {
           axios
             .delete("/api/bodegas/" + bodega.id)
             .then((response) => {
-              this.bodegas[index].estado_bodega = 0;
+              this.bodegas[index].estado = 0;
               this.bodegas.indexOf(index, 1);
               this.$swal({
                 icon: "success",

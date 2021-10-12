@@ -17,7 +17,7 @@
           <tr>
             <th>Nombre</th>
             <th>Descripción</th>
-            <th>Estado Categoría</th>
+            <th>Estado</th>
             <th>Fecha de creación</th>
             <th>Fecha de modificación</th>
             <th>Funciones</th>
@@ -27,7 +27,7 @@
           <tr v-for="(categoria, index) in categorias" :key="index">
             <td>{{ categoria.nombre }}</td>
             <td>{{ categoria.descripcion }}</td>
-            <td v-if="categoria.estado_categoria == 1" class="text-success">Activo</td>
+            <td v-if="categoria.estado == 1" class="text-success">Activo</td>
             <td v-else class="text-danger">Inactivo</td>
             <td>{{ categoria.created_at }}</td>
             <td>{{ categoria.updated_at }}</td>
@@ -45,7 +45,7 @@
                 @click="eliminarCategoria(categoria, index)"
                 class="btn btn-sm btn-danger"
                 title="Inactivar"
-                v-if="categoria.estado_categoria == 1"
+                v-if="categoria.estado == 1"
               >
                 <i class="fas fa-ban"></i>
               </button>
@@ -53,7 +53,7 @@
                 @click="activarCategoria(categoria, index)"
                 class="btn btn-sm btn-success"
                 title="Activar"
-                v-if="categoria.estado_categoria == 0"
+                v-if="categoria.estado == 0"
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -86,9 +86,9 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .put("/api/categorias/" + categoria.id)
+            .delete("/api/categorias/" + categoria.id)
             .then((response) => {
-              this.categorias[index].estado_categoria = 1;
+              this.categorias[index].estado = 1;
               this.categorias.indexOf(index, 1);
               this.$swal({
                 icon: "success",
@@ -115,7 +115,7 @@ export default {
           axios
             .delete("/api/categorias/" + categoria.id)
             .then((response) => {
-              this.categorias[index].estado_categoria = 0;
+              this.categorias[index].estado = 0;
               this.categorias.indexOf(index, 1);
               this.$swal({
                 icon: "success",

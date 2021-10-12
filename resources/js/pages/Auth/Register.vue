@@ -137,7 +137,7 @@ export default {
         telefono: null,
         password: null,
         password_confirmation: null,
-        estado_usuario: "Activo",
+        estado: 1,
         role_id: null,
       },
       roles: [],

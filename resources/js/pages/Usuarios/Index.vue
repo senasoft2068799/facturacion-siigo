@@ -21,7 +21,7 @@
             <td>{{ user.email }}</td>
             <td>{{ user.telefono }}</td>
             <td>{{ user.rol.nombre }}</td>
-            <td v-if="user.estado_usuario == 1" class="text-success">Activo</td>
+            <td v-if="user.estado == 1" class="text-success">Activo</td>
             <td v-else class="text-danger">Inactivo</td>
             <td class="text-center">
               <router-link
@@ -37,7 +37,7 @@
                 @click="eliminarUsuario(user, index)"
                 class="btn btn-sm btn-danger"
                 title="Inactivar"
-                v-if="user.estado_usuario == 1"
+                v-if="user.estado == 1"
               >
                 <i class="fas fa-ban"></i>
               </button>
@@ -45,7 +45,7 @@
                 @click="activarUsuario(user, index)"
                 class="btn btn-sm btn-success"
                 title="Activar"
-                v-if="user.estado_usuario == 0"
+                v-if="user.estado == 0"
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -78,9 +78,9 @@ export default {
       }).then((result) => {
         if (result.value) {
           axios
-            .put("/api/users/" + user.id)
+            .delete("/api/users/" + user.id)
             .then((response) => {
-              this.users[index].estado_usuario = 1;
+              this.users[index].estado = 1;
               this.users.indexOf(index, 1);
               this.$swal({
                 icon: "success",
@@ -107,7 +107,7 @@ export default {
           axios
             .delete("/api/users/" + user.id)
             .then((response) => {
-              this.users[index].estado_usuario = 0;
+              this.users[index].estado = 0;
               this.users.indexOf(index, 1);
               this.$swal({
                 icon: "success",

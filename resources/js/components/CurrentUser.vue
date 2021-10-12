@@ -15,20 +15,21 @@
 			class="dropdown-menu dropdown-menu-end py-0"
 			aria-labelledby="navbarDropdown"
 		>
-			<p class="bg-primary text-center text-white fw-bold py-2">
-				{{ currentUser.rol }}Administrador
+			<p id="menu-user" class="bg-primary text-white fw-bold">
+				{{ currentUser.rol }} Administrador
 			</p>
 			<li v-if="currentUser.nombre != null">
-				<i class="fas fa-user"></i>
-				<p class="fs-6 fw-bold text-primary text-center mb-2 p-0">
-					{{ currentUser.nombre }} {{ currentUser.apellido }}
-					<br />
-					{{ currentUser.email }}
-				</p>
+				<div class="d-flex">
+					<i id="user" class="fas fa-user mx-3"></i>
+					<small class="fw-bold"
+						>{{ currentUser.nombre }} {{ currentUser.apellido }}<br />
+						{{ currentUser.id }}</small
+					>
+				</div>
 			</li>
-			<li><hr class="dropdown-divider" /></li>
+			<li class="mt-3"><hr class="dropdown-divider" /></li>
 			<button @click="logout()" id="btn-logout">
-				<i class="fas fa-sign-out-alt me-2">Cerrar sesión</i>
+				<i class="fas fa-sign-out-alt me-2"> Cerrar sesión </i>
 			</button>
 		</ul>
 	</li>

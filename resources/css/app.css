@@ -90,14 +90,14 @@
 }
 
 #menu-user{
-    padding: .5rem 5rem .5rem 1rem;
+    padding: .5rem 6rem .5rem 1rem;
 }
 
 #user{
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: white;
     background-color: var(--main-text-color);
-    padding: .5rem .6rem 0 .6rem;
+    padding: .5rem .5rem 0 .5rem;
     border-radius: 2.5rem;
 }
 /*FINALIZA NAVBAR*/

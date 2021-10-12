@@ -30,7 +30,7 @@ class MovimientoFactory extends Factory
             "sucursale_id" => Sucursale::inRandomOrder()->first()->id,
             "user_id" => User::inRandomOrder()->first()->id,
             "valor_total" => $this->faker->randomFloat(),
-            "estado_factura" => $this->faker->randomElement([0,1])
+            "estado" => $this->faker->randomElement([0,1])
         ];
     }
 }

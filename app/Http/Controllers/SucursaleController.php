@@ -43,15 +43,9 @@ class SucursaleController extends Controller
         $sucursale->update($request->all());
     }
 
-    public function activar(Sucursale $sucursale)
-    {
-        $sucursale->estado_sucursale = 1;
-        $sucursale->save(); 
-    }
-
     public function destroy(Sucursale $sucursale)
     {
-        $sucursale->estado_sucursale = 0;
+        $sucursale->estado = !$sucursale->estado; 
         $sucursale->save(); 
     }
 }

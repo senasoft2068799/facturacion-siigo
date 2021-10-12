@@ -22,7 +22,7 @@ class FacturaResource extends JsonResource
             "sucursal" => $this->sucursale,
             "user" => $this->user,
             "detalle_movimientos" => DetalleMovimientoResource::collection($this->detalle_movimientos()->get()),
-            "estado_factura" => $this->estado_factura,
+            "estado" => $this->estado,
             "created_at" => $this->created_at->diffForHumans(),
             "updated_at" => $this->updated_at->diffForHumans(),
         ];
