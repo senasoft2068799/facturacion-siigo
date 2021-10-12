@@ -14,17 +14,22 @@
 		<ul
 			class="dropdown-menu dropdown-menu-end py-0"
 			aria-labelledby="navbarDropdown"
+			style="width: 13rem"
 		>
-			<p id="menu-user" class="bg-primary text-white fw-bold">
-				{{ currentUser.rol }} Administrador
-			</p>
-			<li v-if="currentUser.nombre != null">
-				<div class="d-flex">
-					<i id="user" class="fas fa-user mx-3"></i>
-					<small class="fw-bold"
-						>{{ currentUser.nombre }} {{ currentUser.apellido }}<br />
-						{{ currentUser.id }}</small
-					>
+			<li>
+				<p class="fw-bold text-white bg-primary ps-4 py-1">Admin</p>
+				<div class="row my-1">
+					<div class="col-3 mt-2">
+						<i
+							class="fas fa-user text-white bg-dark rounded-circle ms-3 p-2"
+						></i>
+					</div>
+					<div class="col-9">
+						<p class="m-0 fw-bold">
+							{{ currentUser.nombre }} {{ currentUser.apellido }}
+						</p>
+						<small>{{ currentUser.id }}</small>
+					</div>
 				</div>
 			</li>
 			<li class="mt-3"><hr class="dropdown-divider" /></li>

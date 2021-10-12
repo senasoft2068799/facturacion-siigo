@@ -89,17 +89,10 @@
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#menu-user{
-    padding: .5rem 6rem .5rem 1rem;
-}
+#table td:last-child {
+    width: 10rem;
+  }
 
-#user{
-    font-size: 1.4rem;
-    color: white;
-    background-color: var(--main-text-color);
-    padding: .5rem .5rem 0 .5rem;
-    border-radius: 2.5rem;
-}
 /*FINALIZA NAVBAR*/
 
 /*INDEX*/
