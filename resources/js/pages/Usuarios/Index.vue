@@ -9,20 +9,22 @@
           <tr>
             <th>Nombre Completo</th>
             <th>Email</th>
-            <th>Número de Teléfono</th>
             <th>Rol</th>
             <th>Estado</th>
+            <th>Fecha de creación</th>
+            <th>Fecha de modificación</th>
             <th>Funciones</th>
           </tr>
-        </thead> 
+        </thead>
         <tbody>
           <tr v-for="(user, index) in users" :key="index">
             <td>{{ user.nombre }} {{ user.apellido }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.telefono }}</td>
             <td>{{ user.rol.nombre }}</td>
             <td v-if="user.estado == 1" class="text-success">Activo</td>
             <td v-else class="text-danger">Inactivo</td>
+            <td>{{ user.created_at }}</td>
+            <td>{{ user.updated_at }}</td>
             <td class="text-center">
               <router-link
                 class="btn btn-sm btn-primary"
@@ -53,6 +55,7 @@
           </tr>
         </tbody>
       </table>
+     
     </div>
   </div>
 </template>

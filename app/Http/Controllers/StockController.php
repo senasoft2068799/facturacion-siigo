@@ -10,7 +10,7 @@ class StockController extends Controller
 {
     public function index()
     {
-        return StockResource::collection(Stock::latest()->get());
+        return StockResource::collection(Stock::all()->sortBy('bodega.nombre'));
     }
 
     public function store(Request $request)

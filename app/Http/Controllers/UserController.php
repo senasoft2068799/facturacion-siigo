@@ -10,7 +10,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return UserResource::collection(User::latest()->get());
+        return UserResource::collection(User::paginate(3));
+        //return UserResource::collection(User::latest()->get());
     }
 
     public function store(Request $request)

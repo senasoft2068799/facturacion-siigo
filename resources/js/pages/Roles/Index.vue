@@ -8,19 +8,19 @@
         <thead class="table-dark text-center">
           <tr>
             <th>Nombre de rol</th>
-            <th>Estado</th>
             <th>Fecha de creación</th>
             <th>Fecha de modificación</th>
+            <th>Estado</th>
             <th>Funciones</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(rol, index) in roles" :key="index">
             <td>{{ rol.nombre }}</td>
-            <td v-if="rol.estado == 1" class="text-success">Activo</td>
-            <td v-else class="text-danger">Inactivo</td>
             <td>{{ rol.created_at }}</td>
             <td>{{ rol.updated_at }}</td>
+            <td v-if="rol.estado == 1" class="text-success">Activo</td>
+            <td v-else class="text-danger">Inactivo</td>
             <td class="text-center">
               <router-link
                 class="btn btn-sm btn-primary"
@@ -63,7 +63,7 @@ export default {
   },
   created() {
     this.axios.get("/api/roles").then((response) => {
-      this.roles = response.data;
+      this.roles = response.data.data;
     });
   },
   methods: {

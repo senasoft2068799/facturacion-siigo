@@ -4,23 +4,28 @@
       <table id="table" class="table table-bordered table-hover">
         <thead class="table-dark text-center">
           <tr>
-            <th>Cantidad</th>
             <th>Bodega</th>
             <th>Producto</th>
-            <th>Agregar</th>
+            <th>Cantidad</th>
+            <th>Entradas</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(stock, index) in stocks" :key="index">
-            <td>{{ stock.cantidad }}</td>
             <td>{{ stock.bodega.nombre }}</td>
             <td>{{ stock.producto.nombre }}</td>
+            <td>{{ stock.cantidad }}</td>
             <td class="text-center">
-              <input type="number" id="entradas" class="w-50 me-3" v-model.number="entrada"/>
+              <input
+                type="number"
+                id="entradas"
+                class="w-50 me-3"
+                v-model.number="entrada"
+              />
               <button
                 @click="agregar(stock, entrada, index)"
                 class="btn btn-sm btn-success"
-                title="Añadir" 
+                title="Añadir"
               >
                 <i class="fas fa-check"></i>
               </button>
@@ -57,7 +62,7 @@ export default {
           axios
             .put("/api/stocks/" + stock.id)
             .then((response) => {
-              this.stocks[index].cantidad ++;
+              this.stocks[index].cantidad++;
               this.stocks.indexOf(index, 1);
               this.$swal({
                 icon: "success",
