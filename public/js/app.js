@@ -55415,10 +55415,6 @@ var render = function() {
               return _c("tr", { key: index }, [
                 _c("td", [_vm._v(_vm._s(rol.nombre))]),
                 _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(rol.created_at))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(rol.updated_at))]),
-                _vm._v(" "),
                 rol.estado == 1
                   ? _c("td", { staticClass: "text-success" }, [
                       _vm._v("Activo")
@@ -55426,6 +55422,10 @@ var render = function() {
                   : _c("td", { staticClass: "text-danger" }, [
                       _vm._v("Inactivo")
                     ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(rol.created_at))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(rol.updated_at))]),
                 _vm._v(" "),
                 _c(
                   "td",
@@ -55499,11 +55499,11 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombre de rol")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Estado")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Fecha de creación")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha de modificación")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Estado")]),
         _vm._v(" "),
         _c("th", [_vm._v("Funciones")])
       ])
