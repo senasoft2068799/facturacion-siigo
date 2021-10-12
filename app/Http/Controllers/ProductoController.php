@@ -81,12 +81,16 @@ class ProductoController extends Controller
 
     public function downloadTemplate()
     {
-        $file = public_path() . "/files/template.csv";
+        $file = public_path() . "/files/template.xlsx";
         info($file);
         $headers = [
-            'Content-Type' => "data:text/csv;charset=utf-8",
+            'Content-Type'              => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'Content-Length'            => filesize($file),
+            'Cache-Control'             => 'must-revalidate',
+            'Content-Transfer-Encoding' => 'binary',
+            'Content-Disposition'       => 'attachment; filename="template.xlsx"'
         ];
-        return response()->download($file, 'filename.csv', $headers);
+        return response()->download($file, 'filename.xlsx', $headers);
     }
 
     public function importExcel(Request $request)

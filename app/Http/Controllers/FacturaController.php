@@ -6,7 +6,9 @@ use App\Http\Requests\FacturaRequest;
 use App\Http\Resources\FacturaResource;
 use App\Models\DetalleMovimiento;
 use App\Models\Movimiento;
+use App\Models\Stock;
 use App\Models\User;
+use App\Notifications\LimiteStock;
 use App\Notifications\OrdenFactura;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,11 +30,15 @@ class FacturaController extends Controller
             $detalle["producto_id"] = $detalle["producto"]["id"];
             $detalle["bodega_id"] = $detalle["bodega"]["id"];
 
-            // $stock = Stock::where([
-            //     "producto_id", $detalle["producto_id"],
-            //     "bodega_id", $detalle["bodega_id"]
-            // ]);
-            // info($stock);
+
+            $stock = Stock::where("producto_id", $detalle["producto_id"])
+                ->where("bodega_id", $detalle["bodega_id"])->get()->first();
+            $stock->cantidad -= $detalle["cantidad"];
+            if ($stock->cantidad <= 10) {
+                $admins = User::where("role_id", 1)->orWhere("role_id", 3)->get();
+                Notification::send($admins, new LimiteStock($stock->producto, $stock->bodega));
+            }
+            $stock->save();
 
             return new DetalleMovimiento($detalle);
         });

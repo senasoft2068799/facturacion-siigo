@@ -36,7 +36,7 @@ class CreateMovimientosTable extends Migration
                 ->references("id")->on("users")
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-            $table->tinyInteger("estado");
+            $table->tinyInteger("estado")->default(1);
             $table->timestamps();
         });
     }

@@ -186,13 +186,16 @@ export default {
 			this.file = this.$refs.file.files[0];
 		},
 		downloadTemplate() {
-			this.axios.get("/api/download-csv-file").then((response) => {
-				let blob = new Blob([response.data], {
-					type: "data:text/csv;charset=utf-8,%EF%BB%BF",
-				});
-				let link = document.createElement("a");
-				link.href = window.URL.createObjectURL(blob);
-				link.download = "plantilla.csv";
+			axios({
+				url: "/api/download-template",
+				method: "GET",
+				responseType: "blob", // important
+			}).then((response) => {
+				const url = window.URL.createObjectURL(new Blob([response.data]));
+				const link = document.createElement("a");
+				link.href = url;
+				link.setAttribute("download", "plantilla.xlsx"); //or any other extension
+				document.body.appendChild(link);
 				link.click();
 			});
 		},

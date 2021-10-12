@@ -16,6 +16,7 @@ class BodegaController extends Controller
 
     public function store(Request $request)
     {
+        info($request);
         $request->validate([
             'nombre' => 'required|min:4|max:45',
             'direccion' => 'required|min:6|max:255',
