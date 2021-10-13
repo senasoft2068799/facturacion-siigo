@@ -314,12 +314,12 @@
 				</div>
 				<!-- Fin descripcion -->
 				<!-- Botones -->
-				<button type="submit" class="btn btn-success">Registrar</button>
+				<button type="submit" class="btn btn-primary"><i class="fas fa-check me-2"></i>Registrar</button>
 				<router-link
-					class="btn btn-secondary"
+					class="btn btn-dark"
 					@click.native="limpiarFactura()"
 					:to="{ name: 'facturas.index' }"
-					>Cancelar</router-link
+					><i class="fas fa-arrow-alt-circle-left me-2"></i>Cancelar</router-link
 				>
 				<!-- Fin botones -->
 			</form>

@@ -47,7 +47,7 @@
 				<hr />
 			</div>
 			<router-link :to="{ name: 'bodegas.index' }" class="btn btn-dark"
-				><i class="fas fa-arrow-left me-2"></i>Regresar</router-link
+				><i class="fas fa-arrow-alt-circle-left me-2"></i>Regresar</router-link
 			>
 			<router-link
 				class="btn btn-primary"
@@ -55,7 +55,7 @@
 					name: 'bodegas.edit',
 					params: { id: bodega.id },
 				}"
-				><i class="fas fa-pencil-alt me-2"></i>Editar</router-link
+				><i class="fas fa-edit me-2"></i>Editar</router-link
 			>
 		</div>
 	</div>

@@ -115,8 +115,8 @@
 				<p v-if="factura.descripcion">{{ factura.descripcion }}</p>
 				<p v-else>...</p>
 			</div>
-			<router-link :to="{ name: 'facturas.index' }" class="btn btn-secondary"
-				>Regresar</router-link
+			<router-link :to="{ name: 'facturas.index' }" class="btn btn-dark"
+				><i class="fas fa-arrow-alt-circle-left me-2"></i>Regresar</router-link
 			>
 			<router-link
 				class="btn btn-primary"
@@ -124,7 +124,7 @@
 					name: 'facturas.edit',
 					params: { id: factura.id },
 				}"
-				>Editar</router-link
+				><i class="fas fa-edit me-2"></i>Editar</router-link
 			>
 		</div>
 	</div>

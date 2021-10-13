@@ -129,9 +129,9 @@
 					</div>
 					<hr />
 				</div>
-				<button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt me-2"></i>Modificar</button>
+				<button type="submit" class="btn btn-primary"><i class="fas fa-edit me-2"></i>Modificar</button>
 				<router-link :to="{ name: 'bodegas.index' }" class="btn btn-dark"
-					><i class="fas fa-arrow-left me-2"></i>Regresar</router-link
+					><i class="fas fa-arrow-alt-circle-left me-2"></i>Regresar</router-link
 				>
 			</form>
 		</div>

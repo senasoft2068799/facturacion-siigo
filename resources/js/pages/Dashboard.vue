@@ -170,5 +170,16 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data(){
+    return {
+      
+    };
+  },
+  created() {
+    this.axios.get("/api/users").then((response) => {
+      this.users = response.data.data;
+    });
+  },
+};
 </script>

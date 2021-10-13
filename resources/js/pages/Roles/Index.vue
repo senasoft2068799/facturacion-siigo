@@ -51,11 +51,16 @@
           </tr>
         </tbody>
       </table>
+      <pagination v-bind:pagination="roles.pagination" v-on:paginate="getPosts(roles.pagination.current_page)"></pagination>
     </div>
   </div>
 </template>
 <script>
+import pagination from "../../components/Paginate.vue";
 export default {
+  components: {
+    pagination,
+  },
   data() {
     return {
       roles: [],

@@ -79,7 +79,7 @@
           <router-link
             :to="{ name: 'usuarios.index' }"
             class="btn btn-dark"
-            ><i class="fas <fas fa-arrow-alt-circle-left me-2"></i
+            ><i class="fas fa-arrow-alt-circle-left me-2"></i
             >Regresar</router-link
           >
         </div>

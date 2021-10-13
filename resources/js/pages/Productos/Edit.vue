@@ -71,9 +71,9 @@
 						</figure>
 					</center>
 				</div>
-				<button type="submit" class="btn btn-success">Modificar</button>
-				<router-link :to="{ name: 'productos.index' }" class="btn btn-secondary"
-					>Regresar</router-link
+				<button type="submit" class="btn btn-primary"><i class="fas fa-edit me-2"></i>Modificar</button>
+				<router-link :to="{ name: 'productos.index' }" class="btn btn-dark"
+					><i class="fas fa-arrow-alt-circle-left me-2"></i>Regresar</router-link
 				>
 			</form>
 		</div>

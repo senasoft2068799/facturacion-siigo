@@ -66,8 +66,8 @@
 				</div>
 				<hr />
 			</div>
-			<router-link :to="{ name: 'productos.index' }" class="btn btn-secondary"
-				>Regresar</router-link
+			<router-link :to="{ name: 'productos.index' }" class="btn btn-dark"
+				><i class="fas fa-arrow-alt-circle-left ms-2"></i>Regresar</router-link
 			>
 			<router-link
 				class="btn btn-primary"
@@ -75,7 +75,7 @@
 					name: 'productos.edit',
 					params: { id: producto.id },
 				}"
-				>Editar</router-link
+				><i class="fas fa-edit ms-2"></i>Editar</router-link
 			>
 		</div>
 	</div>

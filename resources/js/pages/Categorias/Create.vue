@@ -31,7 +31,7 @@
 				<router-link
 					:to="{ name: 'categorias.index' }"
 					class="btn btn-dark"
-					><i class="fas fa-arrow-left me-2"></i>Regresar</router-link
+					><i class="fas fa-arrow-alt-circle-left me-2"></i>Regresar</router-link
 				>
 			</form>
 		</div>

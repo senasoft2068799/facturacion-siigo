@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<router-link class="btn btn-success mb-3" :to="{ name: 'productos.create' }"
+		<router-link class="btn btn-primary mb-3" :to="{ name: 'productos.create' }"
 			>Registrar producto</router-link
 		>
 		<router-link
@@ -11,7 +11,7 @@
 		>
 		<button
 			type="button"
-			class="btn btn-secondary mb-3"
+			class="btn btn-dark mb-3"
 			data-bs-toggle="modal"
 			data-bs-target="#exampleModal"
 		>
@@ -27,8 +27,8 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<label for="file" class="form-label"
-							><b>Importar productos</b></label
+						<label for="file" class="form-label fs-4"
+							>Importar productos</label
 						>
 						<button
 							type="button"
@@ -55,7 +55,7 @@
 								<input
 									type="submit"
 									v-on:click="eventoSubir()"
-									class="btn btn-secondary"
+									class="btn btn-dark"
 									id="inputGroupFileAddon04"
 									value="Subir"
 								/>
@@ -63,8 +63,8 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-success" @click="downloadTemplate()">
-							Descargar plantilla
+						<button class="btn btn-primary" @click="downloadTemplate()">
+							<i class="fas fa-file-upload me-2"></i>Descargar plantilla
 						</button>
 					</div>
 				</div>
@@ -120,7 +120,7 @@
 						<td v-else class="text-danger">Inactivo</td>
 						<td>{{ producto.created_at }}</td>
 						<td>{{ producto.updated_at }}</td>
-						<td>
+						<td class="d-flex">
 							<router-link
 								class="btn btn-sm btn-warning"
 								title="Detalles"
@@ -131,7 +131,7 @@
 								><i class="fas fa-eye"></i
 							></router-link>
 							<router-link
-								class="btn btn-primary btn-sm"
+								class="btn btn-primary btn-sm mx-1"
 								title="Editar"
 								:to="{
 									name: 'productos.edit',

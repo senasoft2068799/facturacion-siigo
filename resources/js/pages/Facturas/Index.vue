@@ -111,7 +111,7 @@
                   params: { id: factura.id },
                 }"
                 title="Editar"
-                ><i class="fas fa-edit"></i
+                ><i class="fas fa-pencil-alt"></i
               ></router-link>
               <button
                 @click="eliminarSucursal(factura, index)"
