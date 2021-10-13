@@ -2437,6 +2437,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     pagination: {
@@ -2998,6 +3000,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -3030,6 +3034,7 @@ __webpack_require__.r(__webpack_exports__);
     registrarBodega: function registrarBodega() {
       var _this2 = this;
 
+      this.bodega.estado = 1;
       this.axios.post("/api/bodegas", this.bodega).then(function (res) {
         _this2.errors.clearAll();
 
@@ -3600,7 +3605,8 @@ __webpack_require__.r(__webpack_exports__);
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       categoria: {
         nombre: null,
-        descripcion: null
+        descripcion: null,
+        estado: 1
       }
     };
   },
@@ -3610,7 +3616,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var params = {
         nombre: this.categoria.nombre,
-        descripcion: this.categoria.descripcion
+        descripcion: this.categoria.descripcion,
+        estado: this.categoria.estado
       };
       this.axios.post("/api/categorias", params).then(function (response) {
         _this.errors.clearAll();
@@ -3619,7 +3626,8 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.categoria = {
           nombre: null,
-          descripcion: null
+          descripcion: null,
+          estado: null
         };
       })["catch"](function (err) {
         if (err.response.status === 422) {
@@ -3700,7 +3708,8 @@ __webpack_require__.r(__webpack_exports__);
       errors: new _utilities_Errors_js__WEBPACK_IMPORTED_MODULE_0__["default"](),
       categoria: {
         nombre: null,
-        descripcion: null
+        descripcion: null,
+        estado: null
       }
     };
   },
@@ -5251,7 +5260,8 @@ __webpack_require__.r(__webpack_exports__);
         nombre: "",
         precio_unitario: "",
         imagen: "",
-        categoria_id: ""
+        categoria_id: "",
+        estado: "1"
       },
       categorias: []
     };
@@ -5303,6 +5313,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.producto.precio_unitario = null;
         _this3.producto.imagen = null;
         _this3.producto.categoria_id = null;
+        _this3.producto.estado = null;
         _this3.imagenMiniatura = null;
       })["catch"](function (err) {
         if (err.response.status === 422) {
@@ -5430,7 +5441,9 @@ __webpack_require__.r(__webpack_exports__);
         nombre: null,
         precio_unitario: null,
         imagen: null,
-        categoria_id: null
+        categoria_id: null,
+        estado: null,
+        bodegas: null
       },
       categorias: []
     };
@@ -5441,8 +5454,8 @@ __webpack_require__.r(__webpack_exports__);
     this.axios.get("/api/categorias").then(function (res) {
       _this.categorias = res.data.data;
     });
-    axios.get("/api/productos/" + this.$route.params.id).then(function (res) {
-      _this.producto = res.data;
+    this.axios.get("/api/productos/" + this.$route.params.id).then(function (res) {
+      _this.producto = res.data.data;
     });
   },
   methods: {
@@ -5673,6 +5686,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5698,13 +5712,18 @@ __webpack_require__.r(__webpack_exports__);
       this.file = this.$refs.file.files[0];
     },
     downloadTemplate: function downloadTemplate() {
-      this.axios.get("/api/download-csv-file").then(function (response) {
-        var blob = new Blob([response.data], {
-          type: "data:text/csv;charset=utf-8,%EF%BB%BF"
-        });
+      axios({
+        url: "/api/download-template",
+        method: "GET",
+        responseType: "blob" // important
+
+      }).then(function (response) {
+        var url = window.URL.createObjectURL(new Blob([response.data]));
         var link = document.createElement("a");
-        link.href = window.URL.createObjectURL(blob);
-        link.download = "plantilla.csv";
+        link.href = url;
+        link.setAttribute("download", "plantilla.xlsx"); //or any other extension
+
+        document.body.appendChild(link);
         link.click();
       });
     },
@@ -5718,10 +5737,9 @@ __webpack_require__.r(__webpack_exports__);
           "Content-Type": "multipart/form-data"
         }
       }).then(function (response) {
-        _this2.$swal({
-          icon: "success",
-          title: "Importación exitosa."
-        });
+        _this2.$swal("Producto modificado correctamente.");
+
+        _this2.$router.push("/productos");
       })["catch"](function (err) {
         _this2.$swal({
           icon: "error",
@@ -6163,17 +6181,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      paginador: {},
       roles: []
     };
   },
   created: function created() {
-    var _this = this;
-
-    this.axios.get("/api/roles").then(function (response) {
-      _this.roles = response.data.data;
-    });
+    this.obtenerRoles(1);
   },
   methods: {
+    obtenerRoles: function obtenerRoles(pagina) {
+      var _this = this;
+
+      this.axios.get("/api/roles?page=" + pagina).then(function (response) {
+        _this.roles = response.data.data;
+        _this.paginador = response.data.meta;
+      });
+    },
     activarRol: function activarRol(rol, index) {
       var _this2 = this;
 
@@ -6847,14 +6870,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6864,7 +6879,6 @@ __webpack_require__.r(__webpack_exports__);
         apellido: null,
         email: null,
         telefono: null,
-        estado_usuario: null,
         role_id: null
       },
       roles: []
@@ -6874,10 +6888,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("/api/roles").then(function (res) {
-      _this.roles = res.data;
+      _this.roles = res.data.data;
     });
     axios.get("/api/users/" + this.$route.params.id).then(function (res) {
-      _this.user = res.data;
+      _this.user = res.data.data;
     });
   },
   methods: {
@@ -50175,10 +50189,13 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm._l(_vm.pagesNumber, function(page) {
+        _vm._l(_vm.pagesNumber, function(page, index) {
           return _c(
             "li",
-            { class: { active: page == _vm.pagination.current_page } },
+            {
+              key: index,
+              class: { active: page == _vm.pagination.current_page }
+            },
             [
               _c(
                 "a",
@@ -50220,7 +50237,8 @@ var render = function() {
           : _vm._e()
       ],
       2
-    )
+    ),
+    _vm._v("\n    " + _vm._s(_vm.pagination) + "\n")
   ])
 }
 var staticRenderFns = []
@@ -51456,7 +51474,10 @@ var staticRenderFns = [
     return _c(
       "button",
       { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-      [_c("i", { staticClass: "fas fa-check me-2" }), _vm._v("Registrar")]
+      [
+        _c("i", { staticClass: "fas fa-check me-2" }),
+        _vm._v("Registrar\n\t\t\t")
+      ]
     )
   }
 ]
@@ -55194,6 +55215,8 @@ var render = function() {
               _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
+                _vm._m(1),
+                _vm._v(" "),
                 _c("form", { staticStyle: { margin: "15px" } }, [
                   _c("div", { staticClass: "input-group" }, [
                     _c("input", {
@@ -55285,7 +55308,7 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(1)
+            _vm._m(2)
           ])
         ])
       ]),
@@ -55295,7 +55318,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "table-responsive" }, [
         _c("table", { staticClass: "table table-bordered table-hover" }, [
-          _vm._m(2),
+          _vm._m(3),
           _vm._v(" "),
           _c(
             "tbody",
@@ -55428,6 +55451,22 @@ var staticRenderFns = [
           "aria-label": "Close"
         }
       })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("b", [_vm._v("¡Nota importante!")]),
+      _vm._v(
+        " Recuerda que tienes que colocar el nombre y el precio unitario del producto como se muestra en la plantilla descargable, y no olvides que "
+      ),
+      _c("b", [
+        _vm._v(
+          'en el campo categoria debes colocar el número de la categoria que muestra en la tabla "Categorias"'
+        )
+      ])
     ])
   },
   function() {
@@ -55981,10 +56020,10 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("pagination", {
-            attrs: { pagination: _vm.roles.pagination },
+            attrs: { pagination: _vm.paginador },
             on: {
               paginate: function($event) {
-                return _vm.getPosts(_vm.roles.pagination.current_page)
+                return _vm.obtenerRoles(_vm.paginador.current_page)
               }
             }
           })
@@ -57026,8 +57065,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.user.role_id,
-                    expression: "user.role_id"
+                    value: _vm.user.rol.id,
+                    expression: "user.rol.id"
                   }
                 ],
                 staticClass: "form-select",
@@ -57043,8 +57082,8 @@ var render = function() {
                         return val
                       })
                     _vm.$set(
-                      _vm.user,
-                      "role_id",
+                      _vm.user.rol,
+                      "id",
                       $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
                   }
@@ -57072,54 +57111,6 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "label",
-            { staticClass: "form-label", attrs: { for: "estado_usuario" } },
-            [_vm._v("Estado Usuario")]
-          ),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.user.estado_usuario,
-                  expression: "user.estado_usuario"
-                }
-              ],
-              staticClass: "form-select",
-              attrs: { id: "estado_usuario" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.user,
-                    "estado_usuario",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { disabled: "", value: "null" } }, [
-                _vm._v("Seleccionar...")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "1" } }, [_vm._v("Activo")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "0" } }, [_vm._v("Inactivo")])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
             "div",
             { staticClass: "mt-4 mb-2" },
             [
@@ -57140,7 +57131,8 @@ var render = function() {
             1
           )
         ]
-      )
+      ),
+      _vm._v("\n    " + _vm._s(_vm.user) + "\n  ")
     ])
   ])
 }

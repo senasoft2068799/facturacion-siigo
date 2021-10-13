@@ -51,7 +51,7 @@
           </tr>
         </tbody>
       </table>
-      <pagination v-bind:pagination="roles.pagination" v-on:paginate="getPosts(roles.pagination.current_page)"></pagination>
+      <pagination :pagination="paginador" v-on:paginate="obtenerRoles(paginador.current_page)"></pagination>
     </div>
   </div>
 </template>
@@ -63,15 +63,22 @@ export default {
   },
   data() {
     return {
+      paginador: {
+
+      },
       roles: [],
     };
   },
   created() {
-    this.axios.get("/api/roles").then((response) => {
-      this.roles = response.data.data;
-    });
+    this.obtenerRoles(1);
   },
   methods: {
+    obtenerRoles(pagina){
+      this.axios.get("/api/roles?page=" + pagina).then((response) => {
+      this.roles = response.data.data;
+      this.paginador = response.data.meta;
+    });
+    },
     activarRol(rol, index) {
       this.$swal({
         title: "¿Estás seguro?",

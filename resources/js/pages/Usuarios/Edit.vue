@@ -51,7 +51,7 @@
         />
         <div class="my-3">
           <label for="role" class="form-label">Rol</label>
-          <select class="form-select" id="role" v-model="user.role_id">
+          <select class="form-select" id="role" v-model="user.rol.id">
             <option disabled value="null">Seleccionar rol...</option>
             <option
               v-for="(role, index) in roles"
@@ -62,16 +62,7 @@
             </option>
           </select>
         </div>
-        <label for="estado_usuario" class="form-label">Estado Usuario</label>
-        <select
-          class="form-select"
-          id="estado_usuario"
-          v-model="user.estado_usuario"
-        >
-          <option disabled value="null">Seleccionar...</option>
-          <option value=1>Activo</option>
-          <option value=0>Inactivo</option>
-        </select>
+        
         <div class="mt-4 mb-2">
           <button type="submit" class="btn btn-primary">
             <i class="fas fa-edit me-2"></i>Modificar
@@ -84,6 +75,7 @@
           >
         </div>
       </form>
+      {{user}}
     </div>
   </div>
 </template>
@@ -97,7 +89,6 @@ export default {
         apellido: null,
         email: null,
         telefono: null,
-        estado_usuario: null,
         role_id: null,
       },
       roles: [],
@@ -105,10 +96,10 @@ export default {
   },
   created() {
     this.axios.get("/api/roles").then((res) => {
-      this.roles = res.data;
+      this.roles = res.data.data;
     });
     axios.get("/api/users/" + this.$route.params.id).then((res) => {
-      this.user = res.data;
+      this.user = res.data.data;
     });
   },
   methods: {
