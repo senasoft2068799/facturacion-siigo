@@ -89,6 +89,8 @@ export default {
 				precio_unitario: null,
 				imagen: null,
 				categoria_id: null,
+				estado: null,
+				bodegas: null,
 			},
 			categorias: [],
 		};
@@ -97,8 +99,8 @@ export default {
 		this.axios.get("/api/categorias").then((res) => {
 			this.categorias = res.data.data;
 		});
-		axios.get("/api/productos/" + this.$route.params.id).then((res) => {
-			this.producto = res.data;
+		this.axios.get("/api/productos/" + this.$route.params.id).then((res) => {
+			this.producto = res.data.data;
 		});
 	},
 	methods: {

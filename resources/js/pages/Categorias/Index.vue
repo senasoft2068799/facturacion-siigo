@@ -15,6 +15,7 @@
       <table class="table table-bordered table-hover">
         <thead class="table-dark text-center">
           <tr>
+            <th>Número de la categoría</th>
             <th>Nombre</th>
             <th>Descripción</th>
             <th>Estado</th>
@@ -25,6 +26,7 @@
         </thead>
         <tbody>
           <tr v-for="(categoria, index) in categorias" :key="index">
+            <td>{{ categoria.id }}</td>
             <td>{{ categoria.nombre }}</td>
             <td>{{ categoria.descripcion }}</td>
             <td v-if="categoria.estado == 1" class="text-success">Activo</td>

@@ -46,6 +46,7 @@ export default {
 			categoria: {
 				nombre: null,
 				descripcion: null,
+				estado: 1,
 			},
 		};
 	},
@@ -54,6 +55,7 @@ export default {
 			const params = {
 				nombre: this.categoria.nombre,
 				descripcion: this.categoria.descripcion,
+				estado: this.categoria.estado,
 			};
 			this.axios
 				.post("/api/categorias", params)
@@ -63,6 +65,7 @@ export default {
 					this.categoria = {
 						nombre: null,
 						descripcion: null,
+						estado: null,
 					};
 				})
 				.catch((err) => {
