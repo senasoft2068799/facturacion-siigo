@@ -72,9 +72,48 @@ class FacturaController extends Controller
         return new FacturaResource($factura);
     }
 
-    public function update(Request $request, Movimiento $movimiento)
+    public function update(Request $request, Movimiento $factura)
     {
-        //
+        $detalle_movimientos = collect($request->detalle_movimientos)->transform(function ($detalle) {
+            $det["producto_id"] = $detalle["producto"]["id"];
+            $det["bodega_id"] = $detalle["bodega"]["id"];
+            $det["cantidad"] = $detalle["cantidad"];
+            $det["valor_total"] = $detalle["valor_total"];
+
+
+
+            // $stock = Stock::where("producto_id", $detalle["producto_id"])
+            //     ->where("bodega_id", $detalle["bodega_id"])->get()->first();
+            // $stock->cantidad -= $detalle["cantidad"];
+            // if ($stock->cantidad <= 10) {
+            //     $admins = User::where("role_id", 1)->orWhere("role_id", 3)->get();
+            //     Notification::send($admins, new LimiteStock($stock->producto, $stock->bodega));
+            // }
+            // $stock->save();
+
+            return new DetalleMovimiento($det);
+        });
+
+        $movimiento = DB::transaction(function () use ($factura, $detalle_movimientos, $request) {
+
+            // $movimiento->detalle_movimientos()->updateMany($detalle_movimientos);
+            // $admins = User::where("role_id", 1)->get();
+            // Notification::send($admins, new OrdenFactura($movimiento, $movimiento->user));
+            $factura->update([
+                "descripcion" => $request->descripcion,
+                "valor_total" => $request->valor_total,
+                "sucursale_id" => $request->sucursal["id"],
+            ]);
+            DetalleMovimiento::where("movimiento_id", $factura->id)->delete();
+            $factura->detalle_movimientos()->saveMany($detalle_movimientos);
+        });
+
+
+        //  return response()
+        //      ->json([
+        //          "created" => true,
+        //           "id" => $movimiento->id
+        //       ], 422);
     }
 
     public function destroy(Movimiento $factura)
