@@ -2437,6 +2437,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     pagination: {
@@ -6681,17 +6683,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      paginador: {},
       roles: []
     };
   },
   created: function created() {
-    var _this = this;
-
-    this.axios.get("/api/roles").then(function (response) {
-      _this.roles = response.data.data;
-    });
+    this.obtenerRoles(1);
   },
   methods: {
+    obtenerRoles: function obtenerRoles(pagina) {
+      var _this = this;
+
+      this.axios.get("/api/roles?page=" + pagina).then(function (response) {
+        _this.roles = response.data.data;
+        _this.paginador = response.data.meta;
+      });
+    },
     activarRol: function activarRol(rol, index) {
       var _this2 = this;
 
@@ -7365,14 +7372,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7382,7 +7381,6 @@ __webpack_require__.r(__webpack_exports__);
         apellido: null,
         email: null,
         telefono: null,
-        estado_usuario: null,
         role_id: null
       },
       roles: []
@@ -7392,10 +7390,10 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("/api/roles").then(function (res) {
-      _this.roles = res.data;
+      _this.roles = res.data.data;
     });
     axios.get("/api/users/" + this.$route.params.id).then(function (res) {
-      _this.user = res.data;
+      _this.user = res.data.data;
     });
   },
   methods: {
@@ -50731,10 +50729,13 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _vm._l(_vm.pagesNumber, function(page) {
+        _vm._l(_vm.pagesNumber, function(page, index) {
           return _c(
             "li",
-            { class: { active: page == _vm.pagination.current_page } },
+            {
+              key: index,
+              class: { active: page == _vm.pagination.current_page }
+            },
             [
               _c(
                 "a",
@@ -50776,7 +50777,8 @@ var render = function() {
           : _vm._e()
       ],
       2
-    )
+    ),
+    _vm._v("\n    " + _vm._s(_vm.pagination) + "\n")
   ])
 }
 var staticRenderFns = []
@@ -57397,10 +57399,10 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("pagination", {
-            attrs: { pagination: _vm.roles.pagination },
+            attrs: { pagination: _vm.paginador },
             on: {
               paginate: function($event) {
-                return _vm.getPosts(_vm.roles.pagination.current_page)
+                return _vm.obtenerRoles(_vm.paginador.current_page)
               }
             }
           })
@@ -58442,8 +58444,8 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.user.role_id,
-                    expression: "user.role_id"
+                    value: _vm.user.rol.id,
+                    expression: "user.rol.id"
                   }
                 ],
                 staticClass: "form-select",
@@ -58459,8 +58461,8 @@ var render = function() {
                         return val
                       })
                     _vm.$set(
-                      _vm.user,
-                      "role_id",
+                      _vm.user.rol,
+                      "id",
                       $event.target.multiple ? $$selectedVal : $$selectedVal[0]
                     )
                   }
@@ -58488,54 +58490,6 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c(
-            "label",
-            { staticClass: "form-label", attrs: { for: "estado_usuario" } },
-            [_vm._v("Estado Usuario")]
-          ),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.user.estado_usuario,
-                  expression: "user.estado_usuario"
-                }
-              ],
-              staticClass: "form-select",
-              attrs: { id: "estado_usuario" },
-              on: {
-                change: function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.$set(
-                    _vm.user,
-                    "estado_usuario",
-                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-                  )
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { disabled: "", value: "null" } }, [
-                _vm._v("Seleccionar...")
-              ]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "1" } }, [_vm._v("Activo")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "0" } }, [_vm._v("Inactivo")])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
             "div",
             { staticClass: "mt-4 mb-2" },
             [
@@ -58556,7 +58510,8 @@ var render = function() {
             1
           )
         ]
-      )
+      ),
+      _vm._v("\n    " + _vm._s(_vm.user) + "\n  ")
     ])
   ])
 }
