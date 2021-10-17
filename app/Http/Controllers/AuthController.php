@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AuthRequest;
+use App\Mail\registroUsuarioMailable;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    public function register(AuthRequest $request)
+    public function register(Request $request)
     {
         // $request->validate([
         //     "id" => ["required", "unique:users", "min:6", "max:20"],
@@ -42,14 +44,21 @@ class AuthController extends Controller
             "email" => $request->email,
             "telefono" => $request->telefono,
             "password" => Hash::make($request->password),
-            "role_id" => $request->role_id
+            "role_id" => 1
         ]);
 
         // $admins = User::where("role_id", 1)->get();
         // Notification::send($admins, new UsuarioRegistrado($user));
+        $mail = new registroUsuarioMailable($request->all());
+        Mail::to($request->email)->send($mail);
 
         return response()->json(["msg" => "Usuario registrado correctamente."]);
     }
+
+    // public function mailStyle()
+    // {
+    //     return view("")
+    // }
 
     public function login(Request $request)
     {
